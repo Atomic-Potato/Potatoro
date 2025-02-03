@@ -1,0 +1,253 @@
+[gd_scene load_steps=5 format=3 uid="uid://k87ux2qmpcqj"]
+
+[ext_resource type="Script" path="res://scripts/preset.gd" id="1_p01pl"]
+[ext_resource type="Script" path="res://scripts/session.gd" id="2_gjvom"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_x63tv"]
+line_spacing = 0.0
+font_size = 100
+
+[sub_resource type="LabelSettings" id="LabelSettings_noh7n"]
+
+[node name="Preset" type="Control" node_paths=PackedStringArray("session_object", "preset_name_label", "sessions_count_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_p01pl")
+session_object = NodePath("Timer/VBoxContainer/Timer")
+preset_name_label = NodePath("info/preset")
+sessions_count_label = NodePath("info/HBoxContainer/session count")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Timer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -64.0
+offset_right = 100.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Timer"]
+layout_mode = 2
+theme_override_constants/separation = -25
+
+[node name="finish hour" type="Label" parent="Timer/VBoxContainer"]
+layout_mode = 2
+text = "10:00 am"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Label" parent="Timer/VBoxContainer" node_paths=PackedStringArray("pause_toggle", "finish_hour_label")]
+layout_mode = 2
+text = "50:00"
+label_settings = SubResource("LabelSettings_x63tv")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_gjvom")
+length_in_minutes = 0
+pause_toggle = NodePath("../../../Controls/Pause")
+finish_hour_label = NodePath("../finish hour")
+
+[node name="Add time" type="HBoxContainer" parent="Timer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Timer/Add time"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Timer/Add time/PanelContainer"]
+clip_contents = true
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Timer/Add time/PanelContainer"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+text = "+1 min"
+flat = true
+
+[node name="PanelContainer2" type="PanelContainer" parent="Timer/Add time"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Timer/Add time/PanelContainer2"]
+clip_contents = true
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="Timer/Add time/PanelContainer2"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+text = "+5 min"
+flat = true
+
+[node name="PanelContainer3" type="PanelContainer" parent="Timer/Add time"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Timer/Add time/PanelContainer3"]
+clip_contents = true
+layout_mode = 2
+
+[node name="Button3" type="Button" parent="Timer/Add time/PanelContainer3"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+text = "+10 min"
+flat = true
+
+[node name="Deduct Time" type="HBoxContainer" parent="Timer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Timer/Deduct Time"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Timer/Deduct Time/PanelContainer"]
+clip_contents = true
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Timer/Deduct Time/PanelContainer"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+text = "-1 min"
+flat = true
+
+[node name="PanelContainer2" type="PanelContainer" parent="Timer/Deduct Time"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Timer/Deduct Time/PanelContainer2"]
+clip_contents = true
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="Timer/Deduct Time/PanelContainer2"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+text = "-5 min"
+flat = true
+
+[node name="PanelContainer3" type="PanelContainer" parent="Timer/Deduct Time"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Timer/Deduct Time/PanelContainer3"]
+clip_contents = true
+layout_mode = 2
+
+[node name="Button3" type="Button" parent="Timer/Deduct Time/PanelContainer3"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+text = "-10 min"
+flat = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="info" type="VBoxContainer" parent="."]
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -49.5
+offset_top = 23.0
+offset_right = 49.5
+offset_bottom = 73.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="preset" type="Label" parent="info"]
+layout_mode = 2
+text = "preset-name"
+label_settings = SubResource("LabelSettings_noh7n")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="info"]
+layout_mode = 2
+
+[node name="text" type="Label" parent="info/HBoxContainer"]
+layout_mode = 2
+text = "sessions "
+
+[node name="session count" type="Label" parent="info/HBoxContainer"]
+layout_mode = 2
+text = "0/~"
+
+[node name="Controls" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -52.0
+offset_right = 100.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Controls"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Controls/PanelContainer"]
+clip_contents = true
+layout_mode = 2
+
+[node name="Restart" type="Button" parent="Controls/PanelContainer"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+text = "restart"
+flat = true
+
+[node name="Pause" type="CheckButton" parent="Controls"]
+layout_mode = 2
+button_pressed = true
+text = "pause"
+
+[node name="PanelContainer2" type="PanelContainer" parent="Controls"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Controls/PanelContainer2"]
+clip_contents = true
+layout_mode = 2
+
+[node name="skip" type="Button" parent="Controls/PanelContainer2"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+text = "skip"
+flat = true
+
+[connection signal="pressed" from="Timer/Add time/PanelContainer/Button" to="Timer/VBoxContainer/Timer" method="add_minutes_to_remaining_length" binds= [1]]
+[connection signal="pressed" from="Timer/Add time/PanelContainer2/Button2" to="Timer/VBoxContainer/Timer" method="add_minutes_to_remaining_length" binds= [5]]
+[connection signal="pressed" from="Timer/Add time/PanelContainer3/Button3" to="Timer/VBoxContainer/Timer" method="add_minutes_to_remaining_length" binds= [10]]
+[connection signal="pressed" from="Timer/Deduct Time/PanelContainer/Button" to="Timer/VBoxContainer/Timer" method="add_minutes_to_remaining_length" binds= [-1]]
+[connection signal="pressed" from="Timer/Deduct Time/PanelContainer2/Button2" to="Timer/VBoxContainer/Timer" method="add_minutes_to_remaining_length" binds= [-5]]
+[connection signal="pressed" from="Timer/Deduct Time/PanelContainer3/Button3" to="Timer/VBoxContainer/Timer" method="add_minutes_to_remaining_length" binds= [-10]]
+[connection signal="pressed" from="Controls/PanelContainer/Restart" to="Timer/VBoxContainer/Timer" method="restart"]
+[connection signal="toggled" from="Controls/Pause" to="Timer/VBoxContainer/Timer" method="toggle_pause"]
+[connection signal="pressed" from="Controls/PanelContainer2/skip" to="." method="add_session"]
+[connection signal="pressed" from="Controls/PanelContainer2/skip" to="Timer/VBoxContainer/Timer" method="skip"]
