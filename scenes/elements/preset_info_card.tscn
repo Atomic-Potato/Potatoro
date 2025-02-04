@@ -1,0 +1,106 @@
+[gd_scene load_steps=6 format=3 uid="uid://cy71rb02uwuce"]
+
+[ext_resource type="StyleBox" uid="uid://dq4njdscsw0eo" path="res://visual/style_boxes/thick_button.stylebox" id="1_7ybf4"]
+[ext_resource type="LabelSettings" uid="uid://b7ve6wxcg2m3c" path="res://visual/labels/label_1.tres" id="2_d5kge"]
+[ext_resource type="LabelSettings" uid="uid://dis7d5hvikqed" path="res://visual/labels/subtitle.tres" id="3_bv7jj"]
+[ext_resource type="LabelSettings" uid="uid://du3c6cut3245k" path="res://visual/labels/Number_LARGE.tres" id="4_p74pj"]
+[ext_resource type="LabelSettings" uid="uid://be8cn8r8jg8h0" path="res://visual/labels/heading_5.tres" id="5_sxllj"]
+
+[node name="Preset Info Card" type="MarginContainer"]
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Add preset" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(350, 350)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("1_7ybf4")
+
+[node name="Button" type="Button" parent="Add preset"]
+layout_mode = 2
+flat = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Add preset/Button"]
+layout_mode = 2
+offset_right = 338.0
+offset_bottom = 338.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Add preset/Button/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Add preset/Button/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="preset" type="Label" parent="Add preset/Button/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "[preset name]"
+label_settings = ExtResource("2_d5kge")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="tag" type="Label" parent="Add preset/Button/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "[tag-name]"
+label_settings = ExtResource("3_bv7jj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Add preset/Button/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="sessions" type="HBoxContainer" parent="Add preset/Button/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Add preset/Button/MarginContainer/VBoxContainer/VBoxContainer/sessions"]
+layout_mode = 2
+text = "[~]"
+label_settings = ExtResource("4_p74pj")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Label2" type="Label" parent="Add preset/Button/MarginContainer/VBoxContainer/VBoxContainer/sessions"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "sessions"
+label_settings = ExtResource("5_sxllj")
+
+[node name="session length" type="HBoxContainer" parent="Add preset/Button/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Add preset/Button/MarginContainer/VBoxContainer/VBoxContainer/session length"]
+layout_mode = 2
+text = "[~]"
+label_settings = ExtResource("4_p74pj")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Label2" type="Label" parent="Add preset/Button/MarginContainer/VBoxContainer/VBoxContainer/session length"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "min session"
+label_settings = ExtResource("5_sxllj")
+
+[node name="break length" type="HBoxContainer" parent="Add preset/Button/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Add preset/Button/MarginContainer/VBoxContainer/VBoxContainer/break length"]
+layout_mode = 2
+text = "[~]"
+label_settings = ExtResource("4_p74pj")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Label2" type="Label" parent="Add preset/Button/MarginContainer/VBoxContainer/VBoxContainer/break length"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "min break"
+label_settings = ExtResource("5_sxllj")

@@ -16,17 +16,20 @@ func _ready():
 	_update_text()
 
 func add_session():
-	session_count += 1
+	sessions_complete += 1
 	_update_text()
 	
 func remove_session():
-	if session_count <= 0:
+	if sessions_complete <= 0:
 		return
-	session_count -= 1
+	sessions_complete -= 1
 	_update_text()
+
+func go_to_presets():
+	# ask game manager to load presets
+	pass
 
 func _update_text():
 	preset_name_label.text = preset_name
 	sessions_count_label.text = type_convert(sessions_complete, TYPE_STRING) + "/" + type_convert(session_count, TYPE_STRING)
-
 

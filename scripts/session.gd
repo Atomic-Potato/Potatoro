@@ -5,6 +5,8 @@ var remaining_length_in_seconds: int
 @export var pause_toggle: CheckButton
 @export var finish_hour_label: Label
 @export var is_use_24_hour_format: bool = false
+@export var finish_text: String = "FIN!"
+@export var is_alert_os: bool = false
 
 var is_active: bool = true
 var is_finished: bool = false
@@ -33,9 +35,10 @@ func _process(delta):
 	else:
 		is_active = false
 		is_finished = true
-		text = "FINISHED!"
+		text = "FIN!"
 		pause_toggle.disabled = true
-		OS.alert("Session finished!", "Potatoro")
+		if is_alert_os:
+			OS.alert("Session finished!", "Potatoro")
 		session_finish.emit()
 
 func add_seconds_to_remaining_length(seconds: int):

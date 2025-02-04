@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=3 uid="uid://b32knh67b68hd"]
+
+[ext_resource type="Script" path="res://scripts/title_bar.gd" id="1_soqhg"]
+
+[node name="Title bar" type="Control"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 3
+anchor_right = 1.0
+grow_horizontal = 2
+script = ExtResource("1_soqhg")
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="minimize" type="Button" parent="HBoxContainer"]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "--"
+flat = true
+
+[node name="maximize" type="Button" parent="HBoxContainer"]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "O"
+flat = true
+
+[node name="exit" type="Button" parent="HBoxContainer"]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "X"
+flat = true
+
+[connection signal="gui_input" from="ColorRect" to="." method="_on_color_rect_gui_input"]
+[connection signal="pressed" from="HBoxContainer/minimize" to="." method="minimize"]
+[connection signal="pressed" from="HBoxContainer/maximize" to="." method="maximize"]
+[connection signal="pressed" from="HBoxContainer/exit" to="." method="exit"]
