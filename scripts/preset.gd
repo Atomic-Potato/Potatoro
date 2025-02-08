@@ -1,4 +1,4 @@
-class_name preset extends Control
+class_name Preset_DEPRECATED extends Control
 
 @export var preset_name: String = "New Preset"
 @export var session_count: int = 8

@@ -1,4 +1,4 @@
-class_name session extends Label
+class_name Session extends Label
 
 @export var length_in_minutes: int = 60
 var remaining_length_in_seconds: int
