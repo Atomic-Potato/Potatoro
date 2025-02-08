@@ -1,16 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://cy71rb02uwuce"]
+[gd_scene load_steps=7 format=3 uid="uid://cy71rb02uwuce"]
 
 [ext_resource type="StyleBox" uid="uid://dq4njdscsw0eo" path="res://visual/style_boxes/thick_button.stylebox" id="1_7ybf4"]
+[ext_resource type="Script" path="res://scripts/pages/components/preset_info_card.gd" id="1_str1p"]
 [ext_resource type="LabelSettings" uid="uid://b7ve6wxcg2m3c" path="res://visual/labels/label_1.tres" id="2_d5kge"]
 [ext_resource type="LabelSettings" uid="uid://dis7d5hvikqed" path="res://visual/labels/subtitle.tres" id="3_bv7jj"]
 [ext_resource type="LabelSettings" uid="uid://du3c6cut3245k" path="res://visual/labels/Number_LARGE.tres" id="4_p74pj"]
 [ext_resource type="LabelSettings" uid="uid://be8cn8r8jg8h0" path="res://visual/labels/heading_5.tres" id="5_sxllj"]
 
-[node name="Preset Info Card" type="MarginContainer"]
+[node name="Preset Info Card" type="MarginContainer" node_paths=PackedStringArray("name_label", "tag_label", "sessions_lable", "length_lable", "break_lable")]
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
+script = ExtResource("1_str1p")
+name_label = NodePath("Add preset/Button/MarginContainer/VBoxContainer/VBoxContainer2/preset")
+tag_label = NodePath("Add preset/Button/MarginContainer/VBoxContainer/VBoxContainer2/tag")
+sessions_lable = NodePath("Add preset/Button/MarginContainer/VBoxContainer/VBoxContainer/sessions/Label")
+length_lable = NodePath("Add preset/Button/MarginContainer/VBoxContainer/VBoxContainer/session length/Label")
+break_lable = NodePath("Add preset/Button/MarginContainer/VBoxContainer/VBoxContainer/break length/Label")
 
 [node name="Add preset" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(350, 350)
