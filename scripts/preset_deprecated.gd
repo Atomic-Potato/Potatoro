@@ -5,14 +5,15 @@ class_name Preset_DEPRECATED extends Control
 @export var session_length_in_minutes: int = 50
 @export var break_length_in_minutes: int = 10
 
-@export var session_object: session
+#@export 
+var session_object #: session
 @export var preset_name_label: Label
 @export var sessions_count_label: Label
 
 var sessions_complete: int = 0
 
 func _ready():
-	session_object.session_finish.connect(add_session)
+	session_object.session_finsish.connect(add_session)
 	_update_text()
 
 func add_session():

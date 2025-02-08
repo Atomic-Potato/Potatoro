@@ -12,27 +12,7 @@ func _ready():
 	if not is_db_exists:
 		create_db(db)
 
-func get_presets() -> Array[Preset]:
-	db.query("
-		SELECT 
-			p.ID,
-			pb.ID AS BufferID,
-			COALESCE(pb.DefaultTagID, p.DefaultTagID) AS DefaultTagID,
-			COALESCE(pb.Name, p.Name) AS Name,
-			COALESCE(pb.SessionsCount, p.SessionsCount) AS SessionsCount,
-			pb.SessionsDone AS SessionsDone,
-			COALESCE(pb.SessionLength, p.SessionLength) AS SessionLength,
-			COALESCE(pb.BreakLength, p.BreakLength) AS BreakLength,
-			COALESCE(pb.isAutoStartBreak, p.isAutoStartBreak) AS isAutoStartBreak,
-			COALESCE(pb.isAutoStartSession, p.isAutoStartSession) AS isAutoStartSession
-		FROM 
-			Presets p
-			LEFT JOIN Presets_Buffer pb ON p.ID = pb.PresetID
-	")
-	var presets: Array[Preset]
-	for i in db.query_result:
-		return []
-	return []
+
 
 func get_running_sessions() -> Array[Session]:
 	db.query("select * from Sessions_Cache where EndDateTime is null")
@@ -91,12 +71,10 @@ func create_db(open_db: SQLite):
 			"DefaultTagID"	INTEGER,
 			"Name"	INTEGER NOT NULL UNIQUE,
 			"SessionsCount"	INTEGER NOT NULL,
-			"SessionsDone"	INTEGER,
 			"SessionLength"	INTEGER,
 			"BreakLength"	INTEGER,
 			"isAutoStartBreak"	INTEGER NOT NULL DEFAULT 0,
 			"isAutoStartSession"	INTEGER NOT NULL DEFAULT 0,
-			FOREIGN KEY("CurrentSessionID") REFERENCES "Sessions"("ID"),
 			PRIMARY KEY("ID" AUTOINCREMENT)
 		);
 		CREATE TABLE "Presets_Buffer" (

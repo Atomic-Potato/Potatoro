@@ -18,11 +18,12 @@ config/icon="res://icon.svg"
 [autoload]
 
 DatabaseManager="*res://scripts/managers/database_manager.gd"
+PresetsManager="*res://scripts/managers/presets_manager.gd"
 
 [display]
 
 window/size/viewport_width=450
-window/size/viewport_height=550
+window/size/viewport_height=800
 window/size/borderless=true
 window/main_scene="res://scenes/main.tscn"
 
