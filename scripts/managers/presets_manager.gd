@@ -18,19 +18,21 @@ func get_presets() -> Array[Preset]:
 			Presets p
 			LEFT JOIN Presets_Buffer pb ON p.ID = pb.PresetID
 	")
+	
 	var presets: Array[Preset]
 	for i in DatabaseManager.db.query_result:
 		var preset = Preset.new()
 		preset.ID = i.get("ID", 0)
-		preset.buffer_ID = i.get("BufferID", 0)
-		preset.default_tag_id = i.get("DefaultTagID", 0)
+		preset.buffer_ID = i.get("BufferID", 0) if i.get("BufferID") else 0
+		preset.default_tag_id = i.get("DefaultTagID", 0) if i.get("DefaultTagID") else  0
 		preset.name_ = i.get("Name", "[UNKNOWN]")
 		preset.sessions_count = i.get("SessionsCount", 0)
-		preset.sessions_done = i.get("SessionsDone", 0)
+		preset.sessions_done = i.get("SessionsDone", 0) if i.get("SessionsDone") else 0
 		preset.session_length = i.get("SessionLength", 0)
 		preset.break_length = i.get("BreakLength", 0)
 		preset.is_auto_start_break = i.get("isAutoStartBreak", false)
 		preset.is_auto_start_session = i.get("isAutoStartSession", false)
+		presets.append(preset)
 	return presets
 
 # creates a new preset with the provided values and returns its id
