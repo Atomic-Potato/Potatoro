@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://b6ql7sj7pip6g"]
+[gd_scene load_steps=7 format=3 uid="uid://b6ql7sj7pip6g"]
 
 [ext_resource type="PackedScene" uid="uid://cy71rb02uwuce" path="res://scenes/elements/preset_info_card.tscn" id="1_eafhh"]
 [ext_resource type="StyleBox" uid="uid://dq4njdscsw0eo" path="res://visual/style_boxes/thick_button.stylebox" id="1_eiy4j"]
 [ext_resource type="Script" path="res://scripts/pages/presets_page.gd" id="1_lqiyr"]
 [ext_resource type="LabelSettings" uid="uid://b7ve6wxcg2m3c" path="res://visual/labels/label_1.tres" id="2_vxrpk"]
+[ext_resource type="PackedScene" uid="uid://cht2t8vyko8ua" path="res://scenes/pages/save_preset_page.tscn" id="3_hu8bn"]
 [ext_resource type="Texture2D" uid="uid://bk74yu10yvvo5" path="res://visual/assets/vector/circular_plus.svg" id="3_uh6mv"]
 
 [node name="presets_page" type="Control" node_paths=PackedStringArray("presets_container")]
@@ -16,6 +17,7 @@ grow_vertical = 2
 script = ExtResource("1_lqiyr")
 presets_container = NodePath("ScrollContainer/HFlowContainer")
 preset_info_card_res = ExtResource("1_eafhh")
+make_edit_preset_page_res = ExtResource("3_hu8bn")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 1
@@ -73,3 +75,5 @@ size_flags_vertical = 3
 texture = ExtResource("3_uh6mv")
 expand_mode = 2
 stretch_mode = 5
+
+[connection signal="pressed" from="ScrollContainer/HFlowContainer/Add preset/Add preset/Button" to="." method="load_make_edit_preset_page"]

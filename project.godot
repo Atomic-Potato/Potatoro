@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Potatoro"
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="res://global.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 DatabaseManager="*res://scripts/managers/database_manager.gd"
 PresetsManager="*res://scripts/managers/presets_manager.gd"
+Global="*res://global.gd"
 
 [display]
 

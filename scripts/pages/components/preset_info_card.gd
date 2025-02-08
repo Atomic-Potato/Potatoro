@@ -5,6 +5,8 @@ class_name PresetInfoCard extends Node
 @export var sessions_lable: Label
 @export var length_lable: Label
 @export var break_lable: Label
+@export_category("Resources")
+@export var save_preset_page: Resource
 
 var preset: Preset:
 	set(value):
@@ -17,3 +19,6 @@ func update_text():
 	sessions_lable.text = str(preset.sessions_count)
 	length_lable.text = str(preset.session_length)
 	break_lable.text = str(preset.break_length)
+
+func load_make_edit_preset_page():
+	Global.AppMan.load_gui_scene(save_preset_page, {"preset" : preset})

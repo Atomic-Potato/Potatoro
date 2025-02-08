@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=3 uid="uid://dn310bw2e6rsh"]
+
+[ext_resource type="Script" path="res://scripts/managers/application_manager.gd" id="1_jnciu"]
+[ext_resource type="PackedScene" uid="uid://b6ql7sj7pip6g" path="res://scenes/pages/presets_page.tscn" id="2_u2cnp"]
+[ext_resource type="PackedScene" uid="uid://b32knh67b68hd" path="res://scenes/title_bar.tscn" id="3_i618t"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dngp7"]
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rehx6"]
+
+[node name="Global" type="Node" node_paths=PackedStringArray("gui", "world_2d", "world_3d")]
+script = ExtResource("1_jnciu")
+gui = NodePath("GUI/PanelContainer/VSplitContainer/PageContainer")
+default_gui_scene_res = ExtResource("2_u2cnp")
+world_2d = NodePath("World2D")
+world_3d = NodePath("World3D")
+
+[node name="World2D" type="Node2D" parent="."]
+
+[node name="World3D" type="Node3D" parent="."]
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="GUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="PanelContainer" type="PanelContainer" parent="GUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dngp7")
+
+[node name="VSplitContainer" type="VSplitContainer" parent="GUI/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+split_offset = 35
+dragger_visibility = 1
+
+[node name="Titlebar" type="PanelContainer" parent="GUI/PanelContainer/VSplitContainer"]
+layout_mode = 2
+
+[node name="Title bar" parent="GUI/PanelContainer/VSplitContainer/Titlebar" instance=ExtResource("3_i618t")]
+layout_mode = 2
+
+[node name="PageContainer" type="PanelContainer" parent="GUI/PanelContainer/VSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_rehx6")
