@@ -6,7 +6,7 @@
 [ext_resource type="LabelSettings" uid="uid://b7ve6wxcg2m3c" path="res://visual/labels/label_1.tres" id="2_vxrpk"]
 [ext_resource type="Texture2D" uid="uid://bk74yu10yvvo5" path="res://visual/assets/vector/circular_plus.svg" id="3_uh6mv"]
 
-[node name="presets_page" type="Control"]
+[node name="presets_page" type="Control" node_paths=PackedStringArray("presets_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,55 +14,41 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_lqiyr")
-
-[node name="VScrollBar" type="VScrollBar" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 1.0
-anchor_top = 0.1
-anchor_right = 1.0
-anchor_bottom = 0.9
-offset_left = -18.0
-offset_right = -3.0
-grow_horizontal = 0
-grow_vertical = 2
+presets_container = NodePath("ScrollContainer/HFlowContainer")
+preset_info_card_res = ExtResource("1_eafhh")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -30.0
 grow_horizontal = 2
 grow_vertical = 2
 follow_focus = true
 horizontal_scroll_mode = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+[node name="HFlowContainer" type="HFlowContainer" parent="ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 0
 
-[node name="Preset Info Card" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_eafhh")]
-layout_mode = 2
-
-[node name="Add preset" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
+[node name="Add preset" type="MarginContainer" parent="ScrollContainer/HFlowContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Add preset" type="PanelContainer" parent="ScrollContainer/VBoxContainer/Add preset"]
+[node name="Add preset" type="PanelContainer" parent="ScrollContainer/HFlowContainer/Add preset"]
 custom_minimum_size = Vector2(350, 350)
 layout_mode = 2
 theme_override_styles/panel = ExtResource("1_eiy4j")
 
-[node name="Button" type="Button" parent="ScrollContainer/VBoxContainer/Add preset/Add preset"]
+[node name="Button" type="Button" parent="ScrollContainer/HFlowContainer/Add preset/Add preset"]
 layout_mode = 2
 flat = true
 
-[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/VBoxContainer/Add preset/Add preset/Button"]
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/HFlowContainer/Add preset/Add preset/Button"]
 layout_mode = 2
 offset_right = 338.0
 offset_bottom = 338.0
@@ -71,17 +57,17 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/Add preset/Add preset/Button/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/HFlowContainer/Add preset/Add preset/Button/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Add preset/Add preset/Button/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="ScrollContainer/HFlowContainer/Add preset/Add preset/Button/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "create new preset"
 label_settings = ExtResource("2_vxrpk")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/Add preset/Add preset/Button/MarginContainer/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="ScrollContainer/HFlowContainer/Add preset/Add preset/Button/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("3_uh6mv")

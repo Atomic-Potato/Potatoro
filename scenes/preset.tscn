@@ -10,7 +10,7 @@ font_size = 100
 
 [sub_resource type="LabelSettings" id="LabelSettings_noh7n"]
 
-[node name="Preset" type="Control" node_paths=PackedStringArray("preset_name_label", "sessions_count_label")]
+[node name="Preset" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,8 +18,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_p01pl")
-preset_name_label = NodePath("")
-sessions_count_label = NodePath("")
 
 [node name="Controls" type="HBoxContainer" parent="."]
 layout_mode = 1
