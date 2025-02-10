@@ -10,6 +10,15 @@ var preset: Preset
 @export var auto_break_toggle: BaseButton
 @export var auto_session_toggle: BaseButton
 
+@export_category("Resources")
+@export var presets_page_res: Resource = preload("res://scenes/pages/save_preset_page.tscn")
+@export var session_page_res: Resource
+
+func _ready():
+	print('potato')
+	print(presets_page_res)
+	tag_edit.text = str(randi())
+
 func initialize(data: Dictionary):
 	preset = data.get("preset")
 	preset_edit.text = preset.name_
@@ -37,4 +46,8 @@ func _save_preset_data(is_start: bool = false):
 	preset.is_auto_start_session = auto_session_toggle.button_pressed
 	PresetsManager.save_preset(preset) 
 	
-	# TODO: Return to preset screen or start session
+	if is_start:
+		# TODO: start session
+		pass
+	else:
+		Global.AppMan.load_gui_scene(presets_page_res)

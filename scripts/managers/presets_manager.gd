@@ -53,7 +53,7 @@ func save_preset(preset: Preset)-> int: # use save_buffered_preset to create a n
 				+ "SessionLength = " + str(preset.session_length) + ", "\
 				+ "BreakLength = " + str(preset.break_length) + ", "\
 				+ "BreakLength = " + str(int(preset.is_auto_start_break)) + ", "\
-				+ "BreakLength = " + str(int(preset.is_auto_start_session)) +\
+				+ "BreakLength = " + str(int(preset.is_auto_start_session)) + " " +\
 			"where ID = " + str(preset.ID)
 		)
 		return preset.ID
