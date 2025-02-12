@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://k87ux2qmpcqj"]
 
-[ext_resource type="Script" path="res://scripts/pages/preset/preset_page_deprecated_preset.gd" id="1_dav3k"]
 [ext_resource type="StyleBox" uid="uid://dhtti43gywwuo" path="res://visual/style_boxes/button.stylebox" id="2_nkr8a"]
+[ext_resource type="Script" path="res://scripts/pages/preset/preset_page_session_deprecated.gd" id="3_5iet4"]
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_session.gd" id="3_p5ysi"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_x63tv"]
@@ -17,7 +17,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_dav3k")
+script = ExtResource("3_p5ysi")
+preset_name = null
+session_count = null
+session_length_in_minutes = null
+break_length_in_minutes = null
 preset_name_label = NodePath("info/preset")
 sessions_count_label = NodePath("info/HBoxContainer/session count")
 
@@ -93,7 +97,7 @@ text = "50:00"
 label_settings = SubResource("LabelSettings_x63tv")
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("3_p5ysi")
+script = ExtResource("3_5iet4")
 length_in_minutes = 0
 pause_toggle = NodePath("../../../Controls/Pause")
 finish_hour_label = NodePath("../finish hour")

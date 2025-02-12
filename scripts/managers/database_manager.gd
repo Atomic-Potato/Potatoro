@@ -20,6 +20,8 @@ func _ready():
 	if not is_db_exists:
 		create_db(db)
 
+# NOTE:
+#	I created buffers to save on memory and query times
 func create_db(open_db: SQLite):
 	open_db.query('
 		CREATE TABLE "Configurations" (
@@ -34,6 +36,7 @@ func create_db(open_db: SQLite):
 			"ColorCode"	TEXT,
 			PRIMARY KEY("ID" AUTOINCREMENT)
 		);
+		
 		CREATE TABLE "Sessions" (
 			"ID"	INTEGER NOT NULL UNIQUE,
 			"TagID"	INTEGER,
@@ -42,16 +45,17 @@ func create_db(open_db: SQLite):
 			FOREIGN KEY("TagID") REFERENCES "Tags"("ID"),
 			PRIMARY KEY("ID" AUTOINCREMENT)
 		);
+		-- when the buffered session is complete, it gets saved to original table
 		CREATE TABLE "Sessions_Buffer" (
 			"ID"	INTEGER NOT NULL UNIQUE,
-			"SessionID"	INTEGER NOT NULL UNIQUE,
 			"TagID"	INTEGER,
 			"StartDateTime"	TEXT NOT NULL,
 			"EndDateTime"	TEXT,
 			FOREIGN KEY("SessionID") REFERENCES "Sessions"("ID"),
 			FOREIGN KEY("TagID") REFERENCES "Tags"("ID"),
 			PRIMARY KEY("ID" AUTOINCREMENT)
-		);
+		); 
+		
 		CREATE TABLE "SessionPauses" (
 			"ID"	INTEGER NOT NULL UNIQUE,
 			"SessionID"	INTEGER NOT NULL,
@@ -60,6 +64,7 @@ func create_db(open_db: SQLite):
 			FOREIGN KEY("SessionID") REFERENCES "Sessions"("ID"),
 			PRIMARY KEY("ID" AUTOINCREMENT)
 		);
+		-- when the buffered session is complete, all buffered pauses get saved to the original table
 		CREATE TABLE "SessionPauses_Buffer" (
 			"ID"	INTEGER NOT NULL UNIQUE,
 			"SessionID"	INTEGER NOT NULL,

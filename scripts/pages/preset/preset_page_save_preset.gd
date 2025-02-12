@@ -20,7 +20,7 @@ func initialize(data: Dictionary):
 	auto_session_toggle.button_pressed = preset.is_auto_start_session
 	auto_break_toggle.button_pressed = preset.is_auto_start_break
 
-func _save_preset_data(is_start: bool = false):
+func _save_preset_data():
 	if not preset_edit.text:
 		push_warning("Preset name not set")
 		return
@@ -37,8 +37,8 @@ func _save_preset_data(is_start: bool = false):
 	preset.is_auto_start_session = int(auto_session_toggle.button_pressed)
 	PresetsManager.save_preset(preset) 
 	
-	if is_start:
-		# TODO: start session
-		pass
-	else:
-		Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_presets)
+	Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_presets)
+
+func _start_preset():
+	# create new buffered preset
+	Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_sesion)

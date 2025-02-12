@@ -77,9 +77,50 @@ func save_preset(preset: Preset)-> int: # use save_buffered_preset to create a n
 
 # creates a new buffered preset with the provided values and returns its id
 # if the id is provided in the preset, then it will update
-func save_buffered_preset(preset: Preset)-> int:
-	# TODO: i dont really need it now 
-	return 0
+func save_buffered_preset(preset: Preset, current_session_id: int)-> int:
+	if preset.buffer_ID: # Update
+		DatabaseManager.db.query("select ID from Presets_Buffer where PresetID = " + str(preset.ID))
+		if DatabaseManager.db.query_result.is_empty():
+			push_error("Preset ID " + str(preset.ID) + " not found in buffer.")
+			return 0
+		DatabaseManager.db.query("select ID from Sessions_Buffer where SessionID = " + str(current_session_id))
+		if DatabaseManager.db.query_result.is_empty():
+			push_error("Current Session ID " + str(current_session_id) + " not found in sessions buffer.")
+			return 0
+			
+		var query = "
+			update Presets_Buffer
+			set "\
+				+ "DefaultTagID = " + str(preset.default_tag_id) + ", "\
+				+ "CurrentSessionID = " + str(current_session_id) + ", "\
+				+ "Name = '" + preset.name_ + "', "\
+				+ "SessionsCount = " + str(preset.sessions_count)  + ", "\
+				+ "SessionLength = " + str(preset.session_length) + ", "\
+				+ "BreakLength = " + str(preset.break_length) + ", "\
+				+ "isAutoStartBreak = " + str(int(preset.is_auto_start_break)) + ", "\
+				+ "isAutoStartSession = " + str(int(preset.is_auto_start_session)) + " " +\
+			"where ID = " + str(preset.buffer_ID)
+		DatabaseManager.db.query(query)
+		#print(query)
+		return preset.buffer_ID
+	else: # Insert
+		var query = "
+			insert into Presets
+				(DefaultTagID, CurrentSessionID, Name, SessionsCount, SessionLength,
+				BreakLength, isAutoStartBreak, isAutoStartSession)
+			values ("\
+				+ str(preset.default_tag_id) + ", "\
+				+ str(current_session_id) + ", "\
+				+ "'" + preset.name_ + "', "\
+				+ str(preset.sessions_count) + ", "\
+				+ str(preset.session_length) + ", "\
+				+ str(preset.break_length) + ", "\
+				+ str(preset.is_auto_start_break) + ", "\
+				+ str(preset.is_auto_start_session) \
+		+ ")"
+		DatabaseManager.db.query(query)
+		#print(query)
+		return DatabaseManager.db.last_insert_rowid
 
 
 
