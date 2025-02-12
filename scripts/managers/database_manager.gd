@@ -1,9 +1,17 @@
 extends Node
 
 var db : SQLite
-var db_path: String = "user://potatoro.db"
+var db_path: String
 
 func _ready():
+	match(Global.CURRENT_ENV):
+		Global.Env.Development:
+			db_path = "user://potatoro_dev.db"
+		Global.Env.Production:
+			db_path = "user://potatoro.db"
+		_:
+			db_path = "user://potatoro_other.db"
+	
 	var is_db_exists: bool = FileAccess.file_exists(db_path)
 	db = SQLite.new()
 	db.path = db_path

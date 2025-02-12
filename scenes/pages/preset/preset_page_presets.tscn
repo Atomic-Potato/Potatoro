@@ -31,6 +31,7 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+alignment = 1
 
 [node name="Add preset" type="MarginContainer" parent="ScrollContainer/HFlowContainer"]
 layout_mode = 2
