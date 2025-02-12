@@ -44,7 +44,7 @@ func save_preset(preset: Preset)-> int: # use save_buffered_preset to create a n
 			push_error("Preset ID " + str(preset.ID) + " not found.")
 			return 0
 		
-		DatabaseManager.db.query("
+		var query = "
 			update Presets
 			set "\
 				+ "DefaultTagID = " + str(preset.default_tag_id) + ", "\
@@ -52,13 +52,14 @@ func save_preset(preset: Preset)-> int: # use save_buffered_preset to create a n
 				+ "SessionsCount = " + str(preset.sessions_count)  + ", "\
 				+ "SessionLength = " + str(preset.session_length) + ", "\
 				+ "BreakLength = " + str(preset.break_length) + ", "\
-				+ "BreakLength = " + str(int(preset.is_auto_start_break)) + ", "\
-				+ "BreakLength = " + str(int(preset.is_auto_start_session)) + " " +\
+				+ "isAutoStartBreak = " + str(int(preset.is_auto_start_break)) + ", "\
+				+ "isAutoStartSession = " + str(int(preset.is_auto_start_session)) + " " +\
 			"where ID = " + str(preset.ID)
-		)
+		DatabaseManager.db.query(query)
+		#print(query)
 		return preset.ID
 	else: # Insert
-		DatabaseManager.db.query("
+		var query = "
 			insert into Presets
 				(DefaultTagID, Name, SessionsCount, SessionLength, BreakLength, isAutoStartBreak, isAutoStartSession)
 			values ("\
@@ -68,8 +69,10 @@ func save_preset(preset: Preset)-> int: # use save_buffered_preset to create a n
 				+ str(preset.session_length) + ", "\
 				+ str(preset.break_length) + ", "\
 				+ str(preset.is_auto_start_break) + ", "\
-				+ str(preset.is_auto_start_session)
-		+ ")")
+				+ str(preset.is_auto_start_session) \
+		+ ")"
+		DatabaseManager.db.query(query)
+		#print(query)
 		return DatabaseManager.db.last_insert_rowid
 
 # creates a new buffered preset with the provided values and returns its id

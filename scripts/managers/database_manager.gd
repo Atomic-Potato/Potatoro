@@ -12,12 +12,6 @@ func _ready():
 	if not is_db_exists:
 		create_db(db)
 
-
-
-func get_running_sessions() -> Array[Session]:
-	db.query("select * from Sessions_Cache where EndDateTime is null")
-	return []
-	
 func create_db(open_db: SQLite):
 	open_db.query('
 		CREATE TABLE "Configurations" (

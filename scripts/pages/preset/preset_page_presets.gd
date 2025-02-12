@@ -18,4 +18,4 @@ func _ready():
 		cards.append(card)
 
 func load_make_edit_preset_page():
-	Global.AppMan.load_gui_scene(save_preset_page)
+	Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_save_preset)

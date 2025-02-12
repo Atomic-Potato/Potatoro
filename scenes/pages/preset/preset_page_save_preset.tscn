@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b2ll8tut18nx6"]
 
-[ext_resource type="Script" path="res://scripts/pages/preset/preset_page_save_preset.gd" id="1_bfo3y"]
+[ext_resource type="Script" path="res://scripts/pages/preset/preset_page_save_preset.gd" id="1_tsndv"]
 [ext_resource type="LabelSettings" uid="uid://dis7d5hvikqed" path="res://visual/labels/subtitle.tres" id="2_3t2ax"]
 [ext_resource type="LabelSettings" uid="uid://cjbmhl6lygudu" path="res://visual/labels/note.tres" id="3_6tgrw"]
 [ext_resource type="StyleBox" uid="uid://dhtti43gywwuo" path="res://visual/style_boxes/button.stylebox" id="4_2re3p"]
@@ -29,7 +29,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_bfo3y")
+script = ExtResource("1_tsndv")
 preset_edit = NodePath("MarginContainer/VBoxContainer/preset")
 tag_edit = NodePath("MarginContainer/VBoxContainer/tag")
 session_count_edit = NodePath("MarginContainer/VBoxContainer2/session count/edit")
@@ -201,3 +201,5 @@ theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = ExtResource("4_2re3p")
 theme_override_styles/hover = SubResource("StyleBoxFlat_003xa")
 text = "DELETE"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer2/HBoxContainer/SAVE" to="." method="_save_preset_data" binds= [false]]

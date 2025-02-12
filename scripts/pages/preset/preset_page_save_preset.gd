@@ -10,15 +10,6 @@ var preset: Preset
 @export var auto_break_toggle: BaseButton
 @export var auto_session_toggle: BaseButton
 
-@export_category("Resources")
-@export var presets_page_res: Resource
-@export var session_page_res: Resource
-
-func _ready():
-	print('potato')
-	print(presets_page_res)
-	tag_edit.text = str(randi())
-
 func initialize(data: Dictionary):
 	preset = data.get("preset")
 	preset_edit.text = preset.name_
@@ -42,12 +33,12 @@ func _save_preset_data(is_start: bool = false):
 	preset.sessions_count = int(session_count_edit.text)
 	preset.session_length = int(session_length_edit.text)
 	preset.break_length = int(break_length_edit.text)
-	preset.is_auto_start_break = auto_break_toggle.button_pressed
-	preset.is_auto_start_session = auto_session_toggle.button_pressed
+	preset.is_auto_start_break = int(auto_break_toggle.button_pressed)
+	preset.is_auto_start_session = int(auto_session_toggle.button_pressed)
 	PresetsManager.save_preset(preset) 
 	
 	if is_start:
 		# TODO: start session
 		pass
 	else:
-		Global.AppMan.load_gui_scene(presets_page_res)
+		Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_presets)

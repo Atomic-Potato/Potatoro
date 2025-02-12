@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b6ql7sj7pip6g"]
 
+[ext_resource type="Script" path="res://scripts/pages/preset/preset_page_presets.gd" id="1_5wp6g"]
 [ext_resource type="StyleBox" uid="uid://dq4njdscsw0eo" path="res://visual/style_boxes/thick_button.stylebox" id="1_eiy4j"]
-[ext_resource type="Script" path="res://scripts/pages/preset/preset_page_presets.gd" id="1_lqiyr"]
 [ext_resource type="PackedScene" uid="uid://cy71rb02uwuce" path="res://scenes/pages/preset/elements/preset_info_card.tscn" id="2_3qnmr"]
 [ext_resource type="LabelSettings" uid="uid://b7ve6wxcg2m3c" path="res://visual/labels/label_1.tres" id="2_vxrpk"]
 [ext_resource type="Texture2D" uid="uid://bk74yu10yvvo5" path="res://visual/assets/vector/circular_plus.svg" id="3_uh6mv"]
@@ -13,7 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_lqiyr")
+script = ExtResource("1_5wp6g")
 presets_container = NodePath("ScrollContainer/HFlowContainer")
 preset_info_card_res = ExtResource("2_3qnmr")
 

@@ -20,7 +20,6 @@ border_color = Color(1, 1, 1, 1)
 [node name="Global" type="Node" node_paths=PackedStringArray("gui", "world_2d", "world_3d")]
 script = ExtResource("1_jnciu")
 gui = NodePath("GUI/PanelContainer/VSplitContainer/PageContainer")
-default_gui_scene_res = ExtResource("2_u2cnp")
 world_2d = NodePath("World2D")
 world_3d = NodePath("World3D")
 
