@@ -1,16 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://cht2t8vyko8ua"]
+[gd_scene load_steps=7 format=3 uid="uid://b2ll8tut18nx6"]
 
-[ext_resource type="Script" path="res://scripts/pages/save_preset_page.gd" id="1_musri"]
-[ext_resource type="LabelSettings" uid="uid://dis7d5hvikqed" path="res://visual/labels/subtitle.tres" id="2_x3kcm"]
-[ext_resource type="LabelSettings" uid="uid://cjbmhl6lygudu" path="res://visual/labels/note.tres" id="3_pmwa2"]
-[ext_resource type="StyleBox" uid="uid://dhtti43gywwuo" path="res://visual/style_boxes/button.stylebox" id="4_b2v3l"]
+[ext_resource type="Script" path="res://scripts/pages/preset/preset_page_save_preset.gd" id="1_bfo3y"]
+[ext_resource type="LabelSettings" uid="uid://dis7d5hvikqed" path="res://visual/labels/subtitle.tres" id="2_3t2ax"]
+[ext_resource type="LabelSettings" uid="uid://cjbmhl6lygudu" path="res://visual/labels/note.tres" id="3_6tgrw"]
+[ext_resource type="StyleBox" uid="uid://dhtti43gywwuo" path="res://visual/style_boxes/button.stylebox" id="4_2re3p"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygt4m"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_02b5f"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_bottom = 2
 border_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mfdkx"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_003xa"]
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 3
 border_width_top = 3
@@ -22,14 +22,14 @@ expand_margin_top = 6.0
 expand_margin_right = 6.0
 expand_margin_bottom = 6.0
 
-[node name="SavePresetPage" type="Control" node_paths=PackedStringArray("preset_edit", "tag_edit", "session_count_edit", "session_length_edit", "break_length_edit", "auto_break_toggle", "auto_session_toggle")]
+[node name="PresetPageSavePreset" type="Control" node_paths=PackedStringArray("preset_edit", "tag_edit", "session_count_edit", "session_length_edit", "break_length_edit", "auto_break_toggle", "auto_session_toggle")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_musri")
+script = ExtResource("1_bfo3y")
 preset_edit = NodePath("MarginContainer/VBoxContainer/preset")
 tag_edit = NodePath("MarginContainer/VBoxContainer/tag")
 session_count_edit = NodePath("MarginContainer/VBoxContainer2/session count/edit")
@@ -88,7 +88,7 @@ size_flags_vertical = 4
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer2/session count"]
 layout_mode = 2
 text = "session count"
-label_settings = ExtResource("2_x3kcm")
+label_settings = ExtResource("2_3t2ax")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -97,14 +97,14 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/caret_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 72
-theme_override_styles/normal = SubResource("StyleBoxFlat_ygt4m")
+theme_override_styles/normal = SubResource("StyleBoxFlat_02b5f")
 placeholder_text = "8"
 alignment = 1
 
 [node name="Label2" type="Label" parent="MarginContainer/VBoxContainer2/session count"]
 layout_mode = 2
 text = "*set to 0 for unlimited"
-label_settings = ExtResource("3_pmwa2")
+label_settings = ExtResource("3_6tgrw")
 horizontal_alignment = 1
 
 [node name="session length" type="VBoxContainer" parent="MarginContainer/VBoxContainer2"]
@@ -115,7 +115,7 @@ size_flags_vertical = 4
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer2/session length"]
 layout_mode = 2
 text = "session length (min)"
-label_settings = ExtResource("2_x3kcm")
+label_settings = ExtResource("2_3t2ax")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -124,7 +124,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/caret_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 72
-theme_override_styles/normal = SubResource("StyleBoxFlat_ygt4m")
+theme_override_styles/normal = SubResource("StyleBoxFlat_02b5f")
 placeholder_text = "50"
 alignment = 1
 
@@ -136,7 +136,7 @@ size_flags_vertical = 4
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer2/break length"]
 layout_mode = 2
 text = "break length (min)"
-label_settings = ExtResource("2_x3kcm")
+label_settings = ExtResource("2_3t2ax")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -145,7 +145,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/caret_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 72
-theme_override_styles/normal = SubResource("StyleBoxFlat_ygt4m")
+theme_override_styles/normal = SubResource("StyleBoxFlat_02b5f")
 placeholder_text = "10"
 alignment = 1
 
@@ -160,8 +160,8 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = ExtResource("4_b2v3l")
-theme_override_styles/hover = SubResource("StyleBoxFlat_mfdkx")
+theme_override_styles/normal = ExtResource("4_2re3p")
+theme_override_styles/hover = SubResource("StyleBoxFlat_003xa")
 text = "START"
 
 [node name="SAVE" type="Button" parent="MarginContainer/VBoxContainer2/HBoxContainer"]
@@ -170,8 +170,8 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = ExtResource("4_b2v3l")
-theme_override_styles/hover = SubResource("StyleBoxFlat_mfdkx")
+theme_override_styles/normal = ExtResource("4_2re3p")
+theme_override_styles/hover = SubResource("StyleBoxFlat_003xa")
 text = "SAVE"
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer"]
@@ -198,8 +198,6 @@ size_flags_vertical = 8
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = ExtResource("4_b2v3l")
-theme_override_styles/hover = SubResource("StyleBoxFlat_mfdkx")
+theme_override_styles/normal = ExtResource("4_2re3p")
+theme_override_styles/hover = SubResource("StyleBoxFlat_003xa")
 text = "DELETE"
-
-[connection signal="pressed" from="MarginContainer/VBoxContainer2/HBoxContainer/SAVE" to="." method="_save_preset_data"]

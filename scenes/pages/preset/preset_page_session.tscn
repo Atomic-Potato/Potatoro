@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://k87ux2qmpcqj"]
 
-[ext_resource type="Script" path="res://scripts/preset_deprecated.gd" id="1_p01pl"]
-[ext_resource type="StyleBox" uid="uid://dhtti43gywwuo" path="res://visual/style_boxes/button.stylebox" id="2_7jsqx"]
-[ext_resource type="Script" path="res://scripts/session.gd" id="2_gjvom"]
+[ext_resource type="Script" path="res://scripts/pages/preset/preset_page_deprecated_preset.gd" id="1_dav3k"]
+[ext_resource type="StyleBox" uid="uid://dhtti43gywwuo" path="res://visual/style_boxes/button.stylebox" id="2_nkr8a"]
+[ext_resource type="Script" path="res://scripts/pages/preset/preset_page_session.gd" id="3_p5ysi"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_x63tv"]
 line_spacing = 0.0
@@ -10,14 +10,16 @@ font_size = 100
 
 [sub_resource type="LabelSettings" id="LabelSettings_noh7n"]
 
-[node name="SessionPage" type="Control"]
+[node name="PresetPageSession" type="Control" node_paths=PackedStringArray("preset_name_label", "sessions_count_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_p01pl")
+script = ExtResource("1_dav3k")
+preset_name_label = NodePath("info/preset")
+sessions_count_label = NodePath("info/HBoxContainer/session count")
 
 [node name="Controls" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -37,7 +39,7 @@ alignment = 1
 [node name="restart" type="PanelContainer" parent="Controls"]
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
-theme_override_styles/panel = ExtResource("2_7jsqx")
+theme_override_styles/panel = ExtResource("2_nkr8a")
 
 [node name="Restart" type="Button" parent="Controls/restart"]
 layout_mode = 2
@@ -52,7 +54,7 @@ text = "pause"
 [node name="skip" type="PanelContainer" parent="Controls"]
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
-theme_override_styles/panel = ExtResource("2_7jsqx")
+theme_override_styles/panel = ExtResource("2_nkr8a")
 
 [node name="skip" type="Button" parent="Controls/skip"]
 layout_mode = 2
@@ -91,7 +93,7 @@ text = "50:00"
 label_settings = SubResource("LabelSettings_x63tv")
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("2_gjvom")
+script = ExtResource("3_p5ysi")
 length_in_minutes = 0
 pause_toggle = NodePath("../../../Controls/Pause")
 finish_hour_label = NodePath("../finish hour")
@@ -105,7 +107,7 @@ alignment = 1
 [node name="PanelContainer" type="PanelContainer" parent="Timer/Add time"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_styles/panel = ExtResource("2_7jsqx")
+theme_override_styles/panel = ExtResource("2_nkr8a")
 
 [node name="Button" type="Button" parent="Timer/Add time/PanelContainer"]
 layout_mode = 2
@@ -115,7 +117,7 @@ flat = true
 [node name="PanelContainer2" type="PanelContainer" parent="Timer/Add time"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_styles/panel = ExtResource("2_7jsqx")
+theme_override_styles/panel = ExtResource("2_nkr8a")
 
 [node name="Button2" type="Button" parent="Timer/Add time/PanelContainer2"]
 layout_mode = 2
@@ -125,7 +127,7 @@ flat = true
 [node name="PanelContainer3" type="PanelContainer" parent="Timer/Add time"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_styles/panel = ExtResource("2_7jsqx")
+theme_override_styles/panel = ExtResource("2_nkr8a")
 
 [node name="Button3" type="Button" parent="Timer/Add time/PanelContainer3"]
 layout_mode = 2
@@ -140,7 +142,7 @@ alignment = 1
 [node name="PanelContainer" type="PanelContainer" parent="Timer/Deduct Time"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_styles/panel = ExtResource("2_7jsqx")
+theme_override_styles/panel = ExtResource("2_nkr8a")
 
 [node name="Button" type="Button" parent="Timer/Deduct Time/PanelContainer"]
 layout_mode = 2
@@ -150,7 +152,7 @@ flat = true
 [node name="PanelContainer2" type="PanelContainer" parent="Timer/Deduct Time"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_styles/panel = ExtResource("2_7jsqx")
+theme_override_styles/panel = ExtResource("2_nkr8a")
 
 [node name="Button2" type="Button" parent="Timer/Deduct Time/PanelContainer2"]
 layout_mode = 2
@@ -160,7 +162,7 @@ flat = true
 [node name="PanelContainer3" type="PanelContainer" parent="Timer/Deduct Time"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_styles/panel = ExtResource("2_7jsqx")
+theme_override_styles/panel = ExtResource("2_nkr8a")
 
 [node name="Button3" type="Button" parent="Timer/Deduct Time/PanelContainer3"]
 layout_mode = 2
@@ -209,7 +211,7 @@ offset_top = 23.0
 offset_right = -23.0
 offset_bottom = 64.0
 grow_horizontal = 0
-theme_override_styles/panel = ExtResource("2_7jsqx")
+theme_override_styles/panel = ExtResource("2_nkr8a")
 
 [node name="Presets" type="Button" parent="Presets button"]
 layout_mode = 2

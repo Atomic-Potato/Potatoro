@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://cy71rb02uwuce"]
 
 [ext_resource type="StyleBox" uid="uid://dq4njdscsw0eo" path="res://visual/style_boxes/thick_button.stylebox" id="1_7ybf4"]
-[ext_resource type="Script" path="res://scripts/pages/components/preset_info_card.gd" id="1_str1p"]
-[ext_resource type="PackedScene" uid="uid://cht2t8vyko8ua" path="res://scenes/pages/save_preset_page.tscn" id="2_be4lg"]
+[ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card.gd" id="1_str1p"]
+[ext_resource type="PackedScene" path="res://scenes/pages/save_preset_page.tscn" id="2_be4lg"]
 [ext_resource type="LabelSettings" uid="uid://b7ve6wxcg2m3c" path="res://visual/labels/label_1.tres" id="2_d5kge"]
 [ext_resource type="LabelSettings" uid="uid://dis7d5hvikqed" path="res://visual/labels/subtitle.tres" id="3_bv7jj"]
 [ext_resource type="LabelSettings" uid="uid://du3c6cut3245k" path="res://visual/labels/Number_LARGE.tres" id="4_p74pj"]

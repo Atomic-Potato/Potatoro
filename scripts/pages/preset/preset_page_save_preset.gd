@@ -1,4 +1,4 @@
-class_name SavePresetPage extends Control
+extends Control
 
 var preset: Preset
 
@@ -11,7 +11,7 @@ var preset: Preset
 @export var auto_session_toggle: BaseButton
 
 @export_category("Resources")
-@export var presets_page_res: Resource = preload("res://scenes/pages/save_preset_page.tscn")
+@export var presets_page_res: Resource
 @export var session_page_res: Resource
 
 func _ready():
