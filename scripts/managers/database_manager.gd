@@ -17,11 +17,19 @@ func _ready():
 	db.path = db_path
 	db.open_db()
 	
+	# TODO: remove deleting db
 	if not is_db_exists:
 		create_db(db)
 
+func get_datetime(offset: String = '')-> String:
+	var query: String =\
+		"select datetime() as 'datetime'" if not offset\
+		else "select datetime('now', '" + offset + "') as 'datetime'"
+	DatabaseManager.db.query(query)
+	return DatabaseManager.db.query_result[0].get("datetime")
+
 # NOTE:
-#	I created buffers to save on memory and query times
+#	- I created buffers to save on memory and query times
 func create_db(open_db: SQLite):
 	open_db.query('
 		CREATE TABLE "Configurations" (
@@ -45,9 +53,9 @@ func create_db(open_db: SQLite):
 			FOREIGN KEY("TagID") REFERENCES "Tags"("ID"),
 			PRIMARY KEY("ID" AUTOINCREMENT)
 		);
-		-- when the buffered session is complete, it gets saved to original table
 		CREATE TABLE "Sessions_Buffer" (
 			"ID"	INTEGER NOT NULL UNIQUE,
+			"SessionID" INTEGERE NOT NULL UNIQUE,
 			"TagID"	INTEGER,
 			"StartDateTime"	TEXT NOT NULL,
 			"EndDateTime"	TEXT,
@@ -64,7 +72,6 @@ func create_db(open_db: SQLite):
 			FOREIGN KEY("SessionID") REFERENCES "Sessions"("ID"),
 			PRIMARY KEY("ID" AUTOINCREMENT)
 		);
-		-- when the buffered session is complete, all buffered pauses get saved to the original table
 		CREATE TABLE "SessionPauses_Buffer" (
 			"ID"	INTEGER NOT NULL UNIQUE,
 			"SessionID"	INTEGER NOT NULL,

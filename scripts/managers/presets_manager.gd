@@ -35,6 +35,24 @@ func get_presets() -> Array[Preset]:
 		presets.append(preset)
 	return presets
 
+#func set_preset_current_session_ID(preset: Preset, session: Session)-> Preset:
+	#var query = "
+		#update Presets_Buffer
+		#set CurrentSessionID = " + str(session.ID) + " 
+		#where PresetID = " + str(preset.ID)
+	#preset.current_session_ID = session.ID
+	#return preset 
+
+func get_preset_current_session_ID(preset: Preset)-> int:
+	var query = "
+		select CurrentSessionID 
+		from Presets_Buffer 
+		where buffer_ID = " + str(preset.buffer_ID)
+	DatabaseManager.db.query(query)
+	if not DatabaseManager.db.query_result.is_empty():
+		return DatabaseManager.db.query_result[0].get("CurrentSessionID")
+	return 0
+
 # creates a new preset with the provided values and returns its id
 # if the id is provided in the preset, then it will update
 func save_preset(preset: Preset)-> int: # use save_buffered_preset to create a new buffered preset
@@ -91,10 +109,12 @@ func save_buffered_preset(preset: Preset, current_session_id: int)-> int:
 		var query = "
 			update Presets_Buffer
 			set "\
+				+ "PresetID = " + str(preset.ID) + ", "\
 				+ "DefaultTagID = " + str(preset.default_tag_id) + ", "\
 				+ "CurrentSessionID = " + str(current_session_id) + ", "\
 				+ "Name = '" + preset.name_ + "', "\
 				+ "SessionsCount = " + str(preset.sessions_count)  + ", "\
+				+ "SessionsDone = " + str(preset.sessions_done)  + ", "\
 				+ "SessionLength = " + str(preset.session_length) + ", "\
 				+ "BreakLength = " + str(preset.break_length) + ", "\
 				+ "isAutoStartBreak = " + str(int(preset.is_auto_start_break)) + ", "\
@@ -105,14 +125,16 @@ func save_buffered_preset(preset: Preset, current_session_id: int)-> int:
 		return preset.buffer_ID
 	else: # Insert
 		var query = "
-			insert into Presets
-				(DefaultTagID, CurrentSessionID, Name, SessionsCount, SessionLength,
-				BreakLength, isAutoStartBreak, isAutoStartSession)
+			insert into Presets_Buffer
+				(PresetID, DefaultTagID, CurrentSessionID, Name, SessionsCount, SessionsDone,
+				SessionLength, BreakLength, isAutoStartBreak, isAutoStartSession)
 			values ("\
+				+ str(preset.ID) + ", "\
 				+ str(preset.default_tag_id) + ", "\
 				+ str(current_session_id) + ", "\
 				+ "'" + preset.name_ + "', "\
 				+ str(preset.sessions_count) + ", "\
+				+ str(preset.sessions_done) + ", "\
 				+ str(preset.session_length) + ", "\
 				+ str(preset.break_length) + ", "\
 				+ str(preset.is_auto_start_break) + ", "\

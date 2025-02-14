@@ -8,7 +8,37 @@ func _ready():
 func _process(delta):
 	for session: Session in buffered_sessions:
 		# TODO: Process each buffer
+		var remaining_time: int = get_session_remaining_time_in_seconds(session)
+		if remaining_time <= 0:
+			# TODO: notify subs
+			OS.alert("Session " + str(session.ID) + " has finished!", "Session " + str(session.ID))
 		pass
+
+func get_session_elapsed_time_in_seconds(session: Session)-> int:
+	DatabaseManager.db.query("
+		select unixepoch(" + DatabaseManager.get_datetime() +") 
+			- unixepoch(" + session.start_date_time + ") as ElapsedTime" 
+	)
+	var elapsed_time: int = DatabaseManager.db.query_result[0].get("ElapsedTime")
+	return elapsed_time - get_pauses_length_in_seconds_buffered(session.ID)
+
+func get_session_remaining_time_in_seconds(session: Session)-> int:
+	DatabaseManager.db.query("
+		select unixepoch(" + session.end_date_time +") 
+			- unixepoch(" + DatabaseManager.get_datetime() + ") as RemainingTime" 
+	)
+	return DatabaseManager.db.query_result[0].get("RemainingTime")
+	
+
+func get_pauses_length_in_seconds_buffered(session_id: int)-> int:
+	DatabaseManager.db.query("
+		select sum(unixepoch(EndDateTime) - unixepoch(StartDateTime)) as length
+		from SessionPauses_Buffer 
+		where SessionID = " + str(session_id)
+	)
+	if not DatabaseManager.db.query_result.is_empty():
+		return DatabaseManager.db.query_result[0].get("length")
+	return 0
 
 func get_session(session_id: int)-> Session:
 	DatabaseManager.db.query("select * from Sessions where ID = " + str(session_id))
@@ -57,6 +87,7 @@ func is_session_buffered(session_id: int)-> bool:
 	return not DatabaseManager.db.query_result.is_empty()
 
 func update_buffered_sessions():
+	buffered_sessions = []
 	var query = "select * from Sessions_Buffer"
 	DatabaseManager.db.query(query)
 	for i in DatabaseManager.db.query_result:
@@ -69,10 +100,11 @@ func update_buffered_sessions():
 		)
 		buffered_sessions.append(session)
 
-func start_buffered_session(tag_ID:int)-> Session:
-	var session: Session
-	session.tag_ID = tag_ID
-	session.start_date_time = Time.get_datetime_string_from_system()
+func start_buffered_session(preset: Preset)-> Session:
+	var session: Session = Session.new()
+	session.tag_ID = preset.default_tag_id
+	session.start_date_time = DatabaseManager.get_datetime()
+	session.end_date_time = DatabaseManager.get_datetime('+' + str(preset.session_length) + ' minutes')
 	session.ID = SessionsManager.save_session(session)
 	session.buffered_ID = SessionsManager.save_buffered_session(session) 
 	return session
@@ -87,12 +119,13 @@ func end_buffered_session(session: Session)-> Session:
 		push_error("Buffered Session ID " + str(session.buffered_ID) + " not found in buffer.")
 		return null
 	
+	# Saving the session from buffer
 	var query = "
 		update Sessions s
 		set "\
 			+ "s.TagID = sb.TagID, "\
-			+ "StartDateTime = sb.StartDateTime, "\
-			+ "EndDateTime = " + Time.get_datetime_string_from_system() + " " +\
+			+ "s.StartDateTime = sb.StartDateTime, "\
+			+ "s.EndDateTime = " + DatabaseManager.get_datetime() + " " +\
 		"from Sessions_Buffer sb 
 		where ID = " + str(session.ID)
 	DatabaseManager.db.query(query)
@@ -101,7 +134,16 @@ func end_buffered_session(session: Session)-> Session:
 		where ID = " + str(session.buffered_ID)
 	DatabaseManager.db.query(query)
 	
-	# TODO: handle pauses buffer
+	# Saving session pauses from buffer
+	query = "
+		insert into SessionPauses(SessionID, StartDateTime, EndDateTime)
+		select SessionID, StartDateTime, EndDateTime
+		from SessionPauses_Buffer
+		where SessionID = " + str(session.ID)
+	DatabaseManager.db.query(query)
+	query = "
+		delete from SessionPauses_Buffer
+		where SessionID = " + str(session.ID)
 	
 	update_buffered_sessions()
 	return get_session(session.ID)
@@ -128,8 +170,8 @@ func save_session(session: Session):
 			insert into Sessions(TagID, StartDateTime, EndDateTime)
 			values("\
 				+ str(session.tag_ID)+ ", "\
-				+ str(session.start_date_time) + ", "\
-				+ str(session.end_date_time) +\
+				+ "'" + str(session.start_date_time) + "', "\
+				+ "'" + str(session.end_date_time) + "'" +\
 			")
 		"
 		#print(query)

@@ -86,11 +86,13 @@ func _reset():
 	elapased_time_in_seconds = 0
 	_set_time(length_in_minutes, 0)
 
+# DEPRECATED
 func _update_text():
 	var minutes = (remaining_length_in_seconds - elapased_time_in_seconds) / 60
 	var seconds = (remaining_length_in_seconds  - elapased_time_in_seconds) % 60
 	_set_time(minutes, seconds)
 
+# DEPRECATED
 func _set_time(minutes: int, seconds: int):
 	var minutes_str = type_convert(minutes, TYPE_STRING)
 	var seconds_str = type_convert(seconds, TYPE_STRING)
@@ -98,6 +100,7 @@ func _set_time(minutes: int, seconds: int):
 		+ ":" \
 		+ (("0" + seconds_str) if seconds < 10 else seconds_str)
 
+# DEPRECATED
 func _update_finish_hour():
 	var current_time = Time.get_time_dict_from_system()
 	print((remaining_length_in_seconds / 60) / 60)

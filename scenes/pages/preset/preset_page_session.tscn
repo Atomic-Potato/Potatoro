@@ -1,16 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://k87ux2qmpcqj"]
+[gd_scene load_steps=5 format=3 uid="uid://k87ux2qmpcqj"]
 
 [ext_resource type="StyleBox" uid="uid://dhtti43gywwuo" path="res://visual/style_boxes/button.stylebox" id="2_nkr8a"]
-[ext_resource type="Script" path="res://scripts/pages/preset/preset_page_session_deprecated.gd" id="3_5iet4"]
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_session.gd" id="3_p5ysi"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_noh7n"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_x63tv"]
 line_spacing = 0.0
 font_size = 100
 
-[sub_resource type="LabelSettings" id="LabelSettings_noh7n"]
-
-[node name="PresetPageSession" type="Control" node_paths=PackedStringArray("preset_name_label", "sessions_count_label")]
+[node name="PresetPageSession" type="Control" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "label_finish_hour", "label_timer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,52 +17,40 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_p5ysi")
-preset_name = null
-session_count = null
-session_length_in_minutes = null
-break_length_in_minutes = null
-preset_name_label = NodePath("info/preset")
-sessions_count_label = NodePath("info/HBoxContainer/session count")
+label_preset_name = NodePath("info/preset")
+label_sessions_count = NodePath("info/HBoxContainer/session count")
+label_finish_hour = NodePath("Timer/VBoxContainer/finish hour")
+label_timer = NodePath("Timer/VBoxContainer/Timer")
 
-[node name="Controls" type="HBoxContainer" parent="."]
+[node name="info" type="VBoxContainer" parent="."]
+layout_direction = 1
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -126.5
-offset_top = -52.0
-offset_right = 126.5
-offset_bottom = -21.0
+offset_left = -49.5
+offset_top = 23.0
+offset_right = 49.5
+offset_bottom = 73.0001
 grow_horizontal = 2
-grow_vertical = 0
 alignment = 1
 
-[node name="restart" type="PanelContainer" parent="Controls"]
-custom_minimum_size = Vector2(75, 0)
+[node name="preset" type="Label" parent="info"]
 layout_mode = 2
-theme_override_styles/panel = ExtResource("2_nkr8a")
+text = "preset-name"
+label_settings = SubResource("LabelSettings_noh7n")
+horizontal_alignment = 1
 
-[node name="Restart" type="Button" parent="Controls/restart"]
+[node name="HBoxContainer" type="HBoxContainer" parent="info"]
 layout_mode = 2
-text = "restart"
-flat = true
 
-[node name="Pause" type="CheckButton" parent="Controls"]
+[node name="text" type="Label" parent="info/HBoxContainer"]
 layout_mode = 2
-button_pressed = true
-text = "pause"
+text = "sessions "
 
-[node name="skip" type="PanelContainer" parent="Controls"]
-custom_minimum_size = Vector2(75, 0)
+[node name="session count" type="Label" parent="info/HBoxContainer"]
 layout_mode = 2
-theme_override_styles/panel = ExtResource("2_nkr8a")
-
-[node name="skip" type="Button" parent="Controls/skip"]
-layout_mode = 2
-text = "skip"
-flat = true
+text = "0/~"
 
 [node name="Timer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -91,17 +78,12 @@ text = "10:00 am"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Timer" type="Label" parent="Timer/VBoxContainer" node_paths=PackedStringArray("pause_toggle", "finish_hour_label")]
+[node name="Timer" type="Label" parent="Timer/VBoxContainer"]
 layout_mode = 2
 text = "50:00"
 label_settings = SubResource("LabelSettings_x63tv")
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("3_5iet4")
-length_in_minutes = 0
-pause_toggle = NodePath("../../../Controls/Pause")
-finish_hour_label = NodePath("../finish hour")
-is_alert_os = true
 
 [node name="Add time" type="HBoxContainer" parent="Timer"]
 layout_mode = 2
@@ -173,37 +155,47 @@ layout_mode = 2
 text = "-10 min"
 flat = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-
-[node name="info" type="VBoxContainer" parent="."]
-layout_direction = 1
+[node name="Controls" type="HBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 7
 anchor_left = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-offset_left = -49.5
-offset_top = 23.0
-offset_right = 49.5
-offset_bottom = 73.0001
+anchor_bottom = 1.0
+offset_left = -126.5
+offset_top = -58.0
+offset_right = 126.5
+offset_bottom = -21.0
 grow_horizontal = 2
+grow_vertical = 0
 alignment = 1
 
-[node name="preset" type="Label" parent="info"]
+[node name="restart" type="PanelContainer" parent="Controls"]
+custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
-text = "preset-name"
-label_settings = SubResource("LabelSettings_noh7n")
-horizontal_alignment = 1
+theme_override_styles/panel = ExtResource("2_nkr8a")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="info"]
+[node name="Restart" type="Button" parent="Controls/restart"]
 layout_mode = 2
+text = "restart"
+flat = true
 
-[node name="text" type="Label" parent="info/HBoxContainer"]
+[node name="Pause" type="CheckButton" parent="Controls"]
 layout_mode = 2
-text = "sessions "
+button_pressed = true
+text = "pause"
 
-[node name="session count" type="Label" parent="info/HBoxContainer"]
+[node name="skip" type="PanelContainer" parent="Controls"]
+custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
-text = "0/~"
+theme_override_styles/panel = ExtResource("2_nkr8a")
+
+[node name="skip" type="Button" parent="Controls/skip"]
+layout_mode = 2
+text = "skip"
+flat = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="Presets button" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -222,13 +214,13 @@ layout_mode = 2
 text = "< presets"
 flat = true
 
-[connection signal="pressed" from="Controls/restart/Restart" to="Timer/VBoxContainer/Timer" method="restart"]
-[connection signal="toggled" from="Controls/Pause" to="Timer/VBoxContainer/Timer" method="toggle_pause"]
-[connection signal="pressed" from="Controls/skip/skip" to="." method="add_session"]
-[connection signal="pressed" from="Controls/skip/skip" to="Timer/VBoxContainer/Timer" method="skip"]
 [connection signal="pressed" from="Timer/Add time/PanelContainer/Button" to="Timer/VBoxContainer/Timer" method="add_minutes_to_remaining_length" binds= [1]]
 [connection signal="pressed" from="Timer/Add time/PanelContainer2/Button2" to="Timer/VBoxContainer/Timer" method="add_minutes_to_remaining_length" binds= [5]]
 [connection signal="pressed" from="Timer/Add time/PanelContainer3/Button3" to="Timer/VBoxContainer/Timer" method="add_minutes_to_remaining_length" binds= [10]]
 [connection signal="pressed" from="Timer/Deduct Time/PanelContainer/Button" to="Timer/VBoxContainer/Timer" method="add_minutes_to_remaining_length" binds= [-1]]
 [connection signal="pressed" from="Timer/Deduct Time/PanelContainer2/Button2" to="Timer/VBoxContainer/Timer" method="add_minutes_to_remaining_length" binds= [-5]]
 [connection signal="pressed" from="Timer/Deduct Time/PanelContainer3/Button3" to="Timer/VBoxContainer/Timer" method="add_minutes_to_remaining_length" binds= [-10]]
+[connection signal="pressed" from="Controls/restart/Restart" to="Timer/VBoxContainer/Timer" method="restart"]
+[connection signal="toggled" from="Controls/Pause" to="Timer/VBoxContainer/Timer" method="toggle_pause"]
+[connection signal="pressed" from="Controls/skip/skip" to="." method="add_session"]
+[connection signal="pressed" from="Controls/skip/skip" to="Timer/VBoxContainer/Timer" method="skip"]

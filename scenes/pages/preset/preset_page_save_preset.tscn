@@ -202,4 +202,5 @@ theme_override_styles/normal = ExtResource("4_2re3p")
 theme_override_styles/hover = SubResource("StyleBoxFlat_003xa")
 text = "DELETE"
 
+[connection signal="pressed" from="MarginContainer/VBoxContainer2/HBoxContainer/START" to="." method="_start_preset"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer2/HBoxContainer/SAVE" to="." method="_save_preset_data" binds= [false]]
