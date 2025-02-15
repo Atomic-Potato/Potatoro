@@ -21,7 +21,7 @@ func _ready():
 		create_db(db)
 		
 	# DANGER: Needs to be removed in production
-	db.verbosity_level = SQLite.VERY_VERBOSE
+	#db.verbosity_level = SQLite.VERY_VERBOSE
 	empty_sessions_data()
 
 func get_datetime(offset: String = '')-> String:
@@ -38,8 +38,6 @@ func empty_sessions_data():
 		DELETE FROM SessionPauses_Buffer;
 		DELETE FROM Sessions_Buffer;
 		DELETE FROM Sessions;
-
-
 		DELETE FROM sqlite_sequence 
 		WHERE name in (
 			'Sessions_Buffer',
@@ -132,4 +130,3 @@ func create_db(open_db: SQLite):
 			PRIMARY KEY("ID" AUTOINCREMENT)
 		);
 	')
-	print ("Created database.")

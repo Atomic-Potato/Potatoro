@@ -9,7 +9,7 @@
 line_spacing = 0.0
 font_size = 100
 
-[node name="PresetPageSession" type="Control" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "label_finish_hour", "label_timer")]
+[node name="PresetPageSession" type="Control" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "label_finish_hour", "label_timer", "pause_toggle")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,6 +21,7 @@ label_preset_name = NodePath("info/preset")
 label_sessions_count = NodePath("info/HBoxContainer/session count")
 label_finish_hour = NodePath("Timer/VBoxContainer/finish hour")
 label_timer = NodePath("Timer/VBoxContainer/Timer")
+pause_toggle = NodePath("Controls/Pause")
 
 [node name="info" type="VBoxContainer" parent="."]
 layout_direction = 1
@@ -215,6 +216,6 @@ text = "< presets"
 flat = true
 
 [connection signal="pressed" from="Controls/restart/Restart" to="Timer/VBoxContainer/Timer" method="restart"]
-[connection signal="toggled" from="Controls/Pause" to="Timer/VBoxContainer/Timer" method="toggle_pause"]
+[connection signal="pressed" from="Controls/Pause" to="." method="toggle_timer_pause"]
 [connection signal="pressed" from="Controls/skip/skip" to="." method="add_session"]
 [connection signal="pressed" from="Controls/skip/skip" to="Timer/VBoxContainer/Timer" method="skip"]

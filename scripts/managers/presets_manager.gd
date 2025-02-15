@@ -53,6 +53,38 @@ func get_preset_current_session_ID(preset: Preset)-> int:
 		return DatabaseManager.db.query_result[0].get("CurrentSessionID")
 	return 0
 
+func get_preset(preset_id: int)-> Preset:
+	DatabaseManager.db.query("select * from Presets_Buffer where PresetID = " + str(preset_id))
+	if not DatabaseManager.db.query_result.is_empty():
+		return Preset.new(
+			DatabaseManager.db.query_result[0].get("PresetID"),
+			DatabaseManager.db.query_result[0].get("ID"),
+			DatabaseManager.db.query_result[0].get("DefaultTagID"),
+			DatabaseManager.db.query_result[0].get("Name"),
+			DatabaseManager.db.query_result[0].get("SessionsCount"),
+			DatabaseManager.db.query_result[0].get("SessionsDone"),
+			DatabaseManager.db.query_result[0].get("SessionLength"),
+			DatabaseManager.db.query_result[0].get("BreakLength"),
+			DatabaseManager.db.query_result[0].get("isAutoStartBreak"),
+			DatabaseManager.db.query_result[0].get("isAutoStartSession"),
+		)
+	DatabaseManager.db.query("select * from Presets where ID = " + str(preset_id))
+	if not DatabaseManager.db.query_result.is_empty():
+		return Preset.new(
+			DatabaseManager.db.query_result[0].get("ID"),
+			0,
+			DatabaseManager.db.query_result[0].get("DefaultTagID"),
+			DatabaseManager.db.query_result[0].get("Name"),
+			DatabaseManager.db.query_result[0].get("SessionsCount"),
+			0,
+			DatabaseManager.db.query_result[0].get("SessionLength"),
+			DatabaseManager.db.query_result[0].get("BreakLength"),
+			DatabaseManager.db.query_result[0].get("isAutoStartBreak"),
+			DatabaseManager.db.query_result[0].get("isAutoStartSession"),
+		)
+	push_error("Cant find preset with ID " + str(preset_id))
+	return null
+
 # creates a new preset with the provided values and returns its id
 # if the id is provided in the preset, then it will update
 func save_preset(preset: Preset)-> int: # use save_buffered_preset to create a new buffered preset

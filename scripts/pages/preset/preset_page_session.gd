@@ -10,26 +10,47 @@ var session: Session
 @export var label_finish_hour: Label
 @export var label_timer: Label
 
+@export_category("Controls")
+@export var pause_toggle: CheckButton
+
 func initialize(data: Dictionary):
 	preset = data.get("preset")
 	session = SessionsManager.get_session(PresetsManager.get_preset_current_session_ID(preset))
-	_update_text()
+	
+
+func _ready():
+	_update_titles_text()
+	_update_timer_text()
+	if pause_toggle.button_pressed:
+		SessionsManager.pause_session(session.ID)
+	_update_finish_hour()
 
 func _process(delta):
-	# TODO: update time text if running
-	_update_text()
-	pass
+	if not SessionsManager.is_session_paused(session.ID):
+		_update_timer_text()
 
 func load_preset_page_presets():
 	Global.AppMan.load_gui_page(Global.SceneCont.preset_page_presets)
 
-func _update_text():
+func toggle_timer_pause():
+	if not SessionsManager.is_session_paused(session.ID):
+		SessionsManager.pause_session(session.ID)
+	else:
+		SessionsManager.resume_session(session.ID, preset.ID)
+	_update_finish_hour()
+		
+	#_update_text()
+	# TODO: Play blinking animations
+
+func _update_titles_text():
 	label_preset_name.text = preset.name_
 	label_sessions_count.text = str(preset.sessions_done) + "/" + str(preset.sessions_count)
-	_update_finish_hour()
-	var remaining_time_in_seconds = SessionsManager.get_session_remaining_time_in_seconds(session)
+
+func _update_timer_text():
+	if SessionsManager.is_session_paused(session.ID):
+		return
+	var remaining_time_in_seconds = SessionsManager.get_session_id_remaining_time_in_seconds(session.ID)
 	_set_time(remaining_time_in_seconds / 60, remaining_time_in_seconds % 60)
-	
 
 func _set_time(minutes: int, seconds: int):
 	var minutes_str = str(minutes)
@@ -39,7 +60,11 @@ func _set_time(minutes: int, seconds: int):
 		+ (("0" + seconds_str) if seconds < 10 else seconds_str)
 
 func _update_finish_hour():
-	var remaining_length_in_seconds = SessionsManager.get_session_remaining_time_in_seconds(session)
+	if SessionsManager.is_session_paused(session.ID):
+		label_finish_hour.text = ""
+		return
+	
+	var remaining_length_in_seconds = SessionsManager.get_session_id_remaining_time_in_seconds(session.ID)
 	var current_time = Time.get_datetime_dict_from_datetime_string(DatabaseManager.get_datetime(), false)
 	#print(( remaining_length_in_seconds/ 60) / 60)
 	var finish_hour: int = (current_time["hour"] + (current_time["minute"] + (remaining_length_in_seconds / 60)) / 60) % 24 

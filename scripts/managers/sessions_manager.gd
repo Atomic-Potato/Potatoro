@@ -2,17 +2,100 @@ extends Node
 
 var buffered_sessions: Array[Session]
 
+# TODO: 
+# - Get remaining time functions should return time regradless if sessions are paused
+
 func _ready():
 	update_buffered_sessions()
 
 func _process(delta):
 	for session: Session in buffered_sessions:
 		# TODO: Process each buffer
-		var remaining_time: int = get_session_remaining_time_in_seconds(session)
+		if is_session_paused(session.ID):
+			continue
+		var remaining_time: int = get_session_id_remaining_time_in_seconds(session.ID)
 		if remaining_time <= 0:
 			# TODO: notify subs
 			OS.alert("Session " + str(session.ID) + " has finished!", "Session " + str(session.ID))
 		pass
+
+func is_session_paused(session_id: int)-> bool:
+	DatabaseManager.db.query("select EndDateTime from Sessions_Buffer where SessionID = " + str(session_id))
+	if DatabaseManager.db.query_result.is_empty():
+		push_error("Could not find session in buffer with ID " + str(session_id))
+		return false # idk if i should return true
+	return DatabaseManager.db.query_result[0].get("EndDateTime") == null
+
+func pause_session(session_id: int):
+	DatabaseManager.db.query("select ID from Sessions_Buffer where SessionID  = " + str(session_id))
+	if DatabaseManager.db.query_result.is_empty():
+		push_error("Cannot pause session " + str(session_id) + ". It is not running or does not exist!")
+		return
+	
+	var query = "
+		update Sessions_Buffer
+		set EndDateTime = null
+		where SessionID = " + str(session_id) + ";
+		
+		insert into SessionPauses_Buffer(SessionID, StartDateTime, EndDateTime)
+		values (" +\
+			str(session_id) + ", "\
+			+ "'" + DatabaseManager.get_datetime() + "', "\
+			+ "NULL
+		);
+	"
+	DatabaseManager.db.query(query)
+
+func resume_session(session_id: int, preset_id: int):
+	DatabaseManager.db.query("select ID from Sessions_Buffer where SessionID  = " + str(session_id))
+	if DatabaseManager.db.query_result.is_empty():
+		push_error("Cannot resume session " + str(session_id) + ". It is not running or does not exist!")
+		return
+	DatabaseManager.db.query("select ID from Presets_Buffer where PresetID  = " + str(preset_id))
+	if DatabaseManager.db.query_result.is_empty():
+		push_error("Cannot resume session " + str(session_id) + ". 
+			Could not find its preset " + str(preset_id) + "in the presets buffer!")
+		return
+	
+	var query = "
+		update SessionPauses_Buffer
+		set EndDateTime = '" + DatabaseManager.get_datetime() + "'
+		where SessionID = " + str(session_id) + " and EndDateTime is NULL;
+	"
+	DatabaseManager.db.query(query)
+	
+	var preset: Preset = get_session_buffered_preset(session_id)
+	var elapsed_time: int = get_session_id_elapsed_time_in_seconds(session_id)
+	var remaining_time: int = preset.session_length * 60 - elapsed_time
+	print("Elpased: ", elapsed_time, " Length: ", preset.session_length * 60, " Remaining: ", remaining_time)
+	
+	query = "
+		update Sessions_Buffer
+		set EndDateTime = '" + DatabaseManager.get_datetime('+' + str(remaining_time) + ' seconds') + "'
+		where SessionID = " + str(session_id) + ";
+	"
+	DatabaseManager.db.query(query)
+	print("Remaining fr: ", get_session_id_remaining_time_in_seconds(session_id))
+
+func get_session_buffered_preset(session_id: int)-> Preset:
+	DatabaseManager.db.query("
+		select * from Presets_Buffer where CurrentSessionID = " + str(session_id)
+	)
+	if DatabaseManager.db.query_result.is_empty():
+		push_error("Could not find buffered preset with the CurrentSessionID " + str(session_id))
+		return null
+	return Preset.new(
+		DatabaseManager.db.query_result[0].get("PresetID"),
+		DatabaseManager.db.query_result[0].get("ID"),
+		DatabaseManager.db.query_result[0].get("DefaultTagID"),
+		DatabaseManager.db.query_result[0].get("Name"),
+		DatabaseManager.db.query_result[0].get("SessionsCount"),
+		DatabaseManager.db.query_result[0].get("SessionsDone"),
+		DatabaseManager.db.query_result[0].get("SessionLength"),
+		DatabaseManager.db.query_result[0].get("BreakLength"),
+		DatabaseManager.db.query_result[0].get("isAutoStartBreak"),
+		DatabaseManager.db.query_result[0].get("isAutoStartSession"),
+	)
 
 func get_session_elapsed_time_in_seconds(session: Session)-> int:
 	DatabaseManager.db.query("
@@ -22,21 +105,58 @@ func get_session_elapsed_time_in_seconds(session: Session)-> int:
 	var elapsed_time: int = DatabaseManager.db.query_result[0].get("ElapsedTime")
 	return elapsed_time - get_pauses_length_in_seconds_buffered(session.ID)
 
+func get_session_id_elapsed_time_in_seconds(session_id: int)-> int:
+	var query = "select StartDateTime from Sessions_Buffer where SessionID = " + str(session_id)
+	DatabaseManager.db.query(query)
+	if DatabaseManager.db.query_result.is_empty():
+		push_error("Cannot find session " + str(session_id) + "in the sessions buffer!")
+		return 0 
+	
+	var start_time = DatabaseManager.db.query_result[0].get("StartDateTime")
+	var current_time = DatabaseManager.get_datetime()
+	DatabaseManager.db.query("
+		select unixepoch('" + current_time + "') 
+			- unixepoch('" + start_time + "') as ElapsedTime" 
+	)
+	var elapsed_time: int = DatabaseManager.db.query_result[0].get("ElapsedTime")
+	print("Elapsed no breaks: ", elapsed_time)
+	return elapsed_time - get_pauses_length_in_seconds_buffered(session_id)
+
+
 func get_session_remaining_time_in_seconds(session: Session)-> int:
 	DatabaseManager.db.query("
 		select unixepoch('" + session.end_date_time +"') 
 			- unixepoch('" + DatabaseManager.get_datetime() + "') as RemainingTime" 
 	)
 	return DatabaseManager.db.query_result[0].get("RemainingTime")
+
+func get_session_id_remaining_time_in_seconds(session_id: int)-> int:
+	DatabaseManager.db.query("select EndDateTime from Sessions_Buffer where SessionID = " + str(session_id))
+	if DatabaseManager.db.query_result.is_empty():
+		push_error("Could not find session ", str(session_id), " in sessions buffer!")
+		return 0
 	
+	DatabaseManager.db.query("
+		select unixepoch('" + DatabaseManager.db.query_result[0].get("EndDateTime") +"') 
+			- unixepoch('" + DatabaseManager.get_datetime() + "') as RemainingTime" 
+	)
+	return DatabaseManager.db.query_result[0].get("RemainingTime")
 
 func get_pauses_length_in_seconds_buffered(session_id: int)-> int:
+	DatabaseManager.db.query("
+		select EndDateTime, unixepoch(EndDateTime) end, StartDateTime, unixepoch(StartDateTime), 
+		(unixepoch(EndDateTime) - unixepoch(StartDateTime)) offset
+		from SessionPauses_Buffer 
+		where SessionID = " + str(session_id) 
+	)
+	
 	DatabaseManager.db.query("
 		select sum(unixepoch(EndDateTime) - unixepoch(StartDateTime)) as length
 		from SessionPauses_Buffer 
 		where SessionID = " + str(session_id)
 	)
 	if not DatabaseManager.db.query_result.is_empty():
+		print('Pauses length: ', DatabaseManager.db.query_result[0].get("length"))
 		return DatabaseManager.db.query_result[0].get("length")
 	return 0
 
