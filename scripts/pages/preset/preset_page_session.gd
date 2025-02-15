@@ -32,14 +32,21 @@ func _process(delta):
 func load_preset_page_presets():
 	Global.AppMan.load_gui_page(Global.SceneCont.preset_page_presets)
 
+func add_session_length(minutes: int):
+	preset.session_length += minutes
+	PresetsManager.save_buffered_preset(preset, PresetsManager.get_preset_current_session_ID(preset))
+	SessionsManager.add_seconds_to_buffered_session_end_datetime(session.ID, minutes * 60)
+	preset = PresetsManager.get_preset(preset.ID)
+	session = SessionsManager.get_session(session.ID)
+	_update_finish_hour()
+	_update_timer_text()
+	
 func toggle_timer_pause():
 	if not SessionsManager.is_session_paused(session.ID):
 		SessionsManager.pause_session(session.ID)
 	else:
 		SessionsManager.resume_session(session.ID, preset.ID)
 	_update_finish_hour()
-		
-	#_update_text()
 	# TODO: Play blinking animations
 
 func _update_titles_text():

@@ -24,10 +24,10 @@ func _ready():
 	#db.verbosity_level = SQLite.VERY_VERBOSE
 	empty_sessions_data()
 
-func get_datetime(offset: String = '')-> String:
+func get_datetime(offset: String = '', start_date: String = 'now')-> String:
 	var query: String =\
 		"select datetime() as 'datetime'" if not offset\
-		else "select datetime('now', '" + offset + "') as 'datetime'"
+		else "select datetime('" + start_date + "', '" + offset + "') as 'datetime'"
 	DatabaseManager.db.query(query)
 	return DatabaseManager.db.query_result[0].get("datetime")
 

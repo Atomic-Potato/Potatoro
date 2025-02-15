@@ -4,10 +4,18 @@ class_name Preset extends Node
 @export var buffer_ID: int
 @export var default_tag_id: int
 @export var name_: String # im too lazy to find a better way to name this
-@export var sessions_count: int
-@export var sessions_done: int
-@export var session_length: int
-@export var break_length: int
+@export var sessions_count: int:
+	set(value):
+		sessions_count = 0 if value < 0 else value
+@export var sessions_done: int:
+	set(value):
+		sessions_done = 0 if value < 0 else value
+@export var session_length: int:
+	set(value):
+		session_length = 0 if value < 0 else value
+@export var break_length: int:
+	set(value):
+		session_length = 0 if value < 0 else value
 @export var is_auto_start_break: bool
 @export var is_auto_start_session: bool
 

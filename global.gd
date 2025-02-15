@@ -2,7 +2,7 @@
 extends Node
 
 const CURRENT_ENV = Env.Development
-const MAX_FPS: int = 20
+const MAX_FPS: int = 60
 
 var AppMan: ApplicationManager
 var SceneCont: PackedScenesContainer
@@ -14,4 +14,4 @@ enum Env
 }
 
 func _ready():
-	Engine.max_fps = 20
+	Engine.max_fps = MAX_FPS

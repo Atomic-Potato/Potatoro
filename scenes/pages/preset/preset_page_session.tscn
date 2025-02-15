@@ -183,7 +183,6 @@ flat = true
 
 [node name="Pause" type="CheckButton" parent="Controls"]
 layout_mode = 2
-button_pressed = true
 text = "pause"
 
 [node name="skip" type="PanelContainer" parent="Controls"]
@@ -215,6 +214,12 @@ layout_mode = 2
 text = "< presets"
 flat = true
 
+[connection signal="pressed" from="Timer/Add time/PanelContainer/Button" to="." method="add_session_length" binds= [1]]
+[connection signal="pressed" from="Timer/Add time/PanelContainer2/Button2" to="." method="add_session_length" binds= [5]]
+[connection signal="pressed" from="Timer/Add time/PanelContainer3/Button3" to="." method="add_session_length" binds= [10]]
+[connection signal="pressed" from="Timer/Deduct Time/PanelContainer/Button" to="." method="add_session_length" binds= [-1]]
+[connection signal="pressed" from="Timer/Deduct Time/PanelContainer2/Button2" to="." method="add_session_length" binds= [-5]]
+[connection signal="pressed" from="Timer/Deduct Time/PanelContainer3/Button3" to="." method="add_session_length" binds= [-10]]
 [connection signal="pressed" from="Controls/restart/Restart" to="Timer/VBoxContainer/Timer" method="restart"]
 [connection signal="pressed" from="Controls/Pause" to="." method="toggle_timer_pause"]
 [connection signal="pressed" from="Controls/skip/skip" to="." method="add_session"]
