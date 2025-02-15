@@ -32,9 +32,9 @@ func _update_text():
 	
 
 func _set_time(minutes: int, seconds: int):
-	var minutes_str = type_convert(minutes, TYPE_STRING)
-	var seconds_str = type_convert(seconds, TYPE_STRING)
-	label_timer = (("0" + minutes_str) if minutes < 10 else minutes_str) \
+	var minutes_str = str(minutes)
+	var seconds_str = str(seconds)
+	label_timer.text = (("0" + minutes_str) if minutes < 10 else minutes_str) \
 		+ ":" \
 		+ (("0" + seconds_str) if seconds < 10 else seconds_str)
 

@@ -47,7 +47,7 @@ func get_preset_current_session_ID(preset: Preset)-> int:
 	var query = "
 		select CurrentSessionID 
 		from Presets_Buffer 
-		where buffer_ID = " + str(preset.buffer_ID)
+		where ID = " + str(preset.buffer_ID)
 	DatabaseManager.db.query(query)
 	if not DatabaseManager.db.query_result.is_empty():
 		return DatabaseManager.db.query_result[0].get("CurrentSessionID")

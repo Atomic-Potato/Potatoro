@@ -17,9 +17,12 @@ func _ready():
 	db.path = db_path
 	db.open_db()
 	
-	# TODO: remove deleting db
 	if not is_db_exists:
 		create_db(db)
+		
+	# DANGER: Needs to be removed in production
+	db.verbosity_level = SQLite.VERY_VERBOSE
+	empty_sessions_data()
 
 func get_datetime(offset: String = '')-> String:
 	var query: String =\
@@ -27,6 +30,26 @@ func get_datetime(offset: String = '')-> String:
 		else "select datetime('now', '" + offset + "') as 'datetime'"
 	DatabaseManager.db.query(query)
 	return DatabaseManager.db.query_result[0].get("datetime")
+
+func empty_sessions_data():
+	var query = "
+		DELETE FROM Presets_Buffer;
+		DELETE FROM SessionPauses;
+		DELETE FROM SessionPauses_Buffer;
+		DELETE FROM Sessions_Buffer;
+		DELETE FROM Sessions;
+
+
+		DELETE FROM sqlite_sequence 
+		WHERE name in (
+			'Sessions_Buffer',
+			'Sessions',
+			'SessionPauses',
+			'SessionPauses_Buffer',
+			'Presets_Buffer'
+		);
+	"
+	db.query(query)
 
 # NOTE:
 #	- I created buffers to save on memory and query times

@@ -16,16 +16,16 @@ func _process(delta):
 
 func get_session_elapsed_time_in_seconds(session: Session)-> int:
 	DatabaseManager.db.query("
-		select unixepoch(" + DatabaseManager.get_datetime() +") 
-			- unixepoch(" + session.start_date_time + ") as ElapsedTime" 
+		select unixepoch('" + DatabaseManager.get_datetime() +"') 
+			- unixepoch('" + session.start_date_time + "') as ElapsedTime" 
 	)
 	var elapsed_time: int = DatabaseManager.db.query_result[0].get("ElapsedTime")
 	return elapsed_time - get_pauses_length_in_seconds_buffered(session.ID)
 
 func get_session_remaining_time_in_seconds(session: Session)-> int:
 	DatabaseManager.db.query("
-		select unixepoch(" + session.end_date_time +") 
-			- unixepoch(" + DatabaseManager.get_datetime() + ") as RemainingTime" 
+		select unixepoch('" + session.end_date_time +"') 
+			- unixepoch('" + DatabaseManager.get_datetime() + "') as RemainingTime" 
 	)
 	return DatabaseManager.db.query_result[0].get("RemainingTime")
 	
@@ -197,12 +197,12 @@ func save_buffered_session(session: Session)-> int:
 		buffered_ID = session.buffered_ID
 	else: #Insert
 		var query = "
-			insert into Sessions_Buffered(SessionID, TagID, StartDateTime, EndDateTime)
+			insert into Sessions_Buffer(SessionID, TagID, StartDateTime, EndDateTime)
 			values("\
 				+ str(session.ID) + ", "\
 				+ str(session.tag_ID)+ ", "\
-				+ str(session.start_date_time) + ", "\
-				+ str(session.end_date_time) +\
+				+ "'" + str(session.start_date_time) + "', "\
+				+ "'" + str(session.end_date_time) + "'" +\
 			")
 		"
 		#print(query)
