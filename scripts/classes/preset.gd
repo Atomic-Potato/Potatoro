@@ -7,15 +7,23 @@ class_name Preset extends Node
 @export var sessions_count: int:
 	set(value):
 		sessions_count = 0 if value < 0 else value
+	get:
+		return sessions_count
 @export var sessions_done: int:
 	set(value):
 		sessions_done = 0 if value < 0 else value
+	get:
+		return sessions_done
 @export var session_length: int:
 	set(value):
 		session_length = 0 if value < 0 else value
+	get:
+		return session_length
 @export var break_length: int:
 	set(value):
-		session_length = 0 if value < 0 else value
+		break_length = 0 if value < 0 else value
+	get:
+		return break_length
 @export var is_auto_start_break: bool
 @export var is_auto_start_session: bool
 

@@ -16,7 +16,6 @@ var session: Session
 func initialize(data: Dictionary):
 	preset = data.get("preset")
 	session = SessionsManager.get_session(PresetsManager.get_preset_current_session_ID(preset))
-	
 
 func _ready():
 	_update_titles_text()
