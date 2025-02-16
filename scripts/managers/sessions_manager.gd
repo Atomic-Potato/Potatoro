@@ -130,44 +130,19 @@ func get_session_id_elapsed_time_in_seconds(session_id: int)-> int:
 			- unixepoch('" + start_time + "') as ElapsedTime" 
 	)
 	var elapsed_time: int = DatabaseManager.db.query_result[0].get("ElapsedTime")
-	print("Elapsed no breaks: ", elapsed_time)
 	return elapsed_time - get_pauses_length_in_seconds_buffered(session_id)
 
-# DEPRECATED: Use get_session_id_remaining_time_in_seconds
-func get_session_remaining_time_in_seconds(session: Session)-> int:
-	DatabaseManager.db.query("
-		select unixepoch('" + session.end_date_time +"') 
-			- unixepoch('" + DatabaseManager.get_datetime() + "') as RemainingTime" 
-	)
-	return DatabaseManager.db.query_result[0].get("RemainingTime")
-
 func get_session_id_remaining_time_in_seconds(session_id: int)-> int:
-	DatabaseManager.db.query("select EndDateTime from Sessions_Buffer where SessionID = " + str(session_id))
-	if DatabaseManager.db.query_result.is_empty():
-		push_error("Could not find session ", str(session_id), " in sessions buffer!")
-		return 0
-	
-	if not DatabaseManager.db.query_result[0].get("EndDateTime") == null:
-		DatabaseManager.db.query("
-			select unixepoch('" + DatabaseManager.db.query_result[0].get("EndDateTime") +"') 
-				- unixepoch('" + DatabaseManager.get_datetime() + "') as RemainingTime" 
-		)
-		return DatabaseManager.db.query_result[0].get("RemainingTime")
-	else:
-		var preset: Preset = get_session_buffered_preset(session_id)
-		var elapsed_time: int = get_session_id_elapsed_time_in_seconds(session_id)
-		var remaining_time: int = preset.session_length * 60 - elapsed_time
-		print("Session length: ", preset.session_length * 60, "\nElapsed: ", elapsed_time, "\n result= ", remaining_time)
-		return remaining_time
+	var preset: Preset = get_session_buffered_preset(session_id)
+	var elapsed_time: int = get_session_id_elapsed_time_in_seconds(session_id)
+	var remaining_time: int = preset.session_length * 60 - elapsed_time
+	return remaining_time
 
 func get_pauses_length_in_seconds_buffered(session_id: int)-> int:
-	DatabaseManager.db.query("
-		select EndDateTime, unixepoch(EndDateTime) end, StartDateTime, unixepoch(StartDateTime), 
-		(unixepoch(EndDateTime) - unixepoch(StartDateTime)) offset
-		from SessionPauses_Buffer 
-		where SessionID = " + str(session_id) 
-	)
-	
+	DatabaseManager.db.query("select ID from SessionPauses_Buffer where SessionID = " + str(session_id))
+	if DatabaseManager.db.query_result.is_empty():
+		return 0
+		
 	DatabaseManager.db.query("
 		select sum(unixepoch(EndDateTime) - unixepoch(StartDateTime)) as length
 		from SessionPauses_Buffer 
