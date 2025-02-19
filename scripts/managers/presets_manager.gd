@@ -25,7 +25,7 @@ func get_presets() -> Array[Preset]:
 		preset.ID = i.get("ID", 0)
 		preset.buffer_ID = i.get("BufferID", 0) if i.get("BufferID") else 0
 		preset.default_tag_id = i.get("DefaultTagID", 0) if i.get("DefaultTagID") else  0
-		preset.name_ = i.get("Name", "[UNKNOWN]")
+		preset.name_ = str(i.get("Name", "[UNKNOWN]"))
 		preset.sessions_count = i.get("SessionsCount", 0)
 		preset.sessions_done = i.get("SessionsDone", 0) if i.get("SessionsDone") else 0
 		preset.session_length = i.get("SessionLength", 0)
@@ -176,10 +176,31 @@ func save_buffered_preset(preset: Preset, current_session_id: int)-> int:
 		#print(query)
 		return DatabaseManager.db.last_insert_rowid
 
-
-
-
-
-
-
-
+# force deleting deletes any running session that belongs to this preset
+func delete_preset(preset_id: int, is_force_delete: bool = false):
+	if not is_force_delete:
+		DatabaseManager.db.query("
+			select ID from Presets_Buffer where PresetID = " + str(preset_id))
+		if not DatabaseManager.db.query_result.is_empty():
+			push_error("Cannot delete preset that is buffered. Use force delete or question your life choices :D")
+			return
+		DatabaseManager.db.query("delete from Presets where ID = " + str(preset_id))
+	else:
+		DatabaseManager.db.query("
+			select CurrentSessionID from Presets_Buffer where PresetID = " + str(preset_id))
+		var current_session_id = DatabaseManager.db.query_result[0].get("CurrentSessionID")
+		if current_session_id:
+			DatabaseManager.db.query("
+				delete from SessionPauses_Buffer 
+				where SessionID = " + str(current_session_id) + ";
+				delete from Sessions_Buffer
+				where SessionID = " + str(current_session_id) + ";
+				delete from Sessions
+				where ID = " + str(current_session_id) + ";"
+			)
+		DatabaseManager.db.query("
+			delete from Presets_Buffer
+			where PresetID = " + str(preset_id) + ";
+			delete from Presets
+			where ID = " + str(preset_id) + ";"
+		)

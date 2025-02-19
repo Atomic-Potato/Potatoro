@@ -25,19 +25,20 @@ func _ready():
 	if default_3d_scene_res:
 		load_3d_scene(default_3d_scene_res)
 
-func load_gui_scene(scene_res: PackedScene, data: Dictionary = {}):
+func load_gui_scene(scene_res: PackedScene, data: Dictionary = {}, is_popup: bool = false):
 	if not scene_res:
 		push_error("Could not load GUI scene. resource not found!")
 		return
 	
-	if current_gui_scene:
+	if current_gui_scene and not is_popup:
 		current_gui_scene.queue_free()
-	current_gui_scene = scene_res.instantiate()
+	var instance = scene_res.instantiate()
+	current_gui_scene = instance if not is_popup else current_gui_scene
 	
 	if not data.is_empty():
-		if current_gui_scene.get_script():
-			if current_gui_scene.has_method("initialize"):
-				current_gui_scene.initialize(data)
+		if instance.get_script():
+			if instance.has_method("initialize"):
+				instance.initialize(data)
 			else:
 				push_error(
 					"Data was passed to " + scene_res.resource_name 
@@ -46,7 +47,7 @@ func load_gui_scene(scene_res: PackedScene, data: Dictionary = {}):
 			push_error("Data was passed to " + scene_res.resource_name 
 				+ " but no script was found")
 	
-	gui.add_child(current_gui_scene)
+	gui.add_child(instance)
 
 func load_2d_scene(scene_res: PackedScene):
 	if not scene_res:

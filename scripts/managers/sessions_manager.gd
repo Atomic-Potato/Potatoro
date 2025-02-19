@@ -2,9 +2,6 @@ extends Node
 
 var buffered_sessions: Array[Session]
 
-# TODO: 
-# - Get remaining time functions should return time regradless if sessions are paused
-
 func _ready():
 	update_buffered_sessions()
 
@@ -15,9 +12,10 @@ func _process(delta):
 			continue
 		var remaining_time: int = get_session_id_remaining_time_in_seconds(session.ID)
 		if remaining_time <= 0:
-			# TODO: notify subs
+			end_buffered_session(session.ID)
+			session.session_finish.emit()
+			update_buffered_sessions()
 			OS.alert("Session " + str(session.ID) + " has finished!", "Session " + str(session.ID))
-		pass
 
 func add_seconds_to_buffered_session_end_datetime(session_id: int, seconds: int):
 	DatabaseManager.db.query("select EndDateTime from Sessions_Buffer where SessionID = " + str(session_id))
@@ -134,6 +132,8 @@ func get_session_id_elapsed_time_in_seconds(session_id: int)-> int:
 
 func get_session_id_remaining_time_in_seconds(session_id: int)-> int:
 	var preset: Preset = get_session_buffered_preset(session_id)
+	if preset == null:
+		return 0
 	var elapsed_time: int = get_session_id_elapsed_time_in_seconds(session_id)
 	var remaining_time: int = preset.session_length * 60 - elapsed_time
 	return remaining_time
@@ -149,7 +149,6 @@ func get_pauses_length_in_seconds_buffered(session_id: int)-> int:
 		where SessionID = " + str(session_id)
 	)
 	if not DatabaseManager.db.query_result.is_empty():
-		print('Pauses length: ', DatabaseManager.db.query_result[0].get("length"))
 		return DatabaseManager.db.query_result[0].get("length")
 	return 0
 
@@ -222,13 +221,10 @@ func start_buffered_session(preset: Preset)-> Session:
 	session.buffered_ID = SessionsManager.save_buffered_session(session) 
 	return session
 
-func end_buffered_session(session: Session)-> Session:
-	if not session:
-		push_error("Cannot end null session!")
-		return null
-	DatabaseManager.db.query("select ID from Sessions_Buffer where ID = " + str(session.buffered_ID))
+func end_buffered_session(session_id: int)-> Session:
+	DatabaseManager.db.query("select ID from Sessions_Buffer where SessionID = " + str(session_id))
 	if DatabaseManager.db.query_result.is_empty():
-		push_error("Buffered Session ID " + str(session.buffered_ID) + " not found in buffer.")
+		push_error("Session ID " + str(session_id) + " not found in buffer.")
 		return null
 	
 	# Saving the session from buffer
@@ -239,11 +235,11 @@ func end_buffered_session(session: Session)-> Session:
 			+ "s.StartDateTime = sb.StartDateTime, "\
 			+ "s.EndDateTime = " + DatabaseManager.get_datetime() + " " +\
 		"from Sessions_Buffer sb 
-		where ID = " + str(session.ID)
+		where ID = " + str(session_id)
 	DatabaseManager.db.query(query)
 	query = "
 		delete from Sessions_Buffer
-		where ID = " + str(session.buffered_ID)
+		where SessionID = " + str(session_id)
 	DatabaseManager.db.query(query)
 	
 	# Saving session pauses from buffer
@@ -251,14 +247,23 @@ func end_buffered_session(session: Session)-> Session:
 		insert into SessionPauses(SessionID, StartDateTime, EndDateTime)
 		select SessionID, StartDateTime, EndDateTime
 		from SessionPauses_Buffer
-		where SessionID = " + str(session.ID)
+		where SessionID = " + str(session_id)
 	DatabaseManager.db.query(query)
 	query = "
 		delete from SessionPauses_Buffer
-		where SessionID = " + str(session.ID)
+		where SessionID = " + str(session_id)
+	
+	# Add done session to preset buffer
+	query = "
+		update Presets_Buffer
+		set 
+			CurrentSessionID = NULL,
+			SessionsDone = SessionsDone + 1
+		where CurrentSessionID = " + str(session_id)
+	DatabaseManager.db.query(query)
 	
 	update_buffered_sessions()
-	return get_session(session.ID)
+	return get_session(session_id)
 
 func save_session(session: Session):
 	if session.ID: #Update

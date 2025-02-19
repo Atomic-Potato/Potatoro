@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dn310bw2e6rsh"]
+[gd_scene load_steps=12 format=3 uid="uid://dn310bw2e6rsh"]
 
 [ext_resource type="Script" path="res://scripts/managers/application_manager.gd" id="1_jnciu"]
 [ext_resource type="PackedScene" uid="uid://b6ql7sj7pip6g" path="res://scenes/pages/preset/preset_page_presets.tscn" id="2_u2cnp"]
@@ -7,13 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://cy71rb02uwuce" path="res://scenes/pages/preset/elements/preset_info_card.tscn" id="4_fokkx"]
 [ext_resource type="PackedScene" uid="uid://b2ll8tut18nx6" path="res://scenes/pages/preset/preset_page_save_preset.tscn" id="5_umoqp"]
 [ext_resource type="PackedScene" uid="uid://k87ux2qmpcqj" path="res://scenes/pages/preset/preset_page_session.tscn" id="6_63ca6"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dngp7"]
-bg_color = Color(1, 1, 1, 0)
-border_width_left = 6
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color(1, 1, 1, 1)
+[ext_resource type="PackedScene" uid="uid://d0tnv5wrhpsaa" path="res://scenes/background.tscn" id="7_el64l"]
+[ext_resource type="PackedScene" uid="uid://b445jhovk6ton" path="res://scenes/delete_pop_up.tscn" id="7_gaism"]
+[ext_resource type="StyleBox" uid="uid://e1pmqc6hk18h" path="res://visual/style_boxes/window_borders.stylebox" id="8_lgf65"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rehx6"]
 
@@ -29,6 +25,7 @@ preset_info_card = ExtResource("4_fokkx")
 preset_page_presets = ExtResource("2_u2cnp")
 preset_page_save_preset = ExtResource("5_umoqp")
 preset_page_session = ExtResource("6_63ca6")
+popup_delete = ExtResource("7_gaism")
 
 [node name="World2D" type="Node2D" parent="."]
 
@@ -42,14 +39,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background" type="ColorRect" parent="GUI"]
+[node name="Background" parent="GUI" instance=ExtResource("7_el64l")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
 
 [node name="PanelContainer" type="PanelContainer" parent="GUI"]
 layout_mode = 1
@@ -58,7 +49,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_dngp7")
+theme_override_styles/panel = ExtResource("8_lgf65")
 
 [node name="VSplitContainer" type="VSplitContainer" parent="GUI/PanelContainer"]
 layout_mode = 2

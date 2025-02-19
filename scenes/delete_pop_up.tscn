@@ -1,0 +1,102 @@
+[gd_scene load_steps=6 format=3 uid="uid://b445jhovk6ton"]
+
+[ext_resource type="PackedScene" uid="uid://d0tnv5wrhpsaa" path="res://scenes/background.tscn" id="1_nvv76"]
+[ext_resource type="Script" path="res://scripts/pages/delete_pop_up.gd" id="1_wjpcs"]
+[ext_resource type="StyleBox" uid="uid://y330833esl23" path="res://visual/style_boxes/window_borders_RED.stylebox" id="2_sola6"]
+[ext_resource type="StyleBox" uid="uid://bo1oyq57a7jov" path="res://visual/style_boxes/button_delete.stylebox" id="3_5b7tq"]
+[ext_resource type="StyleBox" uid="uid://b3yau7t2ibgsv" path="res://visual/style_boxes/button_delete_hover.stylebox" id="4_wfn41"]
+
+[node name="DeletePopUp" type="Control" node_paths=PackedStringArray("label_delete_message")]
+custom_minimum_size = Vector2(350, 350)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wjpcs")
+label_delete_message = NodePath("Control/PanelContainer/deleteMessage")
+
+[node name="Input blocker" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(350, 350)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" parent="Control" instance=ExtResource("1_nvv76")]
+layout_mode = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("2_sola6")
+
+[node name="deleteMessage" type="Label" parent="Control/PanelContainer"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "[delete-message]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Are you sure my brother?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 40
+
+[node name="Yes" type="Button" parent="Control/PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("3_5b7tq")
+theme_override_styles/hover = ExtResource("4_wfn41")
+text = "YES"
+
+[node name="No" type="Button" parent="Control/PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("3_5b7tq")
+theme_override_styles/hover = ExtResource("4_wfn41")
+text = "NO
+"
+
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/HBoxContainer/Yes" to="." method="accept"]
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/HBoxContainer/No" to="." method="decline"]

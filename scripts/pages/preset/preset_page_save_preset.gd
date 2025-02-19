@@ -20,6 +20,9 @@ func initialize(data: Dictionary):
 	auto_session_toggle.button_pressed = preset.is_auto_start_session
 	auto_break_toggle.button_pressed = preset.is_auto_start_break
 
+func _load_prests_page():
+	Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_presets)
+
 func _save_preset_data():
 	if not preset_edit.text:
 		push_warning("Preset name not set")
@@ -43,3 +46,27 @@ func _start_preset():
 	var session:Session = SessionsManager.start_buffered_session(preset)
 	preset.buffer_ID = PresetsManager.save_buffered_preset(preset, session.ID)
 	Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_session, {"preset": preset})
+
+func _delete_preset():
+	if preset:
+		Global.AppMan.load_gui_scene(
+			Global.SceneCont.popup_delete, 
+			{"DeleteMessage": "delete preset " + preset.name_ + "?", "Callable": _delete_preset_callable},
+			true
+		)
+		
+	else:
+		preset_edit.text = ''
+		tag_edit.text = ''
+		session_count_edit.text = ''
+		session_length_edit.text = ''
+		break_length_edit.text = ''
+		auto_break_toggle.button_pressed = false
+		auto_session_toggle.button_pressed = false
+
+
+func _delete_preset_callable(is_delete_confirmed: bool):
+	if not is_delete_confirmed:
+		return
+	PresetsManager.delete_preset(preset.ID)
+	Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_presets)
