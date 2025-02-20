@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://k87ux2qmpcqj"]
+[gd_scene load_steps=6 format=3 uid="uid://k87ux2qmpcqj"]
 
 [ext_resource type="StyleBox" uid="uid://dhtti43gywwuo" path="res://visual/style_boxes/button.stylebox" id="2_nkr8a"]
+[ext_resource type="StyleBox" uid="uid://c4ccjefbdbl2j" path="res://visual/style_boxes/button_hover.stylebox" id="3_161tp"]
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_session.gd" id="3_p5ysi"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_noh7n"]
@@ -91,70 +92,70 @@ layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="Timer/Add time"]
-custom_minimum_size = Vector2(100, 0)
+[node name="Button" type="Button" parent="Timer/Add time"]
+custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme_override_styles/panel = ExtResource("2_nkr8a")
-
-[node name="Button" type="Button" parent="Timer/Add time/PanelContainer"]
-layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/hover = ExtResource("3_161tp")
 text = "+1 min"
-flat = true
 
-[node name="PanelContainer2" type="PanelContainer" parent="Timer/Add time"]
-custom_minimum_size = Vector2(100, 0)
+[node name="Button2" type="Button" parent="Timer/Add time"]
+custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme_override_styles/panel = ExtResource("2_nkr8a")
-
-[node name="Button2" type="Button" parent="Timer/Add time/PanelContainer2"]
-layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/hover = ExtResource("3_161tp")
 text = "+5 min"
-flat = true
 
-[node name="PanelContainer3" type="PanelContainer" parent="Timer/Add time"]
-custom_minimum_size = Vector2(100, 0)
+[node name="Button3" type="Button" parent="Timer/Add time"]
+custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme_override_styles/panel = ExtResource("2_nkr8a")
-
-[node name="Button3" type="Button" parent="Timer/Add time/PanelContainer3"]
-layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/hover = ExtResource("3_161tp")
 text = "+10 min"
-flat = true
 
 [node name="Deduct Time" type="HBoxContainer" parent="Timer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="Timer/Deduct Time"]
-custom_minimum_size = Vector2(100, 0)
+[node name="Button" type="Button" parent="Timer/Deduct Time"]
+custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme_override_styles/panel = ExtResource("2_nkr8a")
-
-[node name="Button" type="Button" parent="Timer/Deduct Time/PanelContainer"]
-layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/hover = ExtResource("3_161tp")
 text = "-1 min"
-flat = true
 
-[node name="PanelContainer2" type="PanelContainer" parent="Timer/Deduct Time"]
-custom_minimum_size = Vector2(100, 0)
+[node name="Button2" type="Button" parent="Timer/Deduct Time"]
+custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme_override_styles/panel = ExtResource("2_nkr8a")
-
-[node name="Button2" type="Button" parent="Timer/Deduct Time/PanelContainer2"]
-layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/hover = ExtResource("3_161tp")
 text = "-5 min"
-flat = true
 
-[node name="PanelContainer3" type="PanelContainer" parent="Timer/Deduct Time"]
-custom_minimum_size = Vector2(100, 0)
+[node name="Button3" type="Button" parent="Timer/Deduct Time"]
+custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme_override_styles/panel = ExtResource("2_nkr8a")
-
-[node name="Button3" type="Button" parent="Timer/Deduct Time/PanelContainer3"]
-layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/hover = ExtResource("3_161tp")
 text = "-10 min"
-flat = true
+
+[node name="Button" type="Button" parent="Timer"]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/hover = ExtResource("3_161tp")
+text = "-1 sec (DEBUG)"
 
 [node name="Controls" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -214,12 +215,12 @@ layout_mode = 2
 text = "< presets"
 flat = true
 
-[connection signal="pressed" from="Timer/Add time/PanelContainer/Button" to="." method="add_session_length" binds= [1]]
-[connection signal="pressed" from="Timer/Add time/PanelContainer2/Button2" to="." method="add_session_length" binds= [5]]
-[connection signal="pressed" from="Timer/Add time/PanelContainer3/Button3" to="." method="add_session_length" binds= [10]]
-[connection signal="pressed" from="Timer/Deduct Time/PanelContainer/Button" to="." method="add_session_length" binds= [-1]]
-[connection signal="pressed" from="Timer/Deduct Time/PanelContainer2/Button2" to="." method="add_session_length" binds= [-5]]
-[connection signal="pressed" from="Timer/Deduct Time/PanelContainer3/Button3" to="." method="add_session_length" binds= [-10]]
+[connection signal="pressed" from="Timer/Add time/Button" to="." method="add_session_length" binds= [1]]
+[connection signal="pressed" from="Timer/Add time/Button2" to="." method="add_session_length" binds= [5]]
+[connection signal="pressed" from="Timer/Add time/Button3" to="." method="add_session_length" binds= [10]]
+[connection signal="pressed" from="Timer/Deduct Time/Button" to="." method="add_session_length" binds= [-1]]
+[connection signal="pressed" from="Timer/Deduct Time/Button2" to="." method="add_session_length" binds= [-5]]
+[connection signal="pressed" from="Timer/Deduct Time/Button3" to="." method="add_session_length" binds= [-10]]
 [connection signal="pressed" from="Controls/restart/Restart" to="Timer/VBoxContainer/Timer" method="restart"]
 [connection signal="pressed" from="Controls/Pause" to="." method="toggle_timer_pause"]
 [connection signal="pressed" from="Controls/skip/skip" to="." method="add_session"]

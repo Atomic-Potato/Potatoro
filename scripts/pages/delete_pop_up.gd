@@ -14,3 +14,4 @@ func accept():
 func decline():
 	response.emit(false)
 	queue_free()
+
