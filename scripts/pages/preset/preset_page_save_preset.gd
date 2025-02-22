@@ -43,6 +43,8 @@ func _save_preset_data():
 	Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_presets)
 
 func _start_preset():
+	if not preset:
+		_save_preset_data()
 	var session:Session = SessionsManager.start_buffered_session(preset)
 	preset.buffer_ID = PresetsManager.save_buffered_preset(preset, session.ID)
 	Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_session, {"preset": preset})
