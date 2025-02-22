@@ -282,6 +282,49 @@ func end_buffered_session(session_id: int)-> Session:
 	update_buffered_sessions()
 	return get_session(session_id)
 
+func restart_buffered_session(session_id: int)-> Session:
+	DatabaseManager.db.query("select ID from Sessions_Buffer where SessionID = " + str(session_id))
+	if DatabaseManager.db.query_result.is_empty():
+		push_error("Session ID " + str(session_id) + " not found in buffer.")
+		return null
+	
+	# Reseting start and end time
+	#DatabaseManager.db.query("
+		#update Sessions_Buffer
+		#set 
+			#StartDateTime = s.StartDateTime,
+			#EndDateTime = s.EndDateTime
+		#from Sessions s
+		#where SessionID = " + str(session_id)
+	#)
+	
+	# Deleting pauses
+	DatabaseManager.db.query("
+		delete from SessionPauses_Buffer
+		where SessionID = " + str(session_id)
+	)
+	
+	# Reseting preset buffer session length
+	DatabaseManager.db.query("
+		update Presets_Buffer
+		set SessionLength = p.SessionLength
+		from Presets p
+		where CurrentSessionID = " + str(session_id)
+	)
+	
+	# Updating session start and end times
+	DatabaseManager.db.query("
+		select SessionLength from Presets_Buffer where CurrentSessionID = " + str(session_id))
+	var session_length = str(DatabaseManager.db.query_result[0].get("SessionLength"))
+	
+	var updated_session = get_session(session_id)
+	updated_session.start_date_time = DatabaseManager.get_datetime()
+	updated_session.end_date_time = DatabaseManager.get_datetime('+' + session_length + ' minutes')
+	save_session(updated_session)
+	save_buffered_session(updated_session) 
+	
+	return updated_session
+
 func save_session(session: Session):
 	if session.ID: #Update
 		DatabaseManager.db.query("select ID from Sessions where ID = " + str(session.ID))
@@ -293,8 +336,8 @@ func save_session(session: Session):
 			update Sessions_Buffer
 			set "\
 				+ "TagID = " + str(session.tag_ID)+ ", "\
-				+ "StartDateTime = " + str(session.start_date_time) + ", "\
-				+ "EndDateTime = " + str(session.end_date_time) + " " +\
+				+ "StartDateTime = '" + str(session.start_date_time) + "', "\
+				+ "EndDateTime = '" + str(session.end_date_time) + "' " +\
 			"where ID = " + str(session.ID)
 		
 		DatabaseManager.db.query(query)
@@ -324,8 +367,8 @@ func save_buffered_session(session: Session)-> int:
 			update Sessions_Buffer
 			set "\
 				+ "TagID = " + str(session.tag_ID)+ ", "\
-				+ "StartDateTime = " + str(session.start_date_time) + ", "\
-				+ "EndDateTime = " + str(session.end_date_time) + " " +\
+				+ "StartDateTime = '" + str(session.start_date_time) + "', "\
+				+ "EndDateTime = '" + str(session.end_date_time) + "' " +\
 			"where ID = " + str(session.buffered_ID)
 		DatabaseManager.db.query(query)
 		buffered_ID = session.buffered_ID
