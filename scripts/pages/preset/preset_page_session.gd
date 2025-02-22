@@ -4,6 +4,7 @@ var preset: Preset
 var session: Session
 
 @export var is_use_24_hour_format: bool = false # TODO: Get this data from the config table
+@export var finish_message: String = 'FIN!'
 @export_category("Nodes")
 @export var label_preset_name: Label
 @export var label_sessions_count: Label
@@ -15,9 +16,10 @@ var session: Session
 
 var update_preset: Callable = func(): preset = PresetsManager.get_preset(preset.ID)
 
+
 func initialize(data: Dictionary):
 	preset = data.get("preset")
-	session = SessionsManager.get_session(PresetsManager.get_preset_current_session_ID(preset))
+	session = SessionsManager.get_loaded_buffered_session(PresetsManager.get_preset_current_session_ID(preset))
 	session.session_finish.connect(update_preset)
 	session.session_finish.connect(_update_titles_text)
 
@@ -29,6 +31,8 @@ func _ready():
 	_update_finish_hour()
 
 func _process(delta):
+	if not (preset and PresetsManager.get_preset_current_session_ID(preset)):
+		return
 	if not SessionsManager.is_session_paused(session.ID):
 		_update_timer_text()
 
@@ -52,12 +56,18 @@ func toggle_timer_pause():
 	_update_finish_hour()
 	# TODO: Play blinking animations
 
+func _toggle_time_manipulation_controls_visibility(toggle_to: bool):
+	pass
+
 func _update_titles_text():
 	label_preset_name.text = preset.name_
 	label_sessions_count.text = str(preset.sessions_done) + "/" + str(preset.sessions_count)
 
 func _update_timer_text():
 	if SessionsManager.is_session_paused(session.ID):
+		return 
+	if SessionsManager.get_session_id_remaining_time_in_seconds(session.ID) <= 0:
+		label_timer.text = finish_message
 		return
 	var remaining_time_in_seconds = SessionsManager.get_session_id_remaining_time_in_seconds(session.ID)
 	_set_time(remaining_time_in_seconds / 60, remaining_time_in_seconds % 60)
@@ -70,7 +80,8 @@ func _set_time(minutes: int, seconds: int):
 		+ (("0" + seconds_str) if seconds < 10 else seconds_str)
 
 func _update_finish_hour():
-	if SessionsManager.is_session_paused(session.ID):
+	if SessionsManager.is_session_paused(session.ID) \
+	or SessionsManager.get_session_id_remaining_time_in_seconds(session.ID) <= 0:
 		label_finish_hour.text = ""
 		return
 	

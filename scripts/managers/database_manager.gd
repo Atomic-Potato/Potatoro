@@ -21,7 +21,7 @@ func _ready():
 		create_db(db)
 		
 	# DANGER: Needs to be removed in production
-	#db.verbosity_level = SQLite.VERY_VERBOSE
+	#db.verbosity_level = SQLite.VERBOSE
 	empty_sessions_data()
 
 func get_datetime(offset: String = '', start_date: String = 'now')-> String:

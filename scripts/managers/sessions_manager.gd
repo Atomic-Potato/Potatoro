@@ -15,7 +15,7 @@ func _process(delta):
 			end_buffered_session(session.ID)
 			session.session_finish.emit()
 			update_buffered_sessions()
-			OS.alert("Session " + str(session.ID) + " has finished!", "Session " + str(session.ID))
+			#OS.alert("Session " + str(session.ID) + " has finished!", "Session " + str(session.ID))
 
 func add_seconds_to_buffered_session_end_datetime(session_id: int, seconds: int):
 	DatabaseManager.db.query("select EndDateTime from Sessions_Buffer where SessionID = " + str(session_id))
@@ -173,6 +173,14 @@ func get_session(session_id: int)-> Session:
 	
 	return session
 
+# Retunrs the the session from the global array of buffered_sessions
+func get_loaded_buffered_session(session_id)-> Session:
+	for bs in buffered_sessions:
+		if bs.ID == session_id:
+			return bs # RETURN BULLSHIT YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+	push_error("Session ID ", session_id, " not found loaded buffered sessions!")
+	return null
+
 func get_buffered_session(session_id: int)-> Session:
 	DatabaseManager.db.query("select * from Sessions_Buffer where SessionID = " + str(session_id))
 	if DatabaseManager.db.query_result.is_empty():
@@ -229,13 +237,14 @@ func end_buffered_session(session_id: int)-> Session:
 	
 	# Saving the session from buffer
 	var query = "
-		update Sessions s
+		update Sessions
 		set "\
-			+ "s.TagID = sb.TagID, "\
-			+ "s.StartDateTime = sb.StartDateTime, "\
-			+ "s.EndDateTime = " + DatabaseManager.get_datetime() + " " +\
+			+ "TagID = sb.TagID, "\
+			+ "StartDateTime = sb.StartDateTime, "\
+			+ "EndDateTime = '" + DatabaseManager.get_datetime() + "' " +\
 		"from Sessions_Buffer sb 
-		where ID = " + str(session_id)
+		where Sessions.ID = " + str(session_id)
+	print(query)
 	DatabaseManager.db.query(query)
 	query = "
 		delete from Sessions_Buffer
@@ -253,12 +262,20 @@ func end_buffered_session(session_id: int)-> Session:
 		delete from SessionPauses_Buffer
 		where SessionID = " + str(session_id)
 	
-	# Add done session to preset buffer
+	# Add done session to preset buffer and reset non temp values
 	query = "
 		update Presets_Buffer
-		set 
-			CurrentSessionID = NULL,
-			SessionsDone = SessionsDone + 1
+		set
+			DefaultTagID = p.DefaultTagID,
+			CurrentSessionID = null,
+			SessionsDone = SessionsDone + 1,
+			Name = p.Name,
+			SessionsCount = p.SessionsCount,
+			SessionLength = p.SessionLength,
+			BreakLength = p.BreakLength,
+			isAutoStartBreak = p.isAutoStartBreak, 
+			isAutoStartSession = p.isAutoStartSession 
+		from Presets p
 		where CurrentSessionID = " + str(session_id)
 	DatabaseManager.db.query(query)
 	

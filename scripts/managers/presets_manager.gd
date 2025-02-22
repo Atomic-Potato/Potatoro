@@ -50,7 +50,8 @@ func get_preset_current_session_ID(preset: Preset)-> int:
 		where ID = " + str(preset.buffer_ID)
 	DatabaseManager.db.query(query)
 	if not DatabaseManager.db.query_result.is_empty():
-		return DatabaseManager.db.query_result[0].get("CurrentSessionID")
+		var current_session_id = DatabaseManager.db.query_result[0].get("CurrentSessionID")
+		return current_session_id if current_session_id else 0
 	return 0
 
 func get_preset(preset_id: int)-> Preset:
@@ -204,3 +205,45 @@ func delete_preset(preset_id: int, is_force_delete: bool = false):
 			delete from Presets
 			where ID = " + str(preset_id) + ";"
 		)
+
+# simply resets all the values except SessionsDone
+func reset_preset_buffer_non_temp_values(preset_id: int)-> Preset:
+	DatabaseManager.db.query("select ID from Presets_Buffer where PresetID = " + str(preset_id))
+	if DatabaseManager.db.query_result.is_empty():
+		push_error("Cannot reset preset buffer. ID ", preset_id, " not found!")
+		return null
+	
+	DatabaseManager.db.query("
+		update Presets_Buffer
+		set
+			DefaultTagID = p.DefaultTagID,
+			CurrentSessionID = null,
+			Name = p.Name,
+			SessionsCount = p.SessionsCount,
+			SessionLength = p.SessionLength,
+			BreakLength = p.BreakLength,
+			isAutoStartBreak = p.isAutoStartBreak, 
+			isAutoStartSession = p.isAutoStartSession 
+		from Presets p
+		where PresetID = " + str(preset_id) 
+	)
+	
+	return get_preset(preset_id)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
