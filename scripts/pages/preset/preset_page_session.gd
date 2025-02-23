@@ -57,7 +57,8 @@ func toggle_timer_pause():
 	# TODO: Play blinking animations
 
 func _restart_session():
-	SessionsManager.restart_buffered_session(session.ID)
+	session = SessionsManager.restart_buffered_session(session.ID)
+	preset = PresetsManager.get_preset(preset.ID)
 
 func _toggle_time_manipulation_controls_visibility(toggle_to: bool):
 	pass
