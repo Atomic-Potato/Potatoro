@@ -19,18 +19,25 @@ class_name Preset extends Node
 		session_length = 0 if value < 0 else value
 	get:
 		return session_length
+@export var added_session_length: int :
+	set(value):
+		added_session_length = 0 if value < 0 else value
+	get:
+		return added_session_length
 @export var break_length: int:
 	set(value):
 		break_length = 0 if value < 0 else value
 	get:
 		return break_length
+@export var break_end_datetime: String
 @export var is_auto_start_break: bool
 @export var is_auto_start_session: bool
 
 func _init(
-	_ID: int = 0, _buffer_ID: int = 0, _default_tag_id: int = 0, _name_: String = '',
-	_sessions_count: int = 0 , _sessions_done: int = 0, _session_length: int = 0,
-	_break_length: int = 0, _is_auto_start_break: bool = false, _is_auto_start_session: bool = false):
+_ID: int = 0, _buffer_ID: int = 0, _default_tag_id: int = 0, _name_: String = '',
+_sessions_count: int = 0 , _sessions_done: int = 0, _session_length: int = 0,
+_break_length: int = 0, _is_auto_start_break: bool = false, _is_auto_start_session: bool = false,
+_added_session_length: int = 0, _break_end_datetime: String = ''):
 	
 	self.ID = _ID
 	self.buffer_ID = _buffer_ID
@@ -42,3 +49,5 @@ func _init(
 	self.break_length = _break_length
 	self.is_auto_start_break = _is_auto_start_break
 	self.is_auto_start_session = _is_auto_start_session
+	self.added_session_length = _added_session_length
+	self.break_end_datetime = _break_end_datetime

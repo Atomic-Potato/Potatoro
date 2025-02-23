@@ -54,7 +54,7 @@ func load_preset_page_presets():
 	Global.AppMan.load_gui_page(Global.SceneCont.preset_page_presets)
 
 func add_session_length(minutes: int):
-	preset.session_length += minutes
+	preset.added_session_length += minutes
 	PresetsManager.save_buffered_preset(preset, PresetsManager.get_preset_current_session_ID(preset))
 	SessionsManager.add_seconds_to_buffered_session_end_datetime(session.ID, minutes * 60)
 	preset = PresetsManager.get_preset(preset.ID)

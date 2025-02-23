@@ -85,24 +85,12 @@ func resume_session(session_id: int, preset_id: int):
 
 func get_session_buffered_preset(session_id: int)-> Preset:
 	DatabaseManager.db.query("
-		select * from Presets_Buffer where CurrentSessionID = " + str(session_id)
+		select PresetID from Presets_Buffer where CurrentSessionID = " + str(session_id)
 	)
 	if DatabaseManager.db.query_result.is_empty():
 		push_error("Could not find buffered preset with the CurrentSessionID " + str(session_id))
 		return null
-	var preset: Preset = Preset.new(
-		DatabaseManager.db.query_result[0].get("PresetID"),
-		DatabaseManager.db.query_result[0].get("ID"),
-		DatabaseManager.db.query_result[0].get("DefaultTagID"),
-		DatabaseManager.db.query_result[0].get("Name"),
-		DatabaseManager.db.query_result[0].get("SessionsCount"),
-		DatabaseManager.db.query_result[0].get("SessionsDone"),
-		DatabaseManager.db.query_result[0].get("SessionLength"),
-		DatabaseManager.db.query_result[0].get("BreakLength"),
-		DatabaseManager.db.query_result[0].get("isAutoStartBreak"),
-		DatabaseManager.db.query_result[0].get("isAutoStartSession"),
-	)
-	return preset
+	return _get_preset(DatabaseManager.db.query_result[0].get("PresetID"))
 
 func get_session_elapsed_time_in_seconds(session: Session)-> int:
 	DatabaseManager.db.query("
@@ -133,7 +121,7 @@ func get_session_id_remaining_time_in_seconds(session_id: int)-> int:
 	if preset == null:
 		return 0
 	var elapsed_time: int = get_session_id_elapsed_time_in_seconds(session_id)
-	var remaining_time: int = preset.session_length * 60 - elapsed_time
+	var remaining_time: int = (preset.session_length + preset.added_session_length) * 60 - elapsed_time
 	return remaining_time
 
 func get_pauses_length_in_seconds_buffered(session_id: int)-> int:
@@ -219,7 +207,7 @@ func update_buffered_sessions():
 			i.get("StartDateTime", ""),
 			i.get("EndDateTime", ""),
 		)
-		buffered_sessions.append(session)
+		new_buffered_sessions.append(session)
 	
 	var removed_sessions: Array[Session] = []
 	for bs in buffered_sessions:
@@ -281,8 +269,11 @@ func end_buffered_session(session_id: int)-> Session:
 	query = "
 		delete from SessionPauses_Buffer
 		where SessionID = " + str(session_id)
+	DatabaseManager.db.query(query)
 	
 	# Add done session to preset buffer and reset non temp values
+	# NOTE: session length resets when a new session starts
+	# it is kept in case of a restart at the finish screen
 	query = "
 		update Presets_Buffer
 		set
@@ -291,8 +282,9 @@ func end_buffered_session(session_id: int)-> Session:
 			SessionsDone = SessionsDone + 1,
 			Name = p.Name,
 			SessionsCount = p.SessionsCount,
-			SessionLength = p.SessionLength,
+			AddedSessionLength = 0,
 			BreakLength = p.BreakLength,
+			BreakEndDateTime = '',
 			isAutoStartBreak = p.isAutoStartBreak, 
 			isAutoStartSession = p.isAutoStartSession 
 		from Presets p
@@ -332,7 +324,7 @@ func restart_session(session_id: int, preset_id: int)-> Session:
 	DatabaseManager.db.query("
 		update Presets_Buffer
 		set 
-			SessionLength = p.SessionLength,
+			AddedSessionLength = 0,
 			SessionsDone = SessionsDone - 1
 		from Presets p
 		where PresetID = " + str(preset_id)
@@ -373,7 +365,7 @@ func restart_buffered_session(session_id: int)-> Session:
 	# Reseting preset buffer session length
 	DatabaseManager.db.query("
 		update Presets_Buffer
-		set SessionLength = p.SessionLength
+		set AddedSessionLength = 0
 		from Presets p
 		where CurrentSessionID = " + str(session_id)
 	)
@@ -456,7 +448,8 @@ func save_buffered_session(session: Session)-> int:
 	update_buffered_sessions()
 	return buffered_ID
 
-# NOTE: Intended for use only in this class
+# NOTE: Intended for use only in this class, 
+# i should really combine PresetsManager and SessionsManager
 func _get_preset(preset_id: int)-> Preset:
 	DatabaseManager.db.query("select * from Presets_Buffer where PresetID = " + str(preset_id))
 	if not DatabaseManager.db.query_result.is_empty():
@@ -471,6 +464,8 @@ func _get_preset(preset_id: int)-> Preset:
 			DatabaseManager.db.query_result[0].get("BreakLength"),
 			DatabaseManager.db.query_result[0].get("isAutoStartBreak"),
 			DatabaseManager.db.query_result[0].get("isAutoStartSession"),
+			DatabaseManager.db.query_result[0].get("AddedSessionLength"),
+			DatabaseManager.db.query_result[0].get("BreakEndDateTime")
 		)
 	DatabaseManager.db.query("select * from Presets where ID = " + str(preset_id))
 	if not DatabaseManager.db.query_result.is_empty():
@@ -485,6 +480,8 @@ func _get_preset(preset_id: int)-> Preset:
 			DatabaseManager.db.query_result[0].get("BreakLength"),
 			DatabaseManager.db.query_result[0].get("isAutoStartBreak"),
 			DatabaseManager.db.query_result[0].get("isAutoStartSession"),
+			0,
+			''
 		)
 	push_error("Cant find preset with ID " + str(preset_id))
 	return null
