@@ -8,9 +8,9 @@ class_name Session extends Node
 
 signal session_finish
 
-func _init(ID: int = 0, buffered_ID: int = 0, tag_ID: int = 0, start_date_time: String = '', end_date_time: String = ''):
-	self.ID = ID
-	self.buffered_ID = buffered_ID
-	self.tag_ID = tag_ID
-	self.start_date_time = start_date_time
-	self.end_date_time = end_date_time
+func _init(_ID: int = 0, _buffered_ID: int = 0, _tag_ID: int = 0, _start_date_time: String = '', _end_date_time: String = ''):
+	self.ID = _ID
+	self.buffered_ID = _buffered_ID
+	self.tag_ID = _tag_ID
+	self.start_date_time = _start_date_time
+	self.end_date_time = _end_date_time

@@ -13,7 +13,7 @@ class_name TitleBar extends Control
 var is_left_mouse_button_held: bool
 var mouse_pressed_position_offset: Vector2i
 
-func _process(delta):
+func _process(_delta):
 	if is_left_mouse_button_held:
 		var new_position = \
 			DisplayServer.mouse_get_position() + mouse_pressed_position_offset

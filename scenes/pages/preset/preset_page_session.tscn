@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://k87ux2qmpcqj"]
+[gd_scene load_steps=7 format=3 uid="uid://k87ux2qmpcqj"]
 
 [ext_resource type="StyleBox" uid="uid://dhtti43gywwuo" path="res://visual/style_boxes/button.stylebox" id="2_nkr8a"]
 [ext_resource type="StyleBox" uid="uid://c4ccjefbdbl2j" path="res://visual/style_boxes/button_hover.stylebox" id="3_161tp"]
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_session.gd" id="3_p5ysi"]
+[ext_resource type="StyleBox" uid="uid://bailsyf88hhr0" path="res://visual/style_boxes/button_pressed.stylebox" id="4_o4ufo"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_noh7n"]
 
@@ -10,7 +11,7 @@
 line_spacing = 0.0
 font_size = 100
 
-[node name="PresetPageSession" type="Control" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "label_finish_hour", "label_timer", "pause_toggle")]
+[node name="PresetPageSession" type="Control" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "label_finish_hour", "label_timer", "pause_toggle", "content_default", "content_timer", "content_finish")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,9 +21,12 @@ grow_vertical = 2
 script = ExtResource("3_p5ysi")
 label_preset_name = NodePath("info/preset")
 label_sessions_count = NodePath("info/HBoxContainer/session count")
-label_finish_hour = NodePath("Timer/VBoxContainer/finish hour")
-label_timer = NodePath("Timer/VBoxContainer/Timer")
-pause_toggle = NodePath("Controls/Pause")
+label_finish_hour = NodePath("Content/Timer/Timer/VBoxContainer/finish hour")
+label_timer = NodePath("Content/Timer/Timer/VBoxContainer/Timer")
+pause_toggle = NodePath("Content/Timer/Controls/Pause")
+content_default = NodePath("Content/Timer")
+content_timer = NodePath("Content/Timer")
+content_finish = NodePath("Content/Finish")
 
 [node name="info" type="VBoxContainer" parent="."]
 layout_direction = 1
@@ -54,45 +58,61 @@ text = "sessions "
 layout_mode = 2
 text = "0/~"
 
-[node name="Timer" type="VBoxContainer" parent="."]
+[node name="Content" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Timer" type="Control" parent="Content"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Timer" type="VBoxContainer" parent="Content/Timer"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -64.0
-offset_right = 100.0
-offset_bottom = 64.0
+offset_left = -170.0
+offset_top = -131.5
+offset_right = 170.0
+offset_bottom = 131.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Timer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Content/Timer/Timer"]
 layout_mode = 2
 theme_override_constants/separation = -10
 
-[node name="finish hour" type="Label" parent="Timer/VBoxContainer"]
+[node name="finish hour" type="Label" parent="Content/Timer/Timer/VBoxContainer"]
 layout_mode = 2
 text = "10:00 am"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Timer" type="Label" parent="Timer/VBoxContainer"]
+[node name="Timer" type="Label" parent="Content/Timer/Timer/VBoxContainer"]
 layout_mode = 2
 text = "50:00"
 label_settings = SubResource("LabelSettings_x63tv")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Add time" type="HBoxContainer" parent="Timer"]
+[node name="Add time" type="HBoxContainer" parent="Content/Timer/Timer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="Button" type="Button" parent="Timer/Add time"]
+[node name="Button" type="Button" parent="Content/Timer/Timer/Add time"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -101,7 +121,7 @@ theme_override_styles/normal = ExtResource("2_nkr8a")
 theme_override_styles/hover = ExtResource("3_161tp")
 text = "+1 min"
 
-[node name="Button2" type="Button" parent="Timer/Add time"]
+[node name="Button2" type="Button" parent="Content/Timer/Timer/Add time"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -110,7 +130,7 @@ theme_override_styles/normal = ExtResource("2_nkr8a")
 theme_override_styles/hover = ExtResource("3_161tp")
 text = "+5 min"
 
-[node name="Button3" type="Button" parent="Timer/Add time"]
+[node name="Button3" type="Button" parent="Content/Timer/Timer/Add time"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -119,12 +139,12 @@ theme_override_styles/normal = ExtResource("2_nkr8a")
 theme_override_styles/hover = ExtResource("3_161tp")
 text = "+10 min"
 
-[node name="Deduct Time" type="HBoxContainer" parent="Timer"]
+[node name="Deduct Time" type="HBoxContainer" parent="Content/Timer/Timer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="Button" type="Button" parent="Timer/Deduct Time"]
+[node name="Button" type="Button" parent="Content/Timer/Timer/Deduct Time"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -133,7 +153,7 @@ theme_override_styles/normal = ExtResource("2_nkr8a")
 theme_override_styles/hover = ExtResource("3_161tp")
 text = "-1 min"
 
-[node name="Button2" type="Button" parent="Timer/Deduct Time"]
+[node name="Button2" type="Button" parent="Content/Timer/Timer/Deduct Time"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -142,7 +162,7 @@ theme_override_styles/normal = ExtResource("2_nkr8a")
 theme_override_styles/hover = ExtResource("3_161tp")
 text = "-5 min"
 
-[node name="Button3" type="Button" parent="Timer/Deduct Time"]
+[node name="Button3" type="Button" parent="Content/Timer/Timer/Deduct Time"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -151,7 +171,7 @@ theme_override_styles/normal = ExtResource("2_nkr8a")
 theme_override_styles/hover = ExtResource("3_161tp")
 text = "-10 min"
 
-[node name="-1 sec (DEBUG)" type="Button" parent="Timer"]
+[node name="-1 sec (DEBUG)" type="Button" parent="Content/Timer/Timer"]
 visible = false
 layout_mode = 2
 theme_override_styles/normal = ExtResource("2_nkr8a")
@@ -159,22 +179,23 @@ theme_override_styles/hover = ExtResource("3_161tp")
 text = "-1 sec (DEBUG) doesnt work, 
 didnt bother implementing it"
 
-[node name="Controls" type="HBoxContainer" parent="."]
+[node name="Controls" type="HBoxContainer" parent="Content/Timer"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -126.5
-offset_top = -58.0
-offset_right = 126.5
-offset_bottom = -21.0
+offset_left = -151.5
+offset_top = -54.75
+offset_right = 151.5
+offset_bottom = -17.75
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/separation = 25
 alignment = 1
 
-[node name="Restart" type="Button" parent="Controls"]
+[node name="Restart" type="Button" parent="Content/Timer/Controls"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -183,11 +204,20 @@ theme_override_styles/normal = ExtResource("2_nkr8a")
 theme_override_styles/hover = ExtResource("3_161tp")
 text = "RESTART"
 
-[node name="Pause" type="CheckButton" parent="Controls"]
+[node name="Pause" type="CheckButton" parent="Content/Timer/Controls"]
 layout_mode = 2
-text = "pause"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/pressed = ExtResource("4_o4ufo")
+theme_override_styles/hover = ExtResource("3_161tp")
+theme_override_styles/hover_pressed = ExtResource("4_o4ufo")
+text = "PAUSE"
+alignment = 1
 
-[node name="Skip" type="Button" parent="Controls"]
+[node name="Skip" type="Button" parent="Content/Timer/Controls"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -196,31 +226,94 @@ theme_override_styles/normal = ExtResource("2_nkr8a")
 theme_override_styles/hover = ExtResource("3_161tp")
 text = "SKIP"
 
+[node name="Finish" type="Control" parent="Content"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Message" type="Label" parent="Content/Finish"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -108.0
+offset_top = -70.0
+offset_right = 108.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "FIN !"
+label_settings = SubResource("LabelSettings_x63tv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Content/Finish"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -108.0
+offset_top = -176.235
+offset_right = 108.0
+offset_bottom = -86.235
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="ContinueBreak" type="Button" parent="Content/Finish/VBoxContainer2"]
+custom_minimum_size = Vector2(250, 35)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 31
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/hover = ExtResource("3_161tp")
+text = "CONTINUE"
+
+[node name="Restart" type="Button" parent="Content/Finish/VBoxContainer2"]
+custom_minimum_size = Vector2(100, 35)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/hover = ExtResource("3_161tp")
+text = "RESTART"
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
-[node name="Presets button" type="PanelContainer" parent="."]
+[node name="Presets" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -117.0
+offset_left = -105.0
 offset_top = 23.0
-offset_right = -23.0
-offset_bottom = 64.0
+offset_right = -17.0
+offset_bottom = 58.0
 grow_horizontal = 0
-theme_override_styles/panel = ExtResource("2_nkr8a")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/hover = ExtResource("3_161tp")
+text = "< PRESETS"
 
-[node name="Presets" type="Button" parent="Presets button"]
-layout_mode = 2
-text = "< presets"
-flat = true
-
-[connection signal="pressed" from="Timer/Add time/Button" to="." method="add_session_length" binds= [1]]
-[connection signal="pressed" from="Timer/Add time/Button2" to="." method="add_session_length" binds= [5]]
-[connection signal="pressed" from="Timer/Add time/Button3" to="." method="add_session_length" binds= [10]]
-[connection signal="pressed" from="Timer/Deduct Time/Button" to="." method="add_session_length" binds= [-1]]
-[connection signal="pressed" from="Timer/Deduct Time/Button2" to="." method="add_session_length" binds= [-5]]
-[connection signal="pressed" from="Timer/Deduct Time/Button3" to="." method="add_session_length" binds= [-10]]
-[connection signal="pressed" from="Controls/Restart" to="." method="_restart_session"]
-[connection signal="pressed" from="Controls/Pause" to="." method="toggle_timer_pause"]
-[connection signal="pressed" from="Controls/Skip" to="." method="_skip_session"]
+[connection signal="pressed" from="Content/Timer/Timer/Add time/Button" to="." method="add_session_length" binds= [1]]
+[connection signal="pressed" from="Content/Timer/Timer/Add time/Button2" to="." method="add_session_length" binds= [5]]
+[connection signal="pressed" from="Content/Timer/Timer/Add time/Button3" to="." method="add_session_length" binds= [10]]
+[connection signal="pressed" from="Content/Timer/Timer/Deduct Time/Button" to="." method="add_session_length" binds= [-1]]
+[connection signal="pressed" from="Content/Timer/Timer/Deduct Time/Button2" to="." method="add_session_length" binds= [-5]]
+[connection signal="pressed" from="Content/Timer/Timer/Deduct Time/Button3" to="." method="add_session_length" binds= [-10]]
+[connection signal="pressed" from="Content/Timer/Controls/Restart" to="." method="_restart_session"]
+[connection signal="pressed" from="Content/Timer/Controls/Pause" to="." method="toggle_timer_pause"]
+[connection signal="pressed" from="Content/Timer/Controls/Skip" to="." method="_skip_session"]
+[connection signal="pressed" from="Content/Finish/VBoxContainer2/Restart" to="." method="_restart_session"]

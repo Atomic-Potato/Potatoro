@@ -19,7 +19,7 @@ func get_presets() -> Array[Preset]:
 			LEFT JOIN Presets_Buffer pb ON p.ID = pb.PresetID
 	")
 	
-	var presets: Array[Preset]
+	var presets: Array[Preset] = []
 	for i in DatabaseManager.db.query_result:
 		var preset = Preset.new()
 		preset.ID = i.get("ID", 0)

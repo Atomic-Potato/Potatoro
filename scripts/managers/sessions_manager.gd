@@ -5,10 +5,10 @@ var buffered_sessions: Array[Session]
 func _ready():
 	update_buffered_sessions()
 
-func _process(delta):
+func _process(_delta):
 	for session: Session in buffered_sessions:
 		# TODO: Process each buffer
-		if is_session_paused(session.ID):
+		if not is_session_buffered(session.ID) or is_session_paused(session.ID):
 			continue
 		var remaining_time: int = get_session_id_remaining_time_in_seconds(session.ID)
 		if remaining_time <= 0:
@@ -205,7 +205,10 @@ func is_session_buffered(session_id: int)-> bool:
 	return not DatabaseManager.db.query_result.is_empty()
 
 func update_buffered_sessions():
-	buffered_sessions = []
+	# NOTE: I have done the update this way, 
+	# since replacing the session objects disconnects any signals done to that object as well
+	
+	var new_buffered_sessions: Array[Session] = []
 	var query = "select * from Sessions_Buffer"
 	DatabaseManager.db.query(query)
 	for i in DatabaseManager.db.query_result:
@@ -217,6 +220,26 @@ func update_buffered_sessions():
 			i.get("EndDateTime", ""),
 		)
 		buffered_sessions.append(session)
+	
+	var removed_sessions: Array[Session] = []
+	for bs in buffered_sessions:
+		if not new_buffered_sessions.find(bs) == -1 :
+			removed_sessions.append(bs)
+	for rs in removed_sessions:
+		buffered_sessions.remove_at(buffered_sessions.find(rs))
+	
+	for nbs in new_buffered_sessions:
+		var is_updated: bool
+		for bs in buffered_sessions:
+			if bs.ID == nbs.ID:
+				bs.buffered_ID = nbs.buffered_ID
+				bs.tag_ID = bs.tag_ID
+				bs.start_date_time = nbs.start_date_time
+				bs.end_date_time = nbs.end_date_time
+				is_updated = true
+		if not is_updated:
+			buffered_sessions.append(nbs)
+		
 
 func start_buffered_session(preset: Preset)-> Session:
 	var session: Session = Session.new()
@@ -280,6 +303,61 @@ func end_buffered_session(session_id: int)-> Session:
 	update_buffered_sessions()
 	return get_session(session_id)
 
+func restart_session(session_id: int, preset_id: int)-> Session:
+	DatabaseManager.db.query("select ID from Sessions_Buffer where SessionID = " + str(session_id))
+	if DatabaseManager.db.query_result.is_empty():
+		DatabaseManager.db.query("select ID from Sessions where ID = " + str(session_id))
+		if DatabaseManager.db.query_result.is_empty():
+			push_error("Session ID " + str(session_id) + " not found.")
+			return null
+		DatabaseManager.db.query("select ID from Presets where ID = " + str(preset_id))
+		if DatabaseManager.db.query_result.is_empty():
+			push_error("Preset ID " + str(session_id) + " not found.")
+			return null
+		DatabaseManager.db.query("select ID from Presets_Buffer where PresetID = " + str(preset_id))
+		if DatabaseManager.db.query_result.is_empty():
+			push_error("Preset ID " + str(session_id) + " is not buffered (running).")
+			return null
+	else:
+		push_error("Session ID " + str(session_id) + " is already buffered. Use restart_buffered_session().")
+		return null
+		
+	# Deleting pauses
+	DatabaseManager.db.query("
+		delete from SessionPauses
+		where SessionID = " + str(session_id)
+	)
+	
+	# Reseting preset buffer session length and removing a finished session
+	DatabaseManager.db.query("
+		update Presets_Buffer
+		set 
+			SessionLength = p.SessionLength,
+			SessionsDone = SessionsDone - 1
+		from Presets p
+		where PresetID = " + str(preset_id)
+	)
+
+	# Updating session start and end times
+	DatabaseManager.db.query("
+		select SessionLength from Presets_Buffer where PresetID = " + str(preset_id))
+	var session_length = str(DatabaseManager.db.query_result[0].get("SessionLength"))
+	var updated_session = get_session(session_id)
+	updated_session.start_date_time = DatabaseManager.get_datetime()
+	updated_session.end_date_time = DatabaseManager.get_datetime('+' + session_length + ' minutes')
+	save_session(updated_session)
+	save_buffered_session(updated_session)
+	
+	# Setting the current session for the preset buffer
+	DatabaseManager.db.query("
+		update Presets_Buffer
+		set CurrentSessionID = " + str(updated_session.ID) + "
+		from Presets p
+		where PresetID = " + str(preset_id)
+	)
+	
+	return updated_session
+
 func restart_buffered_session(session_id: int)-> Session:
 	DatabaseManager.db.query("select ID from Sessions_Buffer where SessionID = " + str(session_id))
 	if DatabaseManager.db.query_result.is_empty():
@@ -311,6 +389,7 @@ func restart_buffered_session(session_id: int)-> Session:
 	save_session(updated_session)
 	save_buffered_session(updated_session) 
 	
+	update_buffered_sessions()
 	return updated_session
 
 func save_session(session: Session):
@@ -321,7 +400,7 @@ func save_session(session: Session):
 			return 0
 			
 		var query = "
-			update Sessions_Buffer
+			update Sessions
 			set "\
 				+ "TagID = " + str(session.tag_ID)+ ", "\
 				+ "StartDateTime = '" + str(session.start_date_time) + "', "\
@@ -376,3 +455,36 @@ func save_buffered_session(session: Session)-> int:
 	
 	update_buffered_sessions()
 	return buffered_ID
+
+# NOTE: Intended for use only in this class
+func _get_preset(preset_id: int)-> Preset:
+	DatabaseManager.db.query("select * from Presets_Buffer where PresetID = " + str(preset_id))
+	if not DatabaseManager.db.query_result.is_empty():
+		return Preset.new(
+			DatabaseManager.db.query_result[0].get("PresetID"),
+			DatabaseManager.db.query_result[0].get("ID"),
+			DatabaseManager.db.query_result[0].get("DefaultTagID"),
+			DatabaseManager.db.query_result[0].get("Name"),
+			DatabaseManager.db.query_result[0].get("SessionsCount"),
+			DatabaseManager.db.query_result[0].get("SessionsDone"),
+			DatabaseManager.db.query_result[0].get("SessionLength"),
+			DatabaseManager.db.query_result[0].get("BreakLength"),
+			DatabaseManager.db.query_result[0].get("isAutoStartBreak"),
+			DatabaseManager.db.query_result[0].get("isAutoStartSession"),
+		)
+	DatabaseManager.db.query("select * from Presets where ID = " + str(preset_id))
+	if not DatabaseManager.db.query_result.is_empty():
+		return Preset.new(
+			DatabaseManager.db.query_result[0].get("ID"),
+			0,
+			DatabaseManager.db.query_result[0].get("DefaultTagID"),
+			DatabaseManager.db.query_result[0].get("Name"),
+			DatabaseManager.db.query_result[0].get("SessionsCount"),
+			0,
+			DatabaseManager.db.query_result[0].get("SessionLength"),
+			DatabaseManager.db.query_result[0].get("BreakLength"),
+			DatabaseManager.db.query_result[0].get("isAutoStartBreak"),
+			DatabaseManager.db.query_result[0].get("isAutoStartSession"),
+		)
+	push_error("Cant find preset with ID " + str(preset_id))
+	return null
