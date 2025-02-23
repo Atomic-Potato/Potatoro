@@ -13,8 +13,6 @@ func _process(delta):
 		var remaining_time: int = get_session_id_remaining_time_in_seconds(session.ID)
 		if remaining_time <= 0:
 			end_buffered_session(session.ID)
-			session.session_finish.emit()
-			update_buffered_sessions()
 			#OS.alert("Session " + str(session.ID) + " has finished!", "Session " + str(session.ID))
 
 func add_seconds_to_buffered_session_end_datetime(session_id: int, seconds: int):
@@ -35,7 +33,7 @@ func add_seconds_to_buffered_session_end_datetime(session_id: int, seconds: int)
 func is_session_paused(session_id: int)-> bool:
 	DatabaseManager.db.query("select EndDateTime from Sessions_Buffer where SessionID = " + str(session_id))
 	if DatabaseManager.db.query_result.is_empty():
-		push_error("Could not find session in buffer with ID " + str(session_id))
+		push_warning("Could not find session in buffer with ID " + str(session_id))
 		return false # idk if i should return true
 	return DatabaseManager.db.query_result[0].get("EndDateTime") == null
 
@@ -244,7 +242,6 @@ func end_buffered_session(session_id: int)-> Session:
 			+ "EndDateTime = '" + DatabaseManager.get_datetime() + "' " +\
 		"from Sessions_Buffer sb 
 		where Sessions.ID = " + str(session_id)
-	print(query)
 	DatabaseManager.db.query(query)
 	query = "
 		delete from Sessions_Buffer
@@ -279,6 +276,7 @@ func end_buffered_session(session_id: int)-> Session:
 		where CurrentSessionID = " + str(session_id)
 	DatabaseManager.db.query(query)
 	
+	get_loaded_buffered_session(session_id).session_finish.emit()
 	update_buffered_sessions()
 	return get_session(session_id)
 
@@ -287,16 +285,6 @@ func restart_buffered_session(session_id: int)-> Session:
 	if DatabaseManager.db.query_result.is_empty():
 		push_error("Session ID " + str(session_id) + " not found in buffer.")
 		return null
-	
-	# Reseting start and end time
-	#DatabaseManager.db.query("
-		#update Sessions_Buffer
-		#set 
-			#StartDateTime = s.StartDateTime,
-			#EndDateTime = s.EndDateTime
-		#from Sessions s
-		#where SessionID = " + str(session_id)
-	#)
 	
 	# Deleting pauses
 	DatabaseManager.db.query("

@@ -187,15 +187,14 @@ text = "RESTART"
 layout_mode = 2
 text = "pause"
 
-[node name="skip" type="PanelContainer" parent="Controls"]
-custom_minimum_size = Vector2(75, 0)
+[node name="Skip" type="Button" parent="Controls"]
+custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme_override_styles/panel = ExtResource("2_nkr8a")
-
-[node name="skip" type="Button" parent="Controls/skip"]
-layout_mode = 2
-text = "skip"
-flat = true
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/hover = ExtResource("3_161tp")
+text = "SKIP"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -224,5 +223,4 @@ flat = true
 [connection signal="pressed" from="Timer/Deduct Time/Button3" to="." method="add_session_length" binds= [-10]]
 [connection signal="pressed" from="Controls/Restart" to="." method="_restart_session"]
 [connection signal="pressed" from="Controls/Pause" to="." method="toggle_timer_pause"]
-[connection signal="pressed" from="Controls/skip/skip" to="." method="add_session"]
-[connection signal="pressed" from="Controls/skip/skip" to="Timer/VBoxContainer/Timer" method="skip"]
+[connection signal="pressed" from="Controls/Skip" to="." method="_skip_session"]

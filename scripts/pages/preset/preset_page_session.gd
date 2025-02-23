@@ -22,6 +22,7 @@ func initialize(data: Dictionary):
 	session = SessionsManager.get_loaded_buffered_session(PresetsManager.get_preset_current_session_ID(preset))
 	session.session_finish.connect(update_preset)
 	session.session_finish.connect(_update_titles_text)
+	session.session_finish.connect(_update_timer_text)
 
 func _ready():
 	_update_titles_text()
@@ -31,7 +32,8 @@ func _ready():
 	_update_finish_hour()
 
 func _process(delta):
-	if not (preset and PresetsManager.get_preset_current_session_ID(preset)):
+	if not (preset and PresetsManager.get_preset_current_session_ID(preset))\
+	or not (session and SessionsManager.is_session_buffered(session.ID)):
 		return
 	if not SessionsManager.is_session_paused(session.ID):
 		_update_timer_text()
@@ -60,6 +62,9 @@ func _restart_session():
 	session = SessionsManager.restart_buffered_session(session.ID)
 	preset = PresetsManager.get_preset(preset.ID)
 
+func _skip_session():
+	session = SessionsManager.end_buffered_session(session.ID)
+
 func _toggle_time_manipulation_controls_visibility(toggle_to: bool):
 	pass
 
@@ -68,11 +73,13 @@ func _update_titles_text():
 	label_sessions_count.text = str(preset.sessions_done) + "/" + str(preset.sessions_count)
 
 func _update_timer_text():
-	if SessionsManager.is_session_paused(session.ID):
-		return 
-	if SessionsManager.get_session_id_remaining_time_in_seconds(session.ID) <= 0:
+	if not SessionsManager.is_session_buffered(session.ID)\
+	or SessionsManager.get_session_id_remaining_time_in_seconds(session.ID) <= 0:
 		label_timer.text = finish_message
 		return
+	if SessionsManager.is_session_paused(session.ID):
+		return 
+
 	var remaining_time_in_seconds = SessionsManager.get_session_id_remaining_time_in_seconds(session.ID)
 	_set_time(remaining_time_in_seconds / 60, remaining_time_in_seconds % 60)
 
