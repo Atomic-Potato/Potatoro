@@ -55,7 +55,9 @@ func _ready():
 		_set_content(content_session_finish)
 		return
 	
+	_hide_all_content()
 	_set_content(content_default)
+	
 	_update_titles_text()
 	_update_timer_text()
 	if cst_button_pause_toggle.button_pressed:
@@ -76,6 +78,10 @@ func _set_content(content: Control):
 		current_content.visible = false
 	current_content = content
 	current_content.visible = true
+
+func _hide_all_content():
+	for child in content_parent.get_children():
+		child.visible = false
 
 func load_preset_page_presets():
 	Global.AppMan.load_gui_page(Global.SceneCont.preset_page_presets)
