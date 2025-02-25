@@ -91,6 +91,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SessionTimer" type="Control" parent="Content"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -251,6 +252,7 @@ theme_override_styles/hover = ExtResource("3_161tp")
 text = "SKIP"
 
 [node name="SessionFinish" type="Control" parent="Content"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -475,3 +477,4 @@ text = "< PRESETS"
 [connection signal="pressed" from="Content/SessionTimer/Controls/Skip" to="." method="_skip_session"]
 [connection signal="pressed" from="Content/SessionFinish/VBoxContainer2/ContinueBreak" to="." method="_set_content_break_setup"]
 [connection signal="pressed" from="Content/SessionFinish/VBoxContainer2/Restart" to="." method="_restart_session"]
+[connection signal="toggled" from="Content/BreakSetup/AutoSession" to="." method="_toggle_next_session_length_visibility"]
