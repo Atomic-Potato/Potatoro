@@ -78,7 +78,7 @@ func _process(_delta):
 			_update_timer_text()
 	# Process break timer
 	else:
-		_update_break_timer_text()
+		_update_break_timer_label()
 
 func _set_content(content: Control):
 	if not content:
@@ -194,6 +194,7 @@ func _start_break():
 	preset.break_end_datetime = DatabaseManager.get_datetime('+' + str(break_length) + ' minutes')
 	PresetsManager.save_buffered_preset(preset, 0)
 	_set_content(content_break_timer)
+	_update_break_finish_hour_label()
 
 func _reset_break_edit_values():
 	cbs_button_auto_session.button_pressed = preset.is_auto_start_session
@@ -206,8 +207,10 @@ func _add_break_time(minutes: int):
 	preset.break_end_datetime = DatabaseManager.get_datetime(
 		('+' if minutes > 0 else '-') + str(minutes) + ' minutes')
 	PresetsManager.save_buffered_preset(preset, 0)
+	_update_break_finish_hour_label()
+	_update_break_timer_label()
 
-func _update_break_timer_text():
+func _update_break_timer_label():
 	if not (preset and preset.break_end_datetime): # i.e. no break started
 		return
 	
@@ -222,6 +225,37 @@ func _update_break_timer_text():
 		+ ":" \
 		+ (("0" + str(seconds)) if seconds < 10 else str(seconds))
 
+func _update_break_finish_hour_label():
+	if not (preset and preset.break_end_datetime): # not in break state
+		return
+	
+	var remaining_seconds =  DatabaseManager.get_datetimes_seconds_difference(
+		preset.break_end_datetime, 
+		DatabaseManager.get_datetime()
+	)
+	var current_time = Time.get_datetime_dict_from_datetime_string(DatabaseManager.get_datetime(), false)
+	var finish_hour: int = (current_time["hour"] + (current_time["minute"] + (remaining_seconds / 60)) / 60) % 24 
+	var finish_minute: int = (current_time["minute"] + (remaining_seconds / 60) % 60) % 60
+	var finish_minute_str: String = str(finish_minute)
+	
+	if is_use_24_hour_format:
+		var finish_hour_str = str(finish_hour)
+		cbt_label_finish_hour.text = \
+			(("0" + finish_hour_str) if finish_hour < 10 else finish_hour_str) \
+			+ ":" \
+			+ (("0" + finish_minute_str) if finish_minute < 10 else finish_minute_str)
+	else:
+		var day_period = "am"
+		if finish_hour > 12: 
+			finish_hour -= 12
+			day_period = "pm"
+		var finish_hour_str = str(finish_hour)
+		
+		cbt_label_finish_hour.text = \
+			(("0" + finish_hour_str) if finish_hour < 10 else finish_hour_str) \
+			+ ":" \
+			+ (("0" + finish_minute_str) if finish_minute < 10 else finish_minute_str) \
+			+ " " + day_period
 
 
 
