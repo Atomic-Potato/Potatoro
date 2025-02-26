@@ -173,9 +173,21 @@ func _set_content_break_setup():
 	_set_content(content_break_setup)
 	cbs_button_auto_session.button_pressed = preset.is_auto_start_session
 	cbs_session_length_parent.visible = not preset.is_auto_start_session
-	
 	cbs_edit_break_length.placeholder_text = str(preset.break_length) + "m" 
 	cbs_edit_session_length.placeholder_text = str(preset.session_length) + "m"
 
 func _toggle_next_session_length_visibility(not_toggle: bool):
 	cbs_session_length_parent.visible = not not_toggle
+
+func _start_break():
+	var break_length = int(cbs_edit_break_length.text) if cbs_edit_break_length.text \
+		else preset.break_length
+	preset.break_end_datetime = DatabaseManager.get_datetime('+' + str(break_length) + ' minutes')
+	PresetsManager.save_buffered_preset(preset, 0)
+	_set_content(content_break_timer)
+
+func _reset_break_edit_values():
+	cbs_button_auto_session.button_pressed = preset.is_auto_start_session
+	cbs_session_length_parent.visible = not preset.is_auto_start_session
+	cbs_edit_break_length.text = ""
+	cbs_edit_session_length.text = ""

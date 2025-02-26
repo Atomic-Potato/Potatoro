@@ -477,4 +477,6 @@ text = "< PRESETS"
 [connection signal="pressed" from="Content/SessionTimer/Controls/Skip" to="." method="_skip_session"]
 [connection signal="pressed" from="Content/SessionFinish/VBoxContainer2/ContinueBreak" to="." method="_set_content_break_setup"]
 [connection signal="pressed" from="Content/SessionFinish/VBoxContainer2/Restart" to="." method="_restart_session"]
+[connection signal="pressed" from="Content/BreakSetup/VBoxContainer/Reset" to="." method="_reset_break_edit_values"]
+[connection signal="pressed" from="Content/BreakSetup/StartBreak" to="." method="_start_break"]
 [connection signal="toggled" from="Content/BreakSetup/AutoSession" to="." method="_toggle_next_session_length_visibility"]

@@ -24,6 +24,7 @@ func _ready():
 	#db.verbosity_level = SQLite.VERBOSE
 	empty_sessions_data()
 
+# NOTE: offset should in the format +/-time seconds/minutes/hours e.g. +20 seconds
 func get_datetime(offset: String = '', start_date: String = 'now')-> String:
 	var query: String =\
 		"select datetime() as 'datetime'" if not offset\
