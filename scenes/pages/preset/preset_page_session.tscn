@@ -17,7 +17,7 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_bottom = 2
 border_color = Color(1, 1, 1, 1)
 
-[node name="PresetPageSession" type="Control" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "content_parent", "cst_label_finish_hour", "cst_label_timer", "cst_button_pause_toggle", "cbs_session_length_parent", "cbs_edit_session_length", "cbs_edit_break_length", "cbs_button_auto_session", "content_default", "content_session_setup", "content_session_timer", "content_session_finish", "content_break_setup", "content_break_timer", "content_break_finish")]
+[node name="PresetPageSession" type="Control" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "content_parent", "cst_label_finish_hour", "cst_label_timer", "cst_button_pause_toggle", "cbs_session_length_parent", "cbs_edit_session_length", "cbs_edit_break_length", "cbs_button_auto_session", "cbt_label_finish_hour", "cbt_label_timer", "content_default", "content_session_setup", "content_session_timer", "content_session_finish", "content_break_setup", "content_break_timer", "content_break_finish")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,6 +35,8 @@ cbs_session_length_parent = NodePath("Content/BreakSetup/VBoxContainer/FlowConta
 cbs_edit_session_length = NodePath("Content/BreakSetup/VBoxContainer/FlowContainer/Session Length/edit")
 cbs_edit_break_length = NodePath("Content/BreakSetup/VBoxContainer/FlowContainer/BreakLength/edit")
 cbs_button_auto_session = NodePath("Content/BreakSetup/AutoSession")
+cbt_label_finish_hour = NodePath("Content/BreakTimer/Timer/VBoxContainer/finish hour")
+cbt_label_timer = NodePath("Content/BreakTimer/Timer/VBoxContainer/Timer")
 content_default = NodePath("Content/SessionTimer")
 content_session_setup = NodePath("Content/SessionSetup")
 content_session_timer = NodePath("Content/SessionTimer")
@@ -315,6 +317,7 @@ theme_override_styles/hover = ExtResource("3_161tp")
 text = "RESTART"
 
 [node name="BreakSetup" type="Control" parent="Content"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -431,13 +434,164 @@ text = "auto start next session "
 alignment = 2
 
 [node name="BreakTimer" type="Control" parent="Content"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Timer" type="VBoxContainer" parent="Content/BreakTimer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = -131.5
+offset_right = 170.0
+offset_bottom = 131.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Content/BreakTimer/Timer"]
+layout_mode = 2
+theme_override_constants/separation = -10
+
+[node name="finish hour" type="Label" parent="Content/BreakTimer/Timer/VBoxContainer"]
+layout_mode = 2
+text = "10:00 am"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Label" parent="Content/BreakTimer/Timer/VBoxContainer"]
+layout_mode = 2
+text = "50:00"
+label_settings = SubResource("LabelSettings_x63tv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Add time" type="HBoxContainer" parent="Content/BreakTimer/Timer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Button" type="Button" parent="Content/BreakTimer/Timer/Add time"]
+custom_minimum_size = Vector2(100, 35)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/hover = ExtResource("3_161tp")
+text = "+1 min"
+
+[node name="Button2" type="Button" parent="Content/BreakTimer/Timer/Add time"]
+custom_minimum_size = Vector2(100, 35)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/hover = ExtResource("3_161tp")
+text = "+5 min"
+
+[node name="Button3" type="Button" parent="Content/BreakTimer/Timer/Add time"]
+custom_minimum_size = Vector2(100, 35)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/hover = ExtResource("3_161tp")
+text = "+10 min"
+
+[node name="Deduct Time" type="HBoxContainer" parent="Content/BreakTimer/Timer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Button" type="Button" parent="Content/BreakTimer/Timer/Deduct Time"]
+custom_minimum_size = Vector2(100, 35)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/hover = ExtResource("3_161tp")
+text = "-1 min"
+
+[node name="Button2" type="Button" parent="Content/BreakTimer/Timer/Deduct Time"]
+custom_minimum_size = Vector2(100, 35)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/hover = ExtResource("3_161tp")
+text = "-5 min"
+
+[node name="Button3" type="Button" parent="Content/BreakTimer/Timer/Deduct Time"]
+custom_minimum_size = Vector2(100, 35)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/hover = ExtResource("3_161tp")
+text = "-10 min"
+
+[node name="-1 sec (DEBUG)" type="Button" parent="Content/BreakTimer/Timer"]
+visible = false
+layout_mode = 2
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/hover = ExtResource("3_161tp")
+text = "-1 sec (DEBUG) doesnt work, 
+didnt bother implementing it"
+
+[node name="Controls" type="HBoxContainer" parent="Content/BreakTimer"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -151.5
+offset_top = -54.75
+offset_right = 151.5
+offset_bottom = -17.75
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="Restart" type="Button" parent="Content/BreakTimer/Controls"]
+custom_minimum_size = Vector2(100, 35)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/hover = ExtResource("3_161tp")
+text = "RESTART"
+
+[node name="Pause" type="CheckButton" parent="Content/BreakTimer/Controls"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/pressed = ExtResource("4_o4ufo")
+theme_override_styles/hover = ExtResource("3_161tp")
+theme_override_styles/hover_pressed = ExtResource("4_o4ufo")
+text = "PAUSE"
+alignment = 1
+
+[node name="Skip" type="Button" parent="Content/BreakTimer/Controls"]
+custom_minimum_size = Vector2(100, 35)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/hover = ExtResource("3_161tp")
+text = "SKIP"
 
 [node name="BreakFinish" type="Control" parent="Content"]
 visible = false
@@ -480,3 +634,12 @@ text = "< PRESETS"
 [connection signal="pressed" from="Content/BreakSetup/VBoxContainer/Reset" to="." method="_reset_break_edit_values"]
 [connection signal="pressed" from="Content/BreakSetup/StartBreak" to="." method="_start_break"]
 [connection signal="toggled" from="Content/BreakSetup/AutoSession" to="." method="_toggle_next_session_length_visibility"]
+[connection signal="pressed" from="Content/BreakTimer/Timer/Add time/Button" to="." method="add_session_length" binds= [1]]
+[connection signal="pressed" from="Content/BreakTimer/Timer/Add time/Button2" to="." method="add_session_length" binds= [5]]
+[connection signal="pressed" from="Content/BreakTimer/Timer/Add time/Button3" to="." method="add_session_length" binds= [10]]
+[connection signal="pressed" from="Content/BreakTimer/Timer/Deduct Time/Button" to="." method="add_session_length" binds= [-1]]
+[connection signal="pressed" from="Content/BreakTimer/Timer/Deduct Time/Button2" to="." method="add_session_length" binds= [-5]]
+[connection signal="pressed" from="Content/BreakTimer/Timer/Deduct Time/Button3" to="." method="add_session_length" binds= [-10]]
+[connection signal="pressed" from="Content/BreakTimer/Controls/Restart" to="." method="_restart_session"]
+[connection signal="pressed" from="Content/BreakTimer/Controls/Pause" to="." method="toggle_timer_pause"]
+[connection signal="pressed" from="Content/BreakTimer/Controls/Skip" to="." method="_skip_session"]

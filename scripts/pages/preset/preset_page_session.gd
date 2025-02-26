@@ -28,6 +28,10 @@ var session: Session
 @export var cbs_edit_break_length: LineEdit
 @export var cbs_button_auto_session: CheckButton
 
+@export_category("Content Elements: Break Timer")
+@export var cbt_label_finish_hour: Label
+@export var cbt_label_timer: Label
+
 @export_category("Content")
 @export var content_default: Control
 @export var content_session_setup: Control
@@ -65,11 +69,16 @@ func _ready():
 	_update_finish_hour()
 
 func _process(_delta):
-	if not (preset and PresetsManager.get_preset_current_session_ID(preset))\
-	or not (session and SessionsManager.is_session_buffered(session.ID)):
-		return
-	if not SessionsManager.is_session_paused(session.ID):
-		_update_timer_text()
+	# Process session timer
+	if preset and not preset.break_end_datetime:
+		if not (preset and PresetsManager.get_preset_current_session_ID(preset))\
+		or not (session and SessionsManager.is_session_buffered(session.ID)):
+			return
+		if not SessionsManager.is_session_paused(session.ID):
+			_update_timer_text()
+	# Process break timer
+	else:
+		_update_break_timer_text()
 
 func _set_content(content: Control):
 	if not content:
@@ -191,3 +200,45 @@ func _reset_break_edit_values():
 	cbs_session_length_parent.visible = not preset.is_auto_start_session
 	cbs_edit_break_length.text = ""
 	cbs_edit_session_length.text = ""
+
+# SECTION_TITLE: Content Break Timer
+func _add_break_time(minutes: int):
+	preset.break_end_datetime = DatabaseManager.get_datetime(
+		('+' if minutes > 0 else '-') + str(minutes) + ' minutes')
+	PresetsManager.save_buffered_preset(preset, 0)
+
+func _update_break_timer_text():
+	if not (preset and preset.break_end_datetime): # i.e. no break started
+		return
+	
+	var remaining_seconds: int = DatabaseManager.get_datetimes_seconds_difference(
+		preset.break_end_datetime, 
+		DatabaseManager.get_datetime()
+	)
+	
+	var minutes = remaining_seconds / 60
+	var seconds = remaining_seconds % 60
+	cbt_label_timer.text = (("0" + str(minutes)) if minutes < 10 else str(minutes)) \
+		+ ":" \
+		+ (("0" + str(seconds)) if seconds < 10 else str(seconds))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -20,9 +20,9 @@ func _ready():
 	if not is_db_exists:
 		create_db(db)
 		
-	# DANGER: Needs to be removed in production
-	#db.verbosity_level = SQLite.VERBOSE
-	empty_sessions_data()
+	if Global.CURRENT_ENV == Global.Env.Development:
+		#db.verbosity_level = SQLite.VERBOSE
+		empty_sessions_data()
 
 # NOTE: offset should in the format +/-time seconds/minutes/hours e.g. +20 seconds
 func get_datetime(offset: String = '', start_date: String = 'now')-> String:
@@ -31,6 +31,13 @@ func get_datetime(offset: String = '', start_date: String = 'now')-> String:
 		else "select datetime('" + start_date + "', '" + offset + "') as 'datetime'"
 	DatabaseManager.db.query(query)
 	return DatabaseManager.db.query_result[0].get("datetime")
+
+func get_datetimes_seconds_difference(reduced_date: String, reduced_from_date: String):
+	db.query("
+		select unixepoch('" + reduced_date +"') 
+			- unixepoch('" + reduced_from_date + "') as ElapsedTime" 
+	)
+	return db.query_result[0].get("ElapsedTime")
 
 func empty_sessions_data():
 	var query = "

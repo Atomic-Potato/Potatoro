@@ -143,10 +143,11 @@ func save_buffered_preset(preset: Preset, current_session_id: int)-> int:
 		if DatabaseManager.db.query_result.is_empty():
 			push_error("Preset ID " + str(preset.ID) + " not found in buffer.")
 			return 0
-		DatabaseManager.db.query("select ID from Sessions_Buffer where SessionID = " + str(current_session_id))
-		if DatabaseManager.db.query_result.is_empty():
-			push_error("Current Session ID " + str(current_session_id) + " not found in sessions buffer.")
-			return 0
+		if current_session_id != 0:
+			DatabaseManager.db.query("select ID from Sessions_Buffer where SessionID = " + str(current_session_id))
+			if DatabaseManager.db.query_result.is_empty():
+				push_error("Current Session ID " + str(current_session_id) + " not found in sessions buffer.")
+				return 0
 			
 		var query = "
 			update Presets_Buffer
