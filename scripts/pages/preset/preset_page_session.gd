@@ -47,215 +47,221 @@ var update_preset: Callable = func(): preset = PresetsManager.get_preset(preset.
 var set_finish_content: Callable = func(): _set_content(content_session_finish)
 
 func initialize(data: Dictionary):
-	preset = data.get("preset")
-	session = SessionsManager.get_loaded_buffered_session(PresetsManager.get_preset_current_session_ID(preset))
-	session.session_finish.connect(update_preset)
-	session.session_finish.connect(_update_titles_text)
-	session.session_finish.connect(set_finish_content)
+    preset = data.get("preset")
+    session = SessionsManager.get_loaded_buffered_session(PresetsManager.get_preset_current_session_ID(preset))
+    session.session_finish.connect(update_preset)
+    session.session_finish.connect(_update_titles_text)
+    session.session_finish.connect(set_finish_content)
 
 func _ready():
-	if SessionsManager.is_session_buffered(session.ID) \
-	and SessionsManager.get_session_id_remaining_time_in_seconds(session.ID) <= 0:
-		_set_content(content_session_finish)
-		return
-	
-	_hide_all_content()
-	_set_content(content_default)
-	
-	_update_titles_text()
-	_update_timer_text()
-	if cst_button_pause_toggle.button_pressed:
-		SessionsManager.pause_session(session.ID)
-	_update_finish_hour()
+    if SessionsManager.is_session_buffered(session.ID) \
+    and SessionsManager.get_session_id_remaining_time_in_seconds(session.ID) <= 0:
+        _set_content(content_session_finish)
+        return
+    
+    _hide_all_content()
+    _set_content(content_default)
+    
+    _update_titles_text()
+    _update_timer_text()
+    if cst_button_pause_toggle.button_pressed:
+        SessionsManager.pause_session(session.ID)
+    _update_finish_hour()
 
 func _process(_delta):
-	# Process session timer
-	if preset and not preset.break_end_datetime:
-		if not (preset and PresetsManager.get_preset_current_session_ID(preset))\
-		or not (session and SessionsManager.is_session_buffered(session.ID)):
-			return
-		if not SessionsManager.is_session_paused(session.ID):
-			_update_timer_text()
-	# Process break timer
-	else:
-		_update_break_timer_label()
+    # Process session timer
+    if preset and not preset.break_end_datetime:
+        if not (preset and PresetsManager.get_preset_current_session_ID(preset))\
+        or not (session and SessionsManager.is_session_buffered(session.ID)):
+            return
+        if not SessionsManager.is_session_paused(session.ID):
+            _update_timer_text()
+    # Process break timer
+    else:
+        _update_break_timer_label()
 
 func _set_content(content: Control):
-	if not content:
-		push_error("Cannot set null content!") 
-	if current_content:
-		current_content.visible = false
-	current_content = content
-	current_content.visible = true
+    if not content:
+        push_error("Cannot set null content!") 
+    if current_content:
+        current_content.visible = false
+    current_content = content
+    current_content.visible = true
 
 func _hide_all_content():
-	for child in content_parent.get_children():
-		child.visible = false
+    for child in content_parent.get_children():
+        child.visible = false
 
 func load_preset_page_presets():
-	Global.AppMan.load_gui_page(Global.SceneCont.preset_page_presets)
+    Global.AppMan.load_gui_page(Global.SceneCont.preset_page_presets)
 
 # SECTION_TITLE: Session Timer
 func add_session_length(minutes: int):
-	preset.added_session_length += minutes
-	PresetsManager.save_buffered_preset(preset, PresetsManager.get_preset_current_session_ID(preset))
-	SessionsManager.add_seconds_to_buffered_session_end_datetime(session.ID, minutes * 60)
-	preset = PresetsManager.get_preset(preset.ID)
-	session = SessionsManager.get_session(session.ID)
-	_update_finish_hour()
-	_update_timer_text()
-	
+    preset.added_session_length += minutes
+    PresetsManager.save_buffered_preset(preset, PresetsManager.get_preset_current_session_ID(preset))
+    SessionsManager.add_seconds_to_buffered_session_end_datetime(session.ID, minutes * 60)
+    preset = PresetsManager.get_preset(preset.ID)
+    session = SessionsManager.get_session(session.ID)
+    _update_finish_hour()
+    _update_timer_text()
+    
 func toggle_timer_pause():
-	if not SessionsManager.is_session_paused(session.ID):
-		SessionsManager.pause_session(session.ID)
-	else:
-		SessionsManager.resume_session(session.ID, preset.ID)
-	_update_finish_hour()
-	# TODO: Play blinking animations
+    if not SessionsManager.is_session_paused(session.ID):
+        SessionsManager.pause_session(session.ID)
+    else:
+        SessionsManager.resume_session(session.ID, preset.ID)
+    _update_finish_hour()
+    # TODO: Play blinking animations
 
 func _restart_session():
-	if SessionsManager.is_session_buffered(session.ID):
-		session = SessionsManager.restart_buffered_session(session.ID)
-	else:
-		session = SessionsManager.restart_session(session.ID, preset.ID)
-		_set_content(content_session_timer)
-	preset = PresetsManager.get_preset(preset.ID)
-	_update_finish_hour()
-	_update_titles_text()
+    if SessionsManager.is_session_buffered(session.ID):
+        session = SessionsManager.restart_buffered_session(session.ID)
+    else:
+        session = SessionsManager.restart_session(session.ID, preset.ID)
+        _set_content(content_session_timer)
+    preset = PresetsManager.get_preset(preset.ID)
+    _update_finish_hour()
+    _update_titles_text()
 
 func _skip_session():
-	session = SessionsManager.end_buffered_session(session.ID)
+    session = SessionsManager.end_buffered_session(session.ID)
 
 func _update_titles_text():
-	label_preset_name.text = preset.name_
-	label_sessions_count.text = str(preset.sessions_done) + "/" + str(preset.sessions_count)
+    label_preset_name.text = preset.name_
+    label_sessions_count.text = str(preset.sessions_done) + "/" + str(preset.sessions_count)
 
 func _update_timer_text():
-	if not SessionsManager.is_session_buffered(session.ID)\
-	or SessionsManager.get_session_id_remaining_time_in_seconds(session.ID) <= 0\
-	or SessionsManager.is_session_paused(session.ID):
-		return 
-	var remaining_time_in_seconds = SessionsManager.get_session_id_remaining_time_in_seconds(session.ID)
-	_set_time(remaining_time_in_seconds / 60, remaining_time_in_seconds % 60)
+    if not SessionsManager.is_session_buffered(session.ID)\
+    or SessionsManager.get_session_id_remaining_time_in_seconds(session.ID) <= 0\
+    or SessionsManager.is_session_paused(session.ID):
+        return 
+    var remaining_time_in_seconds = SessionsManager.get_session_id_remaining_time_in_seconds(session.ID)
+    _set_time(remaining_time_in_seconds / 60, remaining_time_in_seconds % 60)
 
 func _set_time(minutes: int, seconds: int):
-	var minutes_str = str(minutes)
-	var seconds_str = str(seconds)
-	cst_label_timer.text = (("0" + minutes_str) if minutes < 10 else minutes_str) \
-		+ ":" \
-		+ (("0" + seconds_str) if seconds < 10 else seconds_str)
+    var minutes_str = str(minutes)
+    var seconds_str = str(seconds)
+    cst_label_timer.text = (("0" + minutes_str) if minutes < 10 else minutes_str) \
+        + ":" \
+        + (("0" + seconds_str) if seconds < 10 else seconds_str)
 
 func _update_finish_hour():
-	if SessionsManager.is_session_paused(session.ID) \
-	or SessionsManager.get_session_id_remaining_time_in_seconds(session.ID) <= 0:
-		cst_label_finish_hour.text = ""
-		return
-	
-	var remaining_length_in_seconds = SessionsManager.get_session_id_remaining_time_in_seconds(session.ID)
-	var current_time = Time.get_datetime_dict_from_datetime_string(DatabaseManager.get_datetime(), false)
-	#print(( remaining_length_in_seconds/ 60) / 60)
-	var finish_hour: int = (current_time["hour"] + (current_time["minute"] + (remaining_length_in_seconds / 60)) / 60) % 24 
-	var finish_minute: int = (current_time["minute"] + (remaining_length_in_seconds / 60) % 60) % 60
-	var finish_minute_str: String = str(finish_minute)
-	
-	if is_use_24_hour_format:
-		var finish_hour_str = str(finish_hour)
-		cst_label_finish_hour.text = \
-			(("0" + finish_hour_str) if finish_hour < 10 else finish_hour_str) \
-			+ ":" \
-			+ (("0" + finish_minute_str) if finish_minute < 10 else finish_minute_str)
-	else:
-		var day_period = "am"
-		if finish_hour > 12: 
-			finish_hour -= 12
-			day_period = "pm"
-		var finish_hour_str = str(finish_hour)
-		
-		cst_label_finish_hour.text = \
-			(("0" + finish_hour_str) if finish_hour < 10 else finish_hour_str) \
-			+ ":" \
-			+ (("0" + finish_minute_str) if finish_minute < 10 else finish_minute_str) \
-			+ " " + day_period
+    if SessionsManager.is_session_paused(session.ID) \
+    or SessionsManager.get_session_id_remaining_time_in_seconds(session.ID) <= 0:
+        cst_label_finish_hour.text = ""
+        return
+    
+    var remaining_length_in_seconds = SessionsManager.get_session_id_remaining_time_in_seconds(session.ID)
+    var current_time = Time.get_datetime_dict_from_datetime_string(DatabaseManager.get_datetime(), false)
+    #print(( remaining_length_in_seconds/ 60) / 60)
+    var finish_hour: int = (current_time["hour"] + (current_time["minute"] + (remaining_length_in_seconds / 60)) / 60) % 24 
+    var finish_minute: int = (current_time["minute"] + (remaining_length_in_seconds / 60) % 60) % 60
+    var finish_minute_str: String = str(finish_minute)
+    
+    if is_use_24_hour_format:
+        var finish_hour_str = str(finish_hour)
+        cst_label_finish_hour.text = \
+            (("0" + finish_hour_str) if finish_hour < 10 else finish_hour_str) \
+            + ":" \
+            + (("0" + finish_minute_str) if finish_minute < 10 else finish_minute_str)
+    else:
+        var day_period = "am"
+        if finish_hour > 12: 
+            finish_hour -= 12
+            day_period = "pm"
+        var finish_hour_str = str(finish_hour)
+        
+        cst_label_finish_hour.text = \
+            (("0" + finish_hour_str) if finish_hour < 10 else finish_hour_str) \
+            + ":" \
+            + (("0" + finish_minute_str) if finish_minute < 10 else finish_minute_str) \
+            + " " + day_period
 
 # SECTION_TITLE: Content Break Setup
 func _set_content_break_setup():
-	_set_content(content_break_setup)
-	cbs_button_auto_session.button_pressed = preset.is_auto_start_session
-	cbs_session_length_parent.visible = not preset.is_auto_start_session
-	cbs_edit_break_length.placeholder_text = str(preset.break_length) + "m" 
-	cbs_edit_session_length.placeholder_text = str(preset.session_length) + "m"
+    _set_content(content_break_setup)
+    cbs_button_auto_session.button_pressed = preset.is_auto_start_session
+    cbs_session_length_parent.visible = not preset.is_auto_start_session
+    cbs_edit_break_length.placeholder_text = str(preset.break_length) + "m" 
+    cbs_edit_session_length.placeholder_text = str(preset.session_length) + "m"
 
 func _toggle_next_session_length_visibility(not_toggle: bool):
-	cbs_session_length_parent.visible = not not_toggle
+    cbs_session_length_parent.visible = not not_toggle
 
 func _start_break():
-	var break_length = int(cbs_edit_break_length.text) if cbs_edit_break_length.text \
-		else preset.break_length
-	preset.break_end_datetime = DatabaseManager.get_datetime('+' + str(break_length) + ' minutes')
-	PresetsManager.save_buffered_preset(preset, 0)
-	_set_content(content_break_timer)
-	_update_break_finish_hour_label()
+    var break_length = int(cbs_edit_break_length.text) if cbs_edit_break_length.text \
+        else preset.break_length
+    preset.break_end_datetime = DatabaseManager.get_datetime('+' + str(break_length) + ' minutes')
+    PresetsManager.save_buffered_preset(preset, 0)
+    _set_content(content_break_timer)
+    _update_break_finish_hour_label()
 
 func _reset_break_edit_values():
-	cbs_button_auto_session.button_pressed = preset.is_auto_start_session
-	cbs_session_length_parent.visible = not preset.is_auto_start_session
-	cbs_edit_break_length.text = ""
-	cbs_edit_session_length.text = ""
+    cbs_button_auto_session.button_pressed = preset.is_auto_start_session
+    cbs_session_length_parent.visible = not preset.is_auto_start_session
+    cbs_edit_break_length.text = ""
+    cbs_edit_session_length.text = ""
 
 # SECTION_TITLE: Content Break Timer
 func _add_break_time(minutes: int):
-	preset.break_end_datetime = DatabaseManager.get_datetime(
-		('+' if minutes > 0 else '-') + str(minutes) + ' minutes')
-	PresetsManager.save_buffered_preset(preset, 0)
-	_update_break_finish_hour_label()
-	_update_break_timer_label()
+    var new_datetime: String = DatabaseManager.get_datetime(
+        ('+' if minutes > 0 else '') + str(minutes) + ' minutes', 
+        preset.break_end_datetime)
+    if DatabaseManager.get_datetimes_seconds_difference(
+    new_datetime, DatabaseManager.get_datetime()) < 0:
+        return
+    preset.break_end_datetime = new_datetime
+    PresetsManager.save_buffered_preset(preset, 0)
+    preset = PresetsManager.get_preset(preset.ID)
+    _update_break_finish_hour_label()
+    _update_break_timer_label()
 
 func _update_break_timer_label():
-	if not (preset and preset.break_end_datetime): # i.e. no break started
-		return
-	
-	var remaining_seconds: int = DatabaseManager.get_datetimes_seconds_difference(
-		preset.break_end_datetime, 
-		DatabaseManager.get_datetime()
-	)
-	
-	var minutes = remaining_seconds / 60
-	var seconds = remaining_seconds % 60
-	cbt_label_timer.text = (("0" + str(minutes)) if minutes < 10 else str(minutes)) \
-		+ ":" \
-		+ (("0" + str(seconds)) if seconds < 10 else str(seconds))
+    if not (preset and preset.break_end_datetime): # i.e. no break started
+        return
+    
+    var remaining_seconds: int = DatabaseManager.get_datetimes_seconds_difference(
+        preset.break_end_datetime, 
+        DatabaseManager.get_datetime()
+    )
+    
+    var minutes = remaining_seconds / 60
+    var seconds = remaining_seconds % 60
+    cbt_label_timer.text = (("0" + str(minutes)) if minutes < 10 else str(minutes)) \
+        + ":" \
+        + (("0" + str(seconds)) if seconds < 10 else str(seconds))
 
 func _update_break_finish_hour_label():
-	if not (preset and preset.break_end_datetime): # not in break state
-		return
-	
-	var remaining_seconds =  DatabaseManager.get_datetimes_seconds_difference(
-		preset.break_end_datetime, 
-		DatabaseManager.get_datetime()
-	)
-	var current_time = Time.get_datetime_dict_from_datetime_string(DatabaseManager.get_datetime(), false)
-	var finish_hour: int = (current_time["hour"] + (current_time["minute"] + (remaining_seconds / 60)) / 60) % 24 
-	var finish_minute: int = (current_time["minute"] + (remaining_seconds / 60) % 60) % 60
-	var finish_minute_str: String = str(finish_minute)
-	
-	if is_use_24_hour_format:
-		var finish_hour_str = str(finish_hour)
-		cbt_label_finish_hour.text = \
-			(("0" + finish_hour_str) if finish_hour < 10 else finish_hour_str) \
-			+ ":" \
-			+ (("0" + finish_minute_str) if finish_minute < 10 else finish_minute_str)
-	else:
-		var day_period = "am"
-		if finish_hour > 12: 
-			finish_hour -= 12
-			day_period = "pm"
-		var finish_hour_str = str(finish_hour)
-		
-		cbt_label_finish_hour.text = \
-			(("0" + finish_hour_str) if finish_hour < 10 else finish_hour_str) \
-			+ ":" \
-			+ (("0" + finish_minute_str) if finish_minute < 10 else finish_minute_str) \
-			+ " " + day_period
+    if not (preset and preset.break_end_datetime): # not in break state
+        return
+    
+    var remaining_seconds =  DatabaseManager.get_datetimes_seconds_difference(
+        preset.break_end_datetime, 
+        DatabaseManager.get_datetime()
+    )
+    var current_time = Time.get_datetime_dict_from_datetime_string(DatabaseManager.get_datetime(), false)
+    var finish_hour: int = (current_time["hour"] + (current_time["minute"] + (remaining_seconds / 60)) / 60) % 24 
+    var finish_minute: int = (current_time["minute"] + (remaining_seconds / 60) % 60) % 60
+    var finish_minute_str: String = str(finish_minute)
+    
+    if is_use_24_hour_format:
+        var finish_hour_str = str(finish_hour)
+        cbt_label_finish_hour.text = \
+            (("0" + finish_hour_str) if finish_hour < 10 else finish_hour_str) \
+            + ":" \
+            + (("0" + finish_minute_str) if finish_minute < 10 else finish_minute_str)
+    else:
+        var day_period = "am"
+        if finish_hour > 12: 
+            finish_hour -= 12
+            day_period = "pm"
+        var finish_hour_str = str(finish_hour)
+        
+        cbt_label_finish_hour.text = \
+            (("0" + finish_hour_str) if finish_hour < 10 else finish_hour_str) \
+            + ":" \
+            + (("0" + finish_minute_str) if finish_minute < 10 else finish_minute_str) \
+            + " " + day_period
 
 
 
