@@ -1,5 +1,138 @@
 extends Node
 
+func is_in_session(preset_id: int)-> bool:
+	if not is_preset_id_buffered(preset_id):
+		return false
+	
+	DatabaseManager.db.query("
+		select CurrentSessionID, BreakEndDateTime from Presets_Buffer where PresetID = " 
+		+ str(preset_id))
+	if DatabaseManager.db.query_result[0].get("CurrentSessionID"):
+		if DatabaseManager.db.query_result[0].get("BreakEndDateTime"):
+			push_error("DANGER: Preset is in session and in break at the same time!")
+			return false
+		return true 
+	return false
+
+func is_in_break(preset_id: int)-> bool:
+	if not is_preset_id_buffered(preset_id):
+		return false
+	
+	DatabaseManager.db.query("
+		select CurrentSessionID, BreakEndDateTime from Presets_Buffer where PresetID = " 
+		+ str(preset_id))	
+	if DatabaseManager.db.query_result[0].get("BreakEndDateTime"):
+		if DatabaseManager.db.query_result[0].get("CurrentSessionID"):
+			push_error("DANGER: Preset is in session and in break at the same time!")
+			return false
+		return true 
+	return false
+
+func is_preset_break_paused(preset: Preset)-> bool:
+	if not preset:
+		push_warning("Cant check pause status for a null preset")
+		return false
+	# NOTE: if the break end datetime contains an int, then it is paused and the remaining time
+	# in seconds is stored in its place
+	return preset.break_end_datetime.is_valid_int()
+
+func is_preset_id_break_paused(preset_id: int)-> bool:
+	if not is_preset_id_buffered(preset_id):
+		return false
+	
+	DatabaseManager.db.query("
+		select BreakEndDateTime from Presets_Buffer where PresetID = " + str(preset_id))
+	return DatabaseManager.db.query_result[0].get("BreakEndDateTime").is_valid_int()
+
+func is_preset_id_exists(preset_id: int, is_push_error: bool = true):
+	DatabaseManager.db.query("select ID from Presets where ID = " + str(preset_id))
+	if DatabaseManager.db.query_result.is_empty():
+		if is_push_error:
+			push_error("Cannot find preset ID ", preset_id)
+		return false
+	return true
+
+func is_preset_id_buffered(preset_id: int, is_push_error: bool = true):
+	if not is_preset_id_exists(preset_id, is_push_error):
+		return false
+	
+	DatabaseManager.db.query("
+		select ID from Presets_Buffer where PresetID = " + str(preset_id))
+	if DatabaseManager.db.query_result.is_empty():
+		push_warning("Preset ID ", preset_id, " is not buffered")
+		return false
+	return true
+
+func start_preset_id_break(preset_id: int, break_length_minutes: int = -1)-> Preset:
+	if not is_preset_id_buffered(preset_id):
+		return null
+	if is_in_session(preset_id):
+		push_error("Preset is still in session, end buffered session to start break!")
+		return get_preset(preset_id)
+	if is_in_break(preset_id):
+		push_error("Preset is already in break!")
+		return get_preset(preset_id)
+	
+	if break_length_minutes < 0:
+		DatabaseManager.db.query(
+			"select BreakLength from Presets_Buffer where PresetID = " + str(preset_id))
+		break_length_minutes = DatabaseManager.db.query_result[0].get("BreakLength")
+		
+	DatabaseManager.db.query("
+		update Presets_Buffer
+		set BreakEndDateTime = '" + DatabaseManager.get_datetime('+' + str(break_length_minutes) + ' minutes') + "'
+		where PresetID = " + str(preset_id)
+	)
+	
+	return get_preset(preset_id)
+
+func pause_preset_id_break(preset_id: int)-> Preset:
+	if not is_preset_id_buffered(preset_id):
+		return null
+	if is_preset_id_break_paused(preset_id):
+		push_error("Cannot pause preset ID ", preset_id, " break, since it is already paused!")
+		return get_preset(preset_id)
+	
+	DatabaseManager.db.query(
+		"select BreakEndDateTime from Presets_Buffer where PresetID = " + str(preset_id)
+	)
+	var end_datetime = DatabaseManager.db.query_result[0].get("BreakEndDateTime")
+	var remaining_seconds: int = DatabaseManager.get_datetimes_seconds_difference(
+		end_datetime, DatabaseManager.get_datetime()
+	) 
+	if remaining_seconds < 0: 
+		remaining_seconds = 0
+		push_warning(
+			"Paused break has a negative remaining time, setting remaining time to 0 instead.")
+	
+	DatabaseManager.db.query("
+		update Presets_Buffer
+		set BreakEndDateTime = " + str(remaining_seconds) + "
+		where PresetID = " + str(preset_id)
+	)
+	return get_preset(preset_id)
+
+func resume_preset_id_break(preset_id: int)-> Preset:
+	if not is_preset_id_buffered(preset_id):
+		return null
+	if not is_preset_id_break_paused(preset_id):
+		push_error("Cannot resume preset ID ", preset_id, " break, since it is already running!")
+		return get_preset(preset_id)
+	
+	# Remaining seconds, when paused, is stored in BreakEndDateTime
+	DatabaseManager.db.query(
+		"select BreakEndDateTime from Presets_Buffer where PresetID = " + str(preset_id)
+	)
+	var remaining_seconds: int = int(DatabaseManager.db.query_result[0].get("BreakEndDateTime"))
+	var new_end_datetime: String = DatabaseManager.get_datetime(
+		'+' + str(remaining_seconds) + ' seconds')
+	DatabaseManager.db.query(
+		"update Presets_Buffer
+		set BreakEndDateTime = '" + new_end_datetime + "'
+		where PresetID = " + str(preset_id)
+	)
+	return get_preset(preset_id)
+	
 
 func get_presets() -> Array[Preset]:
 	DatabaseManager.db.query("

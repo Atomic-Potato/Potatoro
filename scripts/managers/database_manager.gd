@@ -59,6 +59,8 @@ func empty_sessions_data():
 
 # NOTE:
 #	- I created buffers to save on memory and query times
+#	- In the presets buffer,the break end datetime is filled with remaining seconds
+#		when the break is paused, i did this because i didnt plan well and im lazy
 func create_db(open_db: SQLite):
 	open_db.query('
 		CREATE TABLE "Configurations" (
