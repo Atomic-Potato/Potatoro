@@ -173,6 +173,9 @@ func _set_content_break_setup():
 	_set_content(content_break_setup)
 	cbs_button_auto_session.button_pressed = preset.is_auto_start_session
 	cbs_session_length_parent.visible = not preset.is_auto_start_session
+	
+	cbs_edit_break_length.placeholder_text = str(preset.break_length) + "m" 
+	cbs_edit_session_length.placeholder_text = str(preset.session_length) + "m"
 
 func _toggle_next_session_length_visibility(not_toggle: bool):
 	cbs_session_length_parent.visible = not not_toggle
