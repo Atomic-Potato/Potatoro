@@ -93,6 +93,9 @@ func start_preset_id_break(preset_id: int, break_length_minutes: int = -1, next_
 	
 	return get_preset(preset_id)
 
+func end_preset_id_break(preset_id):
+	pass
+
 func restart_preset_id_break(preset_id: int)-> Preset:
 	if not is_in_break(preset_id):
 		return get_preset(preset_id)
@@ -152,7 +155,16 @@ func resume_preset_id_break(preset_id: int)-> Preset:
 		where PresetID = " + str(preset_id)
 	)
 	return get_preset(preset_id)
-	
+
+func get_preset_id_remaining_break_seconds(preset_id: int)-> int:
+	if not is_in_break(preset_id):
+		return 0
+		
+	DatabaseManager.db.query("select BreakEndDateTime from Presets_Buffer where PresetID = " + str(preset_id))
+	return DatabaseManager.get_datetimes_seconds_difference(
+		DatabaseManager.db.query_result[0].get("BreakEndDateTime"), 
+		DatabaseManager.get_datetime()
+	)
 
 func get_presets() -> Array[Preset]:
 	DatabaseManager.db.query("

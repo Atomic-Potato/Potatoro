@@ -434,6 +434,7 @@ text = "auto start next session "
 alignment = 2
 
 [node name="BreakTimer" type="Control" parent="Content"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -594,13 +595,67 @@ theme_override_styles/hover = ExtResource("3_161tp")
 text = "SKIP"
 
 [node name="BreakFinish" type="Control" parent="Content"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Message" type="Label" parent="Content/BreakFinish"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -108.0
+offset_top = -70.0
+offset_right = 108.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "BREAK
+OVER!"
+label_settings = SubResource("LabelSettings_x63tv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Content/BreakFinish"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -108.0
+offset_top = -176.235
+offset_right = 108.0
+offset_bottom = -86.235
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="ContinueBreak" type="Button" parent="Content/BreakFinish/VBoxContainer2"]
+custom_minimum_size = Vector2(250, 35)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 31
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/hover = ExtResource("3_161tp")
+text = "CONTINUE"
+
+[node name="Restart" type="Button" parent="Content/BreakFinish/VBoxContainer2"]
+custom_minimum_size = Vector2(100, 35)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("2_nkr8a")
+theme_override_styles/hover = ExtResource("3_161tp")
+text = "RESTART"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -642,3 +697,5 @@ text = "< PRESETS"
 [connection signal="pressed" from="Content/BreakTimer/Timer/Deduct Time/Button3" to="." method="_add_break_time" binds= [-10]]
 [connection signal="pressed" from="Content/BreakTimer/Controls/Restart" to="." method="_restart_break"]
 [connection signal="pressed" from="Content/BreakTimer/Controls/Pause" to="." method="_toggle_break_timer_pause"]
+[connection signal="pressed" from="Content/BreakTimer/Controls/Skip" to="." method="_skip_break"]
+[connection signal="pressed" from="Content/BreakFinish/VBoxContainer2/Restart" to="." method="_restart_break"]

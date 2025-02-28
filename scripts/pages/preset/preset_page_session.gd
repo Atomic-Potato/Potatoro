@@ -46,6 +46,8 @@ var current_content: Control
 var update_preset: Callable = func(): preset = PresetsManager.get_preset(preset.ID)
 var set_finish_content: Callable = func(): _set_content(content_session_finish)
 
+var is_break_finished: bool # NOTE: To be removed when a state machine is implemented
+
 func initialize(data: Dictionary):
 	preset = data.get("preset")
 	session = SessionsManager.get_loaded_buffered_session(PresetsManager.get_preset_current_session_ID(preset))
@@ -77,7 +79,9 @@ func _process(_delta):
 		if not SessionsManager.is_session_paused(session.ID):
 			_update_timer_text()
 	# Process break timer
-	elif preset and PresetsManager.is_in_break(preset.ID):
+	elif not is_break_finished and preset and PresetsManager.is_in_break(preset.ID):
+		if PresetsManager.get_preset_id_remaining_break_seconds(preset.ID) <= 0:
+			_skip_break()
 		if not PresetsManager.is_preset_break_paused(preset):
 			_update_break_timer_label()
 
@@ -190,6 +194,7 @@ func _toggle_next_session_length_visibility(not_toggle: bool):
 	cbs_session_length_parent.visible = not not_toggle
 
 func _start_break():
+	is_break_finished = false
 	var break_length: int = int(cbs_edit_break_length.text) if cbs_edit_break_length.text else -1
 	var session_length: int = int(cbs_edit_session_length.text) \
 		if not cbs_button_auto_session.button_pressed and cbs_edit_break_length.text else -1
@@ -204,6 +209,10 @@ func _reset_break_edit_values():
 	cbs_edit_session_length.text = ""
 
 # SECTION_TITLE: Content Break Timer
+func _skip_break():
+	is_break_finished = true
+	_set_content(content_break_finish)
+
 func _restart_break():
 	preset = PresetsManager.restart_preset_id_break(preset.ID)
 	_update_break_finish_hour_label()
