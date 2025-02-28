@@ -112,7 +112,16 @@ func _initialize_content_session_setup():
 	css_edit_session_length.placeholder_text = str(preset.session_length) + 'm'
 	css_edit_break_length.placeholder_text = str(preset.break_length) + 'm'
 	css_button_auto_break.button_pressed = preset.is_auto_start_break
-	css_edit_break_length.visible = not preset.is_auto_start_break
+	css_break_length_parent.visible = preset.is_auto_start_break
+
+func _reset_session_edit_values():
+	css_button_auto_break.button_pressed = preset.is_auto_start_break
+	css_break_length_parent.visible = preset.is_auto_start_break
+	css_edit_break_length.text = ""
+	css_edit_session_length.text = ""
+
+func _toggle_next_break_length_visibility(toggle: bool):
+	css_break_length_parent.visible = toggle
 
 # SECTION_TITLE: Content Session Timer
 func add_session_length(minutes: int):
@@ -200,12 +209,12 @@ func _update_finish_hour():
 func _set_content_break_setup():
 	_set_content(content_break_setup)
 	cbs_button_auto_session.button_pressed = preset.is_auto_start_session
-	cbs_session_length_parent.visible = not preset.is_auto_start_session
+	cbs_session_length_parent.visible = preset.is_auto_start_session
 	cbs_edit_break_length.placeholder_text = str(preset.break_length) + "m" 
 	cbs_edit_session_length.placeholder_text = str(preset.session_length) + "m"
 
-func _toggle_next_session_length_visibility(not_toggle: bool):
-	cbs_session_length_parent.visible = not not_toggle
+func _toggle_next_session_length_visibility(toggle: bool):
+	cbs_session_length_parent.visible = toggle
 
 func _start_break():
 	is_break_finished = false

@@ -88,7 +88,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SessionSetup" type="Control" parent="Content"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -707,6 +706,7 @@ theme_override_styles/hover = ExtResource("3_161tp")
 text = "SKIP"
 
 [node name="BreakFinish" type="Control" parent="Content"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -787,9 +787,8 @@ theme_override_styles/normal = ExtResource("2_nkr8a")
 theme_override_styles/hover = ExtResource("3_161tp")
 text = "< PRESETS"
 
-[connection signal="pressed" from="Content/SessionSetup/VBoxContainer/Reset" to="." method="_reset_break_edit_values"]
-[connection signal="pressed" from="Content/SessionSetup/StartBreak" to="." method="_start_break"]
-[connection signal="toggled" from="Content/SessionSetup/AutoBreak" to="." method="_toggle_next_session_length_visibility"]
+[connection signal="pressed" from="Content/SessionSetup/VBoxContainer/Reset" to="." method="_reset_session_edit_values"]
+[connection signal="toggled" from="Content/SessionSetup/AutoBreak" to="." method="_toggle_next_break_length_visibility"]
 [connection signal="pressed" from="Content/SessionTimer/Timer/Add time/Button" to="." method="add_session_length" binds= [1]]
 [connection signal="pressed" from="Content/SessionTimer/Timer/Add time/Button2" to="." method="add_session_length" binds= [5]]
 [connection signal="pressed" from="Content/SessionTimer/Timer/Add time/Button3" to="." method="add_session_length" binds= [10]]
