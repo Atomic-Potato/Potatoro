@@ -93,8 +93,20 @@ func start_preset_id_break(preset_id: int, break_length_minutes: int = -1, next_
 	
 	return get_preset(preset_id)
 
-func end_preset_id_break(preset_id):
-	pass
+func end_preset_id_break(preset_id: int)-> Preset:
+	if not is_in_break(preset_id):
+		return get_preset(preset_id)
+	
+	DatabaseManager.db.query("
+		update Presets_Buffer
+		set
+			BreakLength = p.BreakLength,
+			BreakEndDateTime = '',
+			isAutoStartSession = p.isAutoStartSession
+		from Presets p
+		where PresetID = " + str(preset_id)
+	)
+	return get_preset(preset_id)
 
 func restart_preset_id_break(preset_id: int)-> Preset:
 	if not is_in_break(preset_id):

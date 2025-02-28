@@ -17,6 +17,12 @@ var session: Session
 @export var label_sessions_count: Label
 @export var content_parent: Control
 
+@export_category("Content Elements: Session Setup")
+@export var css_break_length_parent: Control
+@export var css_edit_session_length: LineEdit
+@export var css_edit_break_length: LineEdit
+@export var css_button_auto_break: CheckButton
+
 @export_category("Content Elements: Session Timer")
 @export var cst_label_finish_hour: Label
 @export var cst_label_timer: Label
@@ -100,7 +106,15 @@ func _hide_all_content():
 func load_preset_page_presets():
 	Global.AppMan.load_gui_page(Global.SceneCont.preset_page_presets)
 
-# SECTION_TITLE: Session Timer
+# SECTION_TITLE: Content Session Setup
+func _initialize_content_session_setup():
+	preset = PresetsManager.get_preset(preset.ID)
+	css_edit_session_length.placeholder_text = str(preset.session_length) + 'm'
+	css_edit_break_length.placeholder_text = str(preset.break_length) + 'm'
+	css_button_auto_break.button_pressed = preset.is_auto_start_break
+	css_edit_break_length.visible = not preset.is_auto_start_break
+
+# SECTION_TITLE: Content Session Timer
 func add_session_length(minutes: int):
 	preset.added_session_length += minutes
 	PresetsManager.save_buffered_preset(preset, PresetsManager.get_preset_current_session_ID(preset))
@@ -210,11 +224,14 @@ func _reset_break_edit_values():
 
 # SECTION_TITLE: Content Break Timer
 func _skip_break():
+	# TODO: end break and start session if auto session is true 
 	is_break_finished = true
 	_set_content(content_break_finish)
 
 func _restart_break():
 	preset = PresetsManager.restart_preset_id_break(preset.ID)
+	is_break_finished = false
+	_set_content(content_break_timer)
 	_update_break_finish_hour_label()
 	_update_break_timer_label()
 
@@ -287,7 +304,11 @@ func _toggle_break_timer_pause():
 		preset = PresetsManager.resume_preset_id_break(preset.ID)
 	else:
 		preset = PresetsManager.pause_preset_id_break(preset.ID)
-		
+
+func _end_break():
+	preset = PresetsManager.end_preset_id_break(preset.ID)
+	_set_content(content_session_setup)
+	_initialize_content_session_setup()
 
 
 
