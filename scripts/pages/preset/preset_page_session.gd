@@ -204,6 +204,11 @@ func _reset_break_edit_values():
 	cbs_edit_session_length.text = ""
 
 # SECTION_TITLE: Content Break Timer
+func _restart_break():
+	preset = PresetsManager.restart_preset_id_break(preset.ID)
+	_update_break_finish_hour_label()
+	_update_break_timer_label()
+
 func _add_break_time(minutes: int):
 	var new_datetime: String = DatabaseManager.get_datetime(
 		('+' if minutes > 0 else '') + str(minutes) + ' minutes', 

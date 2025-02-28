@@ -85,6 +85,7 @@ func start_preset_id_break(preset_id: int, break_length_minutes: int = -1, next_
 	DatabaseManager.db.query("
 		update Presets_Buffer
 		set 
+			BreakLength = " + str(break_length_minutes) + ", 
 			BreakEndDateTime = '" + DatabaseManager.get_datetime('+' + str(break_length_minutes) + ' minutes') + "',
 			SessionLength = " + str(next_session_length) + "
 		where PresetID = " + str(preset_id)
@@ -92,8 +93,21 @@ func start_preset_id_break(preset_id: int, break_length_minutes: int = -1, next_
 	
 	return get_preset(preset_id)
 
+func restart_preset_id_break(preset_id: int)-> Preset:
+	if not is_in_break(preset_id):
+		return get_preset(preset_id)
+	DatabaseManager.db.query("select BreakLength from Presets_Buffer where PresetID = " + str(preset_id))
+	var break_length: int = DatabaseManager.db.query_result[0].get("BreakLength")
+	DatabaseManager.db.query("
+		update Presets_Buffer
+		set 
+			BreakEndDateTime = '" + DatabaseManager.get_datetime('+' + str(break_length) + ' minutes') + "'
+		where PresetID = " + str(preset_id)
+	)
+	return get_preset(preset_id)
+
 func pause_preset_id_break(preset_id: int)-> Preset:
-	if not is_preset_id_buffered(preset_id):
+	if not is_in_break(preset_id):
 		return null
 	if is_preset_id_break_paused(preset_id):
 		push_error("Cannot pause preset ID ", preset_id, " break, since it is already paused!")
@@ -119,7 +133,7 @@ func pause_preset_id_break(preset_id: int)-> Preset:
 	return get_preset(preset_id)
 
 func resume_preset_id_break(preset_id: int)-> Preset:
-	if not is_preset_id_buffered(preset_id):
+	if not is_in_break(preset_id):
 		return null
 	if not is_preset_id_break_paused(preset_id):
 		push_error("Cannot resume preset ID ", preset_id, " break, since it is already running!")

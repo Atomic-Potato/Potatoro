@@ -640,6 +640,5 @@ text = "< PRESETS"
 [connection signal="pressed" from="Content/BreakTimer/Timer/Deduct Time/Button" to="." method="_add_break_time" binds= [-1]]
 [connection signal="pressed" from="Content/BreakTimer/Timer/Deduct Time/Button2" to="." method="_add_break_time" binds= [-5]]
 [connection signal="pressed" from="Content/BreakTimer/Timer/Deduct Time/Button3" to="." method="_add_break_time" binds= [-10]]
-[connection signal="pressed" from="Content/BreakTimer/Controls/Restart" to="." method="_restart_session"]
+[connection signal="pressed" from="Content/BreakTimer/Controls/Restart" to="." method="_restart_break"]
 [connection signal="pressed" from="Content/BreakTimer/Controls/Pause" to="." method="_toggle_break_timer_pause"]
-[connection signal="pressed" from="Content/BreakTimer/Controls/Skip" to="." method="_skip_session"]
