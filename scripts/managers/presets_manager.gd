@@ -63,7 +63,7 @@ func is_preset_id_buffered(preset_id: int, is_push_error: bool = true):
 		return false
 	return true
 
-func start_preset_id_break(preset_id: int, break_length_minutes: int = -1)-> Preset:
+func start_preset_id_break(preset_id: int, break_length_minutes: int = -1, next_session_length: int = -1)-> Preset:
 	if not is_preset_id_buffered(preset_id):
 		return null
 	if is_in_session(preset_id):
@@ -75,12 +75,18 @@ func start_preset_id_break(preset_id: int, break_length_minutes: int = -1)-> Pre
 	
 	if break_length_minutes < 0:
 		DatabaseManager.db.query(
-			"select BreakLength from Presets_Buffer where PresetID = " + str(preset_id))
+			"select BreakLength from Presets where ID = " + str(preset_id))
 		break_length_minutes = DatabaseManager.db.query_result[0].get("BreakLength")
+	if next_session_length < 0:
+		DatabaseManager.db.query(
+			"select SessionLength from Presets where ID = " + str(preset_id))
+		next_session_length = DatabaseManager.db.query_result[0].get("SessionLength")
 		
 	DatabaseManager.db.query("
 		update Presets_Buffer
-		set BreakEndDateTime = '" + DatabaseManager.get_datetime('+' + str(break_length_minutes) + ' minutes') + "'
+		set 
+			BreakEndDateTime = '" + DatabaseManager.get_datetime('+' + str(break_length_minutes) + ' minutes') + "',
+			SessionLength = " + str(next_session_length) + "
 		where PresetID = " + str(preset_id)
 	)
 	

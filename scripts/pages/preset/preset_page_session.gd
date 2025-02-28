@@ -190,10 +190,10 @@ func _toggle_next_session_length_visibility(not_toggle: bool):
 	cbs_session_length_parent.visible = not not_toggle
 
 func _start_break():
-	if cbs_edit_break_length.text:
-		preset = PresetsManager.start_preset_id_break(preset.ID, int(cbs_edit_break_length.text))
-	else:
-		preset = PresetsManager.start_preset_id_break(preset.ID)
+	var break_length: int = int(cbs_edit_break_length.text) if cbs_edit_break_length.text else -1
+	var session_length: int = int(cbs_edit_session_length.text) \
+		if not cbs_button_auto_session.button_pressed and cbs_edit_break_length.text else -1
+	preset = PresetsManager.start_preset_id_break(preset.ID, break_length, session_length)
 	_set_content(content_break_timer)
 	_update_break_finish_hour_label()
 
