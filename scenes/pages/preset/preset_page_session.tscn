@@ -88,6 +88,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SessionSetup" type="Control" parent="Content"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -545,7 +546,6 @@ text = "auto start next session "
 alignment = 2
 
 [node name="BreakTimer" type="Control" parent="Content"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

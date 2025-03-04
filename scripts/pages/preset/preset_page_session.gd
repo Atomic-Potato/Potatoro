@@ -5,6 +5,7 @@ extends Control
 
 var preset: Preset
 var session: Session
+var break_: Break
 
 @export var is_use_24_hour_format: bool = false # TODO: Get this data from the config table
 
@@ -52,11 +53,10 @@ var current_content: Control
 var update_preset: Callable = func(): preset = PresetsManager.get_preset(preset.ID)
 var set_finish_content: Callable = func(): _set_content(content_session_finish)
 
-var is_break_finished: bool # NOTE: To be removed when a state machine is implemented
-
 func initialize(data: Dictionary):
+	# TODO: do the initialization of the break instead of a session if the page was initialized during a break
 	preset = data.get("preset")
-	session = SessionsManager.get_loaded_buffered_session(PresetsManager.get_preset_current_session_ID(preset))
+	session = SessionsManager.get_loaded_buffered_session(preset.current_session_id)
 	session.session_finish.connect(update_preset)
 	session.session_finish.connect(_update_titles_text)
 	session.session_finish.connect(set_finish_content)
@@ -79,16 +79,11 @@ func _ready():
 func _process(_delta):
 	# Process session timer
 	if preset and PresetsManager.is_in_session(preset.ID):
-		if not (preset and PresetsManager.get_preset_current_session_ID(preset))\
-		or not (session and SessionsManager.is_session_buffered(session.ID)):
-			return
 		if not SessionsManager.is_session_paused(session.ID):
 			_update_timer_text()
 	# Process break timer
-	elif not is_break_finished and preset and PresetsManager.is_in_break(preset.ID):
-		if PresetsManager.get_preset_id_remaining_break_seconds(preset.ID) <= 0:
-			_skip_break()
-		if not PresetsManager.is_preset_break_paused(preset):
+	elif preset and PresetsManager.is_in_break(preset.ID):
+		if not BreaksManager.is_break_id_paused(break_.ID):
 			_update_break_timer_label()
 
 func _set_content(content: Control):
@@ -126,7 +121,7 @@ func _toggle_next_break_length_visibility(toggle: bool):
 # SECTION_TITLE: Content Session Timer
 func add_session_length(minutes: int):
 	preset.added_session_length += minutes
-	PresetsManager.save_buffered_preset(preset, PresetsManager.get_preset_current_session_ID(preset))
+	PresetsManager.save_buffered_preset(preset)
 	SessionsManager.add_seconds_to_buffered_session_end_datetime(session.ID, minutes * 60)
 	preset = PresetsManager.get_preset(preset.ID)
 	session = SessionsManager.get_session(session.ID)
@@ -217,11 +212,12 @@ func _toggle_next_session_length_visibility(toggle: bool):
 	cbs_session_length_parent.visible = toggle
 
 func _start_break():
-	is_break_finished = false
 	var break_length: int = int(cbs_edit_break_length.text) if cbs_edit_break_length.text else -1
 	var session_length: int = int(cbs_edit_session_length.text) \
 		if not cbs_button_auto_session.button_pressed and cbs_edit_break_length.text else -1
-	preset = PresetsManager.start_preset_id_break(preset.ID, break_length, session_length)
+	break_ = BreaksManager.start_break(preset.ID, break_length, session_length)
+	preset = PresetsManager.get_preset(preset.ID)
+	break_.break_finish.connect(_end_break)
 	_set_content(content_break_timer)
 	_update_break_finish_hour_label()
 
@@ -233,13 +229,12 @@ func _reset_break_edit_values():
 
 # SECTION_TITLE: Content Break Timer
 func _skip_break():
-	# TODO: end break and start session if auto session is true 
-	is_break_finished = true
+	# TODO: end break and start session if auto session is true
+	_toggle_break_timer_pause() 
 	_set_content(content_break_finish)
-
+	
 func _restart_break():
-	preset = PresetsManager.restart_preset_id_break(preset.ID)
-	is_break_finished = false
+	break_ = BreaksManager.restart_break_id(break_.ID)
 	_set_content(content_break_timer)
 	_update_break_finish_hour_label()
 	_update_break_timer_label()
@@ -247,25 +242,20 @@ func _restart_break():
 func _add_break_time(minutes: int):
 	var new_datetime: String = DatabaseManager.get_datetime(
 		('+' if minutes > 0 else '') + str(minutes) + ' minutes', 
-		preset.break_end_datetime)
+		break_.end_datetime)
 	if DatabaseManager.get_datetimes_seconds_difference(
 	new_datetime, DatabaseManager.get_datetime()) < 0:
 		return
-	preset.break_end_datetime = new_datetime
-	PresetsManager.save_buffered_preset(preset, 0)
-	preset = PresetsManager.get_preset(preset.ID)
+	break_.end_datetime = new_datetime
+	BreaksManager.save_break(break_)
 	_update_break_finish_hour_label()
 	_update_break_timer_label()
 
 func _update_break_timer_label():
-	if not (preset and preset.break_end_datetime): # i.e. no break started
+	if not PresetsManager.is_in_break(preset.ID):
 		return
 	
-	var remaining_seconds: int = DatabaseManager.get_datetimes_seconds_difference(
-		preset.break_end_datetime, 
-		DatabaseManager.get_datetime()
-	)
-	
+	var remaining_seconds: int = BreaksManager.get_break_id_remaining_seconds(break_.ID)
 	var minutes = remaining_seconds / 60
 	var seconds = remaining_seconds % 60
 	cbt_label_timer.text = (("0" + str(minutes)) if minutes < 10 else str(minutes)) \
@@ -273,13 +263,10 @@ func _update_break_timer_label():
 		+ (("0" + str(seconds)) if seconds < 10 else str(seconds))
 
 func _update_break_finish_hour_label():
-	if not (preset and preset.break_end_datetime): # not in break state
+	if not PresetsManager.is_in_break(preset.ID):
 		return
 	
-	var remaining_seconds =  DatabaseManager.get_datetimes_seconds_difference(
-		preset.break_end_datetime, 
-		DatabaseManager.get_datetime()
-	)
+	var remaining_seconds =  BreaksManager.get_break_id_remaining_seconds(break_.ID)
 	var current_time = Time.get_datetime_dict_from_datetime_string(DatabaseManager.get_datetime(), false)
 	var finish_hour: int = (current_time["hour"] + (current_time["minute"] + (remaining_seconds / 60)) / 60) % 24 
 	var finish_minute: int = (current_time["minute"] + (remaining_seconds / 60) % 60) % 60
@@ -305,17 +292,19 @@ func _update_break_finish_hour_label():
 			+ " " + day_period
 
 func _toggle_break_timer_pause():
-	if not preset:
-		push_error("Preset is null!")
+	if not break_:
+		push_error("Break is null!")
 		return
 	
-	if PresetsManager.is_preset_break_paused(preset):
-		preset = PresetsManager.resume_preset_id_break(preset.ID)
+	if BreaksManager.is_break_id_paused(break_.ID):
+		break_ = BreaksManager.resume_break_id(break_.ID)
 	else:
-		preset = PresetsManager.pause_preset_id_break(preset.ID)
+		break_ = BreaksManager.pause_break_id(break_.ID)
 
 func _end_break():
-	preset = PresetsManager.end_preset_id_break(preset.ID)
+	BreaksManager.end_break_id(break_.ID)
+	break_ = null
+	preset = PresetsManager.get_preset(preset.ID)
 	_set_content(content_session_setup)
 	_initialize_content_session_setup()
 

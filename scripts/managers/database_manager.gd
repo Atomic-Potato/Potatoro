@@ -46,12 +46,14 @@ func empty_sessions_data():
 		DELETE FROM SessionPauses_Buffer;
 		DELETE FROM Sessions_Buffer;
 		DELETE FROM Sessions;
+		DELETE FROM Breaks_Buffer;
 		DELETE FROM sqlite_sequence 
 		WHERE name in (
 			'Sessions_Buffer',
 			'Sessions',
 			'SessionPauses',
 			'SessionPauses_Buffer',
+			'Breaks_Buffer',
 			'Presets_Buffer'
 		);
 	"
@@ -111,6 +113,13 @@ func create_db(open_db: SQLite):
 			FOREIGN KEY("SessionID") REFERENCES "Sessions"("ID"),
 			PRIMARY KEY("ID" AUTOINCREMENT)
 		);
+		CREATE TABLE "Breaks_Buffer" (
+			"ID"	INTEGER NOT NULL UNIQUE,
+			"Length"	INTEGER NOT NULL,
+			"EndDateTime"	INTEGER NOT NULL,
+			"AddedLength"	INTEGER,
+			PRIMARY KEY("ID" AUTOINCREMENT)
+		);
 		CREATE TABLE "Presets" (
 			"ID"	INTEGER NOT NULL UNIQUE,
 			"DefaultTagID"	INTEGER,
@@ -127,17 +136,18 @@ func create_db(open_db: SQLite):
 			"PresetID"	INTEGER NOT NULL UNIQUE,
 			"DefaultTagID"	INTEGER,
 			"CurrentSessionID"	INTEGER,
+			"CurrentBreakID" INTEGER,
 			"Name"	TEXT NOT NULL,
 			"SessionsCount"	INTEGER NOT NULL,
 			"SessionsDone"	INTEGER NOT NULL,
 			"SessionLength"	INTEGER NOT NULL,
 			"AddedSessionLength" INTEGER NOT NULL,
 			"BreakLength"	INTEGER NOT NULL,
-			"BreakEndDateTime" TEXT,
 			"isAutoStartBreak"	INTEGER NOT NULL,
 			"isAutoStartSession"	INTEGER NOT NULL,
 			FOREIGN KEY("PresetID") REFERENCES "Presets"("ID"),
 			FOREIGN KEY("CurrentSessionID") REFERENCES "Sessions"("ID"),
+			FOREIGN KEY("CurrentBreakID") REFERENCES "Breaks_Buffer"("ID"),
 			FOREIGN KEY("DefaultTagID") REFERENCES "Tags"("ID"),
 			PRIMARY KEY("ID" AUTOINCREMENT)
 		);

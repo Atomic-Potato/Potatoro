@@ -7,7 +7,6 @@ func _ready():
 
 func _process(_delta):
 	for session: Session in buffered_sessions:
-		# TODO: Process each buffer
 		if not is_session_buffered(session.ID) or is_session_paused(session.ID):
 			continue
 		var remaining_time: int = get_session_id_remaining_time_in_seconds(session.ID)
@@ -90,7 +89,7 @@ func get_session_buffered_preset(session_id: int)-> Preset:
 	if DatabaseManager.db.query_result.is_empty():
 		push_error("Could not find buffered preset with the CurrentSessionID " + str(session_id))
 		return null
-	return _get_preset(DatabaseManager.db.query_result[0].get("PresetID"))
+	return PresetsManager.get_preset(DatabaseManager.db.query_result[0].get("PresetID"))
 
 func get_session_elapsed_time_in_seconds(session: Session)-> int:
 	DatabaseManager.db.query("
@@ -159,7 +158,7 @@ func get_session(session_id: int)-> Session:
 	
 	return session
 
-# Retunrs the the session from the global array of buffered_sessions
+# SUMMARY: Retunrs the the session from the global array of buffered_sessions
 func get_loaded_buffered_session(session_id)-> Session:
 	for bs in buffered_sessions:
 		if bs.ID == session_id:
@@ -211,7 +210,7 @@ func update_buffered_sessions():
 	
 	var removed_sessions: Array[Session] = []
 	for bs in buffered_sessions:
-		if not new_buffered_sessions.find(bs) == -1 :
+		if new_buffered_sessions.find(bs) == -1 :
 			removed_sessions.append(bs)
 	for rs in removed_sessions:
 		buffered_sessions.remove_at(buffered_sessions.find(rs))
@@ -228,7 +227,6 @@ func update_buffered_sessions():
 		if not is_updated:
 			buffered_sessions.append(nbs)
 		
-
 func start_buffered_session(preset: Preset)-> Session:
 	var session: Session = Session.new()
 	session.tag_ID = preset.default_tag_id
@@ -278,13 +276,12 @@ func end_buffered_session(session_id: int)-> Session:
 		update Presets_Buffer
 		set
 			DefaultTagID = p.DefaultTagID,
-			CurrentSessionID = null,
+			CurrentSessionID = 0,
 			SessionsDone = SessionsDone + 1,
 			Name = p.Name,
 			SessionsCount = p.SessionsCount,
 			AddedSessionLength = 0,
 			BreakLength = p.BreakLength,
-			BreakEndDateTime = '',
 			isAutoStartBreak = p.isAutoStartBreak, 
 			isAutoStartSession = p.isAutoStartSession 
 		from Presets p
@@ -447,41 +444,3 @@ func save_buffered_session(session: Session)-> int:
 	
 	update_buffered_sessions()
 	return buffered_ID
-
-# NOTE: Intended for use only in this class, 
-# i should really combine PresetsManager and SessionsManager
-func _get_preset(preset_id: int)-> Preset:
-	DatabaseManager.db.query("select * from Presets_Buffer where PresetID = " + str(preset_id))
-	if not DatabaseManager.db.query_result.is_empty():
-		return Preset.new(
-			DatabaseManager.db.query_result[0].get("PresetID"),
-			DatabaseManager.db.query_result[0].get("ID"),
-			DatabaseManager.db.query_result[0].get("DefaultTagID"),
-			DatabaseManager.db.query_result[0].get("Name"),
-			DatabaseManager.db.query_result[0].get("SessionsCount"),
-			DatabaseManager.db.query_result[0].get("SessionsDone"),
-			DatabaseManager.db.query_result[0].get("SessionLength"),
-			DatabaseManager.db.query_result[0].get("BreakLength"),
-			DatabaseManager.db.query_result[0].get("isAutoStartBreak"),
-			DatabaseManager.db.query_result[0].get("isAutoStartSession"),
-			DatabaseManager.db.query_result[0].get("AddedSessionLength"),
-			DatabaseManager.db.query_result[0].get("BreakEndDateTime")
-		)
-	DatabaseManager.db.query("select * from Presets where ID = " + str(preset_id))
-	if not DatabaseManager.db.query_result.is_empty():
-		return Preset.new(
-			DatabaseManager.db.query_result[0].get("ID"),
-			0,
-			DatabaseManager.db.query_result[0].get("DefaultTagID"),
-			DatabaseManager.db.query_result[0].get("Name"),
-			DatabaseManager.db.query_result[0].get("SessionsCount"),
-			0,
-			DatabaseManager.db.query_result[0].get("SessionLength"),
-			DatabaseManager.db.query_result[0].get("BreakLength"),
-			DatabaseManager.db.query_result[0].get("isAutoStartBreak"),
-			DatabaseManager.db.query_result[0].get("isAutoStartSession"),
-			0,
-			''
-		)
-	push_error("Cant find preset with ID " + str(preset_id))
-	return null

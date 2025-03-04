@@ -21,6 +21,7 @@ DatabaseManager="*res://scripts/managers/database_manager.gd"
 PresetsManager="*res://scripts/managers/presets_manager.gd"
 Global="*res://global.gd"
 SessionsManager="*res://scripts/managers/sessions_manager.gd"
+BreaksManager="*res://scripts/managers/breaks_manager.gd"
 
 [display]
 
