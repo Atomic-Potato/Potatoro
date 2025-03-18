@@ -234,7 +234,8 @@ func start_buffered_session(preset: Preset)-> Session:
 	session.end_date_time = DatabaseManager.get_datetime('+' + str(preset.session_length) + ' minutes')
 	session.ID = SessionsManager.save_session(session)
 	session.buffered_ID = SessionsManager.save_buffered_session(session) 
-	return session
+	update_buffered_sessions()
+	return get_loaded_buffered_session(session.ID)
 
 func end_buffered_session(session_id: int)-> Session:
 	DatabaseManager.db.query("select ID from Sessions_Buffer where SessionID = " + str(session_id))
@@ -288,7 +289,8 @@ func end_buffered_session(session_id: int)-> Session:
 		where CurrentSessionID = " + str(session_id)
 	DatabaseManager.db.query(query)
 	
-	get_loaded_buffered_session(session_id).session_finish.emit()
+	var session: Session = get_loaded_buffered_session(session_id)
+	session.session_finish.emit()
 	update_buffered_sessions()
 	return get_session(session_id)
 
@@ -345,7 +347,8 @@ func restart_session(session_id: int, preset_id: int)-> Session:
 		where PresetID = " + str(preset_id)
 	)
 	
-	return updated_session
+	update_buffered_sessions()
+	return get_loaded_buffered_session(updated_session.ID)
 
 func restart_buffered_session(session_id: int)-> Session:
 	DatabaseManager.db.query("select ID from Sessions_Buffer where SessionID = " + str(session_id))
@@ -379,7 +382,7 @@ func restart_buffered_session(session_id: int)-> Session:
 	save_buffered_session(updated_session) 
 	
 	update_buffered_sessions()
-	return updated_session
+	return get_loaded_buffered_session(updated_session.ID)
 
 func save_session(session: Session):
 	if session.ID: #Update

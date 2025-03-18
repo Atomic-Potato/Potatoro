@@ -7,7 +7,6 @@ func _ready():
 
 func _process(_delta):
 	for break_: Break in buffered_breaks:
-		print("processing break")
 		if not is_break_id_buffered(break_.ID) or is_break_id_paused(break_.ID):
 			continue
 		var remaining_time: int = get_break_id_remaining_seconds(break_.ID)

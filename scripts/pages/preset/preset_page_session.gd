@@ -51,15 +51,12 @@ var break_: Break
 var current_content: Control
 
 var update_preset: Callable = func(): preset = PresetsManager.get_preset(preset.ID)
-var set_finish_content: Callable = func(): _set_content(content_session_finish)
 
 func initialize(data: Dictionary):
 	# TODO: do the initialization of the break instead of a session if the page was initialized during a break
 	preset = data.get("preset")
 	session = SessionsManager.get_loaded_buffered_session(preset.current_session_id)
-	session.session_finish.connect(update_preset)
-	session.session_finish.connect(_update_titles_text)
-	session.session_finish.connect(set_finish_content)
+	connect_session_finish_subscribers(session)
 
 func _ready():
 	if SessionsManager.is_session_buffered(session.ID) \
@@ -101,6 +98,12 @@ func _hide_all_content():
 func load_preset_page_presets():
 	Global.AppMan.load_gui_page(Global.SceneCont.preset_page_presets)
 
+func connect_session_finish_subscribers(s: Session):
+	if not s:
+		push_error("Cannot connect subscribers to a null session")
+	s.session_finish.connect(update_preset)
+	s.session_finish.connect(_update_titles_text)
+
 # SECTION_TITLE: Content Session Setup
 func _initialize_content_session_setup():
 	preset = PresetsManager.get_preset(preset.ID)
@@ -117,6 +120,19 @@ func _reset_session_edit_values():
 
 func _toggle_next_break_length_visibility(toggle: bool):
 	css_break_length_parent.visible = toggle
+
+func _start_session():
+	preset.break_length = int(css_edit_break_length.text) \
+		if css_button_auto_break.button_pressed and css_edit_break_length.text else preset.break_length
+	preset.session_length = int(css_edit_session_length.text) \
+		if cbs_edit_session_length.text else preset.session_length
+	
+	session = SessionsManager.start_buffered_session(preset)
+	connect_session_finish_subscribers(session)
+	preset.current_session_id = session.ID
+	PresetsManager.save_buffered_preset(preset) 
+	_set_content(content_session_timer)
+	
 
 # SECTION_TITLE: Content Session Timer
 func add_session_length(minutes: int):
@@ -142,12 +158,14 @@ func _restart_session():
 	else:
 		session = SessionsManager.restart_session(session.ID, preset.ID)
 		_set_content(content_session_timer)
-	preset = PresetsManager.get_preset(preset.ID)
+	connect_session_finish_subscribers(session)
+	update_preset.call()
 	_update_finish_hour()
 	_update_titles_text()
 
 func _skip_session():
 	session = SessionsManager.end_buffered_session(session.ID)
+	_set_content(content_session_finish)
 
 func _update_titles_text():
 	label_preset_name.text = preset.name_
@@ -204,9 +222,9 @@ func _update_finish_hour():
 func _set_content_break_setup():
 	_set_content(content_break_setup)
 	cbs_button_auto_session.button_pressed = preset.is_auto_start_session
-	cbs_session_length_parent.visible = preset.is_auto_start_session
 	cbs_edit_break_length.placeholder_text = str(preset.break_length) + "m" 
 	cbs_edit_session_length.placeholder_text = str(preset.session_length) + "m"
+	cbs_session_length_parent.visible = preset.is_auto_start_session
 
 func _toggle_next_session_length_visibility(toggle: bool):
 	cbs_session_length_parent.visible = toggle
@@ -214,7 +232,7 @@ func _toggle_next_session_length_visibility(toggle: bool):
 func _start_break():
 	var break_length: int = int(cbs_edit_break_length.text) if cbs_edit_break_length.text else -1
 	var session_length: int = int(cbs_edit_session_length.text) \
-		if not cbs_button_auto_session.button_pressed and cbs_edit_break_length.text else -1
+		if cbs_button_auto_session.button_pressed and cbs_edit_session_length.text else -1
 	break_ = BreaksManager.start_break(preset.ID, break_length, session_length)
 	preset = PresetsManager.get_preset(preset.ID)
 	break_.break_finish.connect(_end_break)
