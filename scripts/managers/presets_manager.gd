@@ -115,6 +115,45 @@ func get_preset(preset_id: int)-> Preset:
 	push_error("Cant find preset with ID " + str(preset_id))
 	return null
 
+func get_preset_from_buffer_id(preset_buffer_id: int)-> Preset:
+	DatabaseManager.db.query("select * from Presets_Buffer where ID = " + str(preset_buffer_id))
+	if not DatabaseManager.db.query_result.is_empty():
+		return Preset.new(
+			DatabaseManager.db.query_result[0].get("PresetID"),
+			DatabaseManager.db.query_result[0].get("ID"),
+			DatabaseManager.db.query_result[0].get("DefaultTagID"),
+			DatabaseManager.db.query_result[0].get("Name"),
+			DatabaseManager.db.query_result[0].get("SessionsCount"),
+			DatabaseManager.db.query_result[0].get("SessionsDone"),
+			DatabaseManager.db.query_result[0].get("SessionLength"),
+			DatabaseManager.db.query_result[0].get("BreakLength"),
+			DatabaseManager.db.query_result[0].get("isAutoStartBreak"),
+			DatabaseManager.db.query_result[0].get("isAutoStartSession"),
+			DatabaseManager.db.query_result[0].get("AddedSessionLength"),
+			DatabaseManager.db.query_result[0].get("CurrentSessionID"),
+			DatabaseManager.db.query_result[0].get("CurrentBreakID")
+		)
+	push_error("Cant find buffered preset with ID " + str(preset_buffer_id))
+	return null
+
+func set_default_values(preset_id: int)-> Preset:
+	if not is_preset_id_buffered(preset_id):
+		return null
+	DatabaseManager.db.query("select * from Presets where ID = " + str(preset_id))
+	var preset = DatabaseManager.db.query_result[0]
+	DatabaseManager.db.query("
+		update Presets_Buffer set
+			DefaultTagID = " + preset.get("DefaultTagID") + ",
+			CurrentSessionID = null,
+			CurrentBreakID = null,
+			SessionLength = " + preset.get("SessionLength") + ",
+			AddedSessionLenght = 0,
+			BreakLength = " + preset.get("BreakLength") + ",
+			isAutoStartBreak = " + preset.get("isAutoStartBreak") + ",
+			isAutoStartSession = " + preset.get("isAutoStartSession")
+	)
+	return get_preset(preset_id)
+
 # SUMMARY:
 # creates a new preset with the provided values and returns its id
 # if the id is provided in the preset, then it will update

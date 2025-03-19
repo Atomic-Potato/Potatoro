@@ -52,6 +52,8 @@ var current_content: Control
 
 var update_preset: Callable = func(): preset = PresetsManager.get_preset(preset.ID)
 
+var cache_remaining_session_time: int # used to check if the session was skipped
+
 func initialize(data: Dictionary):
 	# TODO: do the initialization of the break instead of a session if the page was initialized during a break
 	preset = data.get("preset")
@@ -103,6 +105,7 @@ func connect_session_finish_subscribers(s: Session):
 		push_error("Cannot connect subscribers to a null session")
 	s.session_finish.connect(update_preset)
 	s.session_finish.connect(_update_titles_text)
+	s.session_finish.connect(_end_session_timer)
 
 # SECTION_TITLE: Content Session Setup
 func _initialize_content_session_setup():
@@ -164,8 +167,8 @@ func _restart_session():
 	_update_titles_text()
 
 func _skip_session():
+	cache_remaining_session_time = SessionsManager.get_session_id_remaining_time_in_seconds(session.ID)
 	session = SessionsManager.end_buffered_session(session.ID)
-	_set_content(content_session_finish)
 
 func _update_titles_text():
 	label_preset_name.text = preset.name_
@@ -218,6 +221,20 @@ func _update_finish_hour():
 			+ (("0" + finish_minute_str) if finish_minute < 10 else finish_minute_str) \
 			+ " " + day_period
 
+func _end_session_timer():
+	if preset.is_auto_start_break and cache_remaining_session_time == 0 :
+		_start_break()
+	else:
+		_set_content(content_session_finish)
+		cache_remaining_session_time = 0
+
+# SECTION_TITLE: Content Session Finish
+func _continue_to_break():
+	if preset.is_auto_start_break:
+		_start_break()
+	else:
+		_set_content_break_setup()
+
 # SECTION_TITLE: Content Break Setup
 func _set_content_break_setup():
 	_set_content(content_break_setup)
@@ -233,9 +250,14 @@ func _start_break():
 	var break_length: int = int(cbs_edit_break_length.text) if cbs_edit_break_length.text else -1
 	var session_length: int = int(cbs_edit_session_length.text) \
 		if cbs_button_auto_session.button_pressed and cbs_edit_session_length.text else -1
+	
 	break_ = BreaksManager.start_break(preset.ID, break_length, session_length)
-	preset = PresetsManager.get_preset(preset.ID)
 	break_.break_finish.connect(_end_break)
+	
+	update_preset.call()
+	preset.is_auto_start_session = cbs_button_auto_session.button_pressed
+	preset = PresetsManager.get_preset_from_buffer_id(PresetsManager.save_buffered_preset(preset))
+
 	_set_content(content_break_timer)
 	_update_break_finish_hour_label()
 
@@ -248,8 +270,11 @@ func _reset_break_edit_values():
 # SECTION_TITLE: Content Break Timer
 func _skip_break():
 	# TODO: end break and start session if auto session is true
-	_toggle_break_timer_pause() 
-	_set_content(content_break_finish)
+	if preset.is_auto_start_session:
+		_end_break()
+	else:
+		_toggle_break_timer_pause() 
+		_set_content(content_break_finish)
 	
 func _restart_break():
 	break_ = BreaksManager.restart_break_id(break_.ID)
@@ -323,8 +348,11 @@ func _end_break():
 	BreaksManager.end_break_id(break_.ID)
 	break_ = null
 	preset = PresetsManager.get_preset(preset.ID)
-	_set_content(content_session_setup)
-	_initialize_content_session_setup()
+	if preset.is_auto_start_session:
+		_start_session()
+	else:
+		_set_content(content_session_setup)
+		_initialize_content_session_setup()
 
 
 
