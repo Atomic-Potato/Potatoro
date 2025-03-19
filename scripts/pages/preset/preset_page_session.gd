@@ -132,8 +132,12 @@ func _start_session():
 	
 	session = SessionsManager.start_buffered_session(preset)
 	connect_session_finish_subscribers(session)
+	
+	if current_content == content_session_setup:
+		preset.is_auto_start_break = css_button_auto_break.button_pressed
 	preset.current_session_id = session.ID
 	PresetsManager.save_buffered_preset(preset) 
+	
 	_set_content(content_session_timer)
 	
 
@@ -255,7 +259,8 @@ func _start_break():
 	break_.break_finish.connect(_end_break)
 	
 	update_preset.call()
-	preset.is_auto_start_session = cbs_button_auto_session.button_pressed
+	if current_content == content_break_setup:
+		preset.is_auto_start_session = cbs_button_auto_session.button_pressed
 	preset = PresetsManager.get_preset_from_buffer_id(PresetsManager.save_buffered_preset(preset))
 
 	_set_content(content_break_timer)
@@ -269,15 +274,12 @@ func _reset_break_edit_values():
 
 # SECTION_TITLE: Content Break Timer
 func _skip_break():
-	# TODO: end break and start session if auto session is true
-	if preset.is_auto_start_session:
-		_end_break()
-	else:
-		_toggle_break_timer_pause() 
-		_set_content(content_break_finish)
+	_toggle_break_timer_pause() 
+	_set_content(content_break_finish)
 	
 func _restart_break():
 	break_ = BreaksManager.restart_break_id(break_.ID)
+	break_.break_finish.connect(_end_break)
 	_set_content(content_break_timer)
 	_update_break_finish_hour_label()
 	_update_break_timer_label()
@@ -345,15 +347,24 @@ func _toggle_break_timer_pause():
 		break_ = BreaksManager.pause_break_id(break_.ID)
 
 func _end_break():
-	BreaksManager.end_break_id(break_.ID)
 	break_ = null
-	preset = PresetsManager.get_preset(preset.ID)
+	update_preset.call()
 	if preset.is_auto_start_session:
 		_start_session()
 	else:
 		_set_content(content_session_setup)
 		_initialize_content_session_setup()
 
+func _continue_to_session():
+	BreaksManager.end_break_id(break_.ID)
+	break_ = null
+	update_preset.call()
+	if preset.is_auto_start_session:
+		_start_session()
+	else:
+		_set_content(content_session_setup)
+		_initialize_content_session_setup()
+	
 
 
 
