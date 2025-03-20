@@ -938,5 +938,5 @@ text = "< PRESETS"
 [connection signal="pressed" from="Content/BreakTimer/Controls/Restart" to="Content/BreakTimer" method="_restart_break"]
 [connection signal="pressed" from="Content/BreakTimer/Controls/Pause" to="Content/BreakTimer" method="_toggle_break_timer_pause"]
 [connection signal="pressed" from="Content/BreakTimer/Controls/Skip" to="Content/BreakTimer" method="_skip_break"]
-[connection signal="pressed" from="Content/BreakFinish/VBoxContainer2/ContinueBreak" to="." method="_continue_to_session"]
-[connection signal="pressed" from="Content/BreakFinish/VBoxContainer2/Restart" to="." method="_restart_break"]
+[connection signal="pressed" from="Content/BreakFinish/VBoxContainer2/ContinueBreak" to="Content/BreakFinish" method="_continue_to_session"]
+[connection signal="pressed" from="Content/BreakFinish/VBoxContainer2/Restart" to="Content/BreakFinish" method="_restart_break"]

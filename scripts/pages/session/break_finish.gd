@@ -1,9 +1,10 @@
 extends Page
 
 func _continue_to_session():
-	if preset.is_auto_start_session:
-		_start_session()
+	if parent.preset.is_auto_start_session:
+		parent.set_page(parent.page_session_timer)
 	else:
-		_set_content(content_session_setup)
-		_initialize_content_session_setup()
-	
+		parent.set_page(parent.page_session_setup)
+
+func _restart_break():
+	parent.set_page(parent.page_break_timer)
