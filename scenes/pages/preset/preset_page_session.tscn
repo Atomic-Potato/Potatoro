@@ -23,7 +23,7 @@ border_color = Color(1, 1, 1, 1)
 line_spacing = 0.0
 font_size = 100
 
-[node name="PresetPageSession" type="Control" node_paths=PackedStringArray("content_parent", "page_default", "page_session_timer", "page_session_finish")]
+[node name="PresetPageSession" type="Control" node_paths=PackedStringArray("content_parent", "page_default", "page_session_setup", "page_session_timer", "page_session_finish", "page_break_setup", "page_break_timer", "page_break_finish")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,8 +33,12 @@ grow_vertical = 2
 script = ExtResource("3_p5ysi")
 content_parent = NodePath("Content")
 page_default = NodePath("Content/SessionTimer")
+page_session_setup = NodePath("Content/SessionSetup")
 page_session_timer = NodePath("Content/SessionTimer")
 page_session_finish = NodePath("Content/SessionFinish")
+page_break_setup = NodePath("Content/BreakSetup")
+page_break_timer = NodePath("Content/BreakTimer")
+page_break_finish = NodePath("Content/BreakFinish")
 
 [node name="info" type="VBoxContainer" parent="."]
 visible = false
@@ -194,6 +198,7 @@ text = "auto start next break"
 alignment = 2
 
 [node name="SessionTimer" type="Control" parent="Content" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "label_finish_hour", "label_timer", "button_pause_toggle")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -389,7 +394,6 @@ layout_mode = 2
 text = "0/~"
 
 [node name="SessionFinish" type="Control" parent="Content"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -827,8 +831,8 @@ text = "< PRESETS"
 [connection signal="pressed" from="Content/SessionTimer/Controls/Restart" to="Content/SessionTimer" method="_restart"]
 [connection signal="pressed" from="Content/SessionTimer/Controls/Pause" to="Content/SessionTimer" method="toggle_pause"]
 [connection signal="pressed" from="Content/SessionTimer/Controls/Skip" to="Content/SessionTimer" method="_skip"]
-[connection signal="pressed" from="Content/SessionFinish/VBoxContainer2/ContinueBreak" to="." method="_continue_to_break"]
-[connection signal="pressed" from="Content/SessionFinish/VBoxContainer2/Restart" to="." method="_restart_session"]
+[connection signal="pressed" from="Content/SessionFinish/VBoxContainer2/ContinueBreak" to="Content/SessionFinish" method="_continue"]
+[connection signal="pressed" from="Content/SessionFinish/VBoxContainer2/Restart" to="Content/SessionFinish" method="_restart"]
 [connection signal="pressed" from="Content/BreakSetup/VBoxContainer/Reset" to="." method="_reset_break_edit_values"]
 [connection signal="pressed" from="Content/BreakSetup/StartBreak" to="." method="_start_break"]
 [connection signal="toggled" from="Content/BreakSetup/AutoSession" to="." method="_toggle_next_session_length_visibility"]

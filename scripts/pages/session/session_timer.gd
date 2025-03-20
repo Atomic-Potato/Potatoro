@@ -8,8 +8,11 @@ extends Page
 @export var button_pause_toggle: CheckButton
 
 var update_preset: Callable = func(): parent.preset = PresetsManager.get_preset(parent.preset.ID)
+var update_session: Callable = func(): parent.session = SessionsManager.get_loaded_buffered_session(parent.session.ID)
 
 func enter():
+	update_preset.call()
+	update_session.call()
 	if button_pause_toggle.button_pressed:
 		SessionsManager.pause_session(parent.session.ID)
 		_update_finish_hour()
