@@ -102,35 +102,29 @@ func is_break_id_paused(break_id: int)-> bool:
 	DatabaseManager.db.query("select EndDateTime from Breaks_Buffer where ID = " + str(break_id))
 	return str(DatabaseManager.db.query_result[0].get("EndDateTime")).is_valid_int()
 
-func start_break(preset_id: int, break_length_minutes: int = -1, next_session_length: int = -1)-> Break:
+func start_break(preset_id: int)-> Break:
 	if not PresetsManager.is_preset_id_buffered(preset_id):
 		return null
 	if PresetsManager.is_in_break(preset_id):
 		push_error("Preset is already in break!")
 		return null
 	
-	if break_length_minutes < 0:
-		DatabaseManager.db.query(
-			"select BreakLength from Presets where ID = " + str(preset_id))
-		break_length_minutes = DatabaseManager.db.query_result[0].get("BreakLength")
-	if next_session_length < 0:
-		DatabaseManager.db.query(
-			"select SessionLength from Presets where ID = " + str(preset_id))
-		next_session_length = DatabaseManager.db.query_result[0].get("SessionLength")
+	DatabaseManager.db.query(
+		"select BreakLength from Presets where ID = " + str(preset_id))
+	var break_length = DatabaseManager.db.query_result[0].get("BreakLength")
 	
 	var new_break = save_break(
 		Break.new(
 			0, 
-			break_length_minutes,
-			DatabaseManager.get_datetime('+' + str(break_length_minutes) + ' minutes')
+			break_length,
+			DatabaseManager.get_datetime('+' + str(break_length) + ' minutes')
 		)
 	)
 	
 	DatabaseManager.db.query("
 		update Presets_Buffer
 		set 
-			CurrentBreakID = " + str(new_break.ID) + ", 
-			SessionLength = " + str(next_session_length) + "
+			CurrentBreakID = " + str(new_break.ID) + " 
 		where PresetID = " + str(preset_id)
 	)
 	

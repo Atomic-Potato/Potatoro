@@ -24,14 +24,10 @@ func _start_break():
 	var break_length: int = int(edit_break_length.text) if edit_break_length.text else -1
 	var session_length: int = int(edit_session_length.text) \
 		if button_auto_session.button_pressed and edit_session_length.text else -1
-	
-	parent.break_ = BreaksManager.start_break(parent.preset.ID, break_length, session_length)
-	#parent.break_.break_finish.connect(_end_break)
-	
-	#update_preset.call()
+	parent.preset.break_length = break_length
+	parent.preset.session_length = session_length
 	parent.preset.is_auto_start_session = button_auto_session.button_pressed
 	parent.preset = PresetsManager.get_preset_from_buffer_id(PresetsManager.save_buffered_preset(parent.preset))
-
 	parent.set_page(parent.page_break_timer)
 
 func _reset_break_edit_values():

@@ -396,6 +396,14 @@ text = "sessions "
 layout_mode = 2
 text = "0/~"
 
+[node name="Label" type="Label" parent="Content/SessionTimer/info"]
+layout_mode = 2
+text = "session
+"
+label_settings = SubResource("LabelSettings_fy3gd")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="SessionFinish" type="Control" parent="Content"]
 visible = false
 layout_mode = 1
@@ -461,6 +469,7 @@ theme_override_styles/hover = ExtResource("3_161tp")
 text = "RESTART"
 
 [node name="BreakSetup" type="Control" parent="Content" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "session_length_parent", "edit_session_length", "edit_break_length", "button_auto_session")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -619,8 +628,7 @@ label_settings = SubResource("LabelSettings_fy3gd")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BreakTimer" type="Control" parent="Content"]
-visible = false
+[node name="BreakTimer" type="Control" parent="Content" node_paths=PackedStringArray("label_finish_hour", "label_timer", "label_preset_name", "label_sessions_count")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -628,6 +636,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("10_l1xkr")
+label_finish_hour = NodePath("Timer/VBoxContainer/finish hour")
+label_timer = NodePath("Timer/VBoxContainer/Timer")
+label_preset_name = NodePath("info/preset")
+label_sessions_count = NodePath("info/HBoxContainer/session count")
 
 [node name="Timer" type="VBoxContainer" parent="Content/BreakTimer"]
 layout_mode = 1
@@ -781,6 +793,42 @@ theme_override_styles/normal = ExtResource("2_nkr8a")
 theme_override_styles/hover = ExtResource("3_161tp")
 text = "SKIP"
 
+[node name="info" type="VBoxContainer" parent="Content/BreakTimer"]
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -49.5
+offset_right = 49.5
+offset_bottom = 50.0001
+grow_horizontal = 2
+alignment = 1
+
+[node name="preset" type="Label" parent="Content/BreakTimer/info"]
+layout_mode = 2
+text = "preset-name"
+label_settings = SubResource("LabelSettings_noh7n")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Content/BreakTimer/info"]
+layout_mode = 2
+
+[node name="text" type="Label" parent="Content/BreakTimer/info/HBoxContainer"]
+layout_mode = 2
+text = "sessions "
+
+[node name="session count" type="Label" parent="Content/BreakTimer/info/HBoxContainer"]
+layout_mode = 2
+text = "0/~"
+
+[node name="Label" type="Label" parent="Content/BreakTimer/info"]
+layout_mode = 2
+text = "break"
+label_settings = SubResource("LabelSettings_fy3gd")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="BreakFinish" type="Control" parent="Content"]
 visible = false
 layout_mode = 1
@@ -881,8 +929,14 @@ text = "< PRESETS"
 [connection signal="pressed" from="Content/BreakSetup/VBoxContainer/Reset" to="Content/BreakSetup" method="_reset_break_edit_values"]
 [connection signal="pressed" from="Content/BreakSetup/StartBreak" to="Content/BreakSetup" method="_start_break"]
 [connection signal="toggled" from="Content/BreakSetup/AutoSession" to="Content/BreakSetup" method="_toggle_next_session_length_visibility"]
-[connection signal="pressed" from="Content/BreakTimer/Controls/Restart" to="." method="_restart_break"]
-[connection signal="pressed" from="Content/BreakTimer/Controls/Pause" to="." method="_toggle_break_timer_pause"]
-[connection signal="pressed" from="Content/BreakTimer/Controls/Skip" to="." method="_skip_break"]
+[connection signal="pressed" from="Content/BreakTimer/Timer/Add time/Button" to="Content/BreakTimer" method="_add_break_time" binds= [1]]
+[connection signal="pressed" from="Content/BreakTimer/Timer/Add time/Button2" to="Content/BreakTimer" method="_add_break_time" binds= [5]]
+[connection signal="pressed" from="Content/BreakTimer/Timer/Add time/Button3" to="Content/BreakTimer" method="_add_break_time" binds= [10]]
+[connection signal="pressed" from="Content/BreakTimer/Timer/Deduct Time/Button" to="Content/BreakTimer" method="_add_break_time" binds= [-1]]
+[connection signal="pressed" from="Content/BreakTimer/Timer/Deduct Time/Button2" to="Content/BreakTimer" method="_add_break_time" binds= [-5]]
+[connection signal="pressed" from="Content/BreakTimer/Timer/Deduct Time/Button3" to="Content/BreakTimer" method="_add_break_time" binds= [-10]]
+[connection signal="pressed" from="Content/BreakTimer/Controls/Restart" to="Content/BreakTimer" method="_restart_break"]
+[connection signal="pressed" from="Content/BreakTimer/Controls/Pause" to="Content/BreakTimer" method="_toggle_break_timer_pause"]
+[connection signal="pressed" from="Content/BreakTimer/Controls/Skip" to="Content/BreakTimer" method="_skip_break"]
 [connection signal="pressed" from="Content/BreakFinish/VBoxContainer2/ContinueBreak" to="." method="_continue_to_session"]
 [connection signal="pressed" from="Content/BreakFinish/VBoxContainer2/Restart" to="." method="_restart_break"]

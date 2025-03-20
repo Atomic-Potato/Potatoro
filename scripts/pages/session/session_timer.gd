@@ -11,13 +11,18 @@ var update_preset: Callable = func(): parent.preset = PresetsManager.get_preset(
 var update_session: Callable = func(): parent.session = SessionsManager.get_loaded_buffered_session(parent.session.ID)
 
 func enter():
-	update_preset.call()
-	update_session.call()
+	if not parent.session or not SessionsManager.is_session_buffered(parent.session.ID):
+		parent.session = SessionsManager.start_buffered_session(parent.preset)
+		update_preset.call()
+	
 	if button_pause_toggle.button_pressed:
 		SessionsManager.pause_session(parent.session.ID)
 		_update_finish_hour()
 	_update_titles_text()
 	connect_session_finish_subscribers(parent.session)
+
+func exit():
+	parent.session = null
 
 func update():
 	if parent.preset and PresetsManager.is_in_session(parent.preset.ID):
@@ -53,7 +58,6 @@ func _restart():
 		parent.session = SessionsManager.restart_buffered_session(parent.session.ID)
 	else:
 		parent.session = SessionsManager.restart_session(parent.session.ID, parent.preset.ID)
-		parent.set_page(parent.page_session_timer)
 	connect_session_finish_subscribers(parent.session)
 	update_preset.call()
 	_update_finish_hour()
@@ -116,9 +120,4 @@ func _update_finish_hour():
 			+ " " + day_period
 
 func _end_session_timer():
-	# DEPRECATED
-	#if parent.preset.is_auto_start_break and cache_remaining_session_time == 0 :
-		#_start_break()
-	#else:
-	#cache_remaining_session_time = 0
 	parent.set_page(parent.page_session_finish)

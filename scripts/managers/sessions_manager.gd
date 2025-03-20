@@ -163,7 +163,7 @@ func get_loaded_buffered_session(session_id)-> Session:
 	for bs in buffered_sessions:
 		if bs.ID == session_id:
 			return bs # RETURN BULLSHIT YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-	push_error("Session ID ", session_id, " not found loaded buffered sessions!")
+	push_warning("Session ID ", session_id, " not found loaded buffered sessions!")
 	return null
 
 func get_buffered_session(session_id: int)-> Session:
@@ -234,6 +234,10 @@ func start_buffered_session(preset: Preset)-> Session:
 	session.end_date_time = DatabaseManager.get_datetime('+' + str(preset.session_length) + ' minutes')
 	session.ID = SessionsManager.save_session(session)
 	session.buffered_ID = SessionsManager.save_buffered_session(session) 
+	
+	preset.current_session_id = session.ID
+	PresetsManager.save_buffered_preset(preset)
+	
 	update_buffered_sessions()
 	return get_loaded_buffered_session(session.ID)
 

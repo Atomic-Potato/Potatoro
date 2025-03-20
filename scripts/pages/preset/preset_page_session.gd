@@ -27,13 +27,13 @@ func initialize(data: Dictionary = {}):
 	session = SessionsManager.get_loaded_buffered_session(preset.current_session_id)
 
 func _ready():
-	if SessionsManager.is_session_buffered(session.ID) \
+	hide_all_child_pages()
+	
+	# TODO: set appropriate page when coming from the presets page
+	if session and SessionsManager.is_session_buffered(session.ID) \
 	and SessionsManager.get_session_id_remaining_time_in_seconds(session.ID) <= 0:
 		set_page(page_session_finish)
 		return
-	
-	hide_all_child_pages()
-	# TODO: set appropriate page when coming from the presets page
 	set_page(page_default)
 
 func _process(_delta):
