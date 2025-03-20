@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://k87ux2qmpcqj"]
+[gd_scene load_steps=16 format=3 uid="uid://k87ux2qmpcqj"]
 
 [ext_resource type="Script" path="res://scripts/pages/session/session_setup.gd" id="2_l3wag"]
 [ext_resource type="StyleBox" uid="uid://dhtti43gywwuo" path="res://visual/style_boxes/button.stylebox" id="2_nkr8a"]
@@ -22,6 +22,9 @@ border_color = Color(1, 1, 1, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_x63tv"]
 line_spacing = 0.0
 font_size = 100
+
+[sub_resource type="LabelSettings" id="LabelSettings_fy3gd"]
+font_size = 25
 
 [node name="PresetPageSession" type="Control" node_paths=PackedStringArray("content_parent", "page_default", "page_session_setup", "page_session_timer", "page_session_finish", "page_break_setup", "page_break_timer", "page_break_finish")]
 layout_mode = 3
@@ -394,6 +397,7 @@ layout_mode = 2
 text = "0/~"
 
 [node name="SessionFinish" type="Control" parent="Content"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -456,8 +460,7 @@ theme_override_styles/normal = ExtResource("2_nkr8a")
 theme_override_styles/hover = ExtResource("3_161tp")
 text = "RESTART"
 
-[node name="BreakSetup" type="Control" parent="Content"]
-visible = false
+[node name="BreakSetup" type="Control" parent="Content" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "session_length_parent", "edit_session_length", "edit_break_length", "button_auto_session")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -465,6 +468,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("9_esxm0")
+label_preset_name = NodePath("info/preset")
+label_sessions_count = NodePath("info/HBoxContainer/session count")
+session_length_parent = NodePath("VBoxContainer/FlowContainer/Session Length")
+edit_session_length = NodePath("VBoxContainer/FlowContainer/Session Length/edit")
+edit_break_length = NodePath("VBoxContainer/FlowContainer/BreakLength/edit")
+button_auto_session = NodePath("AutoSession")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Content/BreakSetup"]
 layout_mode = 1
@@ -573,6 +582,42 @@ grow_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "auto start next session "
 alignment = 2
+
+[node name="info" type="VBoxContainer" parent="Content/BreakSetup"]
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -49.5
+offset_right = 49.5
+offset_bottom = 50.0001
+grow_horizontal = 2
+alignment = 1
+
+[node name="preset" type="Label" parent="Content/BreakSetup/info"]
+layout_mode = 2
+text = "preset-name"
+label_settings = SubResource("LabelSettings_noh7n")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Content/BreakSetup/info"]
+layout_mode = 2
+
+[node name="text" type="Label" parent="Content/BreakSetup/info/HBoxContainer"]
+layout_mode = 2
+text = "sessions "
+
+[node name="session count" type="Label" parent="Content/BreakSetup/info/HBoxContainer"]
+layout_mode = 2
+text = "0/~"
+
+[node name="Label" type="Label" parent="Content/BreakSetup/info"]
+layout_mode = 2
+text = "break"
+label_settings = SubResource("LabelSettings_fy3gd")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="BreakTimer" type="Control" parent="Content"]
 visible = false
@@ -833,9 +878,9 @@ text = "< PRESETS"
 [connection signal="pressed" from="Content/SessionTimer/Controls/Skip" to="Content/SessionTimer" method="_skip"]
 [connection signal="pressed" from="Content/SessionFinish/VBoxContainer2/ContinueBreak" to="Content/SessionFinish" method="_continue"]
 [connection signal="pressed" from="Content/SessionFinish/VBoxContainer2/Restart" to="Content/SessionFinish" method="_restart"]
-[connection signal="pressed" from="Content/BreakSetup/VBoxContainer/Reset" to="." method="_reset_break_edit_values"]
-[connection signal="pressed" from="Content/BreakSetup/StartBreak" to="." method="_start_break"]
-[connection signal="toggled" from="Content/BreakSetup/AutoSession" to="." method="_toggle_next_session_length_visibility"]
+[connection signal="pressed" from="Content/BreakSetup/VBoxContainer/Reset" to="Content/BreakSetup" method="_reset_break_edit_values"]
+[connection signal="pressed" from="Content/BreakSetup/StartBreak" to="Content/BreakSetup" method="_start_break"]
+[connection signal="toggled" from="Content/BreakSetup/AutoSession" to="Content/BreakSetup" method="_toggle_next_session_length_visibility"]
 [connection signal="pressed" from="Content/BreakTimer/Controls/Restart" to="." method="_restart_break"]
 [connection signal="pressed" from="Content/BreakTimer/Controls/Pause" to="." method="_toggle_break_timer_pause"]
 [connection signal="pressed" from="Content/BreakTimer/Controls/Skip" to="." method="_skip_break"]

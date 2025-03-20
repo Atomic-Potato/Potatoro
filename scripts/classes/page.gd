@@ -22,6 +22,7 @@ func set_page(page: Page):
 	if current_page:
 		current_page.exit()
 		current_page.visible = false
+		
 	current_page = page
 	current_page.visible = true
 	current_page.parent = self
