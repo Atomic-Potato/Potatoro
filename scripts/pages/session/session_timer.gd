@@ -64,9 +64,8 @@ func _restart():
 	_update_titles_text()
 
 func _skip():
-	# DEPRECATED
-	#cache_remaining_session_time = SessionsManager.get_session_id_remaining_time_in_seconds(session.ID)
 	parent.session = SessionsManager.end_buffered_session(parent.session.ID)
+	update_preset.call()
 
 func _update_titles_text():
 	label_preset_name.text = parent.preset.name_
@@ -120,4 +119,5 @@ func _update_finish_hour():
 			+ " " + day_period
 
 func _end_session_timer():
+	update_preset.call()
 	parent.set_page(parent.page_session_finish)

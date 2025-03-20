@@ -22,7 +22,8 @@ func update():
 			_update_break_timer_label()
 
 func _skip_break():
-	_toggle_break_timer_pause() 
+	BreaksManager.end_break_id(parent.break_.ID)
+	parent.preset = PresetsManager.get_preset(parent.preset.ID)
 	parent.set_page(parent.page_break_finish)
 	
 func _restart_break():
@@ -93,12 +94,14 @@ func _toggle_break_timer_pause():
 	else:
 		parent.break_ = BreaksManager.pause_break_id(parent.break_.ID)
 
+func _update_titles_text():
+	label_preset_name.text = parent.preset.name_
+	label_sessions_count.text = str(parent.preset.sessions_done) + "/" + str(parent.preset.sessions_count)
+	
 func _end_break():
+	parent.preset = PresetsManager.get_preset(parent.preset.ID)
 	if parent.preset.is_auto_start_session:
 		parent.set_page(parent.page_session_timer)
 	else:
 		parent.set_page(parent.page_break_finish)
 		
-func _update_titles_text():
-	label_preset_name.text = parent.preset.name_
-	label_sessions_count.text = str(parent.preset.sessions_done) + "/" + str(parent.preset.sessions_count)
