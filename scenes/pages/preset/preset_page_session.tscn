@@ -1,10 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://k87ux2qmpcqj"]
+[gd_scene load_steps=15 format=3 uid="uid://k87ux2qmpcqj"]
 
+[ext_resource type="Script" path="res://scripts/pages/session/session_setup.gd" id="2_l3wag"]
 [ext_resource type="StyleBox" uid="uid://dhtti43gywwuo" path="res://visual/style_boxes/button.stylebox" id="2_nkr8a"]
 [ext_resource type="StyleBox" uid="uid://c4ccjefbdbl2j" path="res://visual/style_boxes/button_hover.stylebox" id="3_161tp"]
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_session.gd" id="3_p5ysi"]
 [ext_resource type="StyleBox" uid="uid://bailsyf88hhr0" path="res://visual/style_boxes/button_pressed.stylebox" id="4_o4ufo"]
 [ext_resource type="LabelSettings" uid="uid://dis7d5hvikqed" path="res://visual/labels/subtitle.tres" id="5_jy7e5"]
+[ext_resource type="Script" path="res://scripts/pages/session/session_timer.gd" id="6_j5uv2"]
+[ext_resource type="Script" path="res://scripts/pages/session/session_finish.gd" id="8_xg4q4"]
+[ext_resource type="Script" path="res://scripts/pages/session/break_setup.gd" id="9_esxm0"]
+[ext_resource type="Script" path="res://scripts/pages/session/break_timer.gd" id="10_l1xkr"]
+[ext_resource type="Script" path="res://scripts/pages/session/break_finish.gd" id="11_ecred"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_noh7n"]
 
@@ -25,6 +31,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_p5ysi")
+is_use_24_hour_format = null
 label_preset_name = NodePath("info/preset")
 label_sessions_count = NodePath("info/HBoxContainer/session count")
 content_parent = NodePath("Content")
@@ -95,6 +102,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("2_l3wag")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Content/SessionSetup"]
 layout_mode = 1
@@ -212,6 +220,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("6_j5uv2")
 
 [node name="Timer" type="VBoxContainer" parent="Content/SessionTimer"]
 layout_mode = 1
@@ -372,6 +381,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("8_xg4q4")
 
 [node name="Message" type="Label" parent="Content/SessionFinish"]
 layout_mode = 1
@@ -435,6 +445,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("9_esxm0")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Content/BreakSetup"]
 layout_mode = 1
@@ -552,6 +563,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("10_l1xkr")
 
 [node name="Timer" type="VBoxContainer" parent="Content/BreakTimer"]
 layout_mode = 1
@@ -713,6 +725,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("11_ecred")
 
 [node name="Message" type="Label" parent="Content/BreakFinish"]
 layout_mode = 1
