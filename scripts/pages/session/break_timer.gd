@@ -6,7 +6,10 @@ extends Page
 @export var label_preset_name: Label
 @export var label_sessions_count: Label
 
+var break_time_left_cache: int
+
 func enter():
+	break_time_left_cache = -1
 	if not parent.break_ or not BreaksManager.is_break_id_buffered(parent.break_.ID, false):
 		parent.break_ = BreaksManager.start_break(parent.preset.ID)
 		parent.preset.current_break_id = parent.break_.ID
@@ -22,6 +25,7 @@ func update():
 			_update_break_timer_label()
 
 func _skip_break():
+	break_time_left_cache = BreaksManager.get_break_id_remaining_seconds(parent.break_.ID)
 	BreaksManager.end_break_id(parent.break_.ID)
 	parent.preset = PresetsManager.get_preset(parent.preset.ID)
 	parent.set_page(parent.page_break_finish)
@@ -99,6 +103,8 @@ func _update_titles_text():
 	label_sessions_count.text = str(parent.preset.sessions_done) + "/" + str(parent.preset.sessions_count)
 	
 func _end_break():
+	if break_time_left_cache > 0:
+		return # i.e. break was skipped 
 	parent.preset = PresetsManager.get_preset(parent.preset.ID)
 	if parent.preset.is_auto_start_session:
 		parent.set_page(parent.page_session_timer)
