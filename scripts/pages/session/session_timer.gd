@@ -10,14 +10,18 @@ extends Page
 var update_preset: Callable = func(): parent.preset = PresetsManager.get_preset(parent.preset.ID)
 var update_session: Callable = func(): parent.session = SessionsManager.get_loaded_buffered_session(parent.session.ID)
 
+var session_time_left_cache: int
+
 func enter():
+	session_time_left_cache = -1
+	
 	if not parent.session or not SessionsManager.is_session_buffered(parent.session.ID):
 		parent.session = SessionsManager.start_buffered_session(parent.preset)
 		update_preset.call()
 	
 	if button_pause_toggle.button_pressed:
 		SessionsManager.pause_session(parent.session.ID)
-		_update_finish_hour()
+	_update_finish_hour()
 	_update_titles_text()
 	connect_session_finish_subscribers(parent.session)
 
@@ -64,8 +68,10 @@ func _restart():
 	_update_titles_text()
 
 func _skip():
-	parent.session = SessionsManager.end_buffered_session(parent.session.ID)
+	session_time_left_cache = SessionsManager.get_session_id_remaining_time_in_seconds(parent.session.ID)
 	update_preset.call()
+	parent.session = SessionsManager.end_buffered_session(parent.session.ID)
+	parent.set_page(parent.page_session_finish)
 
 func _update_titles_text():
 	label_preset_name.text = parent.preset.name_
@@ -119,5 +125,10 @@ func _update_finish_hour():
 			+ " " + day_period
 
 func _end_session_timer():
+	if session_time_left_cache > 0:
+		return # i.e. session was skipped
 	update_preset.call()
-	parent.set_page(parent.page_session_finish)
+	if parent.preset.is_auto_start_break:
+		parent.set_page(parent.page_break_timer)
+	else:
+		parent.set_page(parent.page_session_finish)

@@ -15,6 +15,7 @@ func enter():
 		parent.preset.current_break_id = parent.break_.ID
 	parent.break_.break_finish.connect(_end_break)
 	_update_titles_text()
+	_update_break_finish_hour_label()
 
 func exit():
 	parent.break_ = null
