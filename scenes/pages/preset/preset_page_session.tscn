@@ -83,6 +83,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SessionSetup" type="Control" parent="Content" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "break_length_parent", "edit_session_length", "edit_break_length", "button_auto_break")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -242,7 +243,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="SessionTimer" type="Control" parent="Content" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "label_finish_hour", "label_timer", "button_pause_toggle")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -444,6 +444,49 @@ text = "session
 label_settings = SubResource("LabelSettings_fy3gd")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="DEBUGGING" type="Control" parent="Content/SessionTimer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Content/SessionTimer/DEBUGGING"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Content/SessionTimer/DEBUGGING/HBoxContainer"]
+layout_mode = 2
+
+[node name="Sub1Second" type="Button" parent="Content/SessionTimer/DEBUGGING/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "-1 s"
+
+[node name="Sub5Second" type="Button" parent="Content/SessionTimer/DEBUGGING/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "-5 s"
+
+[node name="Sub10Second" type="Button" parent="Content/SessionTimer/DEBUGGING/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "-10 s"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Content/SessionTimer/DEBUGGING/HBoxContainer"]
+layout_mode = 2
+
+[node name="Add1Second" type="Button" parent="Content/SessionTimer/DEBUGGING/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "+1 s"
+
+[node name="Add5Second" type="Button" parent="Content/SessionTimer/DEBUGGING/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "+5 s"
+
+[node name="Add10Second" type="Button" parent="Content/SessionTimer/DEBUGGING/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "+10 s"
 
 [node name="SessionFinish" type="Control" parent="Content"]
 visible = false
@@ -871,6 +914,49 @@ label_settings = SubResource("LabelSettings_fy3gd")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="DEBUGGING" type="Control" parent="Content/BreakTimer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Content/BreakTimer/DEBUGGING"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Content/BreakTimer/DEBUGGING/HBoxContainer"]
+layout_mode = 2
+
+[node name="Sub1Second" type="Button" parent="Content/BreakTimer/DEBUGGING/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "-1 s"
+
+[node name="Sub5Second" type="Button" parent="Content/BreakTimer/DEBUGGING/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "-5 s"
+
+[node name="Sub10Second" type="Button" parent="Content/BreakTimer/DEBUGGING/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "-10 s"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Content/BreakTimer/DEBUGGING/HBoxContainer"]
+layout_mode = 2
+
+[node name="Add1Second" type="Button" parent="Content/BreakTimer/DEBUGGING/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "+1 s"
+
+[node name="Add5Second" type="Button" parent="Content/BreakTimer/DEBUGGING/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "+5 s"
+
+[node name="Add10Second" type="Button" parent="Content/BreakTimer/DEBUGGING/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "+10 s"
+
 [node name="BreakFinish" type="Control" parent="Content"]
 visible = false
 layout_mode = 1
@@ -966,6 +1052,12 @@ text = "< PRESETS"
 [connection signal="pressed" from="Content/SessionTimer/Controls/Restart" to="Content/SessionTimer" method="_restart"]
 [connection signal="pressed" from="Content/SessionTimer/Controls/Pause" to="Content/SessionTimer" method="toggle_pause"]
 [connection signal="pressed" from="Content/SessionTimer/Controls/Skip" to="Content/SessionTimer" method="_skip"]
+[connection signal="pressed" from="Content/SessionTimer/DEBUGGING/HBoxContainer/VBoxContainer/Sub1Second" to="Content/SessionTimer" method="add_session_length_seconds" binds= [-1]]
+[connection signal="pressed" from="Content/SessionTimer/DEBUGGING/HBoxContainer/VBoxContainer/Sub5Second" to="Content/SessionTimer" method="add_session_length_seconds" binds= [-5]]
+[connection signal="pressed" from="Content/SessionTimer/DEBUGGING/HBoxContainer/VBoxContainer/Sub10Second" to="Content/SessionTimer" method="add_session_length_seconds" binds= [-10]]
+[connection signal="pressed" from="Content/SessionTimer/DEBUGGING/HBoxContainer/VBoxContainer2/Add1Second" to="Content/SessionTimer" method="add_session_length_seconds" binds= [1]]
+[connection signal="pressed" from="Content/SessionTimer/DEBUGGING/HBoxContainer/VBoxContainer2/Add5Second" to="Content/SessionTimer" method="add_session_length_seconds" binds= [5]]
+[connection signal="pressed" from="Content/SessionTimer/DEBUGGING/HBoxContainer/VBoxContainer2/Add10Second" to="Content/SessionTimer" method="add_session_length_seconds" binds= [10]]
 [connection signal="pressed" from="Content/SessionFinish/VBoxContainer2/ContinueBreak" to="Content/SessionFinish" method="_continue"]
 [connection signal="pressed" from="Content/SessionFinish/VBoxContainer2/Restart" to="Content/SessionFinish" method="_restart"]
 [connection signal="pressed" from="Content/BreakSetup/VBoxContainer/Reset" to="Content/BreakSetup" method="_reset_break_edit_values"]

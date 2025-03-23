@@ -28,6 +28,7 @@ func add_seconds_to_buffered_session_end_datetime(session_id: int, seconds: int)
 			then datetime() else '" + str(new_datetime) + "' end
 		where SessionID = '" + str(session_id) + "'"
 	DatabaseManager.db.query(query)
+	update_buffered_sessions()
 
 func is_session_paused(session_id: int)-> bool:
 	DatabaseManager.db.query("select EndDateTime from Sessions_Buffer where SessionID = " + str(session_id))
@@ -120,7 +121,8 @@ func get_session_id_remaining_time_in_seconds(session_id: int)-> int:
 	if preset == null:
 		return 0
 	var elapsed_time: int = get_session_id_elapsed_time_in_seconds(session_id)
-	var remaining_time: int = (preset.session_length + preset.added_session_length) * 60 - elapsed_time
+	# NOTE: i changed added_session_length to be in seconds for debugging, so i cant bother refactoring
+	var remaining_time: int = (preset.session_length * 60 + preset.added_session_length) - elapsed_time
 	return remaining_time
 
 func get_pauses_length_in_seconds_buffered(session_id: int)-> int:
@@ -289,8 +291,6 @@ func end_buffered_session(session_id: int)-> Session:
 			SessionsCount = "+ str(preset.sessions_count) +",
 			AddedSessionLength = 0,
 			SessionLength = "+ str(preset.session_length) +",
-			BreakLength = "+ str(preset.break_length) +",
-			isAutoStartBreak = "+ str(preset.is_auto_start_break) +", 
 			isAutoStartSession = "+ str(preset.is_auto_start_session) +" 
 		where CurrentSessionID = " + str(session_id)
 	DatabaseManager.db.query(query)

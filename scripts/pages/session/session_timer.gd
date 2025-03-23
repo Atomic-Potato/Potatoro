@@ -43,13 +43,31 @@ func connect_session_finish_subscribers(s: Session):
 	s.session_finish.connect(_end_session_timer)
 
 func add_session_length(minutes: int):
-	parent.preset.added_session_length += minutes
+	var remaining_secs = SessionsManager.get_session_id_remaining_time_in_seconds(parent.session.ID)
+	if remaining_secs + (minutes * 60) < 0:
+		return
+	parent.preset.added_session_length += minutes * 60
 	PresetsManager.save_buffered_preset(parent.preset)
 	SessionsManager.add_seconds_to_buffered_session_end_datetime(parent.session.ID, minutes * 60)
 	parent.preset = PresetsManager.get_preset(parent.preset.ID)
-	parent.session = SessionsManager.get_session(parent.session.ID)
+	parent.session = SessionsManager.get_loaded_buffered_session(parent.session.ID)
 	_update_finish_hour()
 	_update_timer_text()
+	
+# NOTE: Only used for debugging, doesnt work since in database we store time added in minutes
+func add_session_length_seconds(seconds: int):
+	var remaining_secs = SessionsManager.get_session_id_remaining_time_in_seconds(parent.session.ID)
+	if remaining_secs + seconds < 0:
+		return
+		
+	parent.preset.added_session_length += seconds
+	PresetsManager.save_buffered_preset(parent.preset)
+	SessionsManager.add_seconds_to_buffered_session_end_datetime(parent.session.ID, seconds)
+	parent.preset = PresetsManager.get_preset(parent.preset.ID)
+	parent.session = SessionsManager.get_loaded_buffered_session(parent.session.ID)
+	_update_finish_hour()
+	_update_timer_text()
+
 	
 func toggle_pause():
 	if not SessionsManager.is_session_paused(parent.session.ID):
@@ -133,3 +151,7 @@ func _end_session_timer():
 		parent.set_page(parent.page_break_timer)
 	else:
 		parent.set_page(parent.page_session_finish)
+
+
+func _on_sub_10_second_pressed():
+	pass # Replace with function body.

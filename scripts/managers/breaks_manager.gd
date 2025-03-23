@@ -135,13 +135,14 @@ func end_break_id(break_id: int):
 	if not is_break_id_buffered(break_id):
 		return
 	
+	DatabaseManager.db.query("select PresetID from Presets_Buffer where CurrentBreakID = " + str(break_id))
+	var preset: Preset = PresetsManager.get_preset(DatabaseManager.db.query_result[0].get("PresetID"), false)
 	DatabaseManager.db.query("
 		update Presets_Buffer
 		set
 			CurrentBreakID = 0,
-			BreakLength = p.BreakLength,
-			isAutoStartBreak = p.isAutoStartBreak 
-		from Presets p
+			BreakLength = "+str(preset.break_length)+",
+			isAutoStartBreak = "+str(preset.is_auto_start_break)+"
 		where CurrentBreakID = " + str(break_id)
 	)
 	DatabaseManager.db.query("
