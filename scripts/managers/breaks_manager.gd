@@ -21,7 +21,12 @@ func update_buffered_breaks():
 	
 	var removed_breaks: Array[Break] = []
 	for bb in buffered_breaks:
-		if new_buffered_breaks.find(bb) == -1 :
+		var is_found: bool
+		for nbb in new_buffered_breaks:
+			if nbb.ID == bb.ID:
+				is_found = true
+				break
+		if not is_found :
 			removed_breaks.append(bb)
 	for rb in removed_breaks:
 		buffered_breaks.remove_at(buffered_breaks.find(rb))

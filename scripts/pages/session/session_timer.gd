@@ -23,8 +23,8 @@ func enter():
 		SessionsManager.pause_session(parent.session.ID)
 	_update_finish_hour()
 	_update_titles_text()
-	connect_session_finish_subscribers(parent.session)
-	
+	connect_session_finish_subscribers(SessionsManager.get_loaded_buffered_session(parent.session.ID))
+	print(parent.session.session_finish.get_connections().size())
 	parent.session_cache = parent.session
 
 func exit():
@@ -63,7 +63,7 @@ func add_session_length_seconds(seconds: int):
 	PresetsManager.save_buffered_preset(parent.preset)
 	SessionsManager.add_seconds_to_buffered_session_end_datetime(parent.session.ID, seconds)
 	parent.preset = PresetsManager.get_preset(parent.preset.ID)
-	parent.session = SessionsManager.get_loaded_buffered_session(parent.session.ID)
+	update_session.call()
 	_update_finish_hour()
 	_update_timer_text()
 
@@ -150,7 +150,3 @@ func _end_session_timer():
 		parent.set_page(parent.page_break_timer)
 	else:
 		parent.set_page(parent.page_session_finish)
-
-
-func _on_sub_10_second_pressed():
-	pass # Replace with function body.

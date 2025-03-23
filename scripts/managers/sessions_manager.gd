@@ -11,6 +11,7 @@ func _process(_delta):
 			continue
 		var remaining_time: int = get_session_id_remaining_time_in_seconds(session.ID)
 		if remaining_time <= 0:
+			print(session.session_finish.get_connections().size())
 			end_buffered_session(session.ID)
 			#OS.alert("Session " + str(session.ID) + " has finished!", "Session " + str(session.ID))
 
@@ -212,7 +213,12 @@ func update_buffered_sessions():
 	
 	var removed_sessions: Array[Session] = []
 	for bs in buffered_sessions:
-		if new_buffered_sessions.find(bs) == -1 :
+		var is_found: bool
+		for nbs in new_buffered_sessions:
+			if nbs.ID == bs.ID:
+				is_found = true
+				break
+		if not is_found:
 			removed_sessions.append(bs)
 	for rs in removed_sessions:
 		buffered_sessions.remove_at(buffered_sessions.find(rs))

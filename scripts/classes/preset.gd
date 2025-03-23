@@ -21,7 +21,7 @@ var session_length: int:
 		session_length = 0 if value < 0 else value
 	get:
 		return session_length
-var added_session_length: float # NOTE: This is in seconds for debugging reasons
+var added_session_length: int # NOTE: This is in seconds for debugging reasons
 var break_length: int:
 	set(value):
 		break_length = 0 if value < 0 else value
@@ -34,7 +34,7 @@ func _init(
 _ID: int = 0, _buffer_ID: int = 0, _default_tag_id: int = 0, _name_: String = '',
 _sessions_count: int = 0 , _sessions_done: int = 0, _session_length: int = 0,
 _break_length: int = 0, _is_auto_start_break: bool = false, _is_auto_start_session: bool = false,
-_added_session_length: float = 0,  _current_session_id: int = 0, _current_break_id: int = 0):
+_added_session_length: int = 0,  _current_session_id: int = 0, _current_break_id: int = 0):
 	
 	ID = _ID
 	buffer_ID = _buffer_ID
