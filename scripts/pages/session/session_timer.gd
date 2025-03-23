@@ -17,13 +17,15 @@ func enter():
 	
 	if not parent.session or not SessionsManager.is_session_buffered(parent.session.ID):
 		parent.session = SessionsManager.start_buffered_session(parent.preset)
-		update_preset.call()
 	
+	update_preset.call()
 	if button_pause_toggle.button_pressed:
 		SessionsManager.pause_session(parent.session.ID)
 	_update_finish_hour()
 	_update_titles_text()
 	connect_session_finish_subscribers(parent.session)
+	
+	parent.session_cache = parent.session
 
 func exit():
 	parent.session = null
@@ -127,7 +129,6 @@ func _update_finish_hour():
 func _end_session_timer():
 	if session_time_left_cache > 0:
 		return # i.e. session was skipped
-	update_preset.call()
 	if parent.preset.is_auto_start_break:
 		parent.set_page(parent.page_break_timer)
 	else:

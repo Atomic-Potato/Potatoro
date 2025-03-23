@@ -1,39 +1,42 @@
 extends Page
-#
-#@export var css_break_length_parent: Control
-#@export var css_edit_session_length: LineEdit
-#@export var css_edit_break_length: LineEdit
-#@export var css_button_auto_break: CheckButton
-#
-#func _initialize_content_session_setup():
-	#preset = PresetsManager.get_preset(preset.ID)
-	#css_edit_session_length.placeholder_text = str(preset.session_length) + 'm'
-	#css_edit_break_length.placeholder_text = str(preset.break_length) + 'm'
-	#css_button_auto_break.button_pressed = preset.is_auto_start_break
-	#css_break_length_parent.visible = preset.is_auto_start_break
-#
-#func _reset_session_edit_values():
-	#css_button_auto_break.button_pressed = preset.is_auto_start_break
-	#css_break_length_parent.visible = preset.is_auto_start_break
-	#css_edit_break_length.text = ""
-	#css_edit_session_length.text = ""
-#
-#func _toggle_next_break_length_visibility(toggle: bool):
-	#css_break_length_parent.visible = toggle
-#
-#func _start_session():
-	#preset.break_length = int(css_edit_break_length.text) \
-		#if css_button_auto_break.button_pressed and css_edit_break_length.text else preset.break_length
-	#preset.session_length = int(css_edit_session_length.text) \
-		#if cbs_edit_session_length.text else preset.session_length
-	#
-	#session = SessionsManager.start_buffered_session(preset)
-	#connect_session_finish_subscribers(session)
-	#
-	#if current_content == content_session_setup:
-		#preset.is_auto_start_break = css_button_auto_break.button_pressed
-	#preset.current_session_id = session.ID
-	#PresetsManager.save_buffered_preset(preset) 
-	#
-	#_set_content(content_session_timer)
-	#
+
+@export var label_preset_name: Label
+@export var label_sessions_count: Label
+@export var break_length_parent: Control
+@export var edit_session_length: LineEdit
+@export var edit_break_length: LineEdit
+@export var button_auto_break: CheckButton
+
+func enter():
+	parent.preset = PresetsManager.get_preset(parent.preset.ID)
+	edit_session_length.placeholder_text = str(parent.preset.session_length) + 'm'
+	edit_session_length.text = ""
+	edit_break_length.placeholder_text = str(parent.preset.break_length) + 'm'
+	edit_break_length.text = ""
+	button_auto_break.button_pressed = parent.preset.is_auto_start_break
+	break_length_parent.visible = parent.preset.is_auto_start_break
+	_update_titles_text()
+
+func _reset_session_edit_values():
+	button_auto_break.button_pressed = parent.preset.is_auto_start_break
+	break_length_parent.visible = parent.preset.is_auto_start_break
+	edit_break_length.text = ""
+	edit_session_length.text = ""
+
+func _toggle_next_break_length_visibility(toggle: bool):
+	break_length_parent.visible = toggle
+
+func _start_session():
+	parent.preset.break_length = int(edit_break_length.text) \
+		if button_auto_break.button_pressed and edit_break_length.text else parent.preset.break_length
+	parent.preset.session_length = int(edit_session_length.text) \
+		if edit_session_length.text else parent.preset.session_length
+		
+	parent.preset.is_auto_start_break = button_auto_break.button_pressed
+	PresetsManager.save_buffered_preset(parent.preset) 
+	
+	parent.set_page(parent.page_session_timer)
+
+func _update_titles_text():
+	label_preset_name.text = parent.preset.name_
+	label_sessions_count.text = str(parent.preset.sessions_done) + "/" + str(parent.preset.sessions_count)

@@ -8,9 +8,5 @@ func _continue():
 
 
 func _restart():
-	if SessionsManager.is_session_buffered(parent.session.ID):
-		parent.session = SessionsManager.restart_buffered_session(parent.session.ID)
-	else:
-		parent.session = SessionsManager.restart_session(parent.session.ID, parent.preset.ID)
-	
+	parent.session = SessionsManager.restart_session(parent.session_cache.ID, parent.preset.ID)
 	parent.set_page(parent.page_session_timer)

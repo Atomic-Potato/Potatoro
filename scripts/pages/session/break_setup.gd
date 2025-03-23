@@ -14,16 +14,18 @@ func enter():
 	_update_titles_text()
 	button_auto_session.button_pressed = parent.preset.is_auto_start_session
 	edit_break_length.placeholder_text = str(parent.preset.break_length) + "m" 
+	edit_break_length.text = ""
 	edit_session_length.placeholder_text = str(parent.preset.session_length) + "m"
+	edit_session_length.text = ""
 	session_length_parent.visible = parent.preset.is_auto_start_session
 
 func _toggle_next_session_length_visibility(toggle: bool):
 	session_length_parent.visible = toggle
 
 func _start_break():
-	var break_length: int = int(edit_break_length.text) if edit_break_length.text else -1
+	var break_length: int = int(edit_break_length.text) if edit_break_length.text else parent.preset.break_length
 	var session_length: int = int(edit_session_length.text) \
-		if button_auto_session.button_pressed and edit_session_length.text else -1
+		if button_auto_session.button_pressed and edit_session_length.text else parent.preset.session_length
 	parent.preset.break_length = break_length
 	parent.preset.session_length = session_length
 	parent.preset.is_auto_start_session = button_auto_session.button_pressed

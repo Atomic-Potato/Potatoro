@@ -4,8 +4,7 @@ var preset: Preset
 var session: Session
 var break_: Break
 
-#@export var label_preset_name: Label
-#@export var label_sessions_count: Label
+var session_cache: Session
 
 @export_category("General Nodes")
 @export var content_parent: Control

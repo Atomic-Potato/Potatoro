@@ -248,13 +248,13 @@ func end_buffered_session(session_id: int)-> Session:
 		return null
 	
 	# Saving the session from buffer
+	var session: Session = get_buffered_session(session_id)
 	var query = "
 		update Sessions
-		set "\
-			+ "TagID = sb.TagID, "\
-			+ "StartDateTime = sb.StartDateTime, "\
-			+ "EndDateTime = '" + DatabaseManager.get_datetime() + "' " +\
-		"from Sessions_Buffer sb 
+		set
+			TagID = "+ str(session.tag_ID) +",
+			StartDateTime = '"+ str(session.start_date_time) +"',
+			EndDateTime = '" + DatabaseManager.get_datetime() + "' 
 		where Sessions.ID = " + str(session_id)
 	DatabaseManager.db.query(query)
 	query = "
@@ -274,26 +274,28 @@ func end_buffered_session(session_id: int)-> Session:
 		where SessionID = " + str(session_id)
 	DatabaseManager.db.query(query)
 	
+	DatabaseManager.db.query("select PresetID from Presets_Buffer where CurrentSessionID =" + str(session_id))
+	var preset: Preset = PresetsManager.get_preset(DatabaseManager.db.query_result[0].get("PresetID"), false)
 	# Add done session to preset buffer and reset non temp values
 	# NOTE: session length resets when a new session starts
 	# it is kept in case of a restart at the finish screen
 	query = "
 		update Presets_Buffer
 		set
-			DefaultTagID = p.DefaultTagID,
+			DefaultTagID = " + str(preset.default_tag_id) + ",
 			CurrentSessionID = 0,
 			SessionsDone = SessionsDone + 1,
-			Name = p.Name,
-			SessionsCount = p.SessionsCount,
+			Name = '" + str(preset.name_) + "',
+			SessionsCount = "+ str(preset.sessions_count) +",
 			AddedSessionLength = 0,
-			BreakLength = p.BreakLength,
-			isAutoStartBreak = p.isAutoStartBreak, 
-			isAutoStartSession = p.isAutoStartSession 
-		from Presets p
+			SessionLength = "+ str(preset.session_length) +",
+			BreakLength = "+ str(preset.break_length) +",
+			isAutoStartBreak = "+ str(preset.is_auto_start_break) +", 
+			isAutoStartSession = "+ str(preset.is_auto_start_session) +" 
 		where CurrentSessionID = " + str(session_id)
 	DatabaseManager.db.query(query)
 	
-	var session: Session = get_loaded_buffered_session(session_id)
+	session = get_loaded_buffered_session(session_id)
 	session.session_finish.emit()
 	update_buffered_sessions()
 	return get_session(session_id)
@@ -329,7 +331,6 @@ func restart_session(session_id: int, preset_id: int)-> Session:
 		set 
 			AddedSessionLength = 0,
 			SessionsDone = SessionsDone - 1
-		from Presets p
 		where PresetID = " + str(preset_id)
 	)
 
@@ -347,7 +348,6 @@ func restart_session(session_id: int, preset_id: int)-> Session:
 	DatabaseManager.db.query("
 		update Presets_Buffer
 		set CurrentSessionID = " + str(updated_session.ID) + "
-		from Presets p
 		where PresetID = " + str(preset_id)
 	)
 	
@@ -370,7 +370,6 @@ func restart_buffered_session(session_id: int)-> Session:
 	DatabaseManager.db.query("
 		update Presets_Buffer
 		set AddedSessionLength = 0
-		from Presets p
 		where CurrentSessionID = " + str(session_id)
 	)
 	

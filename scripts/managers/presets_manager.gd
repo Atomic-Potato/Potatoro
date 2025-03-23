@@ -56,45 +56,25 @@ func get_presets() -> Array[Preset]:
 		presets.append(get_preset(p.get("ID")))
 	return presets
 
-#func set_preset_current_session_ID(preset: Preset, session: Session)-> Preset:
-	#var query = "
-		#update Presets_Buffer
-		#set CurrentSessionID = " + str(session.ID) + " 
-		#where PresetID = " + str(preset.ID)
-	#preset.current_session_ID = session.ID
-	#return preset 
-
-# DEPRECATED: 
-# I have added a current session ID variable to the Preset class
-#func get_preset_current_session_ID(preset: Preset)-> int:
-	#var query = "
-		#select CurrentSessionID 
-		#from Presets_Buffer 
-		#where ID = " + str(preset.buffer_ID)
-	#DatabaseManager.db.query(query)
-	#if not DatabaseManager.db.query_result.is_empty():
-		#var current_session_id = DatabaseManager.db.query_result[0].get("CurrentSessionID")
-		#return current_session_id if current_session_id else 0
-	#return 0
-
-func get_preset(preset_id: int)-> Preset:
-	DatabaseManager.db.query("select * from Presets_Buffer where PresetID = " + str(preset_id))
-	if not DatabaseManager.db.query_result.is_empty():
-		return Preset.new(
-			DatabaseManager.db.query_result[0].get("PresetID"),
-			DatabaseManager.db.query_result[0].get("ID"),
-			DatabaseManager.db.query_result[0].get("DefaultTagID"),
-			DatabaseManager.db.query_result[0].get("Name"),
-			DatabaseManager.db.query_result[0].get("SessionsCount"),
-			DatabaseManager.db.query_result[0].get("SessionsDone"),
-			DatabaseManager.db.query_result[0].get("SessionLength"),
-			DatabaseManager.db.query_result[0].get("BreakLength"),
-			DatabaseManager.db.query_result[0].get("isAutoStartBreak"),
-			DatabaseManager.db.query_result[0].get("isAutoStartSession"),
-			DatabaseManager.db.query_result[0].get("AddedSessionLength"),
-			DatabaseManager.db.query_result[0].get("CurrentSessionID"),
-			DatabaseManager.db.query_result[0].get("CurrentBreakID")
-		)
+func get_preset(preset_id: int, is_check_buffered: bool = true)-> Preset:
+	if is_check_buffered:
+		DatabaseManager.db.query("select * from Presets_Buffer where PresetID = " + str(preset_id))
+		if not DatabaseManager.db.query_result.is_empty():
+			return Preset.new(
+				DatabaseManager.db.query_result[0].get("PresetID"),
+				DatabaseManager.db.query_result[0].get("ID"),
+				DatabaseManager.db.query_result[0].get("DefaultTagID"),
+				DatabaseManager.db.query_result[0].get("Name"),
+				DatabaseManager.db.query_result[0].get("SessionsCount"),
+				DatabaseManager.db.query_result[0].get("SessionsDone"),
+				DatabaseManager.db.query_result[0].get("SessionLength"),
+				DatabaseManager.db.query_result[0].get("BreakLength"),
+				DatabaseManager.db.query_result[0].get("isAutoStartBreak"),
+				DatabaseManager.db.query_result[0].get("isAutoStartSession"),
+				DatabaseManager.db.query_result[0].get("AddedSessionLength"),
+				DatabaseManager.db.query_result[0].get("CurrentSessionID"),
+				DatabaseManager.db.query_result[0].get("CurrentBreakID")
+			)
 	DatabaseManager.db.query("select * from Presets where ID = " + str(preset_id))
 	if not DatabaseManager.db.query_result.is_empty():
 		return Preset.new(
@@ -282,48 +262,3 @@ func delete_preset(preset_id: int, is_force_delete: bool = false):
 			delete from Presets
 			where ID = " + str(preset_id) + ";"
 		)
-
-# DEPRECATED i was gonna use this, but then i came up with this bullshit rule of separating
-# each manager logic to remove dependency, so now a lot of preset related stuff are now coded
-# into the session manage, i may 
-# this function resets all the values except SessionsDone
-func reset_preset_buffer_non_temp_values(preset_id: int)-> Preset:
-	DatabaseManager.db.query("select ID from Presets_Buffer where PresetID = " + str(preset_id))
-	if DatabaseManager.db.query_result.is_empty():
-		push_error("Cannot reset preset buffer. ID ", preset_id, " not found!")
-		return null
-	
-	DatabaseManager.db.query("
-		update Presets_Buffer
-		set
-			DefaultTagID = p.DefaultTagID,
-			CurrentSessionID = null,
-			Name = p.Name,
-			SessionsCount = p.SessionsCount,
-			SessionLength = p.SessionLength,
-			BreakLength = p.BreakLength,
-			isAutoStartBreak = p.isAutoStartBreak, 
-			isAutoStartSession = p.isAutoStartSession 
-		from Presets p
-		where PresetID = " + str(preset_id) 
-	)
-	
-	return get_preset(preset_id)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

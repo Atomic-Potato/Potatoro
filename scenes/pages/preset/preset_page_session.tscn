@@ -19,12 +19,12 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_bottom = 2
 border_color = Color(1, 1, 1, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_fy3gd"]
+font_size = 25
+
 [sub_resource type="LabelSettings" id="LabelSettings_x63tv"]
 line_spacing = 0.0
 font_size = 100
-
-[sub_resource type="LabelSettings" id="LabelSettings_fy3gd"]
-font_size = 25
 
 [node name="PresetPageSession" type="Control" node_paths=PackedStringArray("content_parent", "page_default", "page_session_setup", "page_session_timer", "page_session_finish", "page_break_setup", "page_break_timer", "page_break_finish")]
 layout_mode = 3
@@ -82,8 +82,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SessionSetup" type="Control" parent="Content"]
-visible = false
+[node name="SessionSetup" type="Control" parent="Content" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "break_length_parent", "edit_session_length", "edit_break_length", "button_auto_break")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -91,6 +90,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_l3wag")
+label_preset_name = NodePath("info/HBoxContainer/text")
+label_sessions_count = NodePath("info/HBoxContainer/session count")
+break_length_parent = NodePath("VBoxContainer/FlowContainer/BreakLength")
+edit_session_length = NodePath("VBoxContainer/FlowContainer/Session Length/SessionLengthEdit")
+edit_break_length = NodePath("VBoxContainer/FlowContainer/BreakLength/edit")
+button_auto_break = NodePath("AutoBreak")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Content/SessionSetup"]
 layout_mode = 1
@@ -199,6 +204,42 @@ grow_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "auto start next break"
 alignment = 2
+
+[node name="info" type="VBoxContainer" parent="Content/SessionSetup"]
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -49.5
+offset_right = 49.5
+offset_bottom = 50.0001
+grow_horizontal = 2
+alignment = 1
+
+[node name="preset" type="Label" parent="Content/SessionSetup/info"]
+layout_mode = 2
+text = "preset-name"
+label_settings = SubResource("LabelSettings_noh7n")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Content/SessionSetup/info"]
+layout_mode = 2
+
+[node name="text" type="Label" parent="Content/SessionSetup/info/HBoxContainer"]
+layout_mode = 2
+text = "sessions "
+
+[node name="session count" type="Label" parent="Content/SessionSetup/info/HBoxContainer"]
+layout_mode = 2
+text = "0/~"
+
+[node name="Label" type="Label" parent="Content/SessionSetup/info"]
+layout_mode = 2
+text = "session"
+label_settings = SubResource("LabelSettings_fy3gd")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="SessionTimer" type="Control" parent="Content" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "label_finish_hour", "label_timer", "button_pause_toggle")]
 visible = false
@@ -831,6 +872,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="BreakFinish" type="Control" parent="Content"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -912,9 +954,9 @@ theme_override_styles/normal = ExtResource("2_nkr8a")
 theme_override_styles/hover = ExtResource("3_161tp")
 text = "< PRESETS"
 
-[connection signal="pressed" from="Content/SessionSetup/VBoxContainer/Reset" to="." method="_reset_session_edit_values"]
-[connection signal="pressed" from="Content/SessionSetup/StartSession" to="." method="_start_session"]
-[connection signal="toggled" from="Content/SessionSetup/AutoBreak" to="." method="_toggle_next_break_length_visibility"]
+[connection signal="pressed" from="Content/SessionSetup/VBoxContainer/Reset" to="Content/SessionSetup" method="_reset_session_edit_values"]
+[connection signal="pressed" from="Content/SessionSetup/StartSession" to="Content/SessionSetup" method="_start_session"]
+[connection signal="toggled" from="Content/SessionSetup/AutoBreak" to="Content/SessionSetup" method="_toggle_next_break_length_visibility"]
 [connection signal="pressed" from="Content/SessionTimer/Timer/Add time/Button" to="Content/SessionTimer" method="add_session_length" binds= [1]]
 [connection signal="pressed" from="Content/SessionTimer/Timer/Add time/Button2" to="Content/SessionTimer" method="add_session_length" binds= [5]]
 [connection signal="pressed" from="Content/SessionTimer/Timer/Add time/Button3" to="Content/SessionTimer" method="add_session_length" binds= [10]]

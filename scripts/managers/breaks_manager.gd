@@ -110,7 +110,7 @@ func start_break(preset_id: int)-> Break:
 		return null
 	
 	DatabaseManager.db.query(
-		"select BreakLength from Presets where ID = " + str(preset_id))
+		"select BreakLength from Presets_Buffer where PresetID = " + str(preset_id))
 	var break_length = DatabaseManager.db.query_result[0].get("BreakLength")
 	
 	var new_break = save_break(
@@ -138,7 +138,9 @@ func end_break_id(break_id: int):
 	DatabaseManager.db.query("
 		update Presets_Buffer
 		set
-			CurrentBreakID = 0
+			CurrentBreakID = 0,
+			BreakLength = p.BreakLength,
+			isAutoStartBreak = p.isAutoStartBreak 
 		from Presets p
 		where CurrentBreakID = " + str(break_id)
 	)
