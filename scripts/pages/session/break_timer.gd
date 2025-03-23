@@ -49,6 +49,18 @@ func _add_break_time(minutes: int):
 	_update_break_finish_hour_label()
 	_update_break_timer_label()
 
+func _add_break_time_seconds(seconds: int):
+	var new_datetime: String = DatabaseManager.get_datetime(
+		('+' if seconds > 0 else '') + str(seconds) + ' seconds', 
+		parent.break_.end_datetime)
+	if DatabaseManager.get_datetimes_seconds_difference(
+	new_datetime, DatabaseManager.get_datetime()) < 0:
+		return
+	parent.break_.end_datetime = new_datetime
+	BreaksManager.save_break(parent.break_)
+	_update_break_finish_hour_label()
+	_update_break_timer_label()
+
 func _update_break_timer_label():
 	if not PresetsManager.is_in_break(parent.preset.ID):
 		return

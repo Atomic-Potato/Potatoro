@@ -54,7 +54,6 @@ func add_session_length(minutes: int):
 	_update_finish_hour()
 	_update_timer_text()
 	
-# NOTE: Only used for debugging, doesnt work since in database we store time added in minutes
 func add_session_length_seconds(seconds: int):
 	var remaining_secs = SessionsManager.get_session_id_remaining_time_in_seconds(parent.session.ID)
 	if remaining_secs + seconds < 0:

@@ -243,6 +243,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="SessionTimer" type="Control" parent="Content" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "label_finish_hour", "label_timer", "button_pause_toggle")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -447,11 +448,7 @@ vertical_alignment = 1
 
 [node name="DEBUGGING" type="Control" parent="Content/SessionTimer"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Content/SessionTimer/DEBUGGING"]
 layout_mode = 0
@@ -713,7 +710,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="BreakTimer" type="Control" parent="Content" node_paths=PackedStringArray("label_finish_hour", "label_timer", "label_preset_name", "label_sessions_count")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -916,16 +912,12 @@ vertical_alignment = 1
 
 [node name="DEBUGGING" type="Control" parent="Content/BreakTimer"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Content/BreakTimer/DEBUGGING"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 96.0
+offset_bottom = 101.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Content/BreakTimer/DEBUGGING/HBoxContainer"]
 layout_mode = 2
@@ -1072,5 +1064,11 @@ text = "< PRESETS"
 [connection signal="pressed" from="Content/BreakTimer/Controls/Restart" to="Content/BreakTimer" method="_restart_break"]
 [connection signal="pressed" from="Content/BreakTimer/Controls/Pause" to="Content/BreakTimer" method="_toggle_break_timer_pause"]
 [connection signal="pressed" from="Content/BreakTimer/Controls/Skip" to="Content/BreakTimer" method="_skip_break"]
+[connection signal="pressed" from="Content/BreakTimer/DEBUGGING/HBoxContainer/VBoxContainer/Sub1Second" to="Content/BreakTimer" method="_add_break_time_seconds" binds= [-1]]
+[connection signal="pressed" from="Content/BreakTimer/DEBUGGING/HBoxContainer/VBoxContainer/Sub5Second" to="Content/BreakTimer" method="_add_break_time_seconds" binds= [-5]]
+[connection signal="pressed" from="Content/BreakTimer/DEBUGGING/HBoxContainer/VBoxContainer/Sub10Second" to="Content/BreakTimer" method="_add_break_time_seconds" binds= [-10]]
+[connection signal="pressed" from="Content/BreakTimer/DEBUGGING/HBoxContainer/VBoxContainer2/Add1Second" to="Content/BreakTimer" method="_add_break_time_seconds" binds= [1]]
+[connection signal="pressed" from="Content/BreakTimer/DEBUGGING/HBoxContainer/VBoxContainer2/Add5Second" to="Content/BreakTimer" method="_add_break_time_seconds" binds= [5]]
+[connection signal="pressed" from="Content/BreakTimer/DEBUGGING/HBoxContainer/VBoxContainer2/Add10Second" to="Content/BreakTimer" method="_add_break_time_seconds" binds= [10]]
 [connection signal="pressed" from="Content/BreakFinish/VBoxContainer2/ContinueBreak" to="Content/BreakFinish" method="_continue_to_session"]
 [connection signal="pressed" from="Content/BreakFinish/VBoxContainer2/Restart" to="Content/BreakFinish" method="_restart_break"]

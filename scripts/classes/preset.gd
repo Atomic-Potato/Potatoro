@@ -21,7 +21,7 @@ var session_length: int:
 		session_length = 0 if value < 0 else value
 	get:
 		return session_length
-var added_session_length: float 
+var added_session_length: float # NOTE: This is in seconds for debugging reasons
 var break_length: int:
 	set(value):
 		break_length = 0 if value < 0 else value
