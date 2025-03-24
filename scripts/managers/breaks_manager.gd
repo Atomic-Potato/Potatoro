@@ -133,7 +133,6 @@ func start_break(preset_id: int)-> Break:
 			NextTimerTypeID = "+ str(PresetsManager.TimerTypes.Session) +" 
 		where PresetID = " + str(preset_id)
 	)
-	
 	update_buffered_breaks()
 	return get_loaded_break(new_break.ID)
 

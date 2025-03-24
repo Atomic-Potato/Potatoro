@@ -14,7 +14,7 @@ func enter():
 	break_time_left_cache = -1
 	if not parent.break_ or not BreaksManager.is_break_id_buffered(parent.break_.ID, false):
 		parent.break_ = BreaksManager.start_break(parent.preset.ID)
-		parent.preset.current_break_id = parent.break_.ID
+		parent.preset = PresetsManager.get_preset(parent.preset.ID)
 	parent.break_.break_finish.connect(_end_break)
 	button_auto_session_toggle.button_pressed = parent.preset.is_auto_start_session
 	_update_titles_text()

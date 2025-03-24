@@ -32,6 +32,16 @@ func _ready():
 		set_page(page_session_timer)
 	elif PresetsManager.is_in_break(preset.ID):
 		set_page(page_break_timer)
+	elif preset.next_timer_type_id == PresetsManager.TimerTypes.Session:
+		if preset.is_auto_start_session:
+			set_page(page_session_timer)
+		else:
+			set_page(page_session_setup)
+	elif preset.next_timer_type_id == PresetsManager.TimerTypes.Break:
+		if preset.is_auto_start_break:
+			set_page(page_break_timer)
+		else:
+			set_page(page_break_setup)
 	else:
 		set_page(page_session_timer)
 

@@ -18,4 +18,7 @@ func update_text():
 	break_lable.text = str(preset.break_length)
 
 func load_make_edit_preset_page():
-	Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_save_preset, {"preset" : preset})
+	if PresetsManager.is_preset_id_buffered(preset.ID):
+		Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_session, {"preset" : preset})
+	else:
+		Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_save_preset, {"preset" : preset})
