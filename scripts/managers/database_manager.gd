@@ -120,10 +120,21 @@ func create_db(open_db: SQLite):
 			"AddedLength"	INTEGER,
 			PRIMARY KEY("ID" AUTOINCREMENT)
 		);
+		
+		CREATE TABLE "TimerTypes" (
+			"ID"	INTEGER NOT NULL UNIQUE,
+			"Name"	TEXT NOT NULL UNIQUE,
+			PRIMARY KEY("ID")
+		);
+		
+		insert into TimerTypes(ID, Name) values
+			(1, "Session"), 
+			(2, "Break");
+		
 		CREATE TABLE "Presets" (
 			"ID"	INTEGER NOT NULL UNIQUE,
 			"DefaultTagID"	INTEGER,
-			"Name"	INTEGER NOT NULL UNIQUE,
+			"Name"	TEXT NOT NULL UNIQUE,
 			"SessionsCount"	INTEGER NOT NULL,
 			"SessionLength"	INTEGER,
 			"BreakLength"	INTEGER,
@@ -137,6 +148,7 @@ func create_db(open_db: SQLite):
 			"DefaultTagID"	INTEGER,
 			"CurrentSessionID"	INTEGER,
 			"CurrentBreakID" INTEGER,
+			"NextTimerTypeID" INTEGER,
 			"Name"	TEXT NOT NULL,
 			"SessionsCount"	INTEGER NOT NULL,
 			"SessionsDone"	INTEGER NOT NULL,
@@ -149,6 +161,7 @@ func create_db(open_db: SQLite):
 			FOREIGN KEY("CurrentSessionID") REFERENCES "Sessions"("ID"),
 			FOREIGN KEY("CurrentBreakID") REFERENCES "Breaks_Buffer"("ID"),
 			FOREIGN KEY("DefaultTagID") REFERENCES "Tags"("ID"),
+			FOREIGN KEY("NextTimerTypeID") REFERENCES "TimerTypes"("ID"),
 			PRIMARY KEY("ID" AUTOINCREMENT)
 		);
 	')

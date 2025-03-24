@@ -5,6 +5,7 @@ var buffer_ID: int
 var default_tag_id: int
 var current_session_id: int
 var current_break_id: int
+var next_timer_type_id: int
 var name_: String # im too lazy to find a better way to name this
 var sessions_count: int:
 	set(value):
@@ -34,7 +35,8 @@ func _init(
 _ID: int = 0, _buffer_ID: int = 0, _default_tag_id: int = 0, _name_: String = '',
 _sessions_count: int = 0 , _sessions_done: int = 0, _session_length: int = 0,
 _break_length: int = 0, _is_auto_start_break: bool = false, _is_auto_start_session: bool = false,
-_added_session_length: int = 0,  _current_session_id: int = 0, _current_break_id: int = 0):
+_added_session_length: int = 0,  _current_session_id: int = 0, _current_break_id: int = 0,
+_next_timer_type_id: int = 0):
 	
 	ID = _ID
 	buffer_ID = _buffer_ID
@@ -49,3 +51,4 @@ _added_session_length: int = 0,  _current_session_id: int = 0, _current_break_id
 	added_session_length = _added_session_length
 	current_session_id = _current_session_id
 	current_break_id = _current_break_id
+	next_timer_type_id = _next_timer_type_id

@@ -12,12 +12,12 @@
 [ext_resource type="Script" path="res://scripts/pages/session/break_timer.gd" id="10_l1xkr"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_finish.gd" id="11_ecred"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_noh7n"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0x2dj"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_bottom = 2
 border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_noh7n"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fy3gd"]
 font_size = 25
@@ -26,7 +26,7 @@ font_size = 25
 line_spacing = 0.0
 font_size = 100
 
-[node name="PresetPageSession" type="Control" node_paths=PackedStringArray("content_parent", "page_default", "page_session_setup", "page_session_timer", "page_session_finish", "page_break_setup", "page_break_timer", "page_break_finish")]
+[node name="PresetPageSession" type="Control" node_paths=PackedStringArray("content_parent", "page_session_setup", "page_session_timer", "page_session_finish", "page_break_setup", "page_break_timer", "page_break_finish")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,44 +35,12 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_p5ysi")
 content_parent = NodePath("Content")
-page_default = NodePath("Content/SessionTimer")
 page_session_setup = NodePath("Content/SessionSetup")
 page_session_timer = NodePath("Content/SessionTimer")
 page_session_finish = NodePath("Content/SessionFinish")
 page_break_setup = NodePath("Content/BreakSetup")
 page_break_timer = NodePath("Content/BreakTimer")
 page_break_finish = NodePath("Content/BreakFinish")
-
-[node name="info" type="VBoxContainer" parent="."]
-visible = false
-layout_direction = 1
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -49.5
-offset_top = 23.0
-offset_right = 49.5
-offset_bottom = 73.0001
-grow_horizontal = 2
-alignment = 1
-
-[node name="preset" type="Label" parent="info"]
-layout_mode = 2
-text = "preset-name"
-label_settings = SubResource("LabelSettings_noh7n")
-horizontal_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="info"]
-layout_mode = 2
-
-[node name="text" type="Label" parent="info/HBoxContainer"]
-layout_mode = 2
-text = "sessions "
-
-[node name="session count" type="Label" parent="info/HBoxContainer"]
-layout_mode = 2
-text = "0/~"
 
 [node name="Content" type="Control" parent="."]
 layout_mode = 1
@@ -1095,3 +1063,4 @@ text = "< PRESETS"
 [connection signal="pressed" from="Content/BreakTimer/DEBUGGING/HBoxContainer/VBoxContainer2/Add10Second" to="Content/BreakTimer" method="_add_break_time_seconds" binds= [10]]
 [connection signal="pressed" from="Content/BreakFinish/VBoxContainer2/ContinueBreak" to="Content/BreakFinish" method="_continue_to_session"]
 [connection signal="pressed" from="Content/BreakFinish/VBoxContainer2/Restart" to="Content/BreakFinish" method="_restart_break"]
+[connection signal="pressed" from="Presets" to="." method="load_preset_page_presets"]

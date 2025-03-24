@@ -10,7 +10,6 @@ var session_cache: Session
 @export var content_parent: Control
 
 @export_category("Child Pages")
-@export var page_default: Page
 @export var page_session_setup: Page
 @export var page_session_timer: Page
 @export var page_session_finish: Page
@@ -28,12 +27,13 @@ func initialize(data: Dictionary = {}):
 func _ready():
 	hide_all_child_pages()
 	
-	# TODO: set appropriate page when coming from the presets page
-	if session and SessionsManager.is_session_buffered(session.ID) \
-	and SessionsManager.get_session_id_remaining_time_in_seconds(session.ID) <= 0:
-		set_page(page_session_finish)
-		return
-	set_page(page_default)
+	# TODO: set appropriate page
+	if PresetsManager.is_in_session(preset.ID):
+		set_page(page_session_timer)
+	elif PresetsManager.is_in_break(preset.ID):
+		set_page(page_break_timer)
+	else:
+		set_page(page_session_timer)
 
 func _process(_delta):
 	current_page.update()
@@ -43,5 +43,5 @@ func hide_all_child_pages():
 		child.visible = false
 
 func load_preset_page_presets():
-	Global.AppMan.load_gui_page(Global.SceneCont.preset_page_presets)
+	Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_presets)
 

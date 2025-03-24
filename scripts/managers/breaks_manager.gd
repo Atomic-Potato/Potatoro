@@ -129,7 +129,8 @@ func start_break(preset_id: int)-> Break:
 	DatabaseManager.db.query("
 		update Presets_Buffer
 		set 
-			CurrentBreakID = " + str(new_break.ID) + " 
+			CurrentBreakID = " + str(new_break.ID) + ",
+			NextTimerTypeID = "+ str(PresetsManager.TimerTypes.Session) +" 
 		where PresetID = " + str(preset_id)
 	)
 	

@@ -263,6 +263,7 @@ func start_buffered_session(preset: Preset)-> Session:
 	session.buffered_ID = SessionsManager.save_buffered_session(session) 
 	
 	preset.current_session_id = session.ID
+	preset.next_timer_type_id = PresetsManager.TimerTypes.Break
 	PresetsManager.save_buffered_preset(preset)
 	
 	update_buffered_sessions()

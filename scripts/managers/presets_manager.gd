@@ -1,5 +1,12 @@
 extends Node
 
+# DANGER: Must match the database TimerTypes
+enum TimerTypes
+{
+	Session = 1,
+	Break = 2
+}
+
 # NOTE: I was trying to make each manager independent, 
 # but i was getting a lot of code repetition in the breaks and sessions manager
 # since both rely on presets, so im breaking this rule just for this manager 
@@ -73,7 +80,8 @@ func get_preset(preset_id: int, is_check_buffered: bool = true)-> Preset:
 				DatabaseManager.db.query_result[0].get("isAutoStartSession"),
 				DatabaseManager.db.query_result[0].get("AddedSessionLength"),
 				DatabaseManager.db.query_result[0].get("CurrentSessionID"),
-				DatabaseManager.db.query_result[0].get("CurrentBreakID")
+				DatabaseManager.db.query_result[0].get("CurrentBreakID"),
+				DatabaseManager.db.query_result[0].get("NextTimerTypeID")
 			)
 	DatabaseManager.db.query("select * from Presets where ID = " + str(preset_id))
 	if not DatabaseManager.db.query_result.is_empty():
@@ -88,6 +96,7 @@ func get_preset(preset_id: int, is_check_buffered: bool = true)-> Preset:
 			DatabaseManager.db.query_result[0].get("BreakLength"),
 			DatabaseManager.db.query_result[0].get("isAutoStartBreak"),
 			DatabaseManager.db.query_result[0].get("isAutoStartSession"),
+			0,
 			0,
 			0,
 			0
@@ -111,7 +120,8 @@ func get_preset_from_buffer_id(preset_buffer_id: int)-> Preset:
 			DatabaseManager.db.query_result[0].get("isAutoStartSession"),
 			DatabaseManager.db.query_result[0].get("AddedSessionLength"),
 			DatabaseManager.db.query_result[0].get("CurrentSessionID"),
-			DatabaseManager.db.query_result[0].get("CurrentBreakID")
+			DatabaseManager.db.query_result[0].get("CurrentBreakID"),
+			DatabaseManager.db.query_result[0].get("NextTimerTypeID")
 		)
 	push_error("Cant find buffered preset with ID " + str(preset_buffer_id))
 	return null
@@ -124,8 +134,9 @@ func set_default_values(preset_id: int)-> Preset:
 	DatabaseManager.db.query("
 		update Presets_Buffer set
 			DefaultTagID = " + preset.get("DefaultTagID") + ",
-			CurrentSessionID = null,
-			CurrentBreakID = null,
+			CurrentSessionID = 0,
+			CurrentBreakID = 0,
+			NextTimerTypeID = 0,
 			SessionLength = " + preset.get("SessionLength") + ",
 			AddedSessionLenght = 0,
 			BreakLength = " + preset.get("BreakLength") + ",
@@ -172,7 +183,6 @@ func save_preset(preset: Preset)-> int: # use save_buffered_preset to create a n
 				+ str(preset.is_auto_start_session) \
 		+ ")"
 		DatabaseManager.db.query(query)
-		#print(query)
 		return DatabaseManager.db.last_insert_rowid
 
 # SUMMARY:
@@ -199,6 +209,7 @@ func save_buffered_preset(preset: Preset)-> int:
 				+ "DefaultTagID = " + str(preset.default_tag_id) + ", "\
 				+ "CurrentSessionID = " + str(preset.current_session_id) + ", "\
 				+ "CurrentBreakID = " + str(preset.current_break_id) + ", "\
+				+ "NextTimerTypeID = " + str(preset.next_timer_type_id) + ", "\
 				+ "Name = '" + preset.name_ + "', "\
 				+ "SessionsCount = " + str(preset.sessions_count)  + ", "\
 				+ "SessionsDone = " + str(preset.sessions_done)  + ", "\
@@ -214,13 +225,15 @@ func save_buffered_preset(preset: Preset)-> int:
 	else: # Insert
 		var query = "
 			insert into Presets_Buffer
-				(PresetID, DefaultTagID, CurrentSessionID, CurrentBreakID, Name, SessionsCount, SessionsDone,
-				SessionLength, AddedSessionLength, BreakLength, isAutoStartBreak, isAutoStartSession)
+				(PresetID, DefaultTagID, CurrentSessionID, CurrentBreakID, NextTimerTypeID, 
+				Name, SessionsCount, SessionsDone, SessionLength, AddedSessionLength, 
+				BreakLength, isAutoStartBreak, isAutoStartSession)
 			values ("\
 				+ str(preset.ID) + ", "\
 				+ str(preset.default_tag_id) + ", "\
 				+ str(preset.current_session_id) + ", "\
 				+ str(preset.current_break_id) + ", "\
+				+ str(preset.next_timer_type_id) + ", "\
 				+ "'" + preset.name_ + "', "\
 				+ str(preset.sessions_count) + ", "\
 				+ str(preset.sessions_done) + ", "\
