@@ -38,26 +38,14 @@ func _restart_break():
 	_update_break_timer_label()
 
 func _add_break_time(minutes: int):
-	var new_datetime: String = DatabaseManager.get_datetime(
-		('+' if minutes > 0 else '') + str(minutes) + ' minutes', 
-		parent.break_.end_datetime)
-	if DatabaseManager.get_datetimes_seconds_difference(
-	new_datetime, DatabaseManager.get_datetime()) < 0:
-		return
-	parent.break_.end_datetime = new_datetime
-	BreaksManager.save_break(parent.break_)
+	BreaksManager.add_seconds_to_break(minutes * 60, parent.break_.ID)
+	parent.break_ = BreaksManager.get_loaded_break(parent.break_.ID)
 	_update_break_finish_hour_label()
 	_update_break_timer_label()
 
 func _add_break_time_seconds(seconds: int):
-	var new_datetime: String = DatabaseManager.get_datetime(
-		('+' if seconds > 0 else '') + str(seconds) + ' seconds', 
-		parent.break_.end_datetime)
-	if DatabaseManager.get_datetimes_seconds_difference(
-	new_datetime, DatabaseManager.get_datetime()) < 0:
-		return
-	parent.break_.end_datetime = new_datetime
-	BreaksManager.save_break(parent.break_)
+	BreaksManager.add_seconds_to_break(seconds, parent.break_.ID)
+	parent.break_ = BreaksManager.get_loaded_break(parent.break_.ID)
 	_update_break_finish_hour_label()
 	_update_break_timer_label()
 

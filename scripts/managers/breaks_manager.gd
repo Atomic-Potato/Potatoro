@@ -225,7 +225,43 @@ func get_break_id_remaining_seconds(break_id: int)-> int:
 		return 0
 		
 	DatabaseManager.db.query("select EndDateTime from Breaks_Buffer where ID = " + str(break_id))
-	return DatabaseManager.get_datetimes_seconds_difference(
-		DatabaseManager.db.query_result[0].get("EndDateTime"), 
-		DatabaseManager.get_datetime()
-	)
+	if is_break_id_paused(break_id):
+		return DatabaseManager.db.query_result[0].get("EndDateTime")
+	else:
+		return DatabaseManager.get_datetimes_seconds_difference(
+			DatabaseManager.db.query_result[0].get("EndDateTime"), 
+			DatabaseManager.get_datetime()
+		)
+
+func add_seconds_to_break(seconds: int, break_id: int):
+	if not is_break_id_buffered(break_id):
+		return
+	
+	if is_break_id_paused(break_id):
+		var remaining_seconds = get_break_id_remaining_seconds(break_id)
+		var new_time = remaining_seconds + seconds
+		if new_time < 0:
+			push_warning("Added seconds to break ID ", break_id, " sums to negetive, aborting")
+			return
+			
+		DatabaseManager.db.query("
+			update Breaks_Buffer set
+				EndDateTime = " + str(new_time) +"
+			where ID = " + str(break_id)
+		)
+	else:
+		DatabaseManager.db.query("select EndDateTime from Breaks_Buffer where ID = " + str(break_id))
+		var new_datetime: String = DatabaseManager.get_datetime(
+			('+' if seconds > 0 else '') + str(seconds) + ' seconds', 
+			DatabaseManager.db.query_result[0].get("EndDateTime")
+		)
+			
+		if DatabaseManager.get_datetimes_seconds_difference(new_datetime, DatabaseManager.get_datetime()) < 0:
+			push_warning("Added seconds to break ID ", break_id, " sums to negetive, aborting")
+			return
+		
+		DatabaseManager.db.query("
+			update Breaks_Buffer set
+				EndDateTime = '" + str(new_datetime) +"'
+			where ID = " + str(break_id)
+		)
