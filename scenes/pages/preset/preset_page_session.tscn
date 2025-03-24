@@ -709,7 +709,7 @@ label_settings = SubResource("LabelSettings_fy3gd")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BreakTimer" type="Control" parent="Content" node_paths=PackedStringArray("label_finish_hour", "label_timer", "label_preset_name", "label_sessions_count", "button_pause_toggle")]
+[node name="BreakTimer" type="Control" parent="Content" node_paths=PackedStringArray("label_finish_hour", "label_timer", "label_preset_name", "label_sessions_count", "button_pause_toggle", "button_auto_session_toggle")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -721,7 +721,8 @@ label_finish_hour = NodePath("Timer/VBoxContainer/finish hour")
 label_timer = NodePath("Timer/VBoxContainer/Timer")
 label_preset_name = NodePath("info/preset")
 label_sessions_count = NodePath("info/HBoxContainer/session count")
-button_pause_toggle = NodePath("Controls/Pause")
+button_pause_toggle = NodePath("VBoxContainer/Controls/Pause")
+button_auto_session_toggle = NodePath("VBoxContainer/AutoSession")
 
 [node name="Timer" type="VBoxContainer" parent="Content/BreakTimer"]
 layout_mode = 1
@@ -828,23 +829,24 @@ theme_override_styles/hover = ExtResource("3_161tp")
 text = "-1 sec (DEBUG) doesnt work, 
 didnt bother implementing it"
 
-[node name="Controls" type="HBoxContainer" parent="Content/BreakTimer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Content/BreakTimer"]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 12
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -151.5
-offset_top = -54.75
-offset_right = 151.5
-offset_bottom = -17.75
+offset_top = -70.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/separation = 20
+
+[node name="Controls" type="HBoxContainer" parent="Content/BreakTimer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
 theme_override_constants/separation = 25
 alignment = 1
 
-[node name="Restart" type="Button" parent="Content/BreakTimer/Controls"]
+[node name="Restart" type="Button" parent="Content/BreakTimer/VBoxContainer/Controls"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -853,7 +855,7 @@ theme_override_styles/normal = ExtResource("2_nkr8a")
 theme_override_styles/hover = ExtResource("3_161tp")
 text = "RESTART"
 
-[node name="Pause" type="CheckButton" parent="Content/BreakTimer/Controls"]
+[node name="Pause" type="CheckButton" parent="Content/BreakTimer/VBoxContainer/Controls"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
@@ -866,7 +868,7 @@ theme_override_styles/hover_pressed = ExtResource("4_o4ufo")
 text = "PAUSE"
 alignment = 1
 
-[node name="Skip" type="Button" parent="Content/BreakTimer/Controls"]
+[node name="Skip" type="Button" parent="Content/BreakTimer/VBoxContainer/Controls"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -874,6 +876,14 @@ theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = ExtResource("2_nkr8a")
 theme_override_styles/hover = ExtResource("3_161tp")
 text = "SKIP"
+
+[node name="AutoSession" type="CheckButton" parent="Content/BreakTimer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "auto start next session "
+alignment = 2
 
 [node name="info" type="VBoxContainer" parent="Content/BreakTimer"]
 layout_direction = 1
@@ -1062,9 +1072,10 @@ text = "< PRESETS"
 [connection signal="pressed" from="Content/BreakTimer/Timer/Deduct Time/Button" to="Content/BreakTimer" method="_add_break_time" binds= [-1]]
 [connection signal="pressed" from="Content/BreakTimer/Timer/Deduct Time/Button2" to="Content/BreakTimer" method="_add_break_time" binds= [-5]]
 [connection signal="pressed" from="Content/BreakTimer/Timer/Deduct Time/Button3" to="Content/BreakTimer" method="_add_break_time" binds= [-10]]
-[connection signal="pressed" from="Content/BreakTimer/Controls/Restart" to="Content/BreakTimer" method="_restart_break"]
-[connection signal="pressed" from="Content/BreakTimer/Controls/Pause" to="Content/BreakTimer" method="_toggle_break_timer_pause"]
-[connection signal="pressed" from="Content/BreakTimer/Controls/Skip" to="Content/BreakTimer" method="_skip_break"]
+[connection signal="pressed" from="Content/BreakTimer/VBoxContainer/Controls/Restart" to="Content/BreakTimer" method="_restart_break"]
+[connection signal="pressed" from="Content/BreakTimer/VBoxContainer/Controls/Pause" to="Content/BreakTimer" method="_toggle_break_timer_pause"]
+[connection signal="pressed" from="Content/BreakTimer/VBoxContainer/Controls/Skip" to="Content/BreakTimer" method="_skip_break"]
+[connection signal="toggled" from="Content/BreakTimer/VBoxContainer/AutoSession" to="Content/BreakTimer" method="_toggle_auto_session"]
 [connection signal="pressed" from="Content/BreakTimer/DEBUGGING/HBoxContainer/VBoxContainer/Sub1Second" to="Content/BreakTimer" method="_add_break_time_seconds" binds= [-1]]
 [connection signal="pressed" from="Content/BreakTimer/DEBUGGING/HBoxContainer/VBoxContainer/Sub5Second" to="Content/BreakTimer" method="_add_break_time_seconds" binds= [-5]]
 [connection signal="pressed" from="Content/BreakTimer/DEBUGGING/HBoxContainer/VBoxContainer/Sub10Second" to="Content/BreakTimer" method="_add_break_time_seconds" binds= [-10]]

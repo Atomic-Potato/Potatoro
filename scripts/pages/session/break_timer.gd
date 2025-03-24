@@ -6,6 +6,7 @@ extends Page
 @export var label_preset_name: Label
 @export var label_sessions_count: Label
 @export var button_pause_toggle: CheckButton
+@export var button_auto_session_toggle: CheckButton
 
 var break_time_left_cache: int
 
@@ -15,6 +16,7 @@ func enter():
 		parent.break_ = BreaksManager.start_break(parent.preset.ID)
 		parent.preset.current_break_id = parent.break_.ID
 	parent.break_.break_finish.connect(_end_break)
+	button_auto_session_toggle.button_pressed = parent.preset.is_auto_start_session
 	_update_titles_text()
 	_update_break_finish_hour_label()
 
@@ -51,6 +53,10 @@ func _add_break_time_seconds(seconds: int):
 	parent.break_ = BreaksManager.get_loaded_break(parent.break_.ID)
 	_update_break_finish_hour_label()
 	_update_break_timer_label()
+
+func _toggle_auto_session(toggle: bool):
+	parent.preset.is_auto_start_session = toggle
+	PresetsManager.save_buffered_preset(parent.preset)
 
 func _update_break_timer_label():
 	if not PresetsManager.is_in_break(parent.preset.ID):
