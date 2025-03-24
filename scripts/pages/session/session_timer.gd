@@ -24,7 +24,6 @@ func enter():
 	_update_finish_hour()
 	_update_titles_text()
 	connect_session_finish_subscribers(SessionsManager.get_loaded_buffered_session(parent.session.ID))
-	print(parent.session.session_finish.get_connections().size())
 	parent.session_cache = parent.session
 
 func exit():
@@ -46,11 +45,13 @@ func add_session_length(minutes: int):
 	var remaining_secs = SessionsManager.get_session_id_remaining_time_in_seconds(parent.session.ID)
 	if remaining_secs + (minutes * 60) < 0:
 		return
+		
 	parent.preset.added_session_length += minutes * 60
 	PresetsManager.save_buffered_preset(parent.preset)
-	SessionsManager.add_seconds_to_buffered_session_end_datetime(parent.session.ID, minutes * 60)
-	parent.preset = PresetsManager.get_preset(parent.preset.ID)
-	parent.session = SessionsManager.get_loaded_buffered_session(parent.session.ID)
+	if not SessionsManager.is_session_paused(parent.session.ID):
+		SessionsManager.add_seconds_to_buffered_session_end_datetime(parent.session.ID, minutes * 60)
+		update_preset.call()
+		update_session.call()
 	_update_finish_hour()
 	_update_timer_text()
 	
@@ -61,9 +62,10 @@ func add_session_length_seconds(seconds: int):
 		
 	parent.preset.added_session_length += seconds
 	PresetsManager.save_buffered_preset(parent.preset)
-	SessionsManager.add_seconds_to_buffered_session_end_datetime(parent.session.ID, seconds)
-	parent.preset = PresetsManager.get_preset(parent.preset.ID)
-	update_session.call()
+	if not SessionsManager.is_session_paused(parent.session.ID):
+		SessionsManager.add_seconds_to_buffered_session_end_datetime(parent.session.ID, seconds)
+		update_preset.call()
+		update_session.call()
 	_update_finish_hour()
 	_update_timer_text()
 
@@ -97,11 +99,12 @@ func _update_titles_text():
 	label_sessions_count.text = str(parent.preset.sessions_done) + "/" + str(parent.preset.sessions_count)
 
 func _update_timer_text():
-	if not SessionsManager.is_session_buffered(parent.session.ID)\
-	or SessionsManager.get_session_id_remaining_time_in_seconds(parent.session.ID) <= 0\
-	or SessionsManager.is_session_paused(parent.session.ID):
-		return 
+	if not SessionsManager.is_session_buffered(parent.session.ID):
+		return
 	var remaining_time_in_seconds = SessionsManager.get_session_id_remaining_time_in_seconds(parent.session.ID)
+	if remaining_time_in_seconds <= 0:
+		return 
+		
 	_set_time(remaining_time_in_seconds / 60, remaining_time_in_seconds % 60)
 
 func _set_time(minutes: int, seconds: int):

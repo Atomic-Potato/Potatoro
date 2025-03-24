@@ -11,7 +11,6 @@ func _process(_delta):
 			continue
 		var remaining_time: int = get_session_id_remaining_time_in_seconds(session.ID)
 		if remaining_time <= 0:
-			print(session.session_finish.get_connections().size())
 			end_buffered_session(session.ID)
 			#OS.alert("Session " + str(session.ID) + " has finished!", "Session " + str(session.ID))
 
@@ -108,14 +107,34 @@ func get_session_id_elapsed_time_in_seconds(session_id: int)-> int:
 		push_error("Cannot find session " + str(session_id) + "in the sessions buffer!")
 		return 0 
 	
-	var start_time = DatabaseManager.db.query_result[0].get("StartDateTime")
-	var current_time = DatabaseManager.get_datetime()
-	DatabaseManager.db.query("
-		select unixepoch('" + current_time + "') 
-			- unixepoch('" + start_time + "') as ElapsedTime" 
-	)
-	var elapsed_time: int = DatabaseManager.db.query_result[0].get("ElapsedTime")
-	return elapsed_time - get_pauses_length_in_seconds_buffered(session_id)
+	var session_start_time = DatabaseManager.db.query_result[0].get("StartDateTime")
+	
+	if is_session_paused(session_id):
+		DatabaseManager.db.query("select * from SessionPauses_Buffer where SessionID = " + str(session_id))
+		var pauses: Array[Dictionary] = DatabaseManager.db.query_result
+		DatabaseManager.db.query("
+			select 
+				unixepoch('" + pauses[0].get("StartDateTime") + "')
+				- unixepoch('" + session_start_time + "')
+				as ElapsedTime
+		")
+		var elpased_time: int = DatabaseManager.db.query_result[0].get("ElapsedTime")
+		for i in pauses.size() - 1: # NOTE: we skip the last pause since theres no session time after it
+			DatabaseManager.db.query("
+				select 
+					unixepoch('" + pauses[i+1].get("StartDateTime") + "')
+					- unixepoch('" + pauses[i].get("EndDateTime") + "')
+					as ElapsedTime
+			")
+		return elpased_time
+	else:
+		var current_time = DatabaseManager.get_datetime()
+		DatabaseManager.db.query("
+			select unixepoch('" + current_time + "') 
+				- unixepoch('" + session_start_time + "') as ElapsedTime" 
+		)
+		var elapsed_time: int = DatabaseManager.db.query_result[0].get("ElapsedTime")
+		return elapsed_time - get_pauses_length_in_seconds_buffered(session_id)
 
 func get_session_id_remaining_time_in_seconds(session_id: int)-> int:
 	var preset: Preset = get_session_buffered_preset(session_id)
