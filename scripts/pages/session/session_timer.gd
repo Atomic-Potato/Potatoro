@@ -6,6 +6,7 @@ extends Page
 @export var label_finish_hour: Label
 @export var label_timer: Label
 @export var button_pause_toggle: CheckButton
+@export var button_auto_break_toggle: CheckButton
 
 var update_preset: Callable = func(): parent.preset = PresetsManager.get_preset(parent.preset.ID)
 var update_session: Callable = func(): parent.session = SessionsManager.get_loaded_buffered_session(parent.session.ID)
@@ -21,6 +22,7 @@ func enter():
 	update_preset.call()
 	if button_pause_toggle.button_pressed:
 		SessionsManager.pause_session(parent.session.ID)
+	button_auto_break_toggle.button_pressed = parent.preset.is_auto_start_break
 	_update_finish_hour()
 	_update_titles_text()
 	connect_session_finish_subscribers(SessionsManager.get_loaded_buffered_session(parent.session.ID))
@@ -77,6 +79,10 @@ func toggle_pause():
 		SessionsManager.resume_session(parent.session.ID, parent.preset.ID)
 	_update_finish_hour()
 	# TODO: Play blinking animations
+
+func _toggle_auto_break(toggle: bool):
+	parent.preset.is_auto_start_break = toggle
+	PresetsManager.save_buffered_preset(parent.preset)
 
 func _restart():
 	if SessionsManager.is_session_buffered(parent.session.ID):
