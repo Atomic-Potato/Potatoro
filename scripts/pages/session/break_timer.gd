@@ -5,6 +5,7 @@ extends Page
 @export var label_timer: Label
 @export var label_preset_name: Label
 @export var label_sessions_count: Label
+@export var button_pause_toggle: CheckButton
 
 var break_time_left_cache: int
 
@@ -28,12 +29,14 @@ func update():
 func _skip_break():
 	break_time_left_cache = BreaksManager.get_break_id_remaining_seconds(parent.break_.ID)
 	BreaksManager.end_break_id(parent.break_.ID)
+	button_pause_toggle.button_pressed = false
 	parent.preset = PresetsManager.get_preset(parent.preset.ID)
 	parent.set_page(parent.page_break_finish)
 	
 func _restart_break():
 	parent.break_ = BreaksManager.restart_break_id(parent.break_.ID)
 	parent.break_.break_finish.connect(_end_break)
+	button_pause_toggle.button_pressed = false
 	_update_break_finish_hour_label()
 	_update_break_timer_label()
 

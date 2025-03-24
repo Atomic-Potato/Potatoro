@@ -85,6 +85,7 @@ func _restart():
 		parent.session = SessionsManager.restart_session(parent.session.ID, parent.preset.ID)
 	connect_session_finish_subscribers(parent.session)
 	update_preset.call()
+	button_pause_toggle.button_pressed = false
 	_update_finish_hour()
 	_update_titles_text()
 
@@ -92,6 +93,7 @@ func _skip():
 	session_time_left_cache = SessionsManager.get_session_id_remaining_time_in_seconds(parent.session.ID)
 	update_preset.call()
 	parent.session = SessionsManager.end_buffered_session(parent.session.ID)
+	button_pause_toggle.button_pressed = false
 	parent.set_page(parent.page_session_finish)
 
 func _update_titles_text():

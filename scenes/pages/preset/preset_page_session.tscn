@@ -709,7 +709,7 @@ label_settings = SubResource("LabelSettings_fy3gd")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BreakTimer" type="Control" parent="Content" node_paths=PackedStringArray("label_finish_hour", "label_timer", "label_preset_name", "label_sessions_count")]
+[node name="BreakTimer" type="Control" parent="Content" node_paths=PackedStringArray("label_finish_hour", "label_timer", "label_preset_name", "label_sessions_count", "button_pause_toggle")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -721,6 +721,7 @@ label_finish_hour = NodePath("Timer/VBoxContainer/finish hour")
 label_timer = NodePath("Timer/VBoxContainer/Timer")
 label_preset_name = NodePath("info/preset")
 label_sessions_count = NodePath("info/HBoxContainer/session count")
+button_pause_toggle = NodePath("Controls/Pause")
 
 [node name="Timer" type="VBoxContainer" parent="Content/BreakTimer"]
 layout_mode = 1

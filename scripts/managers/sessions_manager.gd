@@ -269,10 +269,11 @@ func start_buffered_session(preset: Preset)-> Session:
 	return get_loaded_buffered_session(session.ID)
 
 func end_buffered_session(session_id: int)-> Session:
-	DatabaseManager.db.query("select ID from Sessions_Buffer where SessionID = " + str(session_id))
-	if DatabaseManager.db.query_result.is_empty():
-		push_error("Session ID " + str(session_id) + " not found in buffer.")
+	if not is_session_buffered(session_id):
 		return null
+	
+	if is_session_paused(session_id): # i know this is a lazy solution, but why not 
+		resume_session(session_id, get_session_buffered_preset(session_id).ID)
 	
 	# Saving the session from buffer
 	var session: Session = get_buffered_session(session_id)
@@ -380,10 +381,11 @@ func restart_session(session_id: int, preset_id: int)-> Session:
 	return get_loaded_buffered_session(updated_session.ID)
 
 func restart_buffered_session(session_id: int)-> Session:
-	DatabaseManager.db.query("select ID from Sessions_Buffer where SessionID = " + str(session_id))
-	if DatabaseManager.db.query_result.is_empty():
-		push_error("Session ID " + str(session_id) + " not found in buffer.")
+	if not is_session_buffered(session_id):
 		return null
+	
+	if is_session_paused(session_id): # i know this is a lazy solution, but why not 
+		resume_session(session_id, get_session_buffered_preset(session_id).ID)
 	
 	# Deleting pauses
 	DatabaseManager.db.query("
