@@ -22,6 +22,7 @@ PresetsManager="*res://scripts/managers/presets_manager.gd"
 Global="*res://global.gd"
 SessionsManager="*res://scripts/managers/sessions_manager.gd"
 BreaksManager="*res://scripts/managers/breaks_manager.gd"
+TimersTrackingManager="*res://scripts/managers/timers_tracking_manager.gd"
 
 [display]
 

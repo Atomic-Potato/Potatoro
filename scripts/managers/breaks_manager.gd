@@ -11,7 +11,7 @@ func _process(_delta):
 			continue
 		var remaining_time: int = get_break_id_remaining_seconds(break_.ID)
 		if remaining_time <= 0:
-			end_break_id(break_.ID)
+			end_break_id(break_.ID, true)
 
 func update_buffered_breaks():
 	var new_buffered_breaks: Array[Break] = []
@@ -136,7 +136,7 @@ func start_break(preset_id: int)-> Break:
 	update_buffered_breaks()
 	return get_loaded_break(new_break.ID)
 
-func end_break_id(break_id: int):
+func end_break_id(break_id: int, is_notify_timers_tracker: bool = false):
 	if not is_break_id_buffered(break_id):
 		return
 	
@@ -154,7 +154,11 @@ func end_break_id(break_id: int):
 		delete from Breaks_Buffer
 		where ID = " + str(break_id)
 	)
-	get_loaded_break(break_id).break_finish.emit()
+	var break_ = get_loaded_break(break_id)
+	if is_notify_timers_tracker:
+		TimersTrackingManager.end_break(break_, preset.ID)
+	else:
+		break_.break_finish.emit()
 	update_buffered_breaks()
 
 func restart_break_id(break_id: int)-> Break:
@@ -265,3 +269,12 @@ func add_seconds_to_break(seconds: int, break_id: int):
 				EndDateTime = '" + str(new_datetime) +"'
 			where ID = " + str(break_id)
 		)
+
+func get_break_buffered_preset(break_id: int)-> Preset:
+	DatabaseManager.db.query("
+		select PresetID from Presets_Buffer where CurrentBreakID = " + str(break_id)
+	)
+	if DatabaseManager.db.query_result.is_empty():
+		push_error("Could not find buffered preset with the CurrentBreakID " + str(break_id))
+		return null
+	return PresetsManager.get_preset(DatabaseManager.db.query_result[0].get("PresetID"))

@@ -11,7 +11,7 @@ func _process(_delta):
 			continue
 		var remaining_time: int = get_session_id_remaining_time_in_seconds(session.ID)
 		if remaining_time <= 0:
-			end_buffered_session(session.ID)
+			end_buffered_session(session.ID, true)
 			#OS.alert("Session " + str(session.ID) + " has finished!", "Session " + str(session.ID))
 
 func add_seconds_to_buffered_session_end_datetime(session_id: int, seconds: int):
@@ -269,7 +269,7 @@ func start_buffered_session(preset: Preset)-> Session:
 	update_buffered_sessions()
 	return get_loaded_buffered_session(session.ID)
 
-func end_buffered_session(session_id: int)-> Session:
+func end_buffered_session(session_id: int, is_notify_timers_tracker: bool = false)-> Session:
 	if not is_session_buffered(session_id):
 		return null
 	
@@ -323,7 +323,10 @@ func end_buffered_session(session_id: int)-> Session:
 	DatabaseManager.db.query(query)
 	
 	session = get_loaded_buffered_session(session_id)
-	session.session_finish.emit()
+	if is_notify_timers_tracker:
+		TimersTrackingManager.end_session(session, preset.ID)
+	else:
+		session.session_finish.emit()
 	update_buffered_sessions()
 	return get_session(session_id)
 

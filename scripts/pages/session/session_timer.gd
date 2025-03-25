@@ -15,10 +15,16 @@ var session_time_left_cache: int
 
 func enter():
 	var is_new_session: bool
+	
+	update_preset.call()
+	
+	if parent.preset.current_session_id != 0:
+		parent.session = SessionsManager.get_loaded_buffered_session(parent.preset.current_session_id)
+	
 	if not parent.session or not SessionsManager.is_session_buffered(parent.session.ID):
 		parent.session = SessionsManager.start_buffered_session(parent.preset)
 		is_new_session = true
-	
+		
 	update_preset.call()
 	
 	if not is_new_session:

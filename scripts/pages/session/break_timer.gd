@@ -12,6 +12,11 @@ var break_time_left_cache: int
 
 func enter():
 	var is_new_break: bool
+
+	parent.preset = PresetsManager.get_preset(parent.preset.ID)
+	
+	if parent.preset.current_break_id != 0: 
+		parent.break_ = BreaksManager.get_loaded_break(parent.preset.current_break_id)
 	
 	if not parent.break_ or not BreaksManager.is_break_id_buffered(parent.break_.ID, false):
 		parent.break_ = BreaksManager.start_break(parent.preset.ID)
