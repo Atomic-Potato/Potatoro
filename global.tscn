@@ -55,7 +55,7 @@ theme_override_styles/panel = ExtResource("8_lgf65")
 layout_mode = 2
 theme_override_constants/separation = 0
 split_offset = 35
-dragger_visibility = 1
+dragger_visibility = 2
 
 [node name="Titlebar" type="PanelContainer" parent="GUI/PanelContainer/VSplitContainer"]
 layout_mode = 2

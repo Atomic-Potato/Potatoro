@@ -6,9 +6,6 @@ var break_: Break
 
 var session_cache: Session
 
-@export_category("General Nodes")
-@export var content_parent: Control
-
 @export_category("Child Pages")
 @export var page_session_setup: Page
 @export var page_session_timer: Page
@@ -51,9 +48,7 @@ func _ready():
 func _process(_delta):
 	current_page.update()
 
-func hide_all_child_pages():
-	for child in content_parent.get_children():
-		child.visible = false
+
 
 func load_preset_page_presets():
 	Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_presets)

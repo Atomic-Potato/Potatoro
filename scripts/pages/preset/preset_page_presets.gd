@@ -12,10 +12,15 @@ func _ready():
 	presets = PresetsManager.get_presets()
 	for preset in presets:
 		var card: PresetInfoCard = preset_info_card_res.instantiate()
-		card.preset = preset
+		card.initialize({"preset": preset})
+		card.enter()
 		presets_container.add_child(card)
 		presets_container.move_child(card, 0)
 		cards.append(card)
+
+func _process(_delta):
+	for card in cards:
+		card.update()
 
 func load_make_edit_preset_page():
 	Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_save_preset)

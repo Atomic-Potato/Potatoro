@@ -26,7 +26,7 @@ font_size = 25
 line_spacing = 0.0
 font_size = 100
 
-[node name="PresetPageSession" type="Control" node_paths=PackedStringArray("content_parent", "page_session_setup", "page_session_timer", "page_session_finish", "page_break_setup", "page_break_timer", "page_break_finish")]
+[node name="PresetPageSession" type="Control" node_paths=PackedStringArray("page_session_setup", "page_session_timer", "page_session_finish", "page_break_setup", "page_break_timer", "page_break_finish", "child_pages_parent_node")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,13 +34,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_p5ysi")
-content_parent = NodePath("Content")
 page_session_setup = NodePath("Content/SessionSetup")
 page_session_timer = NodePath("Content/SessionTimer")
 page_session_finish = NodePath("Content/SessionFinish")
 page_break_setup = NodePath("Content/BreakSetup")
 page_break_timer = NodePath("Content/BreakTimer")
 page_break_finish = NodePath("Content/BreakFinish")
+child_pages_parent_node = NodePath("Content")
 
 [node name="Content" type="Control" parent="."]
 layout_mode = 1

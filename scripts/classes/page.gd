@@ -1,5 +1,7 @@
 class_name Page extends Node
 
+@export var child_pages_parent_node: Node
+
 var parent: Page
 var current_page: Page
 
@@ -27,4 +29,7 @@ func set_page(page: Page):
 	current_page.visible = true
 	current_page.parent = self
 	current_page.enter()
-	
+
+func hide_all_child_pages():
+	for child in child_pages_parent_node.get_children():
+		child.visible = false
