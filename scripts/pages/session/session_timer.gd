@@ -14,19 +14,30 @@ var update_session: Callable = func(): parent.session = SessionsManager.get_load
 var session_time_left_cache: int
 
 func enter():
-	session_time_left_cache = -1
-	
+	var is_new_session: bool
 	if not parent.session or not SessionsManager.is_session_buffered(parent.session.ID):
 		parent.session = SessionsManager.start_buffered_session(parent.preset)
+		is_new_session = true
 	
 	update_preset.call()
-	if button_pause_toggle.button_pressed:
+	
+	if not is_new_session:
+		if SessionsManager.is_session_paused(parent.session.ID):
+			button_pause_toggle.button_pressed = true
+			
+	if button_pause_toggle.button_pressed and not SessionsManager.is_session_paused(parent.session.ID):
 		SessionsManager.pause_session(parent.session.ID)
+		
 	button_auto_break_toggle.button_pressed = parent.preset.is_auto_start_break
+	
 	_update_finish_hour()
 	_update_titles_text()
+	_update_timer_text()
+	
 	connect_session_finish_subscribers(SessionsManager.get_loaded_buffered_session(parent.session.ID))
+
 	parent.session_cache = parent.session
+	session_time_left_cache = -1
 
 func exit():
 	parent.session = null
