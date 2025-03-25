@@ -11,14 +11,29 @@ extends Page
 var break_time_left_cache: int
 
 func enter():
-	break_time_left_cache = -1
+	var is_new_break: bool
+	
 	if not parent.break_ or not BreaksManager.is_break_id_buffered(parent.break_.ID, false):
 		parent.break_ = BreaksManager.start_break(parent.preset.ID)
-		parent.preset = PresetsManager.get_preset(parent.preset.ID)
+		is_new_break = true
+		
+	parent.preset = PresetsManager.get_preset(parent.preset.ID)
+	
+	if not is_new_break:
+		if BreaksManager.is_break_id_paused(parent.break_.ID):
+			button_pause_toggle.button_pressed = true
+			
+	if button_pause_toggle.button_pressed and not BreaksManager.is_break_id_paused(parent.break_.ID):
+		BreaksManager.pause_break_id(parent.break_.ID)
+	
 	parent.break_.break_finish.connect(_end_break)
 	button_auto_session_toggle.button_pressed = parent.preset.is_auto_start_session
+	
 	_update_titles_text()
 	_update_break_finish_hour_label()
+	_update_break_timer_label()
+	
+	break_time_left_cache = -1
 
 func exit():
 	parent.break_ = null

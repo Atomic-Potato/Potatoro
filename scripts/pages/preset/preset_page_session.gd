@@ -22,7 +22,10 @@ var cache_remaining_session_time: int # used to check if the session was skipped
 
 func initialize(data: Dictionary = {}):
 	preset = data.get("preset")
-	session = SessionsManager.get_loaded_buffered_session(preset.current_session_id)
+	if preset.current_session_id != 0:
+		session = SessionsManager.get_loaded_buffered_session(preset.current_session_id)
+	if preset.current_break_id != 0:
+		break_ = BreaksManager.get_loaded_break(preset.current_break_id)
 
 func _ready():
 	hide_all_child_pages()
