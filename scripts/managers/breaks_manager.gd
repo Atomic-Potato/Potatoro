@@ -15,9 +15,9 @@ func _process(_delta):
 
 func update_buffered_breaks():
 	var new_buffered_breaks: Array[Break] = []
-	DatabaseManager.db.query("select * from Breaks_Buffer")
+	DatabaseManager.db.query("select ID from Breaks_Buffer")
 	for i in DatabaseManager.db.query_result:
-		new_buffered_breaks.append(get_break(DatabaseManager.db.query_result[0].get("ID")))
+		new_buffered_breaks.append(get_break(i.get("ID")))
 	
 	var removed_breaks: Array[Break] = []
 	for bb in buffered_breaks:
@@ -77,7 +77,7 @@ func save_break(new_break: Break)-> Break:
 			where ID = " + str(new_break.ID)
 		)
 		update_buffered_breaks()
-		return new_break
+		return get_loaded_break(new_break.ID)
 	else: 
 		DatabaseManager.db.query("
 			insert into Breaks_Buffer(Length, EndDateTime, AddedLength)
