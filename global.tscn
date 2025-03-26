@@ -58,6 +58,7 @@ split_offset = 35
 dragger_visibility = 2
 
 [node name="Titlebar" type="PanelContainer" parent="GUI/PanelContainer/VSplitContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Title bar" parent="GUI/PanelContainer/VSplitContainer/Titlebar" instance=ExtResource("3_i618t")]

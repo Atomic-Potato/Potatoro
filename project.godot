@@ -28,7 +28,6 @@ TimersTrackingManager="*res://scripts/managers/timers_tracking_manager.gd"
 
 window/size/viewport_width=450
 window/size/viewport_height=800
-window/size/borderless=true
 window/main_scene="res://scenes/main.tscn"
 
 [editor_plugins]
