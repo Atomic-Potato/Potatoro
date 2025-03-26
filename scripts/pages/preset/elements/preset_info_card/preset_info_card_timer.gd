@@ -11,7 +11,13 @@ func enter():
 	is_session = PresetsManager.is_in_session(parent.preset.ID)
 	update_titles()
 	update_pause_toggle()
-	
+	if is_session:
+		SessionsManager.get_loaded_buffered_session(parent.preset.current_session_id)\
+		.session_finish.connect(set_message_page)
+	else:
+		BreaksManager.get_loaded_break(parent.preset.current_break_id)\
+		.break_finish.connect(set_message_page)
+
 func update():
 	if not (is_session and SessionsManager.is_session_paused(parent.preset.current_session_id))\
 	or not (not is_session and BreaksManager.is_break_id_paused(parent.preset.current_break_id)):
@@ -22,9 +28,10 @@ func update_titles():
 	label_timer_type.text = "session" if is_session else "break"
 
 func update_pause_toggle():
-	button_pause_toggle.button_pressed = \
+	button_pause_toggle.set_pressed_no_signal(
 		SessionsManager.is_session_paused(parent.preset.current_session_id) if is_session\
 		else BreaksManager.is_break_id_paused(parent.preset.current_break_id)
+	)
 
 func _update_timer_text():
 	var remaining_time_in_seconds =\
@@ -53,3 +60,6 @@ func toggle_pause_timer(toggle: bool):
 			SessionsManager.resume_session(parent.preset.current_session_id, parent.preset.ID)
 		else:
 			BreaksManager.resume_break_id(parent.preset.current_break_id)
+
+func set_message_page():
+	parent.set_page(parent.page_message)

@@ -29,12 +29,12 @@ func enter():
 	
 	if not is_new_session:
 		if SessionsManager.is_session_paused(parent.session.ID):
-			button_pause_toggle.button_pressed = true
+			button_pause_toggle.set_pressed_no_signal(true)
 			
 	if button_pause_toggle.button_pressed and not SessionsManager.is_session_paused(parent.session.ID):
 		SessionsManager.pause_session(parent.session.ID)
 		
-	button_auto_break_toggle.button_pressed = parent.preset.is_auto_start_break
+	button_auto_break_toggle.set_pressed_no_signal(parent.preset.is_auto_start_break)
 	
 	_update_finish_hour()
 	_update_titles_text()
@@ -108,7 +108,7 @@ func _restart():
 		parent.session = SessionsManager.restart_session(parent.session.ID, parent.preset.ID)
 	connect_session_finish_subscribers(parent.session)
 	update_preset.call()
-	button_pause_toggle.button_pressed = false
+	button_pause_toggle.set_pressed_no_signal(false)
 	_update_finish_hour()
 	_update_titles_text()
 
@@ -116,7 +116,7 @@ func _skip():
 	session_time_left_cache = SessionsManager.get_session_id_remaining_time_in_seconds(parent.session.ID)
 	update_preset.call()
 	parent.session = SessionsManager.end_buffered_session(parent.session.ID)
-	button_pause_toggle.button_pressed = false
+	button_pause_toggle.set_pressed_no_signal(false)
 	parent.set_page(parent.page_session_finish)
 
 func _update_titles_text():
