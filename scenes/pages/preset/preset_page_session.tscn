@@ -424,6 +424,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DEBUGGING" type="Control" parent="Content/SessionTimer"]
+visible = false
 layout_mode = 1
 anchors_preset = 0
 
@@ -900,6 +901,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DEBUGGING" type="Control" parent="Content/BreakTimer"]
+visible = false
 layout_mode = 1
 anchors_preset = 0
 

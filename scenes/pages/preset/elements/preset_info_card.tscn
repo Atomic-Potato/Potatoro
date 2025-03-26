@@ -66,6 +66,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="tag" type="Label" parent="Add preset/Values/VBoxContainer/VBoxContainer2"]
+visible = false
 layout_mode = 2
 text = "[tag-name]"
 label_settings = ExtResource("4_tabcu")
