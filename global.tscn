@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dn310bw2e6rsh"]
+[gd_scene load_steps=19 format=3 uid="uid://dn310bw2e6rsh"]
 
 [ext_resource type="Script" path="res://scripts/managers/application_manager.gd" id="1_jnciu"]
 [ext_resource type="PackedScene" uid="uid://b6ql7sj7pip6g" path="res://scenes/pages/preset/preset_page_presets.tscn" id="2_u2cnp"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://d0tnv5wrhpsaa" path="res://scenes/background.tscn" id="7_el64l"]
 [ext_resource type="PackedScene" uid="uid://b445jhovk6ton" path="res://scenes/delete_pop_up.tscn" id="7_gaism"]
 [ext_resource type="StyleBox" uid="uid://e1pmqc6hk18h" path="res://visual/style_boxes/window_borders.stylebox" id="8_lgf65"]
+[ext_resource type="Theme" uid="uid://bei3sxt6d2c38" path="res://visual/themes/defaul_theme.tres" id="11_f6650"]
 [ext_resource type="Script" path="res://scripts/tabs/global/potatoro_tab.gd" id="11_j5mlv"]
 [ext_resource type="Script" path="res://scripts/tabs/global/settings_tab.gd" id="12_4wbq7"]
 
@@ -90,6 +91,7 @@ layout_mode = 2
 [node name="Potatoro" type="Button" parent="GUI/AppBorders/VBoxContainer/TabNavBar"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("11_f6650")
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_myr4n")
@@ -100,10 +102,8 @@ text = "Potatoro"
 [node name="Settings" type="Button" parent="GUI/AppBorders/VBoxContainer/TabNavBar"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme = ExtResource("11_f6650")
 theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBoxFlat_myr4n")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_0ftmd")
 toggle_mode = true
 text = "Settings"
 
