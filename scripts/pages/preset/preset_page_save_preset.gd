@@ -31,6 +31,7 @@ func _load_prests_page():
 
 func _save_preset_data():
 	if not preset_edit.text:
+		# TODO: Do some sort of visual warning
 		push_warning("Preset name not set")
 		return
 	

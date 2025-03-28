@@ -8,6 +8,11 @@ extends Page
 @export var button_pause_toggle: CheckButton
 @export var button_auto_session_toggle: CheckButton
 
+# NOTE: I kept them separated because i couldnt figure out 
+# how to give them one parent without messing up the UI
+@export var add_time_controls_parent: Control
+@export var deduct_time_controls_parent: Control
+
 var break_time_left_cache: int
 
 func enter():
@@ -37,6 +42,8 @@ func enter():
 	_update_titles_text()
 	_update_break_finish_hour_label()
 	_update_break_timer_label()
+	_update_things_from_settings()
+	self.visibility_changed.connect(_update_things_from_settings)
 	
 	break_time_left_cache = -1
 
@@ -90,7 +97,7 @@ func _update_break_timer_label():
 		+ (("0" + str(seconds)) if seconds < 10 else str(seconds))
 
 func _update_break_finish_hour_label():
-	if not PresetsManager.is_in_break(parent.preset.ID):
+	if not parent.break_ or not PresetsManager.is_in_break(parent.preset.ID):
 		return
 	
 	var remaining_seconds =  BreaksManager.get_break_id_remaining_seconds(parent.break_.ID)
@@ -99,13 +106,7 @@ func _update_break_finish_hour_label():
 	var finish_minute: int = (current_time["minute"] + (remaining_seconds / 60) % 60) % 60
 	var finish_minute_str: String = str(finish_minute)
 	
-	if is_use_24_hour_format:
-		var finish_hour_str = str(finish_hour)
-		label_finish_hour.text = \
-			(("0" + finish_hour_str) if finish_hour < 10 else finish_hour_str) \
-			+ ":" \
-			+ (("0" + finish_minute_str) if finish_minute < 10 else finish_minute_str)
-	else:
+	if SettingsManager.is_use_12_hour_format:
 		var day_period = "am"
 		if finish_hour > 12: 
 			finish_hour -= 12
@@ -117,6 +118,12 @@ func _update_break_finish_hour_label():
 			+ ":" \
 			+ (("0" + finish_minute_str) if finish_minute < 10 else finish_minute_str) \
 			+ " " + day_period
+	else:
+		var finish_hour_str = str(finish_hour)
+		label_finish_hour.text = \
+			(("0" + finish_hour_str) if finish_hour < 10 else finish_hour_str) \
+			+ ":" \
+			+ (("0" + finish_minute_str) if finish_minute < 10 else finish_minute_str)
 
 func _toggle_break_timer_pause():
 	if not parent.break_:
@@ -141,3 +148,12 @@ func _end_break():
 	else:
 		parent.set_page(parent.page_break_finish)
 		
+
+func _update_things_from_settings():
+	_update_break_finish_hour_label()
+	if SettingsManager.is_hide_break_timer_controls:
+		add_time_controls_parent.hide()
+		deduct_time_controls_parent.hide()
+	else:
+		add_time_controls_parent.show()
+		deduct_time_controls_parent.show()

@@ -287,6 +287,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="separatingline3" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
 color = Color(0.52549, 0.52549, 0.52549, 1)

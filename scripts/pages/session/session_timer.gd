@@ -1,12 +1,16 @@
 extends Page
 
-@export var is_use_24_hour_format: bool = false # TODO: Get this data from the config table
 @export var label_preset_name: Label
 @export var label_sessions_count: Label
 @export var label_finish_hour: Label
 @export var label_timer: Label
 @export var button_pause_toggle: CheckButton
 @export var button_auto_break_toggle: CheckButton
+
+# NOTE: I kept them separated because i couldnt figure out 
+# how to give them one parent without messing up the UI
+@export var add_time_controls_parent: Control
+@export var deduct_time_controls_parent: Control
 
 var update_preset: Callable = func(): parent.preset = PresetsManager.get_preset(parent.preset.ID)
 var update_session: Callable = func(): parent.session = SessionsManager.get_loaded_buffered_session(parent.session.ID)
@@ -39,6 +43,8 @@ func enter():
 	_update_finish_hour()
 	_update_titles_text()
 	_update_timer_text()
+	_update_things_from_settings()
+	self.visibility_changed.connect(_update_things_from_settings)
 	
 	connect_session_finish_subscribers(SessionsManager.get_loaded_buffered_session(parent.session.ID))
 
@@ -140,6 +146,9 @@ func _set_time(minutes: int, seconds: int):
 		+ (("0" + seconds_str) if seconds < 10 else seconds_str)
 
 func _update_finish_hour():
+	if not parent.session:
+		return
+		
 	if SessionsManager.is_session_paused(parent.session.ID) \
 	or SessionsManager.get_session_id_remaining_time_in_seconds(parent.session.ID) <= 0:
 		label_finish_hour.text = ""
@@ -152,13 +161,7 @@ func _update_finish_hour():
 	var finish_minute: int = (current_time["minute"] + (remaining_length_in_seconds / 60) % 60) % 60
 	var finish_minute_str: String = str(finish_minute)
 	
-	if is_use_24_hour_format:
-		var finish_hour_str = str(finish_hour)
-		label_finish_hour.text = \
-			(("0" + finish_hour_str) if finish_hour < 10 else finish_hour_str) \
-			+ ":" \
-			+ (("0" + finish_minute_str) if finish_minute < 10 else finish_minute_str)
-	else:
+	if SettingsManager.is_use_12_hour_format:
 		var day_period = "am"
 		if finish_hour > 12: 
 			finish_hour -= 12
@@ -170,6 +173,12 @@ func _update_finish_hour():
 			+ ":" \
 			+ (("0" + finish_minute_str) if finish_minute < 10 else finish_minute_str) \
 			+ " " + day_period
+	else:
+		var finish_hour_str = str(finish_hour)
+		label_finish_hour.text = \
+			(("0" + finish_hour_str) if finish_hour < 10 else finish_hour_str) \
+			+ ":" \
+			+ (("0" + finish_minute_str) if finish_minute < 10 else finish_minute_str)
 
 func _end_session_timer():
 	if session_time_left_cache > 0:
@@ -178,3 +187,12 @@ func _end_session_timer():
 		parent.set_page(parent.page_break_timer)
 	else:
 		parent.set_page(parent.page_session_finish)
+
+func _update_things_from_settings():
+	_update_finish_hour()
+	if SettingsManager.is_hide_session_timer_controls:
+		add_time_controls_parent.hide()
+		deduct_time_controls_parent.hide()
+	else:
+		add_time_controls_parent.show()
+		deduct_time_controls_parent.show()
