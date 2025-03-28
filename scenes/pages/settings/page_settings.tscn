@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/pages/settings/page_settings.gd" id="1_22btq"]
 
-[node name="Settings" type="Control" node_paths=PackedStringArray("label_app_version", "label_database_path", "edit_sessions_count", "edit_session_length", "edit_break_length", "check_hour_format", "check_hide_session_controls", "check_hide_break_controls", "edit_session_notification_path", "edit_break_notification_path", "edit_session_notification_volume", "edit_break_notification_volume", "color_background", "color_primary", "color_danger", "check_custom_title_bar")]
+[node name="Settings" type="Control" node_paths=PackedStringArray("label_app_version", "label_database_path", "edit_sessions_count", "edit_session_length", "edit_break_length", "check_hour_format", "check_hide_session_controls", "check_hide_break_controls", "edit_session_notification_path", "edit_break_notification_path", "slider_session_notification_volume", "slider_break_notification_volume", "color_background", "color_primary", "color_danger", "check_custom_title_bar")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,8 +20,8 @@ check_hide_session_controls = NodePath("MarginContainer/ScrollContainer/HeadersC
 check_hide_break_controls = NodePath("MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HideBreakControls/CheckBox")
 edit_session_notification_path = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/LineEdit")
 edit_break_notification_path = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/LineEdit")
-edit_session_notification_volume = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationVolume/HSlider")
-edit_break_notification_volume = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationVolume/HSlider")
+slider_session_notification_volume = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationVolume/HSlider")
+slider_break_notification_volume = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationVolume/HSlider")
 color_background = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/BG/ColorPickerButton")
 color_primary = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/Primary/ColorPickerButton")
 color_danger = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/Danger/ColorPickerButton")
@@ -120,16 +120,48 @@ text = "Sessions count"
 [node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/SessionsCount"]
 layout_mode = 2
 
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/SessionsCount/LineEdit"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -16.5
+offset_right = 35.0
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="SessionLength" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/SessionLength"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
-text = "Session length"
+text = "Session length (min)"
 
 [node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/SessionLength"]
 layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/SessionLength/LineEdit"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -16.5
+offset_right = 35.0
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="BreakLength" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues"]
 layout_mode = 2
@@ -137,10 +169,26 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/BreakLength"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
-text = "Break length"
+text = "Break length (min)"
 
 [node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/BreakLength"]
 layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/BreakLength/LineEdit"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -16.5
+offset_right = 35.0
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="separatingline2" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 custom_minimum_size = Vector2(0, 2)
@@ -168,6 +216,22 @@ text = "Use 12-hour format"
 [node name="CheckBox" type="CheckBox" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HourFormat"]
 layout_mode = 2
 
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HourFormat/CheckBox"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="HideSessionControls" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings"]
 layout_mode = 2
 
@@ -179,6 +243,22 @@ text = "Hide session time change controls"
 [node name="CheckBox" type="CheckBox" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HideSessionControls"]
 layout_mode = 2
 
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HideSessionControls/CheckBox"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="HideBreakControls" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings"]
 layout_mode = 2
 
@@ -189,6 +269,22 @@ text = "Hide break time change controls"
 
 [node name="CheckBox" type="CheckBox" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HideBreakControls"]
 layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HideBreakControls/CheckBox"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="separatingline3" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 custom_minimum_size = Vector2(0, 2)
@@ -216,6 +312,16 @@ text = "Session end notification sound file path"
 [node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath"]
 layout_mode = 2
 
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/LineEdit"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="BreakNotificationPath" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings"]
 layout_mode = 2
 
@@ -226,6 +332,16 @@ text = "Break end notification sound file path"
 
 [node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath"]
 layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/LineEdit"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="SessionNotificationVolume" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings"]
 layout_mode = 2
@@ -285,6 +401,22 @@ custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
 edit_alpha = false
 
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/BG/ColorPickerButton"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -16.5
+offset_right = 35.0
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="Primary" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
 layout_mode = 2
 
@@ -299,6 +431,22 @@ layout_mode = 2
 color = Color(1, 1, 1, 1)
 edit_alpha = false
 
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/Primary/ColorPickerButton"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -16.5
+offset_right = 35.0
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="Danger" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
 layout_mode = 2
 
@@ -312,6 +460,22 @@ custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
 color = Color(1, 0, 0, 1)
 edit_alpha = false
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/Danger/ColorPickerButton"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -16.5
+offset_right = 35.0
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="separatingline5" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 custom_minimum_size = Vector2(0, 2)
@@ -338,3 +502,19 @@ text = "Use custom title bar"
 
 [node name="CheckBox" type="CheckBox" parent="MarginContainer/ScrollContainer/HeadersContainer/Other/HourFormat"]
 layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/Other/HourFormat/CheckBox"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
