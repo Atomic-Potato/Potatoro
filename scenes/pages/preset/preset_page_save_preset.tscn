@@ -102,7 +102,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/caret_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 72
 theme_override_styles/normal = SubResource("StyleBoxFlat_02b5f")
-placeholder_text = "8"
+placeholder_text = "0"
 alignment = 1
 
 [node name="Label2" type="Label" parent="MarginContainer/VBoxContainer2/session count"]
@@ -129,7 +129,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/caret_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 72
 theme_override_styles/normal = SubResource("StyleBoxFlat_02b5f")
-placeholder_text = "50"
+placeholder_text = "0"
 alignment = 1
 
 [node name="break length" type="VBoxContainer" parent="MarginContainer/VBoxContainer2"]
@@ -150,7 +150,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/caret_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 72
 theme_override_styles/normal = SubResource("StyleBoxFlat_02b5f")
-placeholder_text = "10"
+placeholder_text = "0"
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer2"]
