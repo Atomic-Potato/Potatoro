@@ -59,6 +59,30 @@ func empty_sessions_data():
 	"
 	db.query(query)
 
+func restore_default_settings():
+	DatabaseManager.db.query('
+		delete from Settings;
+		
+		insert into Settings(ID, SettingsCategoryID, Key, Value) values
+		(1, 1, "Sessions Count", "8"),
+		(2, 1, "Session Length", "50"),
+		(3, 1, "Break Length", "5"),
+		
+		(4, 2, "is Use 12 Hour Format", "0"),
+		(5, 2, "Hide Session timer time change buttons", "0"),
+		(6, 2, "Hide Break timer time change buttons", "0"),
+		
+		(7, 3, "Path: Session end notification", ""),
+		(8, 3, "Path: Break end notification", ""),
+		(9, 3, "Volume: Session end notification", "1.0"),
+		(10, 3, "Volume: Break end notification", "1.0"),
+		
+		(11, 4, "Background Color", "000000"),
+		(12, 4, "Primary Color", "ffffff"),
+		(13, 4, "Danger Color", "ff0000"),
+		
+		(14, 5, "is use custom title bar", "0");
+	')
 # NOTE:
 #	- I created buffers to save on memory and query times
 #	- In the presets buffer,the break end datetime is filled with remaining seconds
