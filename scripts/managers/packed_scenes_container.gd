@@ -6,6 +6,9 @@ class_name PackedScenesContainer extends Node
 @export var preset_page_save_preset: PackedScene
 @export var preset_page_session: PackedScene
 
+@export_category("Settings")
+@export var page_settings: PackedScene
+
 @export_category("Other")
 @export var popup_delete: PackedScene
 

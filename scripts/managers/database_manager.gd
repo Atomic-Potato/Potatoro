@@ -65,6 +65,59 @@ func empty_sessions_data():
 #		when the break is paused, i did this because i didnt plan well and im lazy
 func create_db(open_db: SQLite):
 	open_db.query('
+		CREATE TABLE "Information" (
+			"ID"	INTEGER NOT NULL UNIQUE,
+			"Key"	TEXT NOT NULL UNIQUE,
+			"Value"	TEXT,
+			PRIMARY KEY("ID")
+		);
+		
+		insert into Information(ID, Key, Value) values
+		(1, "AppVersion", "0.1");
+		
+		CREATE TABLE "SettingsCategories" (
+			"ID"	INTEGER NOT NULL UNIQUE,
+			"Name"	TEXT NOT NULL,
+			PRIMARY KEY("ID")
+		);
+		
+		insert into SettingsCategories(ID, Name) values
+		(1, "Default Values"),
+		(2, "Timer Settings"),
+		(3, "Sound Settings"),
+		(4, "Theme"),
+		(5, "Other");
+		
+		CREATE TABLE "Settings" (
+			"ID"	INTEGER NOT NULL UNIQUE,
+			"SettingsCategoryID"	INTEGER NOT NULL,
+			"Key"	TEXT NOT NULL UNIQUE,
+			"Value"	TEXT,
+			FOREIGN KEY("SettingsCategoryID") REFERENCES "SettingsCategories"("ID"),
+			PRIMARY KEY("ID")
+		);
+		
+		insert into Settings(ID, SettingsCategoryID, Key, Value) values
+		(1, 1, "Sessions Count", "8"),
+		(2, 1, "Session Length", "50"),
+		(3, 1, "Break Length", "5"),
+		
+		(4, 2, "is Use 12 Hour Format", "0"),
+		(5, 2, "Hide Session timer time change buttons", "0"),
+		(6, 2, "Hide Break timer time change buttons", "0"),
+		
+		(7, 3, "Path: Session end notification", ""),
+		(8, 3, "Path: Break end notification", ""),
+		(9, 3, "Volume: Session end notification", "1.0"),
+		(10, 3, "Volume: Break end notification", "1.0"),
+		
+		(11, 4, "Background Color", "#000000"),
+		(12, 4, "Primary Color", "#ffffff"),
+		(13, 4, "Danger Color", "#ff0000"),
+		
+		(14, 5, "is use custom title bar", "0");
+		
+		
 		CREATE TABLE "Configurations" (
 			"ID"	INTEGER NOT NULL UNIQUE,
 			"Key"	TEXT NOT NULL UNIQUE,

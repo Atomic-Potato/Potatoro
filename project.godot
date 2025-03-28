@@ -34,6 +34,15 @@ window/main_scene="res://scenes/main.tscn"
 
 enabled=PackedStringArray("res://addons/godot-sqlite/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://scenes/": "blue",
+"res://scripts/": "red",
+"res://scripts/classes/": "red",
+"res://visual/": "yellow"
+}
+
 [gui]
 
 theme/default_font_multichannel_signed_distance_field=true

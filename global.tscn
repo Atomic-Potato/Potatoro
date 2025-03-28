@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dn310bw2e6rsh"]
+[gd_scene load_steps=20 format=3 uid="uid://dn310bw2e6rsh"]
 
 [ext_resource type="Script" path="res://scripts/managers/application_manager.gd" id="1_jnciu"]
 [ext_resource type="PackedScene" uid="uid://b6ql7sj7pip6g" path="res://scenes/pages/preset/preset_page_presets.tscn" id="2_u2cnp"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://k87ux2qmpcqj" path="res://scenes/pages/preset/preset_page_session.tscn" id="6_63ca6"]
 [ext_resource type="PackedScene" uid="uid://d0tnv5wrhpsaa" path="res://scenes/background.tscn" id="7_el64l"]
 [ext_resource type="PackedScene" uid="uid://b445jhovk6ton" path="res://scenes/delete_pop_up.tscn" id="7_gaism"]
+[ext_resource type="PackedScene" uid="uid://dr5n8ajt1keec" path="res://scenes/pages/settings/page_settings.tscn" id="7_pej7o"]
 [ext_resource type="StyleBox" uid="uid://e1pmqc6hk18h" path="res://visual/style_boxes/window_borders.stylebox" id="8_lgf65"]
 [ext_resource type="Theme" uid="uid://bei3sxt6d2c38" path="res://visual/themes/defaul_theme.tres" id="11_f6650"]
 [ext_resource type="Script" path="res://scripts/tabs/global/potatoro_tab.gd" id="11_j5mlv"]
@@ -45,6 +46,7 @@ preset_info_card = ExtResource("4_fokkx")
 preset_page_presets = ExtResource("2_u2cnp")
 preset_page_save_preset = ExtResource("5_umoqp")
 preset_page_session = ExtResource("6_63ca6")
+page_settings = ExtResource("7_pej7o")
 popup_delete = ExtResource("7_gaism")
 
 [node name="World2D" type="Node2D" parent="."]
