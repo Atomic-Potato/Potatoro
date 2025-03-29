@@ -23,7 +23,7 @@ Global="*res://global.gd"
 SessionsManager="*res://scripts/managers/sessions_manager.gd"
 BreaksManager="*res://scripts/managers/breaks_manager.gd"
 TimersTrackingManager="*res://scripts/managers/timers_tracking_manager.gd"
-SettingsManager="*res://scripts/managers/settings_manager.gd"
+SettingsManager="*res://scenes/managers/settings_manager.tscn"
 
 [display]
 

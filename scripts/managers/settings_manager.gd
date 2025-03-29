@@ -1,6 +1,9 @@
 # NOTE: this class also includes the info table in the database
 extends Node
 
+@export var title_bar_theme: Theme
+
+# SETTINGS
 var info_app_version: String:
 	get: return _get_info(1)
 
@@ -44,21 +47,34 @@ var volume_break_end_notification: float:
 	get: return float(_get_value(10))
 	set(value): _set_value(10, value)
 
+# THEME SETTINGS
+signal color_background_changed
 var color_background: String:
 	get: return _get_value(11)
-	set(value): _set_value(11, value, true)
+	set(value): 
+		_set_value(11, value, true)
+		color_background_changed.emit()
 
+signal color_primary_changed
 var color_primary: String:
 	get: return _get_value(12)
-	set(value): _set_value(12, value, true)
+	set(value): 
+		_set_value(12, value, true)
+		color_primary_changed.emit()
 
+signal color_secondary_changed
 var color_secondary: String:
 	get: return _get_value(15)
-	set(value): _set_value(15, value, true)
+	set(value): 
+		_set_value(15, value, true)
+		color_secondary_changed.emit()
 
+signal color_danger_changed
 var color_danger: String:
 	get: return _get_value(13)
-	set(value): _set_value(13, value, true)
+	set(value): 
+		_set_value(13, value, true)
+		color_danger_changed.emit()
 
 signal is_use_custom_title_bar_changed
 var is_use_custom_title_bar: bool:
@@ -67,14 +83,19 @@ var is_use_custom_title_bar: bool:
 		_set_value(14, int(value))
 		is_use_custom_title_bar_changed.emit()
 
+signal color_title_bar_primary_changed
 var color_title_bar_primary: String:
 	get: return _get_value(16)
-	set(value): _set_value(16, value, true)
+	set(value): 
+		_set_value(16, value, true)
+		color_title_bar_primary_changed.emit()
 
+signal color_title_bar_secondary_changed
 var color_title_bar_secondary: String:
 	get: return _get_value(17)
-	set(value): _set_value(17, value, true)
-
+	set(value): 
+		_set_value(17, value, true)
+		color_title_bar_secondary_changed.emit()
 
 func _get_value(id: int):
 	DatabaseManager.db.query("select Value from Settings where ID = " + str(id))
@@ -88,3 +109,27 @@ func _set_value(id: int, value, is_string: bool = false):
 func _get_info(id: int):
 	DatabaseManager.db.query("select Value from Information where ID = " + str(id))
 	return DatabaseManager.db.query_result[0].get("Value")
+
+func _ready():
+	_update_title_bar_theme()
+	color_title_bar_primary_changed.connect(_update_title_bar_theme)
+	color_title_bar_secondary_changed.connect(_update_title_bar_theme)
+
+# Theme Settings
+func _update_title_bar_theme():
+	# Setting Primary
+	var primary_color: Color = Color.from_string(color_title_bar_primary, Color.MAGENTA)
+	var panel_style_box: StyleBoxFlat = title_bar_theme.get_stylebox("panel", "PanelContainer")
+	panel_style_box.bg_color = primary_color
+	title_bar_theme.set_color("font_hover_color", "Button", primary_color)
+	title_bar_theme.set_color("font_hover_pressed_color", "Button", primary_color)
+	
+	# Setting Secondary
+	var secondary_color: Color = Color.from_string(color_title_bar_secondary, Color.MAGENTA)
+	var button_hover_style_box: StyleBoxFlat = title_bar_theme.get_stylebox("hover", "Button")
+	button_hover_style_box.bg_color = secondary_color
+	title_bar_theme.set_color("font_color", "Button", secondary_color)
+	title_bar_theme.set_color("font_focus_color", "Button", secondary_color)
+	title_bar_theme.set_color("font_pressed_color", "Button", secondary_color)
+	
+	
