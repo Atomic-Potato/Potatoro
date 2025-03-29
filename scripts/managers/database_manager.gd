@@ -97,7 +97,7 @@ func create_db(open_db: SQLite):
 		);
 		
 		insert into Information(ID, Key, Value) values
-		(1, "AppVersion", ' + Global.APP_VERSION + ');
+		(1, "AppVersion", "' + Global.APP_VERSION + '");
 		
 		CREATE TABLE "SettingsCategories" (
 			"ID"	INTEGER NOT NULL UNIQUE,
@@ -139,15 +139,13 @@ func create_db(open_db: SQLite):
 		(12, 4, "Primary Color", "ffffff"),
 		(13, 4, "Danger Color", "ff0000"),
 		
-		(14, 5, "is use custom title bar", "0");
+		(14, 5, "is use custom title bar", "0"),
 		
+		(15, 4, "Secondary Color", "000000"),
 		
-		CREATE TABLE "Configurations" (
-			"ID"	INTEGER NOT NULL UNIQUE,
-			"Key"	TEXT NOT NULL UNIQUE,
-			"Value"	TEXT,
-			PRIMARY KEY("ID" AUTOINCREMENT)
-		);
+		(16, 4, "Title Bar Primary Color", "ffffff"),
+		(17, 4, "Title Bar Secondary Color", "000000");
+		
 		CREATE TABLE "Tags" (
 			"ID"	INTEGER NOT NULL UNIQUE,
 			"Name"	TEXT NOT NULL UNIQUE,

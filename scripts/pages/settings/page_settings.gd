@@ -23,14 +23,15 @@ extends Page
 @export_category("Theme")
 @export var color_background: ColorPickerButton
 @export var color_primary: ColorPickerButton
+@export var color_secondary: ColorPickerButton
 @export var color_danger: ColorPickerButton
-
-@export_category("Other")
 @export var check_custom_title_bar: CheckBox
+@export var color_title_bar_primary: ColorPickerButton
+@export var color_title_bar_secondary: ColorPickerButton
 
-# NOTE: im sending some random data in the dictionary so that the tab would call this function
-# as of time of writing (28-3-2025) it is called in the settings_tab script
-func initialize(data: Dictionary = {}):
+#@export_category("Other") # in case i do need it later
+
+func _ready():
 	# INFO: Infromation
 	label_app_version.text = Global.APP_VERSION
 	label_database_path.text = str(DatabaseManager.db.path)
@@ -87,11 +88,22 @@ func initialize(data: Dictionary = {}):
 	color_primary.color_changed.connect(
 		func(value: Color): SettingsManager.color_primary = value.to_html(false))
 	
+	color_secondary.color = Color.from_string(SettingsManager.color_secondary, Color.MAGENTA)
+	color_secondary.color_changed.connect(
+		func(value: Color): SettingsManager.color_secondary = value.to_html(false))
+	
 	color_danger.color = Color.from_string(SettingsManager.color_danger, Color.MAGENTA)
 	color_danger.color_changed.connect(
 		func(value: Color): SettingsManager.color_danger = value.to_html(false))
 	
-	# INFO: Other
 	check_custom_title_bar.set_pressed_no_signal(SettingsManager.is_use_custom_title_bar)
 	check_custom_title_bar.toggled.connect(
 		func(value): SettingsManager.is_use_custom_title_bar = value)
+	
+	color_title_bar_primary.color = Color.from_string(SettingsManager.color_title_bar_primary, Color.MAGENTA)
+	color_title_bar_primary.color_changed.connect(
+		func(value: Color): SettingsManager.color_title_bar_primary = value.to_html(false))
+	
+	color_title_bar_secondary.color = Color.from_string(SettingsManager.color_title_bar_secondary, Color.MAGENTA)
+	color_title_bar_secondary.color_changed.connect(
+		func(value: Color): SettingsManager.color_title_bar_secondary = value.to_html(false))

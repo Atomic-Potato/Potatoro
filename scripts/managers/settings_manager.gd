@@ -52,13 +52,29 @@ var color_primary: String:
 	get: return _get_value(12)
 	set(value): _set_value(12, value, true)
 
+var color_secondary: String:
+	get: return _get_value(15)
+	set(value): _set_value(15, value, true)
+
 var color_danger: String:
 	get: return _get_value(13)
 	set(value): _set_value(13, value, true)
 
+signal is_use_custom_title_bar_changed
 var is_use_custom_title_bar: bool:
 	get: return bool(int(_get_value(14)))
-	set(value): _set_value(14, int(value))
+	set(value): 
+		_set_value(14, int(value))
+		is_use_custom_title_bar_changed.emit()
+
+var color_title_bar_primary: String:
+	get: return _get_value(16)
+	set(value): _set_value(16, value, true)
+
+var color_title_bar_secondary: String:
+	get: return _get_value(17)
+	set(value): _set_value(17, value, true)
+
 
 func _get_value(id: int):
 	DatabaseManager.db.query("select Value from Settings where ID = " + str(id))

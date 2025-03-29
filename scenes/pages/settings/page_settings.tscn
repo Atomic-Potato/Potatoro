@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/pages/settings/page_settings.gd" id="1_22btq"]
 
-[node name="Settings" type="Control" node_paths=PackedStringArray("label_app_version", "label_database_path", "edit_sessions_count", "edit_session_length", "edit_break_length", "check_hour_format", "check_hide_session_controls", "check_hide_break_controls", "edit_session_notification_path", "edit_break_notification_path", "slider_session_notification_volume", "slider_break_notification_volume", "color_background", "color_primary", "color_danger", "check_custom_title_bar")]
+[node name="Settings" type="Control" node_paths=PackedStringArray("label_app_version", "label_database_path", "edit_sessions_count", "edit_session_length", "edit_break_length", "check_hour_format", "check_hide_session_controls", "check_hide_break_controls", "edit_session_notification_path", "edit_break_notification_path", "slider_session_notification_volume", "slider_break_notification_volume", "color_background", "color_primary", "color_secondary", "color_danger", "check_custom_title_bar", "color_title_bar_primary", "color_title_bar_secondary")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,8 +24,11 @@ slider_session_notification_volume = NodePath("MarginContainer/ScrollContainer/H
 slider_break_notification_volume = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationVolume/HSlider")
 color_background = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/BG/ColorPickerButton")
 color_primary = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/Primary/ColorPickerButton")
+color_secondary = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/Secondary/ColorPickerButton")
 color_danger = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/Danger/ColorPickerButton")
-check_custom_title_bar = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Other/HourFormat/CheckBox")
+check_custom_title_bar = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/CustomTitleBar/CheckBox")
+color_title_bar_primary = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/TilePrimary/ColorPickerButton")
+color_title_bar_secondary = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/TitleSecondary/ColorPickerButton")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -41,6 +44,7 @@ theme_override_constants/margin_bottom = 22
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
+scroll_vertical = 100
 
 [node name="HeadersContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
 custom_minimum_size = Vector2(300, 10.435)
@@ -449,6 +453,35 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="Secondary" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/Secondary"]
+custom_minimum_size = Vector2(325, 0)
+layout_mode = 2
+text = "Secondary color"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/Secondary"]
+custom_minimum_size = Vector2(65, 0)
+layout_mode = 2
+edit_alpha = false
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/Secondary/ColorPickerButton"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -16.5
+offset_right = 35.0
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="Danger" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
 layout_mode = 2
 
@@ -479,33 +512,18 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="separatingline5" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer"]
-custom_minimum_size = Vector2(0, 2)
-layout_mode = 2
-color = Color(0.52549, 0.52549, 0.52549, 1)
-
-[node name="Other" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Other"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Other SETTINGS"
-uppercase = true
-
-[node name="HourFormat" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Other"]
+[node name="CustomTitleBar" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Other/HourFormat"]
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/CustomTitleBar"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
-text = "Use custom title bar"
+text = "Use custom title bar (experimental)"
 
-[node name="CheckBox" type="CheckBox" parent="MarginContainer/ScrollContainer/HeadersContainer/Other/HourFormat"]
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/CustomTitleBar"]
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/Other/HourFormat/CheckBox"]
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/CustomTitleBar/CheckBox"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 8
@@ -520,3 +538,79 @@ offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="TilePrimary" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/TilePrimary"]
+custom_minimum_size = Vector2(325, 0)
+layout_mode = 2
+text = "Title bar primary color"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/TilePrimary"]
+custom_minimum_size = Vector2(65, 0)
+layout_mode = 2
+color = Color(1, 1, 1, 1)
+edit_alpha = false
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/TilePrimary/ColorPickerButton"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -16.5
+offset_right = 35.0
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TitleSecondary" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/TitleSecondary"]
+custom_minimum_size = Vector2(325, 0)
+layout_mode = 2
+text = "Title bar secondary color"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/TitleSecondary"]
+custom_minimum_size = Vector2(65, 0)
+layout_mode = 2
+edit_alpha = false
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/TitleSecondary/ColorPickerButton"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -16.5
+offset_right = 35.0
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="separatingline5" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(0.52549, 0.52549, 0.52549, 1)
+
+[node name="Other" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Other"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Other SETTINGS"
+uppercase = true

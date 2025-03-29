@@ -14,12 +14,8 @@ var is_left_mouse_button_held: bool
 var mouse_pressed_position_offset: Vector2i
 
 func _ready():
-	if SettingsManager.is_use_custom_title_bar:
-		self.show()
-		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
-	else:
-		self.hide()
-		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
+	_update_things_from_settings()
+	SettingsManager.is_use_custom_title_bar_changed.connect(_update_things_from_settings)
 
 func _process(_delta):
 	if is_left_mouse_button_held:
@@ -52,3 +48,11 @@ func _on_color_rect_gui_input(event):
 			else:
 				mouse_pressed_position_offset = \
 					DisplayServer.window_get_position() - DisplayServer.mouse_get_position()
+
+func _update_things_from_settings():
+	if SettingsManager.is_use_custom_title_bar:
+		self.show()
+		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
+	else:
+		self.hide()
+		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)

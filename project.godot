@@ -41,6 +41,7 @@ folder_colors={
 "res://scenes/": "blue",
 "res://scripts/": "red",
 "res://scripts/classes/": "red",
+"res://scripts/managers/": "orange",
 "res://visual/": "yellow"
 }
 
