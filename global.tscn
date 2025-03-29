@@ -81,10 +81,10 @@ mouse_filter = 2
 theme_override_constants/separation = 0
 
 [node name="Titlebar" type="PanelContainer" parent="GUI/AppBorders/VBoxContainer"]
-visible = false
 layout_mode = 2
 
 [node name="Title bar" parent="GUI/AppBorders/VBoxContainer/Titlebar" instance=ExtResource("3_i618t")]
+visible = false
 layout_mode = 2
 
 [node name="TabNavBar" type="HBoxContainer" parent="GUI/AppBorders/VBoxContainer"]

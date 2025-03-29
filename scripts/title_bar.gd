@@ -13,6 +13,14 @@ class_name TitleBar extends Control
 var is_left_mouse_button_held: bool
 var mouse_pressed_position_offset: Vector2i
 
+func _ready():
+	if SettingsManager.is_use_custom_title_bar:
+		self.show()
+		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
+	else:
+		self.hide()
+		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
+
 func _process(_delta):
 	if is_left_mouse_button_held:
 		var new_position = \
