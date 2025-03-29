@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://b6ql7sj7pip6g"]
+[gd_scene load_steps=5 format=3 uid="uid://b6ql7sj7pip6g"]
 
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_presets.gd" id="1_5wp6g"]
-[ext_resource type="StyleBox" uid="uid://dq4njdscsw0eo" path="res://visual/style_boxes/thick_button.stylebox" id="1_eiy4j"]
 [ext_resource type="PackedScene" uid="uid://cy71rb02uwuce" path="res://scenes/pages/preset/elements/preset_info_card.tscn" id="2_3qnmr"]
-[ext_resource type="LabelSettings" uid="uid://b7ve6wxcg2m3c" path="res://visual/labels/label_1.tres" id="2_vxrpk"]
 [ext_resource type="Texture2D" uid="uid://bk74yu10yvvo5" path="res://visual/assets/vector/circular_plus.svg" id="3_uh6mv"]
+[ext_resource type="Theme" uid="uid://bmgw3uu0ry2ht" path="res://visual/themes/main_theme.tres" id="3_vj5yl"]
 
 [node name="PresetPagePreset" type="Control" node_paths=PackedStringArray("presets_container")]
 layout_mode = 3
@@ -43,7 +42,7 @@ theme_override_constants/margin_bottom = 10
 [node name="Add preset" type="PanelContainer" parent="ScrollContainer/HFlowContainer/Add preset"]
 custom_minimum_size = Vector2(350, 350)
 layout_mode = 2
-theme_override_styles/panel = ExtResource("1_eiy4j")
+theme = ExtResource("3_vj5yl")
 
 [node name="Button" type="Button" parent="ScrollContainer/HFlowContainer/Add preset/Add preset"]
 layout_mode = 2
@@ -63,8 +62,9 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/HFlowContainer/Add preset/Add preset/Button/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_vj5yl")
+theme_override_font_sizes/font_size = 26
 text = "create new preset"
-label_settings = ExtResource("2_vxrpk")
 horizontal_alignment = 1
 vertical_alignment = 1
 

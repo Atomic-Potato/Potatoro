@@ -1,30 +1,19 @@
-[gd_scene load_steps=16 format=3 uid="uid://k87ux2qmpcqj"]
+[gd_scene load_steps=15 format=3 uid="uid://k87ux2qmpcqj"]
 
 [ext_resource type="Script" path="res://scripts/pages/session/session_setup.gd" id="2_l3wag"]
 [ext_resource type="StyleBox" uid="uid://dhtti43gywwuo" path="res://visual/style_boxes/button.stylebox" id="2_nkr8a"]
 [ext_resource type="StyleBox" uid="uid://c4ccjefbdbl2j" path="res://visual/style_boxes/button_hover.stylebox" id="3_161tp"]
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_session.gd" id="3_p5ysi"]
 [ext_resource type="StyleBox" uid="uid://bailsyf88hhr0" path="res://visual/style_boxes/button_pressed.stylebox" id="4_o4ufo"]
+[ext_resource type="Theme" uid="uid://cg8i2j1xvj14d" path="res://visual/themes/large_edit_field_theme.tres" id="5_544ah"]
 [ext_resource type="LabelSettings" uid="uid://dis7d5hvikqed" path="res://visual/labels/subtitle.tres" id="5_jy7e5"]
 [ext_resource type="Script" path="res://scripts/pages/session/session_timer.gd" id="6_j5uv2"]
+[ext_resource type="Theme" uid="uid://bmgw3uu0ry2ht" path="res://visual/themes/main_theme.tres" id="8_85gr6"]
 [ext_resource type="Script" path="res://scripts/pages/session/session_finish.gd" id="8_xg4q4"]
+[ext_resource type="Theme" uid="uid://5oex1v3ptjvn" path="res://visual/themes/toggles_theme.tres" id="8_yjo5o"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_setup.gd" id="9_esxm0"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_timer.gd" id="10_l1xkr"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_finish.gd" id="11_ecred"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0x2dj"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_noh7n"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_fy3gd"]
-font_size = 25
-
-[sub_resource type="LabelSettings" id="LabelSettings_x63tv"]
-line_spacing = 0.0
-font_size = 100
 
 [node name="PresetPageSession" type="Control" node_paths=PackedStringArray("page_session_setup", "page_session_timer", "page_session_finish", "page_break_setup", "page_break_timer", "page_break_finish", "child_pages_parent_node")]
 layout_mode = 3
@@ -91,6 +80,7 @@ size_flags_vertical = 4
 
 [node name="Label" type="Label" parent="Content/SessionSetup/VBoxContainer/FlowContainer/Session Length"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
 text = "current session length"
 label_settings = ExtResource("5_jy7e5")
 horizontal_alignment = 1
@@ -98,10 +88,8 @@ vertical_alignment = 1
 
 [node name="SessionLengthEdit" type="LineEdit" parent="Content/SessionSetup/VBoxContainer/FlowContainer/Session Length"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/caret_color = Color(1, 1, 1, 1)
+theme = ExtResource("5_544ah")
 theme_override_font_sizes/font_size = 72
-theme_override_styles/normal = SubResource("StyleBoxFlat_0x2dj")
 placeholder_text = "50m"
 alignment = 1
 
@@ -112,17 +100,15 @@ size_flags_vertical = 4
 
 [node name="Label" type="Label" parent="Content/SessionSetup/VBoxContainer/FlowContainer/BreakLength"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
 text = "next break length"
-label_settings = ExtResource("5_jy7e5")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="edit" type="LineEdit" parent="Content/SessionSetup/VBoxContainer/FlowContainer/BreakLength"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/caret_color = Color(1, 1, 1, 1)
+theme = ExtResource("5_544ah")
 theme_override_font_sizes/font_size = 72
-theme_override_styles/normal = SubResource("StyleBoxFlat_0x2dj")
 placeholder_text = "10m"
 alignment = 1
 
@@ -130,11 +116,8 @@ alignment = 1
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme = ExtResource("8_85gr6")
 theme_override_font_sizes/font_size = 18
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
 text = "RESET"
 
 [node name="StartSession" type="Button" parent="Content/SessionSetup"]
@@ -152,11 +135,8 @@ offset_bottom = -72.7
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme = ExtResource("8_85gr6")
 theme_override_font_sizes/font_size = 31
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
 text = "START"
 
 [node name="AutoBreak" type="CheckButton" parent="Content/SessionSetup"]
@@ -170,6 +150,7 @@ offset_left = -93.0
 offset_top = -29.0
 grow_horizontal = 0
 grow_vertical = 0
+theme = ExtResource("8_yjo5o")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "auto start next break"
 alignment = 2
@@ -188,8 +169,8 @@ alignment = 1
 
 [node name="preset" type="Label" parent="Content/SessionSetup/info"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
 text = "preset-name"
-label_settings = SubResource("LabelSettings_noh7n")
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Content/SessionSetup/info"]
@@ -197,16 +178,19 @@ layout_mode = 2
 
 [node name="text" type="Label" parent="Content/SessionSetup/info/HBoxContainer"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
 text = "sessions "
 
 [node name="session count" type="Label" parent="Content/SessionSetup/info/HBoxContainer"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
 text = "0/~"
 
 [node name="Label" type="Label" parent="Content/SessionSetup/info"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
+theme_override_font_sizes/font_size = 25
 text = "session"
-label_settings = SubResource("LabelSettings_fy3gd")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -249,14 +233,16 @@ theme_override_constants/separation = -10
 
 [node name="finish hour" type="Label" parent="Content/SessionTimer/Timer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
 text = "10:00 am"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Timer" type="Label" parent="Content/SessionTimer/Timer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
+theme_override_font_sizes/font_size = 100
 text = "50:00"
-label_settings = SubResource("LabelSettings_x63tv")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -268,28 +254,19 @@ alignment = 1
 [node name="Button" type="Button" parent="Content/SessionTimer/Timer/Add time"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
+theme = ExtResource("8_85gr6")
 text = "+1 min"
 
 [node name="Button2" type="Button" parent="Content/SessionTimer/Timer/Add time"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
+theme = ExtResource("8_85gr6")
 text = "+5 min"
 
 [node name="Button3" type="Button" parent="Content/SessionTimer/Timer/Add time"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
+theme = ExtResource("8_85gr6")
 text = "+10 min"
 
 [node name="Deduct Time" type="HBoxContainer" parent="Content/SessionTimer/Timer"]
@@ -300,28 +277,19 @@ alignment = 1
 [node name="Button" type="Button" parent="Content/SessionTimer/Timer/Deduct Time"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
+theme = ExtResource("8_85gr6")
 text = "-1 min"
 
 [node name="Button2" type="Button" parent="Content/SessionTimer/Timer/Deduct Time"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
+theme = ExtResource("8_85gr6")
 text = "-5 min"
 
 [node name="Button3" type="Button" parent="Content/SessionTimer/Timer/Deduct Time"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
+theme = ExtResource("8_85gr6")
 text = "-10 min"
 
 [node name="-1 sec (DEBUG)" type="Button" parent="Content/SessionTimer/Timer"]
@@ -352,39 +320,26 @@ alignment = 1
 [node name="Restart" type="Button" parent="Content/SessionTimer/VBoxContainer/Controls"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
+theme = ExtResource("8_85gr6")
 text = "RESTART"
 
 [node name="Pause" type="CheckButton" parent="Content/SessionTimer/VBoxContainer/Controls"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/pressed = ExtResource("4_o4ufo")
-theme_override_styles/hover = ExtResource("3_161tp")
-theme_override_styles/hover_pressed = ExtResource("4_o4ufo")
+theme = ExtResource("8_85gr6")
 text = "PAUSE"
 alignment = 1
 
 [node name="Skip" type="Button" parent="Content/SessionTimer/VBoxContainer/Controls"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
+theme = ExtResource("8_85gr6")
 text = "SKIP"
 
 [node name="AutoBreak" type="CheckButton" parent="Content/SessionTimer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme = ExtResource("8_yjo5o")
 text = "auto start next break"
 alignment = 2
 
@@ -402,8 +357,8 @@ alignment = 1
 
 [node name="preset" type="Label" parent="Content/SessionTimer/info"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
 text = "preset-name"
-label_settings = SubResource("LabelSettings_noh7n")
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Content/SessionTimer/info"]
@@ -411,17 +366,20 @@ layout_mode = 2
 
 [node name="text" type="Label" parent="Content/SessionTimer/info/HBoxContainer"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
 text = "sessions "
 
 [node name="session count" type="Label" parent="Content/SessionTimer/info/HBoxContainer"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
 text = "0/~"
 
 [node name="Label" type="Label" parent="Content/SessionTimer/info"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
+theme_override_font_sizes/font_size = 25
 text = "session
 "
-label_settings = SubResource("LabelSettings_fy3gd")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -488,8 +446,9 @@ offset_right = 108.0
 offset_bottom = 70.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "FIN !"
-label_settings = SubResource("LabelSettings_x63tv")
+theme = ExtResource("8_85gr6")
+theme_override_font_sizes/font_size = 100
+text = "FINISH !"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -512,21 +471,15 @@ theme_override_constants/separation = 30
 custom_minimum_size = Vector2(250, 35)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme = ExtResource("8_85gr6")
 theme_override_font_sizes/font_size = 31
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
 text = "CONTINUE"
 
 [node name="Restart" type="Button" parent="Content/SessionFinish/VBoxContainer2"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
+theme = ExtResource("8_85gr6")
 text = "RESTART"
 
 [node name="BreakSetup" type="Control" parent="Content" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "session_length_parent", "edit_session_length", "edit_break_length", "button_auto_session")]
@@ -570,17 +523,15 @@ size_flags_vertical = 4
 
 [node name="Label" type="Label" parent="Content/BreakSetup/VBoxContainer/FlowContainer/BreakLength"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
 text = "current break length"
-label_settings = ExtResource("5_jy7e5")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="edit" type="LineEdit" parent="Content/BreakSetup/VBoxContainer/FlowContainer/BreakLength"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/caret_color = Color(1, 1, 1, 1)
+theme = ExtResource("5_544ah")
 theme_override_font_sizes/font_size = 72
-theme_override_styles/normal = SubResource("StyleBoxFlat_0x2dj")
 placeholder_text = "10m"
 alignment = 1
 
@@ -591,17 +542,15 @@ size_flags_vertical = 4
 
 [node name="Label" type="Label" parent="Content/BreakSetup/VBoxContainer/FlowContainer/Session Length"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
 text = "next session length"
-label_settings = ExtResource("5_jy7e5")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="edit" type="LineEdit" parent="Content/BreakSetup/VBoxContainer/FlowContainer/Session Length"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/caret_color = Color(1, 1, 1, 1)
+theme = ExtResource("5_544ah")
 theme_override_font_sizes/font_size = 72
-theme_override_styles/normal = SubResource("StyleBoxFlat_0x2dj")
 placeholder_text = "50m"
 alignment = 1
 
@@ -609,11 +558,8 @@ alignment = 1
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme = ExtResource("8_85gr6")
 theme_override_font_sizes/font_size = 18
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
 text = "RESET"
 
 [node name="StartBreak" type="Button" parent="Content/BreakSetup"]
@@ -631,11 +577,8 @@ offset_bottom = -72.7
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme = ExtResource("8_85gr6")
 theme_override_font_sizes/font_size = 31
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
 text = "START"
 
 [node name="AutoSession" type="CheckButton" parent="Content/BreakSetup"]
@@ -649,6 +592,7 @@ offset_left = -93.0
 offset_top = -29.0
 grow_horizontal = 0
 grow_vertical = 0
+theme = ExtResource("8_yjo5o")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "auto start next session "
 alignment = 2
@@ -667,8 +611,8 @@ alignment = 1
 
 [node name="preset" type="Label" parent="Content/BreakSetup/info"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
 text = "preset-name"
-label_settings = SubResource("LabelSettings_noh7n")
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Content/BreakSetup/info"]
@@ -676,16 +620,19 @@ layout_mode = 2
 
 [node name="text" type="Label" parent="Content/BreakSetup/info/HBoxContainer"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
 text = "sessions "
 
 [node name="session count" type="Label" parent="Content/BreakSetup/info/HBoxContainer"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
 text = "0/~"
 
 [node name="Label" type="Label" parent="Content/BreakSetup/info"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
+theme_override_font_sizes/font_size = 25
 text = "break"
-label_settings = SubResource("LabelSettings_fy3gd")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -729,14 +676,16 @@ theme_override_constants/separation = -10
 
 [node name="finish hour" type="Label" parent="Content/BreakTimer/Timer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
 text = "10:00 am"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Timer" type="Label" parent="Content/BreakTimer/Timer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
+theme_override_font_sizes/font_size = 100
 text = "50:00"
-label_settings = SubResource("LabelSettings_x63tv")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -748,28 +697,19 @@ alignment = 1
 [node name="Button" type="Button" parent="Content/BreakTimer/Timer/Add time"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
+theme = ExtResource("8_85gr6")
 text = "+1 min"
 
 [node name="Button2" type="Button" parent="Content/BreakTimer/Timer/Add time"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
+theme = ExtResource("8_85gr6")
 text = "+5 min"
 
 [node name="Button3" type="Button" parent="Content/BreakTimer/Timer/Add time"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
+theme = ExtResource("8_85gr6")
 text = "+10 min"
 
 [node name="Deduct Time" type="HBoxContainer" parent="Content/BreakTimer/Timer"]
@@ -780,28 +720,19 @@ alignment = 1
 [node name="Button" type="Button" parent="Content/BreakTimer/Timer/Deduct Time"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
+theme = ExtResource("8_85gr6")
 text = "-1 min"
 
 [node name="Button2" type="Button" parent="Content/BreakTimer/Timer/Deduct Time"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
+theme = ExtResource("8_85gr6")
 text = "-5 min"
 
 [node name="Button3" type="Button" parent="Content/BreakTimer/Timer/Deduct Time"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
+theme = ExtResource("8_85gr6")
 text = "-10 min"
 
 [node name="-1 sec (DEBUG)" type="Button" parent="Content/BreakTimer/Timer"]
@@ -832,21 +763,12 @@ alignment = 1
 [node name="Restart" type="Button" parent="Content/BreakTimer/VBoxContainer/Controls"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
+theme = ExtResource("8_85gr6")
 text = "RESTART"
 
 [node name="Pause" type="CheckButton" parent="Content/BreakTimer/VBoxContainer/Controls"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/pressed = ExtResource("4_o4ufo")
-theme_override_styles/hover = ExtResource("3_161tp")
+theme = ExtResource("8_85gr6")
 theme_override_styles/hover_pressed = ExtResource("4_o4ufo")
 text = "PAUSE"
 alignment = 1
@@ -854,16 +776,14 @@ alignment = 1
 [node name="Skip" type="Button" parent="Content/BreakTimer/VBoxContainer/Controls"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
+theme = ExtResource("8_85gr6")
 text = "SKIP"
 
 [node name="AutoSession" type="CheckButton" parent="Content/BreakTimer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
+theme = ExtResource("8_yjo5o")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "auto start next session "
 alignment = 2
@@ -882,8 +802,8 @@ alignment = 1
 
 [node name="preset" type="Label" parent="Content/BreakTimer/info"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
 text = "preset-name"
-label_settings = SubResource("LabelSettings_noh7n")
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Content/BreakTimer/info"]
@@ -891,16 +811,19 @@ layout_mode = 2
 
 [node name="text" type="Label" parent="Content/BreakTimer/info/HBoxContainer"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
 text = "sessions "
 
 [node name="session count" type="Label" parent="Content/BreakTimer/info/HBoxContainer"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
 text = "0/~"
 
 [node name="Label" type="Label" parent="Content/BreakTimer/info"]
 layout_mode = 2
+theme = ExtResource("8_85gr6")
+theme_override_font_sizes/font_size = 25
 text = "break"
-label_settings = SubResource("LabelSettings_fy3gd")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -967,9 +890,9 @@ offset_right = 108.0
 offset_bottom = 70.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/font_size = 100
 text = "BREAK
 OVER!"
-label_settings = SubResource("LabelSettings_x63tv")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -992,24 +915,16 @@ theme_override_constants/separation = 30
 custom_minimum_size = Vector2(250, 35)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme = ExtResource("8_85gr6")
 theme_override_font_sizes/font_size = 31
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
 text = "CONTINUE"
 
 [node name="Restart" type="Button" parent="Content/BreakFinish/VBoxContainer2"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
+theme = ExtResource("8_85gr6")
 text = "RESTART"
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="Presets" type="Button" parent="."]
 layout_mode = 1
@@ -1021,10 +936,7 @@ offset_top = 23.0
 offset_right = -17.0
 offset_bottom = 58.0
 grow_horizontal = 0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
+theme = ExtResource("8_85gr6")
 text = "< PRESETS"
 
 [connection signal="pressed" from="Content/SessionSetup/VBoxContainer/Reset" to="Content/SessionSetup" method="_reset_session_edit_values"]

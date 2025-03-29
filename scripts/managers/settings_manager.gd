@@ -1,7 +1,13 @@
 # NOTE: this class also includes the info table in the database
 extends Node
 
-@export var title_bar_theme: Theme
+@export var theme_title_bar: Theme
+@export var theme_main: Theme
+@export var theme_background: Theme
+@export var theme_large_edit: Theme
+@export var theme_danger: Theme
+@export var theme_separating_line: Theme
+@export var theme_toggles: Theme
 
 # SETTINGS
 var info_app_version: String:
@@ -111,25 +117,25 @@ func _get_info(id: int):
 	return DatabaseManager.db.query_result[0].get("Value")
 
 func _ready():
-	_update_title_bar_theme()
-	color_title_bar_primary_changed.connect(_update_title_bar_theme)
-	color_title_bar_secondary_changed.connect(_update_title_bar_theme)
+	_update_theme_title_bar()
+	color_title_bar_primary_changed.connect(_update_theme_title_bar)
+	color_title_bar_secondary_changed.connect(_update_theme_title_bar)
 
 # Theme Settings
-func _update_title_bar_theme():
+func _update_theme_title_bar():
 	# Setting Primary
 	var primary_color: Color = Color.from_string(color_title_bar_primary, Color.MAGENTA)
-	var panel_style_box: StyleBoxFlat = title_bar_theme.get_stylebox("panel", "PanelContainer")
+	var panel_style_box: StyleBoxFlat = theme_title_bar.get_stylebox("panel", "PanelContainer")
 	panel_style_box.bg_color = primary_color
-	title_bar_theme.set_color("font_hover_color", "Button", primary_color)
-	title_bar_theme.set_color("font_hover_pressed_color", "Button", primary_color)
+	theme_title_bar.set_color("font_hover_color", "Button", primary_color)
+	theme_title_bar.set_color("font_hover_pressed_color", "Button", primary_color)
 	
 	# Setting Secondary
 	var secondary_color: Color = Color.from_string(color_title_bar_secondary, Color.MAGENTA)
-	var button_hover_style_box: StyleBoxFlat = title_bar_theme.get_stylebox("hover", "Button")
+	var button_hover_style_box: StyleBoxFlat = theme_title_bar.get_stylebox("hover", "Button")
 	button_hover_style_box.bg_color = secondary_color
-	title_bar_theme.set_color("font_color", "Button", secondary_color)
-	title_bar_theme.set_color("font_focus_color", "Button", secondary_color)
-	title_bar_theme.set_color("font_pressed_color", "Button", secondary_color)
+	theme_title_bar.set_color("font_color", "Button", secondary_color)
+	theme_title_bar.set_color("font_focus_color", "Button", secondary_color)
+	theme_title_bar.set_color("font_pressed_color", "Button", secondary_color)
 	
 	

@@ -1,17 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://b2ll8tut18nx6"]
+[gd_scene load_steps=8 format=3 uid="uid://b2ll8tut18nx6"]
 
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_save_preset.gd" id="1_tsndv"]
 [ext_resource type="LabelSettings" uid="uid://dis7d5hvikqed" path="res://visual/labels/subtitle.tres" id="2_3t2ax"]
+[ext_resource type="Theme" uid="uid://bmgw3uu0ry2ht" path="res://visual/themes/main_theme.tres" id="2_r6mp1"]
 [ext_resource type="LabelSettings" uid="uid://cjbmhl6lygudu" path="res://visual/labels/note.tres" id="3_6tgrw"]
-[ext_resource type="StyleBox" uid="uid://c4ccjefbdbl2j" path="res://visual/style_boxes/button_hover.stylebox" id="3_08d2y"]
-[ext_resource type="StyleBox" uid="uid://dhtti43gywwuo" path="res://visual/style_boxes/button.stylebox" id="4_2re3p"]
-[ext_resource type="StyleBox" uid="uid://bo1oyq57a7jov" path="res://visual/style_boxes/button_delete.stylebox" id="5_32huy"]
-[ext_resource type="StyleBox" uid="uid://b3yau7t2ibgsv" path="res://visual/style_boxes/button_delete_hover.stylebox" id="6_4krxh"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_02b5f"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
+[ext_resource type="Theme" uid="uid://cg8i2j1xvj14d" path="res://visual/themes/large_edit_field_theme.tres" id="5_5yha0"]
+[ext_resource type="Theme" uid="uid://cjbajn3c3p4ht" path="res://visual/themes/danger_theme.tres" id="6_svch3"]
+[ext_resource type="Theme" uid="uid://5oex1v3ptjvn" path="res://visual/themes/toggles_theme.tres" id="9_6jcc7"]
 
 [node name="PresetPageSavePreset" type="Control" node_paths=PackedStringArray("preset_edit", "tag_edit", "session_count_edit", "session_length_edit", "break_length_edit", "auto_break_toggle", "auto_session_toggle")]
 layout_mode = 3
@@ -46,11 +41,8 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme = ExtResource("2_r6mp1")
 theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = ExtResource("4_2re3p")
-theme_override_styles/hover = ExtResource("3_08d2y")
 text = "<"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
@@ -61,8 +53,7 @@ theme_override_constants/separation = -5
 
 [node name="preset" type="LineEdit" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/caret_color = Color(1, 1, 1, 1)
+theme = ExtResource("2_r6mp1")
 placeholder_text = "[enter-preset-name]"
 alignment = 1
 expand_to_text_length = true
@@ -71,8 +62,7 @@ flat = true
 [node name="tag" type="LineEdit" parent="MarginContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/caret_color = Color(1, 1, 1, 1)
+theme = ExtResource("2_r6mp1")
 theme_override_font_sizes/font_size = 25
 placeholder_text = "[select-tag]"
 alignment = 1
@@ -91,6 +81,7 @@ size_flags_vertical = 4
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer2/session count"]
 layout_mode = 2
+theme = ExtResource("2_r6mp1")
 text = "session count"
 label_settings = ExtResource("2_3t2ax")
 horizontal_alignment = 1
@@ -98,15 +89,14 @@ vertical_alignment = 1
 
 [node name="edit" type="LineEdit" parent="MarginContainer/VBoxContainer2/session count"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/caret_color = Color(1, 1, 1, 1)
+theme = ExtResource("5_5yha0")
 theme_override_font_sizes/font_size = 72
-theme_override_styles/normal = SubResource("StyleBoxFlat_02b5f")
 placeholder_text = "0"
 alignment = 1
 
 [node name="Label2" type="Label" parent="MarginContainer/VBoxContainer2/session count"]
 layout_mode = 2
+theme = ExtResource("2_r6mp1")
 text = "*set to 0 for unlimited"
 label_settings = ExtResource("3_6tgrw")
 horizontal_alignment = 1
@@ -118,6 +108,7 @@ size_flags_vertical = 4
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer2/session length"]
 layout_mode = 2
+theme = ExtResource("2_r6mp1")
 text = "session length (min)"
 label_settings = ExtResource("2_3t2ax")
 horizontal_alignment = 1
@@ -125,10 +116,8 @@ vertical_alignment = 1
 
 [node name="edit" type="LineEdit" parent="MarginContainer/VBoxContainer2/session length"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/caret_color = Color(1, 1, 1, 1)
+theme = ExtResource("5_5yha0")
 theme_override_font_sizes/font_size = 72
-theme_override_styles/normal = SubResource("StyleBoxFlat_02b5f")
 placeholder_text = "0"
 alignment = 1
 
@@ -139,6 +128,7 @@ size_flags_vertical = 4
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer2/break length"]
 layout_mode = 2
+theme = ExtResource("2_r6mp1")
 text = "break length (min)"
 label_settings = ExtResource("2_3t2ax")
 horizontal_alignment = 1
@@ -146,10 +136,8 @@ vertical_alignment = 1
 
 [node name="edit" type="LineEdit" parent="MarginContainer/VBoxContainer2/break length"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/caret_color = Color(1, 1, 1, 1)
+theme = ExtResource("5_5yha0")
 theme_override_font_sizes/font_size = 72
-theme_override_styles/normal = SubResource("StyleBoxFlat_02b5f")
 placeholder_text = "0"
 alignment = 1
 
@@ -161,21 +149,15 @@ theme_override_constants/separation = 35
 [node name="START" type="Button" parent="MarginContainer/VBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme = ExtResource("2_r6mp1")
 theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = ExtResource("4_2re3p")
-theme_override_styles/hover = ExtResource("3_08d2y")
 text = "START"
 
 [node name="SAVE" type="Button" parent="MarginContainer/VBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme = ExtResource("2_r6mp1")
 theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = ExtResource("4_2re3p")
-theme_override_styles/hover = ExtResource("3_08d2y")
 text = "SAVE"
 
 [node name="DELETE" type="Button" parent="MarginContainer/VBoxContainer2/HBoxContainer"]
@@ -183,11 +165,8 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme = ExtResource("6_svch3")
 theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = ExtResource("5_32huy")
-theme_override_styles/hover = ExtResource("6_4krxh")
 text = "DELETE"
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer"]
@@ -198,12 +177,13 @@ theme_override_constants/separation = 0
 
 [node name="auto start break" type="CheckButton" parent="MarginContainer/VBoxContainer3"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme = ExtResource("9_6jcc7")
 text = "Auto start break"
 
 [node name="auto start session" type="CheckButton" parent="MarginContainer/VBoxContainer3"]
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("9_6jcc7")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Auto start session"
 

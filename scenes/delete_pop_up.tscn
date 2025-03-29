@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://d0tnv5wrhpsaa" path="res://scenes/background.tscn" id="1_nvv76"]
 [ext_resource type="Script" path="res://scripts/pages/delete_pop_up.gd" id="1_wjpcs"]
-[ext_resource type="StyleBox" uid="uid://y330833esl23" path="res://visual/style_boxes/window_borders_RED.stylebox" id="2_sola6"]
 [ext_resource type="StyleBox" uid="uid://bo1oyq57a7jov" path="res://visual/style_boxes/button_delete.stylebox" id="3_5b7tq"]
+[ext_resource type="Theme" uid="uid://cjbajn3c3p4ht" path="res://visual/themes/danger_theme.tres" id="3_cnqmo"]
 [ext_resource type="StyleBox" uid="uid://b3yau7t2ibgsv" path="res://visual/style_boxes/button_delete_hover.stylebox" id="4_wfn41"]
 
 [node name="DeletePopUp" type="Control" node_paths=PackedStringArray("label_delete_message")]
@@ -47,14 +47,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = ExtResource("2_sola6")
+theme = ExtResource("3_cnqmo")
 
 [node name="deleteMessage" type="Label" parent="Control/PanelContainer"]
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme = ExtResource("3_cnqmo")
 text = "[delete-message]"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -67,7 +67,7 @@ theme_override_constants/separation = 50
 
 [node name="Label" type="Label" parent="Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme = ExtResource("3_cnqmo")
 theme_override_font_sizes/font_size = 24
 text = "Are you sure my brother?"
 horizontal_alignment = 1
@@ -82,6 +82,7 @@ theme_override_constants/separation = 40
 [node name="Yes" type="Button" parent="Control/PanelContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
+theme = ExtResource("3_cnqmo")
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = ExtResource("3_5b7tq")
@@ -91,6 +92,7 @@ text = "YES"
 [node name="No" type="Button" parent="Control/PanelContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
+theme = ExtResource("3_cnqmo")
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = ExtResource("3_5b7tq")

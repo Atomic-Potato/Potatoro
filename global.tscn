@@ -10,16 +10,17 @@
 [ext_resource type="PackedScene" uid="uid://d0tnv5wrhpsaa" path="res://scenes/background.tscn" id="7_el64l"]
 [ext_resource type="PackedScene" uid="uid://b445jhovk6ton" path="res://scenes/delete_pop_up.tscn" id="7_gaism"]
 [ext_resource type="PackedScene" uid="uid://dr5n8ajt1keec" path="res://scenes/pages/settings/page_settings.tscn" id="7_pej7o"]
-[ext_resource type="StyleBox" uid="uid://e1pmqc6hk18h" path="res://visual/style_boxes/window_borders.stylebox" id="8_lgf65"]
-[ext_resource type="Theme" uid="uid://bei3sxt6d2c38" path="res://visual/themes/defaul_theme.tres" id="11_f6650"]
+[ext_resource type="Theme" uid="uid://bmgw3uu0ry2ht" path="res://visual/themes/main_theme.tres" id="10_4n6br"]
 [ext_resource type="Script" path="res://scripts/tabs/global/potatoro_tab.gd" id="11_j5mlv"]
 [ext_resource type="Script" path="res://scripts/tabs/global/settings_tab.gd" id="12_4wbq7"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_myr4n"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2m2r0"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ftmd"]
-bg_color = Color(1, 1, 1, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kx58c"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_utqka"]
+bg_color = Color(1, 1, 1, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jobds"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -73,7 +74,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = ExtResource("8_lgf65")
+theme = ExtResource("10_4n6br")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GUI/AppBorders"]
 layout_mode = 2
@@ -82,6 +83,7 @@ theme_override_constants/separation = 0
 
 [node name="Titlebar" type="PanelContainer" parent="GUI/AppBorders/VBoxContainer"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2m2r0")
 
 [node name="Title bar" parent="GUI/AppBorders/VBoxContainer/Titlebar" instance=ExtResource("3_i618t")]
 visible = false
@@ -89,29 +91,32 @@ layout_mode = 2
 
 [node name="TabNavBar" type="HBoxContainer" parent="GUI/AppBorders/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="Potatoro" type="Button" parent="GUI/AppBorders/VBoxContainer/TabNavBar"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("11_f6650")
+theme = ExtResource("10_4n6br")
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBoxFlat_myr4n")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_0ftmd")
+theme_override_styles/normal = SubResource("StyleBoxFlat_kx58c")
 toggle_mode = true
 text = "Potatoro"
 
 [node name="Settings" type="Button" parent="GUI/AppBorders/VBoxContainer/TabNavBar"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("11_f6650")
+theme = ExtResource("10_4n6br")
 theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_utqka")
 toggle_mode = true
 text = "Settings"
 
-[node name="SeparatingBar" type="ColorRect" parent="GUI/AppBorders/VBoxContainer"]
+[node name="SeparatingBar" type="PanelContainer" parent="GUI/AppBorders/VBoxContainer"]
 custom_minimum_size = Vector2(0, 6)
 layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("10_4n6br")
 
 [node name="TabsContainer" type="PanelContainer" parent="GUI/AppBorders/VBoxContainer"]
 layout_mode = 2

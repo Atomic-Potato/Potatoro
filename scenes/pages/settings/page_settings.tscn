@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dr5n8ajt1keec"]
+[gd_scene load_steps=4 format=3 uid="uid://dr5n8ajt1keec"]
 
 [ext_resource type="Script" path="res://scripts/pages/settings/page_settings.gd" id="1_22btq"]
+[ext_resource type="Theme" uid="uid://bmgw3uu0ry2ht" path="res://visual/themes/main_theme.tres" id="2_678x1"]
+[ext_resource type="Theme" uid="uid://c3lpxt6xo48tp" path="res://visual/themes/separating_line_theme.tres" id="3_oegno"]
 
 [node name="Settings" type="Control" node_paths=PackedStringArray("label_app_version", "label_database_path", "edit_sessions_count", "edit_session_length", "edit_break_length", "check_hour_format", "check_hide_session_controls", "check_hide_break_controls", "edit_session_notification_path", "edit_break_notification_path", "slider_session_notification_volume", "slider_break_notification_volume", "color_background", "color_primary", "color_secondary", "color_danger", "check_custom_title_bar", "color_title_bar_primary", "color_title_bar_secondary")]
 layout_mode = 3
@@ -44,7 +46,7 @@ theme_override_constants/margin_bottom = 22
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
-scroll_vertical = 100
+scroll_vertical = 225
 
 [node name="HeadersContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
 custom_minimum_size = Vector2(300, 10.435)
@@ -55,6 +57,7 @@ theme_override_constants/separation = 32
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 layout_mode = 2
+theme = ExtResource("2_678x1")
 theme_override_font_sizes/font_size = 32
 text = "INFO"
 uppercase = true
@@ -68,16 +71,19 @@ layout_mode = 2
 
 [node name="label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/appVer/AppVer2"]
 layout_mode = 2
+theme = ExtResource("2_678x1")
 theme_override_font_sizes/font_size = 16
 text = "Version "
 
 [node name="version" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/appVer/AppVer2"]
 layout_mode = 2
+theme = ExtResource("2_678x1")
 theme_override_font_sizes/font_size = 16
 text = "0.1.0"
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/appVer"]
 layout_mode = 2
+theme = ExtResource("2_678x1")
 theme_override_font_sizes/font_size = 12
 text = "* Your data will be compatible between any changes in a minor release 
 e.g. between 0.1.0 and 0.1.4 will be compaitble 
@@ -90,25 +96,29 @@ size_flags_horizontal = 0
 
 [node name="label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/DB"]
 layout_mode = 2
+theme = ExtResource("2_678x1")
 theme_override_font_sizes/font_size = 16
 text = "Path to database file"
 
 [node name="path" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/DB"]
 layout_mode = 2
+theme = ExtResource("2_678x1")
 theme_override_font_sizes/font_size = 16
 text = "user://potatoro.db"
 
-[node name="separatingline" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer"]
+[node name="separatingline" type="PanelContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
-color = Color(0.52549, 0.52549, 0.52549, 1)
+theme = ExtResource("3_oegno")
 
 [node name="DefaultValues" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
+theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues"]
 layout_mode = 2
+theme = ExtResource("2_678x1")
 theme_override_font_sizes/font_size = 32
 text = "DEFAULT VALUES"
 uppercase = true
@@ -119,26 +129,13 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/SessionsCount"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+theme = ExtResource("2_678x1")
 text = "Sessions count"
 
 [node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/SessionsCount"]
 layout_mode = 2
-
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/SessionsCount/LineEdit"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -35.0
-offset_top = -16.5
-offset_right = 35.0
-offset_bottom = 16.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+theme = ExtResource("2_678x1")
+alignment = 1
 
 [node name="SessionLength" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues"]
 layout_mode = 2
@@ -146,26 +143,13 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/SessionLength"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+theme = ExtResource("2_678x1")
 text = "Session length (min)"
 
 [node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/SessionLength"]
 layout_mode = 2
-
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/SessionLength/LineEdit"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -35.0
-offset_top = -16.5
-offset_right = 35.0
-offset_bottom = 16.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+theme = ExtResource("2_678x1")
+alignment = 1
 
 [node name="BreakLength" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues"]
 layout_mode = 2
@@ -173,31 +157,18 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/BreakLength"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+theme = ExtResource("2_678x1")
 text = "Break length (min)"
 
 [node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/BreakLength"]
 layout_mode = 2
+theme = ExtResource("2_678x1")
+alignment = 1
 
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/BreakLength/LineEdit"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -35.0
-offset_top = -16.5
-offset_right = 35.0
-offset_bottom = 16.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="separatingline2" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer"]
+[node name="separatingline2" type="PanelContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
-color = Color(0.52549, 0.52549, 0.52549, 1)
+theme = ExtResource("3_oegno")
 
 [node name="TimerSettings" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 layout_mode = 2
@@ -205,6 +176,7 @@ size_flags_horizontal = 0
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings"]
 layout_mode = 2
+theme = ExtResource("2_678x1")
 theme_override_font_sizes/font_size = 32
 text = "TIMER SETTINGS"
 uppercase = true
@@ -215,26 +187,13 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HourFormat"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+theme = ExtResource("2_678x1")
 text = "Use 12-hour format"
 
 [node name="CheckBox" type="CheckBox" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HourFormat"]
 layout_mode = 2
-
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HourFormat/CheckBox"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -10.0
-offset_top = -10.0
-offset_right = 10.0
-offset_bottom = 10.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+theme = ExtResource("2_678x1")
+vertical_icon_alignment = 0
 
 [node name="HideSessionControls" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings"]
 layout_mode = 2
@@ -242,26 +201,12 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HideSessionControls"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+theme = ExtResource("2_678x1")
 text = "Hide session time change controls"
 
 [node name="CheckBox" type="CheckBox" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HideSessionControls"]
 layout_mode = 2
-
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HideSessionControls/CheckBox"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -10.0
-offset_top = -10.0
-offset_right = 10.0
-offset_bottom = 10.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+theme = ExtResource("2_678x1")
 
 [node name="HideBreakControls" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings"]
 layout_mode = 2
@@ -269,32 +214,18 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HideBreakControls"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+theme = ExtResource("2_678x1")
 text = "Hide break time change controls"
 
 [node name="CheckBox" type="CheckBox" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HideBreakControls"]
 layout_mode = 2
+theme = ExtResource("2_678x1")
 
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HideBreakControls/CheckBox"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -10.0
-offset_top = -10.0
-offset_right = 10.0
-offset_bottom = 10.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="separatingline3" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer"]
+[node name="separatingline3" type="PanelContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 visible = false
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
-color = Color(0.52549, 0.52549, 0.52549, 1)
+theme = ExtResource("3_oegno")
 
 [node name="SoundSettings" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 visible = false
@@ -379,17 +310,19 @@ max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="separatingline4" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer"]
+[node name="separatingline4" type="PanelContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
-color = Color(0.52549, 0.52549, 0.52549, 1)
+theme = ExtResource("3_oegno")
 
 [node name="Theme" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
+theme_override_constants/separation = 16
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
 layout_mode = 2
+theme = ExtResource("2_678x1")
 theme_override_font_sizes/font_size = 32
 text = "theme"
 uppercase = true
@@ -400,28 +333,14 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/BG"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+theme = ExtResource("2_678x1")
 text = "Background color"
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/BG"]
 custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
+theme = ExtResource("2_678x1")
 edit_alpha = false
-
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/BG/ColorPickerButton"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -35.0
-offset_top = -16.5
-offset_right = 35.0
-offset_bottom = 16.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
 
 [node name="Primary" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
 layout_mode = 2
@@ -429,29 +348,15 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/Primary"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+theme = ExtResource("2_678x1")
 text = "Primary color"
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/Primary"]
 custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
+theme = ExtResource("2_678x1")
 color = Color(1, 1, 1, 1)
 edit_alpha = false
-
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/Primary/ColorPickerButton"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -35.0
-offset_top = -16.5
-offset_right = 35.0
-offset_bottom = 16.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
 
 [node name="Secondary" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
 layout_mode = 2
@@ -459,28 +364,14 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/Secondary"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+theme = ExtResource("2_678x1")
 text = "Secondary color"
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/Secondary"]
 custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
+theme = ExtResource("2_678x1")
 edit_alpha = false
-
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/Secondary/ColorPickerButton"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -35.0
-offset_top = -16.5
-offset_right = 35.0
-offset_bottom = 16.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
 
 [node name="Danger" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
 layout_mode = 2
@@ -518,26 +409,12 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/CustomTitleBar"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+theme = ExtResource("2_678x1")
 text = "Use custom title bar (experimental)"
 
 [node name="CheckBox" type="CheckBox" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/CustomTitleBar"]
 layout_mode = 2
-
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/CustomTitleBar/CheckBox"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -10.0
-offset_top = -10.0
-offset_right = 10.0
-offset_bottom = 10.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+theme = ExtResource("2_678x1")
 
 [node name="TilePrimary" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
 layout_mode = 2
@@ -545,29 +422,15 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/TilePrimary"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+theme = ExtResource("2_678x1")
 text = "Title bar primary color"
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/TilePrimary"]
 custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
+theme = ExtResource("2_678x1")
 color = Color(1, 1, 1, 1)
 edit_alpha = false
-
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/TilePrimary/ColorPickerButton"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -35.0
-offset_top = -16.5
-offset_right = 35.0
-offset_bottom = 16.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
 
 [node name="TitleSecondary" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
 layout_mode = 2
@@ -575,34 +438,20 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/TitleSecondary"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+theme = ExtResource("2_678x1")
 text = "Title bar secondary color"
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/TitleSecondary"]
 custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
+theme = ExtResource("2_678x1")
 edit_alpha = false
 
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/TitleSecondary/ColorPickerButton"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -35.0
-offset_top = -16.5
-offset_right = 35.0
-offset_bottom = 16.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="separatingline5" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer"]
+[node name="separatingline5" type="PanelContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 visible = false
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
-color = Color(0.52549, 0.52549, 0.52549, 1)
+theme = ExtResource("3_oegno")
 
 [node name="Other" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 visible = false

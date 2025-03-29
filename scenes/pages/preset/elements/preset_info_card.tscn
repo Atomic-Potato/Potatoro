@@ -1,17 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://cy71rb02uwuce"]
+[gd_scene load_steps=7 format=3 uid="uid://cy71rb02uwuce"]
 
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card.gd" id="1_hayla"]
 [ext_resource type="StyleBox" uid="uid://dq4njdscsw0eo" path="res://visual/style_boxes/thick_button.stylebox" id="2_tl5nw"]
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card_values.gd" id="3_7m7gu"]
-[ext_resource type="LabelSettings" uid="uid://b7ve6wxcg2m3c" path="res://visual/labels/label_1.tres" id="3_jhd6b"]
-[ext_resource type="LabelSettings" uid="uid://dis7d5hvikqed" path="res://visual/labels/subtitle.tres" id="4_tabcu"]
-[ext_resource type="LabelSettings" uid="uid://du3c6cut3245k" path="res://visual/labels/Number_LARGE.tres" id="5_8f21n"]
-[ext_resource type="LabelSettings" uid="uid://be8cn8r8jg8h0" path="res://visual/labels/heading_5.tres" id="6_0xtwx"]
+[ext_resource type="Theme" uid="uid://bmgw3uu0ry2ht" path="res://visual/themes/main_theme.tres" id="3_p2wl1"]
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card_timer.gd" id="8_263cv"]
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card_message.gd" id="9_3rvoh"]
-[ext_resource type="StyleBox" uid="uid://dhtti43gywwuo" path="res://visual/style_boxes/button.stylebox" id="9_liw13"]
-[ext_resource type="StyleBox" uid="uid://bailsyf88hhr0" path="res://visual/style_boxes/button_pressed.stylebox" id="10_fcipy"]
-[ext_resource type="StyleBox" uid="uid://c4ccjefbdbl2j" path="res://visual/style_boxes/button_hover.stylebox" id="11_uvbrl"]
 
 [node name="Preset Info Card" type="MarginContainer" node_paths=PackedStringArray("name_label", "tag_label", "page_values", "page_timer", "page_message", "child_pages_parent_node")]
 offset_right = 370.0
@@ -60,16 +54,16 @@ mouse_filter = 2
 
 [node name="preset" type="Label" parent="Add preset/Values/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
+theme = ExtResource("3_p2wl1")
+theme_override_font_sizes/font_size = 26
 text = "[preset name]"
-label_settings = ExtResource("3_jhd6b")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="tag" type="Label" parent="Add preset/Values/VBoxContainer/VBoxContainer2"]
-visible = false
 layout_mode = 2
+theme = ExtResource("3_p2wl1")
 text = "[tag-name]"
-label_settings = ExtResource("4_tabcu")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -109,8 +103,9 @@ mouse_filter = 2
 
 [node name="Label" type="Label" parent="Add preset/Values/VBoxContainer/Content/Values/VBoxContainer/sessions"]
 layout_mode = 2
+theme = ExtResource("3_p2wl1")
+theme_override_font_sizes/font_size = 52
 text = "[~]"
-label_settings = ExtResource("5_8f21n")
 horizontal_alignment = 1
 vertical_alignment = 2
 
@@ -123,8 +118,9 @@ theme_override_constants/margin_bottom = 12
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
+theme = ExtResource("3_p2wl1")
+theme_override_font_sizes/font_size = 22
 text = "sessions"
-label_settings = ExtResource("6_0xtwx")
 
 [node name="session length" type="HBoxContainer" parent="Add preset/Values/VBoxContainer/Content/Values/VBoxContainer"]
 layout_mode = 2
@@ -132,8 +128,9 @@ mouse_filter = 2
 
 [node name="Label" type="Label" parent="Add preset/Values/VBoxContainer/Content/Values/VBoxContainer/session length"]
 layout_mode = 2
+theme = ExtResource("3_p2wl1")
+theme_override_font_sizes/font_size = 52
 text = "[~]"
-label_settings = ExtResource("5_8f21n")
 horizontal_alignment = 1
 vertical_alignment = 2
 
@@ -146,8 +143,9 @@ theme_override_constants/margin_bottom = 12
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
+theme = ExtResource("3_p2wl1")
+theme_override_font_sizes/font_size = 22
 text = "min session"
-label_settings = ExtResource("6_0xtwx")
 
 [node name="break length" type="HBoxContainer" parent="Add preset/Values/VBoxContainer/Content/Values/VBoxContainer"]
 layout_mode = 2
@@ -155,8 +153,9 @@ mouse_filter = 2
 
 [node name="Label" type="Label" parent="Add preset/Values/VBoxContainer/Content/Values/VBoxContainer/break length"]
 layout_mode = 2
+theme = ExtResource("3_p2wl1")
+theme_override_font_sizes/font_size = 52
 text = "[~]"
-label_settings = ExtResource("5_8f21n")
 horizontal_alignment = 1
 vertical_alignment = 2
 
@@ -169,8 +168,9 @@ theme_override_constants/margin_bottom = 12
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
+theme = ExtResource("3_p2wl1")
+theme_override_font_sizes/font_size = 22
 text = "min break"
-label_settings = ExtResource("6_0xtwx")
 
 [node name="Timer" type="Control" parent="Add preset/Values/VBoxContainer/Content" node_paths=PackedStringArray("label_timer_type", "label_timer", "label_session", "button_pause_toggle")]
 visible = false
@@ -205,12 +205,14 @@ mouse_filter = 2
 
 [node name="TimerType" type="Label" parent="Add preset/Values/VBoxContainer/Content/Timer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_p2wl1")
 text = "session/break"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Timer" type="Label" parent="Add preset/Values/VBoxContainer/Content/Timer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_p2wl1")
 theme_override_font_sizes/font_size = 42
 text = "00:00"
 horizontal_alignment = 1
@@ -218,6 +220,7 @@ vertical_alignment = 1
 
 [node name="Sessions" type="Label" parent="Add preset/Values/VBoxContainer/Content/Timer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_p2wl1")
 text = "0/0"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -227,14 +230,11 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 size_flags_stretch_ratio = 0.2
+theme = ExtResource("3_p2wl1")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = ExtResource("9_liw13")
-theme_override_styles/pressed = ExtResource("10_fcipy")
-theme_override_styles/hover = ExtResource("11_uvbrl")
-theme_override_styles/hover_pressed = ExtResource("10_fcipy")
 text = "PAUSE"
 alignment = 1
 
@@ -256,6 +256,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_p2wl1")
 theme_override_constants/line_spacing = -15
 theme_override_font_sizes/font_size = 42
 text = "MESSAGE
