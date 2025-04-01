@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmp1wc4winydq"]
+
+[ext_resource type="Script" path="res://scripts/tools/theme_tool.gd" id="1_55cj1"]
+
+[node name="ThemeTool" type="Node"]
+script = ExtResource("1_55cj1")
+color_danger_primary = null
+color_danger_secondary = null

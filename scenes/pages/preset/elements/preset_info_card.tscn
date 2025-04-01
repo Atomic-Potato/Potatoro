@@ -1,11 +1,18 @@
 [gd_scene load_steps=7 format=3 uid="uid://cy71rb02uwuce"]
 
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card.gd" id="1_hayla"]
-[ext_resource type="StyleBox" uid="uid://dq4njdscsw0eo" path="res://visual/style_boxes/thick_button.stylebox" id="2_tl5nw"]
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card_values.gd" id="3_7m7gu"]
 [ext_resource type="Theme" uid="uid://bmgw3uu0ry2ht" path="res://visual/themes/main_theme.tres" id="3_p2wl1"]
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card_timer.gd" id="8_263cv"]
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card_message.gd" id="9_3rvoh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e3tqb"]
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 1)
 
 [node name="Preset Info Card" type="MarginContainer" node_paths=PackedStringArray("name_label", "tag_label", "page_values", "page_timer", "page_message", "child_pages_parent_node")]
 offset_right = 370.0
@@ -26,7 +33,7 @@ child_pages_parent_node = NodePath("Add preset/Values/VBoxContainer/Content")
 custom_minimum_size = Vector2(350, 350)
 layout_mode = 2
 mouse_filter = 2
-theme_override_styles/panel = ExtResource("2_tl5nw")
+theme_override_styles/panel = SubResource("StyleBoxFlat_e3tqb")
 
 [node name="Button" type="Button" parent="Add preset"]
 z_as_relative = false
@@ -173,7 +180,6 @@ theme_override_font_sizes/font_size = 22
 text = "min break"
 
 [node name="Timer" type="Control" parent="Add preset/Values/VBoxContainer/Content" node_paths=PackedStringArray("label_timer_type", "label_timer", "label_session", "button_pause_toggle")]
-visible = false
 layout_mode = 2
 anchors_preset = 0
 anchor_right = 1.0
@@ -239,6 +245,7 @@ text = "PAUSE"
 alignment = 1
 
 [node name="Message" type="Control" parent="Add preset/Values/VBoxContainer/Content" node_paths=PackedStringArray("label_message")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

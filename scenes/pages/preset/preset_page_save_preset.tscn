@@ -1,12 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://b2ll8tut18nx6"]
+[gd_scene load_steps=5 format=3 uid="uid://b2ll8tut18nx6"]
 
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_save_preset.gd" id="1_tsndv"]
 [ext_resource type="LabelSettings" uid="uid://dis7d5hvikqed" path="res://visual/labels/subtitle.tres" id="2_3t2ax"]
 [ext_resource type="Theme" uid="uid://bmgw3uu0ry2ht" path="res://visual/themes/main_theme.tres" id="2_r6mp1"]
 [ext_resource type="LabelSettings" uid="uid://cjbmhl6lygudu" path="res://visual/labels/note.tres" id="3_6tgrw"]
-[ext_resource type="Theme" uid="uid://cg8i2j1xvj14d" path="res://visual/themes/large_edit_field_theme.tres" id="5_5yha0"]
-[ext_resource type="Theme" uid="uid://cjbajn3c3p4ht" path="res://visual/themes/danger_theme.tres" id="6_svch3"]
-[ext_resource type="Theme" uid="uid://5oex1v3ptjvn" path="res://visual/themes/toggles_theme.tres" id="9_6jcc7"]
 
 [node name="PresetPageSavePreset" type="Control" node_paths=PackedStringArray("preset_edit", "tag_edit", "session_count_edit", "session_length_edit", "break_length_edit", "auto_break_toggle", "auto_session_toggle")]
 layout_mode = 3
@@ -89,7 +86,8 @@ vertical_alignment = 1
 
 [node name="edit" type="LineEdit" parent="MarginContainer/VBoxContainer2/session count"]
 layout_mode = 2
-theme = ExtResource("5_5yha0")
+theme = ExtResource("2_r6mp1")
+theme_type_variation = &"LargeEdit"
 theme_override_font_sizes/font_size = 72
 placeholder_text = "0"
 alignment = 1
@@ -116,7 +114,8 @@ vertical_alignment = 1
 
 [node name="edit" type="LineEdit" parent="MarginContainer/VBoxContainer2/session length"]
 layout_mode = 2
-theme = ExtResource("5_5yha0")
+theme = ExtResource("2_r6mp1")
+theme_type_variation = &"LargeEdit"
 theme_override_font_sizes/font_size = 72
 placeholder_text = "0"
 alignment = 1
@@ -136,7 +135,8 @@ vertical_alignment = 1
 
 [node name="edit" type="LineEdit" parent="MarginContainer/VBoxContainer2/break length"]
 layout_mode = 2
-theme = ExtResource("5_5yha0")
+theme = ExtResource("2_r6mp1")
+theme_type_variation = &"LargeEdit"
 theme_override_font_sizes/font_size = 72
 placeholder_text = "0"
 alignment = 1
@@ -165,7 +165,8 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
-theme = ExtResource("6_svch3")
+theme = ExtResource("2_r6mp1")
+theme_type_variation = &"DangerButton"
 theme_override_font_sizes/font_size = 24
 text = "DELETE"
 
@@ -177,14 +178,15 @@ theme_override_constants/separation = 0
 
 [node name="auto start break" type="CheckButton" parent="MarginContainer/VBoxContainer3"]
 layout_mode = 2
-theme = ExtResource("9_6jcc7")
+theme = ExtResource("2_r6mp1")
+theme_type_variation = &"NormalCheckButton"
 text = "Auto start break"
 
 [node name="auto start session" type="CheckButton" parent="MarginContainer/VBoxContainer3"]
 layout_mode = 2
 size_flags_vertical = 4
-theme = ExtResource("9_6jcc7")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme = ExtResource("2_r6mp1")
+theme_type_variation = &"NormalCheckButton"
 text = "Auto start session"
 
 [connection signal="pressed" from="MarginContainer/PRESETS" to="." method="_load_prests_page"]

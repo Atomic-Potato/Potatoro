@@ -1,19 +1,38 @@
-[gd_scene load_steps=15 format=3 uid="uid://k87ux2qmpcqj"]
+[gd_scene load_steps=12 format=3 uid="uid://k87ux2qmpcqj"]
 
 [ext_resource type="Script" path="res://scripts/pages/session/session_setup.gd" id="2_l3wag"]
-[ext_resource type="StyleBox" uid="uid://dhtti43gywwuo" path="res://visual/style_boxes/button.stylebox" id="2_nkr8a"]
-[ext_resource type="StyleBox" uid="uid://c4ccjefbdbl2j" path="res://visual/style_boxes/button_hover.stylebox" id="3_161tp"]
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_session.gd" id="3_p5ysi"]
-[ext_resource type="StyleBox" uid="uid://bailsyf88hhr0" path="res://visual/style_boxes/button_pressed.stylebox" id="4_o4ufo"]
-[ext_resource type="Theme" uid="uid://cg8i2j1xvj14d" path="res://visual/themes/large_edit_field_theme.tres" id="5_544ah"]
 [ext_resource type="LabelSettings" uid="uid://dis7d5hvikqed" path="res://visual/labels/subtitle.tres" id="5_jy7e5"]
 [ext_resource type="Script" path="res://scripts/pages/session/session_timer.gd" id="6_j5uv2"]
 [ext_resource type="Theme" uid="uid://bmgw3uu0ry2ht" path="res://visual/themes/main_theme.tres" id="8_85gr6"]
 [ext_resource type="Script" path="res://scripts/pages/session/session_finish.gd" id="8_xg4q4"]
-[ext_resource type="Theme" uid="uid://5oex1v3ptjvn" path="res://visual/themes/toggles_theme.tres" id="8_yjo5o"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_setup.gd" id="9_esxm0"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_timer.gd" id="10_l1xkr"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_finish.gd" id="11_ecred"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s6b3m"]
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 6.0
+expand_margin_top = 6.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yv68l"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 6.0
+expand_margin_top = 6.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
 
 [node name="PresetPageSession" type="Control" node_paths=PackedStringArray("page_session_setup", "page_session_timer", "page_session_finish", "page_break_setup", "page_break_timer", "page_break_finish", "child_pages_parent_node")]
 layout_mode = 3
@@ -88,7 +107,8 @@ vertical_alignment = 1
 
 [node name="SessionLengthEdit" type="LineEdit" parent="Content/SessionSetup/VBoxContainer/FlowContainer/Session Length"]
 layout_mode = 2
-theme = ExtResource("5_544ah")
+theme = ExtResource("8_85gr6")
+theme_type_variation = &"LargeEdit"
 theme_override_font_sizes/font_size = 72
 placeholder_text = "50m"
 alignment = 1
@@ -107,7 +127,8 @@ vertical_alignment = 1
 
 [node name="edit" type="LineEdit" parent="Content/SessionSetup/VBoxContainer/FlowContainer/BreakLength"]
 layout_mode = 2
-theme = ExtResource("5_544ah")
+theme = ExtResource("8_85gr6")
+theme_type_variation = &"LargeEdit"
 theme_override_font_sizes/font_size = 72
 placeholder_text = "10m"
 alignment = 1
@@ -150,8 +171,8 @@ offset_left = -93.0
 offset_top = -29.0
 grow_horizontal = 0
 grow_vertical = 0
-theme = ExtResource("8_yjo5o")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme = ExtResource("8_85gr6")
+theme_type_variation = &"NormalCheckButton"
 text = "auto start next break"
 alignment = 2
 
@@ -195,6 +216,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="SessionTimer" type="Control" parent="Content" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "label_finish_hour", "label_timer", "button_pause_toggle", "button_auto_break_toggle", "add_time_controls_parent", "deduct_time_controls_parent")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -295,8 +317,8 @@ text = "-10 min"
 [node name="-1 sec (DEBUG)" type="Button" parent="Content/SessionTimer/Timer"]
 visible = false
 layout_mode = 2
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
+theme_override_styles/normal = SubResource("StyleBoxFlat_s6b3m")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yv68l")
 text = "-1 sec (DEBUG) doesnt work, 
 didnt bother implementing it"
 
@@ -339,7 +361,8 @@ text = "SKIP"
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-theme = ExtResource("8_yjo5o")
+theme = ExtResource("8_85gr6")
+theme_type_variation = &"NormalCheckButton"
 text = "auto start next break"
 alignment = 2
 
@@ -530,7 +553,8 @@ vertical_alignment = 1
 
 [node name="edit" type="LineEdit" parent="Content/BreakSetup/VBoxContainer/FlowContainer/BreakLength"]
 layout_mode = 2
-theme = ExtResource("5_544ah")
+theme = ExtResource("8_85gr6")
+theme_type_variation = &"LargeEdit"
 theme_override_font_sizes/font_size = 72
 placeholder_text = "10m"
 alignment = 1
@@ -549,7 +573,8 @@ vertical_alignment = 1
 
 [node name="edit" type="LineEdit" parent="Content/BreakSetup/VBoxContainer/FlowContainer/Session Length"]
 layout_mode = 2
-theme = ExtResource("5_544ah")
+theme = ExtResource("8_85gr6")
+theme_type_variation = &"LargeEdit"
 theme_override_font_sizes/font_size = 72
 placeholder_text = "50m"
 alignment = 1
@@ -592,8 +617,8 @@ offset_left = -93.0
 offset_top = -29.0
 grow_horizontal = 0
 grow_vertical = 0
-theme = ExtResource("8_yjo5o")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme = ExtResource("8_85gr6")
+theme_type_variation = &"NormalCheckButton"
 text = "auto start next session "
 alignment = 2
 
@@ -738,8 +763,8 @@ text = "-10 min"
 [node name="-1 sec (DEBUG)" type="Button" parent="Content/BreakTimer/Timer"]
 visible = false
 layout_mode = 2
-theme_override_styles/normal = ExtResource("2_nkr8a")
-theme_override_styles/hover = ExtResource("3_161tp")
+theme_override_styles/normal = SubResource("StyleBoxFlat_s6b3m")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yv68l")
 text = "-1 sec (DEBUG) doesnt work, 
 didnt bother implementing it"
 
@@ -769,7 +794,6 @@ text = "RESTART"
 [node name="Pause" type="CheckButton" parent="Content/BreakTimer/VBoxContainer/Controls"]
 layout_mode = 2
 theme = ExtResource("8_85gr6")
-theme_override_styles/hover_pressed = ExtResource("4_o4ufo")
 text = "PAUSE"
 alignment = 1
 
@@ -783,8 +807,8 @@ text = "SKIP"
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-theme = ExtResource("8_yjo5o")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme = ExtResource("8_85gr6")
+theme_type_variation = &"NormalCheckButton"
 text = "auto start next session "
 alignment = 2
 
@@ -868,7 +892,6 @@ layout_mode = 2
 text = "+10 s"
 
 [node name="BreakFinish" type="Control" parent="Content"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

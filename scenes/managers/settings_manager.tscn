@@ -1,19 +1,34 @@
-[gd_scene load_steps=9 format=3 uid="uid://qcwfh83wgxyp"]
+[gd_scene load_steps=12 format=3 uid="uid://qcwfh83wgxyp"]
 
 [ext_resource type="Script" path="res://scripts/managers/settings_manager.gd" id="1_slbwe"]
 [ext_resource type="Theme" uid="uid://cl1hcgcwcofwt" path="res://visual/themes/title_bar_theme.tres" id="2_33bih"]
 [ext_resource type="Theme" uid="uid://bmgw3uu0ry2ht" path="res://visual/themes/main_theme.tres" id="3_1aqij"]
-[ext_resource type="Theme" uid="uid://bkwi1lrl50maw" path="res://visual/themes/background_theme.tres" id="4_b8riw"]
 [ext_resource type="Theme" uid="uid://cg8i2j1xvj14d" path="res://visual/themes/large_edit_field_theme.tres" id="5_xer55"]
 [ext_resource type="Theme" uid="uid://cjbajn3c3p4ht" path="res://visual/themes/danger_theme.tres" id="6_w3ypa"]
 [ext_resource type="Theme" uid="uid://c3lpxt6xo48tp" path="res://visual/themes/separating_line_theme.tres" id="7_r3skf"]
 [ext_resource type="Theme" uid="uid://5oex1v3ptjvn" path="res://visual/themes/toggles_theme.tres" id="8_h6x1j"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cqkpi"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t8mvj"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4qi4"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Theme" id="Theme_h6jo7"]
+Background/base_type = &"PanelContainer"
+Background/styles/panel = SubResource("StyleBoxFlat_cqkpi")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_t8mvj")
+SeparatingBarPrimary/base_type = &"PanelContainer"
+SeparatingBarPrimary/styles/panel = SubResource("StyleBoxFlat_l4qi4")
+
 [node name="SettingsManager" type="Node"]
 script = ExtResource("1_slbwe")
 theme_title_bar = ExtResource("2_33bih")
 theme_main = ExtResource("3_1aqij")
-theme_background = ExtResource("4_b8riw")
+theme_background = SubResource("Theme_h6jo7")
 theme_large_edit = ExtResource("5_xer55")
 theme_danger = ExtResource("6_w3ypa")
 theme_separating_line = ExtResource("7_r3skf")

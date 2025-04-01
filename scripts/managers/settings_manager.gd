@@ -3,11 +3,6 @@ extends Node
 
 @export var theme_title_bar: Theme
 @export var theme_main: Theme
-@export var theme_background: Theme
-@export var theme_large_edit: Theme
-@export var theme_danger: Theme
-@export var theme_separating_line: Theme
-@export var theme_toggles: Theme
 
 # SETTINGS
 var info_app_version: String:

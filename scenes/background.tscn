@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d0tnv5wrhpsaa"]
 
-[ext_resource type="Theme" uid="uid://bkwi1lrl50maw" path="res://visual/themes/background_theme.tres" id="1_kaftl"]
+[ext_resource type="Theme" uid="uid://bmgw3uu0ry2ht" path="res://visual/themes/main_theme.tres" id="1_8liwm"]
 
 [node name="Background" type="PanelContainer"]
 anchors_preset = 15
@@ -10,4 +10,5 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme = ExtResource("1_kaftl")
+theme = ExtResource("1_8liwm")
+theme_type_variation = &"Background"

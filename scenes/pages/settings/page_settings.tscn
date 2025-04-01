@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dr5n8ajt1keec"]
+[gd_scene load_steps=3 format=3 uid="uid://dr5n8ajt1keec"]
 
 [ext_resource type="Script" path="res://scripts/pages/settings/page_settings.gd" id="1_22btq"]
 [ext_resource type="Theme" uid="uid://bmgw3uu0ry2ht" path="res://visual/themes/main_theme.tres" id="2_678x1"]
-[ext_resource type="Theme" uid="uid://c3lpxt6xo48tp" path="res://visual/themes/separating_line_theme.tres" id="3_oegno"]
 
 [node name="Settings" type="Control" node_paths=PackedStringArray("label_app_version", "label_database_path", "edit_sessions_count", "edit_session_length", "edit_break_length", "check_hour_format", "check_hide_session_controls", "check_hide_break_controls", "edit_session_notification_path", "edit_break_notification_path", "slider_session_notification_volume", "slider_break_notification_volume", "color_background", "color_primary", "color_secondary", "color_danger", "check_custom_title_bar", "color_title_bar_primary", "color_title_bar_secondary")]
 layout_mode = 3
@@ -46,7 +45,7 @@ theme_override_constants/margin_bottom = 22
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
-scroll_vertical = 225
+scroll_vertical = 100
 
 [node name="HeadersContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
 custom_minimum_size = Vector2(300, 10.435)
@@ -109,7 +108,8 @@ text = "user://potatoro.db"
 [node name="separatingline" type="PanelContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
-theme = ExtResource("3_oegno")
+theme = ExtResource("2_678x1")
+theme_type_variation = &"SeparatingBarThird"
 
 [node name="DefaultValues" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 layout_mode = 2
@@ -168,11 +168,13 @@ alignment = 1
 [node name="separatingline2" type="PanelContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
-theme = ExtResource("3_oegno")
+theme = ExtResource("2_678x1")
+theme_type_variation = &"SeparatingBarThird"
 
 [node name="TimerSettings" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
+theme_override_constants/separation = 20
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings"]
 layout_mode = 2
@@ -225,7 +227,8 @@ theme = ExtResource("2_678x1")
 visible = false
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
-theme = ExtResource("3_oegno")
+theme = ExtResource("2_678x1")
+theme_type_variation = &"SeparatingBarThird"
 
 [node name="SoundSettings" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 visible = false
@@ -313,7 +316,8 @@ value = 1.0
 [node name="separatingline4" type="PanelContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
-theme = ExtResource("3_oegno")
+theme = ExtResource("2_678x1")
+theme_type_variation = &"SeparatingBarThird"
 
 [node name="Theme" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 layout_mode = 2
@@ -451,7 +455,8 @@ edit_alpha = false
 visible = false
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
-theme = ExtResource("3_oegno")
+theme = ExtResource("2_678x1")
+theme_type_variation = &"SeparatingBarThird"
 
 [node name="Other" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 visible = false

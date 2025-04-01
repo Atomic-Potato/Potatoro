@@ -42,7 +42,8 @@ folder_colors={
 "res://scripts/": "red",
 "res://scripts/classes/": "red",
 "res://scripts/managers/": "orange",
-"res://visual/": "yellow"
+"res://scripts/tools/": "yellow",
+"res://visual/": "green"
 }
 
 [gui]

@@ -117,6 +117,7 @@ custom_minimum_size = Vector2(0, 6)
 layout_mode = 2
 size_flags_vertical = 0
 theme = ExtResource("10_4n6br")
+theme_type_variation = &"SeparatingBarPrimary"
 
 [node name="TabsContainer" type="PanelContainer" parent="GUI/AppBorders/VBoxContainer"]
 layout_mode = 2
