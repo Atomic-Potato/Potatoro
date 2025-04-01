@@ -9,3 +9,4 @@ bg_color = Color(1, 1, 1, 0)
 border_width_bottom = 2
 border_color = Color(1, 1, 1, 1)
 corner_detail = 5
+shadow_color = Color(1, 1, 1, 0.6)

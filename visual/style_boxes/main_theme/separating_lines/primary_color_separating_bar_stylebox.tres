@@ -2,3 +2,5 @@
 
 [resource]
 bg_color = Color(1, 1, 1, 1)
+border_color = Color(1, 1, 1, 1)
+shadow_color = Color(1, 1, 1, 0.6)

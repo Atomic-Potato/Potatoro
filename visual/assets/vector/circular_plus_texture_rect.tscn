@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://bji2q8cjmdlpg"]
+
+[ext_resource type="Texture2D" uid="uid://bk74yu10yvvo5" path="res://visual/assets/vector/circular_plus.svg" id="1_7bein"]
+
+[node name="TextureRect" type="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+mouse_filter = 2
+texture = ExtResource("1_7bein")
+expand_mode = 2
+stretch_mode = 5

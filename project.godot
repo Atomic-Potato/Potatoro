@@ -24,6 +24,7 @@ SessionsManager="*res://scripts/managers/sessions_manager.gd"
 BreaksManager="*res://scripts/managers/breaks_manager.gd"
 TimersTrackingManager="*res://scripts/managers/timers_tracking_manager.gd"
 SettingsManager="*res://scenes/managers/settings_manager.tscn"
+ThemeTool="*res://scripts/tools/theme_tool.gd"
 
 [display]
 
