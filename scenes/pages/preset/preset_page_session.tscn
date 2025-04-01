@@ -216,7 +216,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="SessionTimer" type="Control" parent="Content" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "label_finish_hour", "label_timer", "button_pause_toggle", "button_auto_break_toggle", "add_time_controls_parent", "deduct_time_controls_parent")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -892,6 +891,7 @@ layout_mode = 2
 text = "+10 s"
 
 [node name="BreakFinish" type="Control" parent="Content"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

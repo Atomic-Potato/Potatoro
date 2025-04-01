@@ -27,7 +27,7 @@ SettingsManager="*res://scenes/managers/settings_manager.tscn"
 
 [display]
 
-window/size/viewport_width=450
+window/size/viewport_width=800
 window/size/viewport_height=800
 window/main_scene="res://scenes/main.tscn"
 

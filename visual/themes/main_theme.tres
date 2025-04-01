@@ -1,9 +1,10 @@
-[gd_resource type="Theme" load_steps=17 format=3 uid="uid://bmgw3uu0ry2ht"]
+[gd_resource type="Theme" load_steps=19 format=3 uid="uid://bmgw3uu0ry2ht"]
 
 [ext_resource type="StyleBox" uid="uid://d1y62ki406b3u" path="res://visual/style_boxes/main_theme/danger/borders_danger_stylebox.tres" id="1_e1fs3"]
 [ext_resource type="StyleBox" uid="uid://dsyh0oftuo24c" path="res://visual/style_boxes/main_theme/borders_stylebox.tres" id="1_wann0"]
 [ext_resource type="StyleBox" uid="uid://cxemuv6nytmxd" path="res://visual/style_boxes/main_theme/danger/flat_color_danger_stylebox.tres" id="2_fibxs"]
 [ext_resource type="StyleBox" uid="uid://b026v4g35h3uv" path="res://visual/style_boxes/main_theme/flat_color_stylebox.tres" id="2_iv3mb"]
+[ext_resource type="StyleBox" uid="uid://c7ui00ve0naq8" path="res://visual/style_boxes/main_theme/card/button_card_styleboxtres.tres" id="3_gbln3"]
 [ext_resource type="StyleBox" uid="uid://dtaub126wmxo5" path="res://visual/style_boxes/main_theme/line_edit_stylebox.tres" id="5_k6ick"]
 [ext_resource type="StyleBox" uid="uid://ca1aqkm21x8jw" path="res://visual/style_boxes/main_theme/large_edit/borders_large_edit_stylebox.tres" id="5_r7poe"]
 [ext_resource type="StyleBox" uid="uid://dqblbyqdw5sqd" path="res://visual/style_boxes/main_theme/borders_thicc_stylebox.tres" id="6_fin5w"]
@@ -13,13 +14,15 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gttj1"]
 bg_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b6air"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6qbrn"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_alr21"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1sbw1"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_id5ks"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_amjnn"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_af7l6"]
 
@@ -38,6 +41,11 @@ Button/styles/hover = ExtResource("2_iv3mb")
 Button/styles/hover_pressed = ExtResource("2_iv3mb")
 Button/styles/normal = ExtResource("1_wann0")
 Button/styles/pressed = ExtResource("2_iv3mb")
+CardButton/base_type = &"Button"
+CardButton/styles/focus = ExtResource("3_gbln3")
+CardButton/styles/hover = ExtResource("3_gbln3")
+CardButton/styles/normal = SubResource("StyleBoxEmpty_b6air")
+CardButton/styles/pressed = SubResource("StyleBoxEmpty_6qbrn")
 CheckBox/icons/checked = null
 CheckBox/styles/focus = SubResource("StyleBoxEmpty_alr21")
 CheckBox/styles/hover = ExtResource("1_wann0")
@@ -45,10 +53,10 @@ CheckBox/styles/hover_pressed = SubResource("StyleBoxEmpty_1sbw1")
 CheckBox/styles/normal = ExtResource("1_wann0")
 CheckBox/styles/pressed = SubResource("StyleBoxEmpty_id5ks")
 CheckButton/styles/hover_pressed = ExtResource("2_iv3mb")
-ColorPickerButton/styles/focus = SubResource("StyleBoxEmpty_amjnn")
-ColorPickerButton/styles/hover = ExtResource("2_iv3mb")
-ColorPickerButton/styles/normal = ExtResource("2_iv3mb")
-ColorPickerButton/styles/pressed = ExtResource("2_iv3mb")
+ColorPickerButton/styles/focus = ExtResource("6_fin5w")
+ColorPickerButton/styles/hover = ExtResource("6_fin5w")
+ColorPickerButton/styles/normal = ExtResource("6_fin5w")
+ColorPickerButton/styles/pressed = ExtResource("6_fin5w")
 DangerButton/base_type = &"Button"
 DangerButton/colors/font_color = Color(1, 0, 0, 1)
 DangerButton/colors/font_focus_color = Color(1, 0, 0, 1)

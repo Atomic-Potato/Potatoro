@@ -39,7 +39,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_e3tqb")
 z_as_relative = false
 layout_mode = 2
 mouse_filter = 1
-flat = true
+theme = ExtResource("3_p2wl1")
+theme_type_variation = &"CardButton"
 
 [node name="Values" type="MarginContainer" parent="Add preset"]
 layout_mode = 2

@@ -12,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_5wp6g")
 presets_container = NodePath("ScrollContainer/HFlowContainer")
 preset_info_card_res = ExtResource("2_3qnmr")
@@ -23,6 +24,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 follow_focus = true
 horizontal_scroll_mode = 0
 
@@ -30,10 +32,12 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 alignment = 1
 
 [node name="Add preset" type="MarginContainer" parent="ScrollContainer/HFlowContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -42,16 +46,19 @@ theme_override_constants/margin_bottom = 10
 [node name="Add preset" type="PanelContainer" parent="ScrollContainer/HFlowContainer/Add preset"]
 custom_minimum_size = Vector2(350, 350)
 layout_mode = 2
+mouse_filter = 2
 theme = ExtResource("3_vj5yl")
 
 [node name="Button" type="Button" parent="ScrollContainer/HFlowContainer/Add preset/Add preset"]
 layout_mode = 2
-flat = true
+theme = ExtResource("3_vj5yl")
+theme_type_variation = &"CardButton"
 
 [node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/HFlowContainer/Add preset/Add preset/Button"]
 layout_mode = 2
 offset_right = 338.0
 offset_bottom = 338.0
+mouse_filter = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -59,6 +66,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/HFlowContainer/Add preset/Add preset/Button/MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/HFlowContainer/Add preset/Add preset/Button/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -71,6 +79,7 @@ vertical_alignment = 1
 [node name="TextureRect" type="TextureRect" parent="ScrollContainer/HFlowContainer/Add preset/Add preset/Button/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 texture = ExtResource("3_uh6mv")
 expand_mode = 2
 stretch_mode = 5
