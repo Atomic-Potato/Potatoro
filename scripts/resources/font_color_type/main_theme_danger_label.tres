@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="FontColorType" load_steps=2 format=3 uid="uid://bck85it7otyvb"]
+
+[ext_resource type="Script" path="res://scripts/resources/font_color_type/font_color_type.gd" id="1_8cr15"]
+
+[resource]
+script = ExtResource("1_8cr15")
+theme_type = "DangerLabel"
+color_types = {
+"eighth": [],
+"fifth": [],
+"fourth": [],
+"nineth": [],
+"primary": PackedStringArray("font_color"),
+"secondary": [],
+"seventh": [],
+"sixth": [],
+"tenth": [],
+"third": []
+}

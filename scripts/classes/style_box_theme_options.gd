@@ -12,15 +12,17 @@ class_name StyleBoxThemeOptions extends Node
 @export var texture_modulate_color: ColorType = ColorType.primary
 
 
+# NOTE: If u add a new color type, remember to add it in font_color_type.gd as well
+# ik it sucks balls but what do u want from me, isnt a 10 color palette 
+# already enough for u?!
 enum ColorType
 {
 	primary, secondary, third, fourth, fifth, 
 	sixth, seventh, eighth, nineth, tenth
 }
 
-func set_color_stuff(color: Color, type: ColorType):
+func set_color(color: Color, type: ColorType):
 	if box is StyleBoxFlat:
-		print(color, type)
 		if flat_bg_color == type:
 			color.a = box.bg_color.a
 			box.bg_color = color
@@ -38,3 +40,6 @@ func set_color_stuff(color: Color, type: ColorType):
 		if texture_modulate_color == type:
 			color.a = box.modulate_color.a
 			box.modulate_color = color
+	var err = ResourceSaver.save(box, box.resource_path)
+	if err != OK:
+		push_error("Failed to save stylebox resource: " + str(err))

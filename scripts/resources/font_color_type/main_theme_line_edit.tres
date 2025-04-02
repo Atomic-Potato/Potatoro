@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="FontColorType" load_steps=2 format=3 uid="uid://chxg503253uw0"]
+
+[ext_resource type="Script" path="res://scripts/resources/font_color_type/font_color_type.gd" id="1_wp522"]
+
+[resource]
+script = ExtResource("1_wp522")
+theme_type = "LineEdit"
+color_types = {
+"eighth": [],
+"fifth": [],
+"fourth": [],
+"nineth": [],
+"primary": PackedStringArray("caret_color", "font_color"),
+"secondary": PackedStringArray("font_placeholder_color", "selection_color"),
+"seventh": [],
+"sixth": [],
+"tenth": [],
+"third": []
+}

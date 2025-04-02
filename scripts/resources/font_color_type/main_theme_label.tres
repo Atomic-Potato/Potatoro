@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="FontColorType" load_steps=2 format=3 uid="uid://c3yj2lp53l7iw"]
+
+[ext_resource type="Script" path="res://scripts/resources/font_color_type/font_color_type.gd" id="1_nhfqt"]
+
+[resource]
+script = ExtResource("1_nhfqt")
+theme_type = "Label"
+color_types = {
+"eighth": [],
+"fifth": [],
+"fourth": [],
+"nineth": [],
+"primary": PackedStringArray("font_color"),
+"secondary": [],
+"seventh": [],
+"sixth": [],
+"tenth": [],
+"third": []
+}

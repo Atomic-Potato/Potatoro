@@ -1,24 +1,36 @@
-[gd_scene load_steps=12 format=3 uid="uid://bmp1wc4winydq"]
+[gd_scene load_steps=21 format=3 uid="uid://bmp1wc4winydq"]
 
 [ext_resource type="Script" path="res://scripts/tools/theme_tool.gd" id="1_55cj1"]
 [ext_resource type="StyleBox" uid="uid://ca1aqkm21x8jw" path="res://visual/style_boxes/main_theme/large_edit/borders_large_edit_stylebox.tres" id="2_240fj"]
+[ext_resource type="Theme" uid="uid://bmgw3uu0ry2ht" path="res://visual/themes/main_theme.tres" id="2_n44j6"]
+[ext_resource type="Resource" uid="uid://i1cp4nenc20l" path="res://scripts/resources/font_color_type/main_theme_button.tres" id="3_0v0pk"]
+[ext_resource type="Resource" uid="uid://c3yj2lp53l7iw" path="res://scripts/resources/font_color_type/main_theme_label.tres" id="3_4ynsw"]
 [ext_resource type="StyleBox" uid="uid://c7ui00ve0naq8" path="res://visual/style_boxes/main_theme/card/button_card_styleboxtres.tres" id="3_qy2s2"]
+[ext_resource type="Resource" uid="uid://bdsjbwm8uqubl" path="res://scripts/resources/font_color_type/main_theme_danger_button.tres" id="4_gvcfe"]
 [ext_resource type="StyleBox" uid="uid://b267ge0q8prlo" path="res://visual/style_boxes/main_theme/separating_lines/primary_color_separating_bar_stylebox.tres" id="4_rutlr"]
+[ext_resource type="Resource" uid="uid://bck85it7otyvb" path="res://scripts/resources/font_color_type/main_theme_danger_label.tres" id="5_iq7m0"]
 [ext_resource type="StyleBox" uid="uid://dsyh0oftuo24c" path="res://visual/style_boxes/main_theme/borders_stylebox.tres" id="5_vrwt7"]
 [ext_resource type="StyleBox" uid="uid://bmwumscby7xuu" path="res://visual/style_boxes/main_theme/separating_lines/third_color_separating_bar_stylebox.tres" id="6_jwsbp"]
 [ext_resource type="StyleBox" uid="uid://dqblbyqdw5sqd" path="res://visual/style_boxes/main_theme/borders_thicc_stylebox.tres" id="6_ky317"]
 [ext_resource type="Script" path="res://scripts/classes/style_box_theme_options.gd" id="7_cht6l"]
+[ext_resource type="Resource" uid="uid://bymhctcyri0i6" path="res://scripts/resources/font_color_type/main_theme_large_edit.tres" id="7_j0ybb"]
+[ext_resource type="Resource" uid="uid://chxg503253uw0" path="res://scripts/resources/font_color_type/main_theme_line_edit.tres" id="8_2gone"]
 [ext_resource type="StyleBox" uid="uid://dtaub126wmxo5" path="res://visual/style_boxes/main_theme/line_edit_stylebox.tres" id="8_7icyc"]
+[ext_resource type="Resource" uid="uid://c8gcroqgft0y7" path="res://scripts/resources/font_color_type/main_theme_normal_check_button.tres" id="9_4co7d"]
 [ext_resource type="StyleBox" uid="uid://d1y62ki406b3u" path="res://visual/style_boxes/main_theme/danger/borders_danger_stylebox.tres" id="10_wos1g"]
+[ext_resource type="StyleBox" uid="uid://b026v4g35h3uv" path="res://visual/style_boxes/main_theme/flat_color_stylebox.tres" id="11_cnyyb"]
 [ext_resource type="StyleBox" uid="uid://cxemuv6nytmxd" path="res://visual/style_boxes/main_theme/danger/flat_color_danger_stylebox.tres" id="11_egj13"]
 
 [node name="ThemeTool" type="Node" node_paths=PackedStringArray("main_options_parent_node", "danger_options_parent_node")]
 script = ExtResource("1_55cj1")
 main_options_parent_node = NodePath("MainOptions")
-color_primary = Color(1, 1, 1, 1)
-color_third = Color(0.564706, 0.564706, 0.564706, 1)
+color_primary = Color(1, 0, 0, 1)
+color_secondary = Color(0, 1, 0, 1)
+color_third = Color(0.564706, 0.564706, 1, 1)
 danger_options_parent_node = NodePath("DangerOptions")
-color_danger_primary = Color(1, 1, 0, 1)
+color_danger_primary = Color(1, 0, 0, 1)
+theme_main = ExtResource("2_n44j6")
+theme_main_font_color_types = Array[Resource("res://scripts/resources/font_color_type/font_color_type.gd")]([ExtResource("3_0v0pk"), ExtResource("4_gvcfe"), ExtResource("5_iq7m0"), ExtResource("3_4ynsw"), ExtResource("7_j0ybb"), ExtResource("8_2gone"), ExtResource("9_4co7d")])
 
 [node name="MainOptions" type="Node" parent="."]
 
@@ -49,7 +61,7 @@ box = ExtResource("6_ky317")
 
 [node name="FlatColor" type="Node" parent="MainOptions"]
 script = ExtResource("7_cht6l")
-box = ExtResource("6_ky317")
+box = ExtResource("11_cnyyb")
 
 [node name="LineEdit" type="Node" parent="MainOptions"]
 script = ExtResource("7_cht6l")

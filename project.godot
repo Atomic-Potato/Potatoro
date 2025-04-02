@@ -24,7 +24,7 @@ SessionsManager="*res://scripts/managers/sessions_manager.gd"
 BreaksManager="*res://scripts/managers/breaks_manager.gd"
 TimersTrackingManager="*res://scripts/managers/timers_tracking_manager.gd"
 SettingsManager="*res://scenes/managers/settings_manager.tscn"
-ThemeTool="*res://scripts/tools/theme_tool.gd"
+ThemeTool="res://scenes/tools/theme_tool.tscn"
 
 [display]
 
@@ -46,6 +46,10 @@ folder_colors={
 "res://scripts/tools/": "yellow",
 "res://visual/": "green"
 }
+
+[filesystem]
+
+import/blender/enabled=false
 
 [gui]
 

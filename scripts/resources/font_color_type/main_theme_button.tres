@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="FontColorType" load_steps=2 format=3 uid="uid://i1cp4nenc20l"]
+
+[ext_resource type="Script" path="res://scripts/resources/font_color_type/font_color_type.gd" id="1_8nuke"]
+
+[resource]
+script = ExtResource("1_8nuke")
+theme_type = "Button"
+color_types = {
+"eighth": [],
+"fifth": [],
+"fourth": [],
+"nineth": [],
+"primary": PackedStringArray("font_color", "font_focus_color"),
+"secondary": PackedStringArray("font_hover_color", "font_hover_pressed_color", "font_pressed_color"),
+"seventh": [],
+"sixth": [],
+"tenth": [],
+"third": []
+}

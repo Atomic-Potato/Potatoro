@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dn310bw2e6rsh"]
+[gd_scene load_steps=18 format=3 uid="uid://dn310bw2e6rsh"]
 
 [ext_resource type="Script" path="res://scripts/managers/application_manager.gd" id="1_jnciu"]
 [ext_resource type="PackedScene" uid="uid://b6ql7sj7pip6g" path="res://scenes/pages/preset/preset_page_presets.tscn" id="2_u2cnp"]
@@ -15,12 +15,6 @@
 [ext_resource type="Script" path="res://scripts/tabs/global/settings_tab.gd" id="12_4wbq7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2m2r0"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kx58c"]
-bg_color = Color(1, 1, 1, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_utqka"]
-bg_color = Color(1, 1, 1, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jobds"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -97,9 +91,7 @@ theme_override_constants/separation = 0
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("10_4n6br")
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBoxFlat_kx58c")
 toggle_mode = true
 text = "Potatoro"
 
@@ -108,7 +100,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("10_4n6br")
 theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBoxFlat_utqka")
 toggle_mode = true
 text = "Settings"
 
