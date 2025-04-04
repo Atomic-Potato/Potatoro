@@ -19,7 +19,6 @@ var color_primary_cache: Color = Color.WHITE
 	get: return color_primary_cache
 	set(value):
 		color_primary_cache = value
-		print("changing primary")
 		set_color(value, StyleBoxThemeOptions.ColorType.primary, main_options_parent_node, 
 			theme_main, get_main_theme_general_types(), textures_colors)
 

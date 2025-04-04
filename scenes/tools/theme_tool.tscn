@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bmp1wc4winydq"]
+[gd_scene load_steps=25 format=3 uid="uid://bmp1wc4winydq"]
 
 [ext_resource type="Script" path="res://scripts/tools/theme_tool.gd" id="1_55cj1"]
 [ext_resource type="StyleBox" uid="uid://ystuj7es7cw" path="res://visual/style_boxes/main_theme/large_edit/borders_large_edit_stylebox.tres" id="2_240fj"]
@@ -17,8 +17,10 @@
 [ext_resource type="Resource" uid="uid://chxg503253uw0" path="res://scripts/resources/font_color_type/main_theme_line_edit.tres" id="8_2gone"]
 [ext_resource type="StyleBox" uid="uid://cg3oecds8hi4j" path="res://visual/style_boxes/main_theme/line_edit_stylebox.tres" id="8_7icyc"]
 [ext_resource type="Resource" uid="uid://c8gcroqgft0y7" path="res://scripts/resources/font_color_type/main_theme_normal_check_button.tres" id="9_4co7d"]
-[ext_resource type="PackedScene" uid="uid://c7lk8wbqb8g3y" path="res://visual/assets/vector/circular_plus_texture_rect.tscn" id="10_53p58"]
+[ext_resource type="PackedScene" path="res://visual/assets/vector/circular_plus_texture_rect.tscn" id="10_53p58"]
+[ext_resource type="Resource" uid="uid://cqjqu3sjc2e36" path="res://scripts/resources/font_color_type/main_theme_small_edit.tres" id="10_djauh"]
 [ext_resource type="StyleBox" uid="uid://dqq625wiwxyok" path="res://visual/style_boxes/main_theme/danger/borders_danger_stylebox.tres" id="10_wos1g"]
+[ext_resource type="Resource" uid="uid://dnvl7sgsg6cq7" path="res://scripts/resources/font_color_type/main_theme_nav_button.tres" id="11_6yt12"]
 [ext_resource type="StyleBox" uid="uid://dfuh78n46fvy" path="res://visual/style_boxes/main_theme/flat_color_stylebox.tres" id="11_cnyyb"]
 [ext_resource type="StyleBox" uid="uid://b7g67g31lsbd" path="res://visual/style_boxes/main_theme/danger/flat_color_danger_stylebox.tres" id="11_egj13"]
 [ext_resource type="StyleBox" uid="uid://chwhygsdk2vfi" path="res://visual/style_boxes/main_theme/background/background_stylebox.tres" id="22_44gsi"]
@@ -26,13 +28,14 @@
 [node name="ThemeTool" type="Node" node_paths=PackedStringArray("background_options_parent_node", "main_options_parent_node", "danger_options_parent_node")]
 script = ExtResource("1_55cj1")
 background_options_parent_node = NodePath("BackgroundOptions")
+color_background_primary = Color(1, 1, 1, 1)
 main_options_parent_node = NodePath("MainOptions")
 color_primary = Color(1, 1, 1, 1)
 color_third = Color(0.564706, 0.564706, 0.564706, 1)
 danger_options_parent_node = NodePath("DangerOptions")
 color_danger_primary = Color(1, 0, 0, 1)
 theme_main = ExtResource("2_n44j6")
-theme_main_font_color_types = Array[Resource("res://scripts/resources/font_color_type/font_color_type.gd")]([ExtResource("3_0v0pk"), ExtResource("4_gvcfe"), ExtResource("5_iq7m0"), ExtResource("3_4ynsw"), ExtResource("7_j0ybb"), ExtResource("8_2gone"), ExtResource("9_4co7d")])
+theme_main_font_color_types = Array[Resource("res://scripts/resources/font_color_type/font_color_type.gd")]([ExtResource("3_0v0pk"), ExtResource("4_gvcfe"), ExtResource("5_iq7m0"), ExtResource("3_4ynsw"), ExtResource("7_j0ybb"), ExtResource("8_2gone"), ExtResource("9_4co7d"), ExtResource("10_djauh"), ExtResource("11_6yt12")])
 textures_colors = {
 "eighth": [],
 "fifth": [],

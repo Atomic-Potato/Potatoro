@@ -1,6 +1,6 @@
 [gd_resource type="StyleBoxFlat" format=3]
 
 [resource]
-bg_color = Color(1, 1, 1, 1)
-border_color = Color(1, 1, 1, 1)
-shadow_color = Color(1, 1, 1, 0.6)
+bg_color = Color(0, 1, 0.505882, 1)
+border_color = Color(0, 1, 0.505882, 1)
+shadow_color = Color(0, 1, 0.505882, 0.6)

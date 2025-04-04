@@ -60,7 +60,6 @@ func empty_sessions_data():
 	db.query(query)
 
 func restore_default_settings():
-	SettingsManager.DBSettings.SessionsCount
 	DatabaseManager.db.query('
 		delete from Settings; ' + _get_settings_insert_query())
 

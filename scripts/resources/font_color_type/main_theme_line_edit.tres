@@ -10,10 +10,10 @@ color_types = {
 "fifth": [],
 "fourth": [],
 "nineth": [],
-"primary": PackedStringArray("caret_color", "font_color"),
-"secondary": PackedStringArray("font_placeholder_color", "selection_color"),
+"primary": PackedStringArray("caret_color"),
+"secondary": PackedStringArray("selection_color", "font_color"),
 "seventh": [],
 "sixth": [],
 "tenth": [],
-"third": []
+"third": PackedStringArray("font_placeholder_color")
 }

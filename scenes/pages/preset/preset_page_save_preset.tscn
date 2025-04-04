@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b2ll8tut18nx6"]
 
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_save_preset.gd" id="1_tsndv"]
-[ext_resource type="Theme" uid="uid://bmgw3uu0ry2ht" path="res://visual/themes/main_theme.tres" id="2_r6mp1"]
+[ext_resource type="Theme" uid="uid://bn0j7bmm613l2" path="res://visual/themes/main_theme.tres" id="2_r6mp1"]
 
 [node name="PresetPageSavePreset" type="Control" node_paths=PackedStringArray("preset_edit", "tag_edit", "session_count_edit", "session_length_edit", "break_length_edit", "auto_break_toggle", "auto_session_toggle")]
 layout_mode = 3
@@ -49,20 +49,20 @@ theme_override_constants/separation = -5
 [node name="preset" type="LineEdit" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_r6mp1")
+theme_type_variation = &"SmallEdit"
 placeholder_text = "[enter-preset-name]"
 alignment = 1
 expand_to_text_length = true
-flat = true
 
 [node name="tag" type="LineEdit" parent="MarginContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
 theme = ExtResource("2_r6mp1")
+theme_type_variation = &"SmallEdit"
 theme_override_font_sizes/font_size = 25
 placeholder_text = "[select-tag]"
 alignment = 1
 expand_to_text_length = true
-flat = true
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2

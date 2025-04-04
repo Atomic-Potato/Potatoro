@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_presets.gd" id="1_5wp6g"]
 [ext_resource type="PackedScene" uid="uid://cy71rb02uwuce" path="res://scenes/pages/preset/elements/preset_info_card.tscn" id="2_3qnmr"]
-[ext_resource type="Theme" uid="uid://bmgw3uu0ry2ht" path="res://visual/themes/main_theme.tres" id="3_vj5yl"]
-[ext_resource type="PackedScene" uid="uid://bji2q8cjmdlpg" path="res://visual/assets/vector/circular_plus_texture_rect.tscn" id="4_vwjwj"]
+[ext_resource type="Theme" uid="uid://bn0j7bmm613l2" path="res://visual/themes/main_theme.tres" id="3_vj5yl"]
+[ext_resource type="PackedScene" path="res://visual/assets/vector/circular_plus_texture_rect.tscn" id="4_vwjwj"]
 
 [node name="PresetPagePreset" type="Control" node_paths=PackedStringArray("presets_container")]
 layout_mode = 3
@@ -24,7 +24,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 follow_focus = true
 horizontal_scroll_mode = 0
 

@@ -30,7 +30,7 @@ enum DBSettings ## Names and IDs
 	TitleBarPrimaryColor, TitleBarSecondaryColor,
 }
 
-static func get_DBSettings_name(key: DBSettings)-> String:
+func get_DBSettings_name(key: DBSettings)-> String:
 	return DBSettings.find_key(key)
 
 # SETTINGS

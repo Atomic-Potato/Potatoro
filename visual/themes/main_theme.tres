@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=19 format=3]
+[gd_resource type="Theme" load_steps=22 format=3]
 
 [ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/danger/borders_danger_stylebox.tres" id="1_e1fs3"]
 [ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/background/background_stylebox.tres" id="1_qr4vg"]
@@ -11,6 +11,7 @@
 [ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/borders_thicc_stylebox.tres" id="6_fin5w"]
 [ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/separating_lines/primary_color_separating_bar_stylebox.tres" id="8_jns06"]
 [ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/separating_lines/third_color_separating_bar_stylebox.tres" id="9_pqtn7"]
+[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/empty_with_margins_stylebox.tres" id="10_65fcl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b6air"]
 
@@ -26,14 +27,18 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mnvmg"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_01ovf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2ay20"]
+
 [resource]
 Background/base_type = &"PanelContainer"
 Background/styles/panel = ExtResource("1_qr4vg")
-Button/colors/font_color = Color(1, 1, 1, 1)
-Button/colors/font_focus_color = Color(1, 1, 1, 1)
-Button/colors/font_hover_color = Color(0, 0, 0, 1)
-Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_color = Color(0, 1, 0.505882, 1)
+Button/colors/font_focus_color = Color(0, 1, 0.505882, 1)
+Button/colors/font_hover_color = Color(0.196078, 0, 1, 1)
+Button/colors/font_hover_pressed_color = Color(0.196078, 0, 1, 1)
+Button/colors/font_pressed_color = Color(0.196078, 0, 1, 1)
 Button/styles/focus = ExtResource("1_wann0")
 Button/styles/hover = ExtResource("2_iv3mb")
 Button/styles/hover_pressed = ExtResource("2_iv3mb")
@@ -69,27 +74,37 @@ DangerLabel/base_type = &"Label"
 DangerLabel/colors/font_color = Color(1, 0, 0, 1)
 DangerPanelContainer/base_type = &"PanelContainer"
 DangerPanelContainer/styles/panel = ExtResource("1_e1fs3")
-Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_color = Color(0, 1, 0.505882, 1)
 LargeEdit/base_type = &"LineEdit"
-LargeEdit/colors/caret_color = Color(1, 1, 1, 1)
-LargeEdit/colors/font_color = Color(1, 1, 1, 1)
+LargeEdit/colors/caret_color = Color(0, 1, 0.505882, 1)
+LargeEdit/colors/font_color = Color(0, 1, 0.505882, 1)
 LargeEdit/colors/font_placeholder_color = Color(0.564706, 0.564706, 0.564706, 1)
-LargeEdit/colors/font_selected_color = Color(1, 1, 1, 1)
+LargeEdit/colors/font_selected_color = Color(0, 1, 0.505882, 1)
 LargeEdit/colors/selection_color = Color(0.564706, 0.564706, 0.564706, 1)
 LargeEdit/styles/focus = ExtResource("5_r7poe")
 LargeEdit/styles/normal = ExtResource("5_r7poe")
-LineEdit/colors/caret_color = Color(1, 1, 1, 1)
-LineEdit/colors/font_color = Color(1, 1, 1, 1)
-LineEdit/colors/font_placeholder_color = Color(0, 0, 0, 1)
-LineEdit/colors/selection_color = Color(0, 0, 0, 1)
+LineEdit/colors/caret_color = Color(0, 1, 0.505882, 1)
+LineEdit/colors/font_color = Color(0.196078, 0, 1, 1)
+LineEdit/colors/font_placeholder_color = Color(0.564706, 0.564706, 0.564706, 1)
+LineEdit/colors/selection_color = Color(0.196078, 0, 1, 1)
 LineEdit/styles/focus = SubResource("StyleBoxEmpty_af7l6")
 LineEdit/styles/normal = ExtResource("5_k6ick")
+NavButton/base_type = &"Button"
+NavButton/colors/font_color = Color(0, 1, 0.505882, 1)
+NavButton/colors/font_focus_color = Color(0, 1, 0.505882, 1)
+NavButton/colors/font_hover_color = Color(0.196078, 0, 1, 1)
+NavButton/colors/font_hover_pressed_color = Color(0.196078, 0, 1, 1)
+NavButton/colors/font_pressed_color = Color(0.196078, 0, 1, 1)
+NavButton/styles/focus = ExtResource("10_65fcl")
+NavButton/styles/hover = ExtResource("2_iv3mb")
+NavButton/styles/normal = ExtResource("10_65fcl")
+NavButton/styles/pressed = ExtResource("2_iv3mb")
 NormalCheckButton/base_type = &"CheckButton"
-NormalCheckButton/colors/font_color = Color(1, 1, 1, 1)
-NormalCheckButton/colors/font_focus_color = Color(1, 1, 1, 1)
-NormalCheckButton/colors/font_hover_color = Color(1, 1, 1, 1)
-NormalCheckButton/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-NormalCheckButton/colors/font_pressed_color = Color(1, 1, 1, 1)
+NormalCheckButton/colors/font_color = Color(0, 1, 0.505882, 1)
+NormalCheckButton/colors/font_focus_color = Color(0, 1, 0.505882, 1)
+NormalCheckButton/colors/font_hover_color = Color(0, 1, 0.505882, 1)
+NormalCheckButton/colors/font_hover_pressed_color = Color(0, 1, 0.505882, 1)
+NormalCheckButton/colors/font_pressed_color = Color(0, 1, 0.505882, 1)
 NormalCheckButton/styles/disabled = SubResource("StyleBoxEmpty_mnvmg")
 NormalCheckButton/styles/focus = SubResource("StyleBoxEmpty_mnvmg")
 NormalCheckButton/styles/hover = SubResource("StyleBoxEmpty_mnvmg")
@@ -101,3 +116,11 @@ SeparatingBarPrimary/base_type = &"PanelContainer"
 SeparatingBarPrimary/styles/panel = ExtResource("8_jns06")
 SeparatingBarThird/base_type = &"PanelContainer"
 SeparatingBarThird/styles/panel = ExtResource("9_pqtn7")
+SmallEdit/base_type = &"LineEdit"
+SmallEdit/colors/caret_color = Color(0, 1, 0.505882, 1)
+SmallEdit/colors/font_color = Color(0, 1, 0.505882, 1)
+SmallEdit/colors/font_placeholder_color = Color(0.564706, 0.564706, 0.564706, 1)
+SmallEdit/colors/font_selected_color = Color(0, 1, 0.505882, 1)
+SmallEdit/colors/selection_color = Color(0.564706, 0.564706, 0.564706, 1)
+SmallEdit/styles/focus = SubResource("StyleBoxEmpty_01ovf")
+SmallEdit/styles/normal = SubResource("StyleBoxEmpty_2ay20")
