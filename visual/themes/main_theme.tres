@@ -1,6 +1,7 @@
 [gd_resource type="Theme" load_steps=19 format=3 uid="uid://bmgw3uu0ry2ht"]
 
 [ext_resource type="StyleBox" uid="uid://d1y62ki406b3u" path="res://visual/style_boxes/main_theme/danger/borders_danger_stylebox.tres" id="1_e1fs3"]
+[ext_resource type="StyleBox" uid="uid://cifudg638qv0y" path="res://visual/style_boxes/main_theme/background/background_stylebox.tres" id="1_qr4vg"]
 [ext_resource type="StyleBox" uid="uid://dsyh0oftuo24c" path="res://visual/style_boxes/main_theme/borders_stylebox.tres" id="1_wann0"]
 [ext_resource type="StyleBox" uid="uid://cxemuv6nytmxd" path="res://visual/style_boxes/main_theme/danger/flat_color_danger_stylebox.tres" id="2_fibxs"]
 [ext_resource type="StyleBox" uid="uid://b026v4g35h3uv" path="res://visual/style_boxes/main_theme/flat_color_stylebox.tres" id="2_iv3mb"]
@@ -10,9 +11,6 @@
 [ext_resource type="StyleBox" uid="uid://dqblbyqdw5sqd" path="res://visual/style_boxes/main_theme/borders_thicc_stylebox.tres" id="6_fin5w"]
 [ext_resource type="StyleBox" uid="uid://b267ge0q8prlo" path="res://visual/style_boxes/main_theme/separating_lines/primary_color_separating_bar_stylebox.tres" id="8_jns06"]
 [ext_resource type="StyleBox" uid="uid://bmwumscby7xuu" path="res://visual/style_boxes/main_theme/separating_lines/third_color_separating_bar_stylebox.tres" id="9_pqtn7"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gttj1"]
-bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b6air"]
 
@@ -30,7 +28,7 @@ bg_color = Color(0, 0, 0, 1)
 
 [resource]
 Background/base_type = &"PanelContainer"
-Background/styles/panel = SubResource("StyleBoxFlat_gttj1")
+Background/styles/panel = ExtResource("1_qr4vg")
 Button/colors/font_color = Color(1, 0.321569, 0.784314, 1)
 Button/colors/font_focus_color = Color(1, 0.321569, 0.784314, 1)
 Button/colors/font_hover_color = Color(0, 1, 0, 1)

@@ -2,6 +2,14 @@
 extends Node
 
 @export_category("Background")
+@export var background_options_parent_node: Node
+var color_background_primary_cache: Color = Color.WHITE
+@export var color_background_primary: Color:
+	get: return color_background_primary_cache
+	set(value):
+		color_background_primary_cache = value
+		set_color(value, StyleBoxThemeOptions.ColorType.primary, background_options_parent_node, 
+			theme_main, get_type_from_theme(theme_main_font_color_types, ["Background"]))
 
 @export_category("Main")
 @export var main_options_parent_node: Node
@@ -12,7 +20,7 @@ var color_primary_cache: Color = Color.WHITE
 	set(value):
 		color_primary_cache = value
 		set_color(value, StyleBoxThemeOptions.ColorType.primary, main_options_parent_node, 
-			theme_main, get_main_theme_general_types())
+			theme_main, get_main_theme_general_types(), textures_colors)
 
 var color_secondary_cache: Color = Color.BLACK
 @export var color_secondary: Color:
@@ -20,7 +28,7 @@ var color_secondary_cache: Color = Color.BLACK
 	set(value):
 		color_secondary_cache = value
 		set_color(value, StyleBoxThemeOptions.ColorType.secondary, main_options_parent_node,
-			theme_main, get_main_theme_general_types())
+			theme_main, get_main_theme_general_types(), textures_colors)
 		
 var color_third_cache: Color = Color(144,144,144)
 @export var color_third: Color:
@@ -28,7 +36,7 @@ var color_third_cache: Color = Color(144,144,144)
 	set(value):
 		color_third_cache = value
 		set_color(value, StyleBoxThemeOptions.ColorType.third, main_options_parent_node,
-			theme_main, get_main_theme_general_types())
+			theme_main, get_main_theme_general_types(), textures_colors)
 
 @export_category("Danger")
 @export var danger_options_parent_node: Node
@@ -66,11 +74,11 @@ var danger_secondary_cache: Color = Color.BLACK
 	"nineth": [],
 	"tenth": []
 }
-@export var resource: Resource
+
 
 func set_color(
 	color: Color, type: StyleBoxThemeOptions.ColorType, options_parent_node: Node, 
-	theme: Theme = null, font_color_types: Array[FontColorType] = []):
+	theme: Theme = null, font_color_types: Array[FontColorType] = [], textures_dic: Dictionary = {}):
 	
 	if not Engine.is_editor_hint():
 		await ready
@@ -95,16 +103,17 @@ func set_color(
 		push_error("Failed to save theme resource: " + str(err))
 	
 	## Setting textures
-	color.a = 1
-	for texture_res: Resource in textures_colors[StyleBoxThemeOptions.ColorType.keys()[type]]:
-		var texture_instance: TextureRect = texture_res.instantiate()
-		texture_instance.modulate = color
-		var new_res = PackedScene.new()
-		new_res.pack(texture_instance)
-		texture_instance.queue_free()
-		err = ResourceSaver.save(new_res, texture_res.resource_path)
-	if err != OK:
-		push_error("Failed to save texture resource: " + str(err))
+	if not textures_dic.is_empty():
+		color.a = 1
+		for texture_res: Resource in textures_dic[StyleBoxThemeOptions.ColorType.keys()[type]]:
+			var texture_instance: TextureRect = texture_res.instantiate()
+			texture_instance.modulate = color
+			var new_res = PackedScene.new()
+			new_res.pack(texture_instance)
+			texture_instance.queue_free()
+			err = ResourceSaver.save(new_res, texture_res.resource_path)
+		if err != OK:
+			push_error("Failed to save texture resource: " + str(err))
 
 # DANGER: Remember to add keywords to exclude if needed
 func get_main_theme_general_types()-> Array[FontColorType]:
@@ -112,7 +121,7 @@ func get_main_theme_general_types()-> Array[FontColorType]:
 		push_warning("theme_main_font_color_types array is empty")
 		return []
 	
-	var keywords_to_exclude: Array[String] = ["Danger"]
+	var keywords_to_exclude: Array[String] = ["Danger", "Background"]
 	var filtered_types: Array[FontColorType] = theme_main_font_color_types.duplicate(true)
 	## Removing keywords from filtered_types array
 	for type: FontColorType in theme_main_font_color_types:

@@ -19,12 +19,14 @@
 [ext_resource type="Resource" uid="uid://c8gcroqgft0y7" path="res://scripts/resources/font_color_type/main_theme_normal_check_button.tres" id="9_4co7d"]
 [ext_resource type="PackedScene" uid="uid://bji2q8cjmdlpg" path="res://visual/assets/vector/circular_plus_texture_rect.tscn" id="10_53p58"]
 [ext_resource type="StyleBox" uid="uid://d1y62ki406b3u" path="res://visual/style_boxes/main_theme/danger/borders_danger_stylebox.tres" id="10_wos1g"]
-[ext_resource type="Texture2D" uid="uid://bk74yu10yvvo5" path="res://visual/assets/vector/circular_plus.svg" id="11_7su5c"]
 [ext_resource type="StyleBox" uid="uid://b026v4g35h3uv" path="res://visual/style_boxes/main_theme/flat_color_stylebox.tres" id="11_cnyyb"]
 [ext_resource type="StyleBox" uid="uid://cxemuv6nytmxd" path="res://visual/style_boxes/main_theme/danger/flat_color_danger_stylebox.tres" id="11_egj13"]
+[ext_resource type="StyleBox" uid="uid://cifudg638qv0y" path="res://visual/style_boxes/main_theme/background/background_stylebox.tres" id="22_44gsi"]
 
-[node name="ThemeTool" type="Node" node_paths=PackedStringArray("main_options_parent_node", "danger_options_parent_node")]
+[node name="ThemeTool" type="Node" node_paths=PackedStringArray("background_options_parent_node", "main_options_parent_node", "danger_options_parent_node")]
 script = ExtResource("1_55cj1")
+background_options_parent_node = NodePath("BackgroundOptions")
+color_background_primary = Color(0.152941, 0, 0.427451, 1)
 main_options_parent_node = NodePath("MainOptions")
 color_primary = Color(1, 0.321569, 0.784314, 1)
 color_secondary = Color(0, 1, 0, 1)
@@ -46,7 +48,6 @@ textures_colors = {
 "tenth": [],
 "third": []
 }
-resource = ExtResource("11_7su5c")
 
 [node name="MainOptions" type="Node" parent="."]
 
@@ -93,3 +94,9 @@ box = ExtResource("10_wos1g")
 [node name="FlatColor" type="Node" parent="DangerOptions"]
 script = ExtResource("7_cht6l")
 box = ExtResource("11_egj13")
+
+[node name="BackgroundOptions" type="Node" parent="."]
+
+[node name="PrimaryColor" type="Node" parent="BackgroundOptions"]
+script = ExtResource("7_cht6l")
+box = ExtResource("22_44gsi")
