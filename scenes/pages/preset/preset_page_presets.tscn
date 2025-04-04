@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_presets.gd" id="1_5wp6g"]
 [ext_resource type="PackedScene" uid="uid://cy71rb02uwuce" path="res://scenes/pages/preset/elements/preset_info_card.tscn" id="2_3qnmr"]
-[ext_resource type="Texture2D" uid="uid://bk74yu10yvvo5" path="res://visual/assets/vector/circular_plus.svg" id="3_uh6mv"]
 [ext_resource type="Theme" uid="uid://bmgw3uu0ry2ht" path="res://visual/themes/main_theme.tres" id="3_vj5yl"]
+[ext_resource type="PackedScene" uid="uid://bji2q8cjmdlpg" path="res://visual/assets/vector/circular_plus_texture_rect.tscn" id="4_vwjwj"]
 
 [node name="PresetPagePreset" type="Control" node_paths=PackedStringArray("presets_container")]
 layout_mode = 3
@@ -76,12 +76,7 @@ text = "create new preset"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="ScrollContainer/HFlowContainer/Add preset/Add preset/Button/MarginContainer/VBoxContainer"]
+[node name="CircularPlus" parent="ScrollContainer/HFlowContainer/Add preset/Add preset/Button/MarginContainer/VBoxContainer" instance=ExtResource("4_vwjwj")]
 layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 2
-texture = ExtResource("3_uh6mv")
-expand_mode = 2
-stretch_mode = 5
 
 [connection signal="pressed" from="ScrollContainer/HFlowContainer/Add preset/Add preset/Button" to="." method="load_make_edit_preset_page"]

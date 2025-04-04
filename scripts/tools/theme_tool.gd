@@ -1,13 +1,7 @@
 @tool
 extends Node
 
-# NOTE: Which colors should be assigned to which font
-# PRIMARY
-# DANGER_PRIMARY
-#			font_color, font_focus_color, 
-#			font_hover_pressed_color, font_pressed_color
-# DANGER_SECONDARY:
-#		font_hover_color
+@export_category("Background")
 
 @export_category("Main")
 @export var main_options_parent_node: Node
@@ -59,8 +53,20 @@ var danger_secondary_cache: Color = Color.BLACK
 @export var theme_main: Theme
 @export var theme_main_font_color_types: Array[FontColorType]
 
-const primary_font_color_names: Array[String] = [
-	"font_color", "font_focus_color", "font_color"]
+@export_category("Textures")
+@export var textures_colors: Dictionary = {
+	"primary": [],
+	"secondary": [],
+	"third": [],
+	"fourth": [],
+	"fifth": [], 
+	"sixth": [],
+	"seventh": [],
+	"eighth": [],
+	"nineth": [],
+	"tenth": []
+}
+@export var resource: Resource
 
 func set_color(
 	color: Color, type: StyleBoxThemeOptions.ColorType, options_parent_node: Node, 
@@ -72,10 +78,13 @@ func set_color(
 	if not options_parent_node:
 		return
 	
+	## Setting styleboxes
 	var options: Array[Node] = options_parent_node.get_children()
 	for option: StyleBoxThemeOptions in options:
 		option.set_color(color, type)
 	
+	## Setting fonts
+	color.a = 1
 	for font_color_type: FontColorType in font_color_types:
 		for color_type in font_color_type.color_types.keys():
 			if color_type == StyleBoxThemeOptions.ColorType.keys()[type]:
@@ -84,6 +93,18 @@ func set_color(
 	var err = ResourceSaver.save(theme, theme.resource_path)
 	if err != OK:
 		push_error("Failed to save theme resource: " + str(err))
+	
+	## Setting textures
+	color.a = 1
+	for texture_res: Resource in textures_colors[StyleBoxThemeOptions.ColorType.keys()[type]]:
+		var texture_instance: TextureRect = texture_res.instantiate()
+		texture_instance.modulate = color
+		var new_res = PackedScene.new()
+		new_res.pack(texture_instance)
+		texture_instance.queue_free()
+		err = ResourceSaver.save(new_res, texture_res.resource_path)
+	if err != OK:
+		push_error("Failed to save texture resource: " + str(err))
 
 # DANGER: Remember to add keywords to exclude if needed
 func get_main_theme_general_types()-> Array[FontColorType]:
