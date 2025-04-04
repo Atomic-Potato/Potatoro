@@ -23,7 +23,7 @@ edit_session_notification_path = NodePath("MarginContainer/ScrollContainer/Heade
 edit_break_notification_path = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/LineEdit")
 slider_session_notification_volume = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationVolume/HSlider")
 slider_break_notification_volume = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationVolume/HSlider")
-color_background = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/BG/ColorPickerButton")
+color_background = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/BGPrimary/ColorPickerButton")
 color_primary = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/Primary/ColorPickerButton")
 color_secondary = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/Secondary/ColorPickerButton")
 color_danger = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/Danger/ColorPickerButton")
@@ -331,16 +331,16 @@ theme_override_font_sizes/font_size = 32
 text = "theme"
 uppercase = true
 
-[node name="BG" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
+[node name="BGPrimary" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/BG"]
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/BGPrimary"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
 theme = ExtResource("2_678x1")
 text = "Background color"
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/BG"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/BGPrimary"]
 custom_minimum_size = Vector2(65, 32)
 layout_mode = 2
 theme = ExtResource("2_678x1")

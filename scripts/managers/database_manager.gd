@@ -19,7 +19,9 @@ func _ready():
 	
 	if not is_db_exists:
 		create_db(db)
-		
+	
+	restore_default_settings()
+	
 	if Global.CURRENT_ENV == Global.Env.Development:
 		#db.verbosity_level = SQLite.VERBOSE
 		empty_sessions_data()
@@ -60,30 +62,61 @@ func empty_sessions_data():
 	db.query(query)
 
 func restore_default_settings():
+	SettingsManager.DBSettings.SessionsCount
 	DatabaseManager.db.query('
-		delete from Settings;
-		
-		insert into Settings(ID, SettingsCategoryID, Key, Value) values
-		(1, 1, "Sessions Count", "8"),
-		(2, 1, "Session Length", "50"),
-		(3, 1, "Break Length", "5"),
-		
-		(4, 2, "is Use 12 Hour Format", "0"),
-		(5, 2, "Hide Session timer time change buttons", "0"),
-		(6, 2, "Hide Break timer time change buttons", "0"),
-		
-		(7, 3, "Path: Session end notification", ""),
-		(8, 3, "Path: Break end notification", ""),
-		(9, 3, "Volume: Session end notification", "1.0"),
-		(10, 3, "Volume: Break end notification", "1.0"),
-		
-		(11, 4, "Background Color", "000000"),
-		(12, 4, "Primary Color", "ffffff"),
-		(13, 4, "Danger Color", "ff0000"),
-		
-		(14, 5, "is use custom title bar", "0");
-	')
-# NOTE:
+		delete from Settings; ' + _get_settings_insert_query())
+
+func _get_settings_insert_query()-> String:
+		return '
+			insert into Settings(SettingsCategoryID, Value, ID, Key) values
+			(1, "8", '+str(SettingsManager.DBSettings.SessionsCount)+', 
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.SessionsCount) + '"),
+			(1, "50", '+str(SettingsManager.DBSettings.SessionLength)+', 
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.SessionLength) + '"),
+			(1, "5", '+str(SettingsManager.DBSettings.BreakLength)+', 
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.BreakLength) + '"),
+			
+			(2, "0", '+str(SettingsManager.DBSettings.IsUse12HourFormat)+', 
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.IsUse12HourFormat) + '"),
+			(2, "0", '+str(SettingsManager.DBSettings.HideSessionTimerTimeChangeButtons)+', 
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.HideSessionTimerTimeChangeButtons) + '"),
+			(2, "0", '+str(SettingsManager.DBSettings.HideBreakTimerTimeChangeButtons)+', 
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.HideBreakTimerTimeChangeButtons) + '"),
+			
+			(3, "", '+str(SettingsManager.DBSettings.PathSessionEndNotification)+', 
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.PathSessionEndNotification) + '"),
+			(3, "", '+str(SettingsManager.DBSettings.PathBreakEndNotification)+', 
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.PathBreakEndNotification) + '"),
+			(3, "1.0", '+str(SettingsManager.DBSettings.VolumeSessionEndNotification)+', 
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.VolumeSessionEndNotification) + '"),
+			(3, "1.0", '+str(SettingsManager.DBSettings.VolumeBreakEndNotification)+', 
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.VolumeBreakEndNotification) + '"),
+			
+			(4, "000000", '+str(SettingsManager.DBSettings.BackgroundPrimaryColor)+', 
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.BackgroundPrimaryColor) + '"),
+			
+			(4, "ffffff", '+str(SettingsManager.DBSettings.PrimaryColor)+', 
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.PrimaryColor) + '"),
+			(4, "000000", '+str(SettingsManager.DBSettings.SecondaryColor)+', 
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.SecondaryColor) + '"),
+			(4, "909090", '+str(SettingsManager.DBSettings.ThirdColor)+', 
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.ThirdColor) + '"),
+			
+			(4, "ff0000", '+str(SettingsManager.DBSettings.DangerPrimaryColor)+', 
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.DangerPrimaryColor) + '"),
+			(4, "000000", '+str(SettingsManager.DBSettings.DangerSecondaryColor)+', 
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.DangerSecondaryColor) + '"),
+			
+			(4, "0", '+str(SettingsManager.DBSettings.IsUseCustomTitleBar)+', 
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.IsUseCustomTitleBar) + '"),
+			(4, "ffffff", '+str(SettingsManager.DBSettings.TitleBarPrimaryColor)+', 
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.TitleBarPrimaryColor) + '"),
+			(4, "000000", '+str(SettingsManager.DBSettings.TitleBarSecondaryColor)+', 
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.TitleBarSecondaryColor) + '");
+		'
+
+
+# INFO:
 #	- I created buffers to save on memory and query times
 #	- In the presets buffer,the break end datetime is filled with remaining seconds
 #		when the break is paused, i did this because i didnt plan well and im lazy
@@ -121,30 +154,136 @@ func create_db(open_db: SQLite):
 			PRIMARY KEY("ID")
 		);
 		
-		insert into Settings(ID, SettingsCategoryID, Key, Value) values
-		(1, 1, "Sessions Count", "8"),
-		(2, 1, "Session Length", "50"),
-		(3, 1, "Break Length", "5"),
+		'+ _get_settings_insert_query() +'
 		
-		(4, 2, "is Use 12 Hour Format", "0"),
-		(5, 2, "Hide Session timer time change buttons", "0"),
-		(6, 2, "Hide Break timer time change buttons", "0"),
+		CREATE TABLE "Tags" (
+			"ID"	INTEGER NOT NULL UNIQUE,
+			"Name"	TEXT NOT NULL UNIQUE,
+			"ColorCode"	TEXT,
+			PRIMARY KEY("ID" AUTOINCREMENT)
+		);
 		
-		(7, 3, "Path: Session end notification", ""),
-		(8, 3, "Path: Break end notification", ""),
-		(9, 3, "Volume: Session end notification", "1.0"),
-		(10, 3, "Volume: Break end notification", "1.0"),
+		CREATE TABLE "Sessions" (
+			"ID"	INTEGER NOT NULL UNIQUE,
+			"TagID"	INTEGER,
+			"StartDateTime"	TEXT,
+			"EndDateTime"	TEXT,
+			FOREIGN KEY("TagID") REFERENCES "Tags"("ID"),
+			PRIMARY KEY("ID" AUTOINCREMENT)
+		);
+		CREATE TABLE "Sessions_Buffer" (
+			"ID"	INTEGER NOT NULL UNIQUE,
+			"SessionID" INTEGERE NOT NULL UNIQUE,
+			"TagID"	INTEGER,
+			"StartDateTime"	TEXT NOT NULL,
+			"EndDateTime"	TEXT,
+			FOREIGN KEY("SessionID") REFERENCES "Sessions"("ID"),
+			FOREIGN KEY("TagID") REFERENCES "Tags"("ID"),
+			PRIMARY KEY("ID" AUTOINCREMENT)
+		); 
 		
-		(11, 4, "Background Color", "000000"),
-		(12, 4, "Primary Color", "ffffff"),
-		(13, 4, "Danger Color", "ff0000"),
+		CREATE TABLE "SessionPauses" (
+			"ID"	INTEGER NOT NULL UNIQUE,
+			"SessionID"	INTEGER NOT NULL,
+			"StartDateTime"	TEXT,
+			"EndDateTime"	TEXT,
+			FOREIGN KEY("SessionID") REFERENCES "Sessions"("ID"),
+			PRIMARY KEY("ID" AUTOINCREMENT)
+		);
+		CREATE TABLE "SessionPauses_Buffer" (
+			"ID"	INTEGER NOT NULL UNIQUE,
+			"SessionID"	INTEGER NOT NULL,
+			"StartDateTime"	INTEGER NOT NULL,
+			"EndDateTime"	INTEGER,
+			FOREIGN KEY("SessionID") REFERENCES "Sessions"("ID"),
+			PRIMARY KEY("ID" AUTOINCREMENT)
+		);
+		CREATE TABLE "Breaks_Buffer" (
+			"ID"	INTEGER NOT NULL UNIQUE,
+			"Length"	INTEGER NOT NULL,
+			"EndDateTime"	INTEGER NOT NULL,
+			"AddedLength"	INTEGER,
+			PRIMARY KEY("ID" AUTOINCREMENT)
+		);
 		
-		(14, 5, "is use custom title bar", "0"),
+		CREATE TABLE "TimerTypes" (
+			"ID"	INTEGER NOT NULL UNIQUE,
+			"Name"	TEXT NOT NULL UNIQUE,
+			PRIMARY KEY("ID")
+		);
 		
-		(15, 4, "Secondary Color", "000000"),
+		insert into TimerTypes(ID, Name) values
+			(1, "Session"), 
+			(2, "Break");
 		
-		(16, 4, "Title Bar Primary Color", "ffffff"),
-		(17, 4, "Title Bar Secondary Color", "000000");
+		CREATE TABLE "Presets" (
+			"ID"	INTEGER NOT NULL UNIQUE,
+			"DefaultTagID"	INTEGER,
+			"Name"	TEXT NOT NULL UNIQUE,
+			"SessionsCount"	INTEGER NOT NULL,
+			"SessionLength"	INTEGER,
+			"BreakLength"	INTEGER,
+			"isAutoStartBreak"	INTEGER NOT NULL DEFAULT 0,
+			"isAutoStartSession"	INTEGER NOT NULL DEFAULT 0,
+			PRIMARY KEY("ID" AUTOINCREMENT)
+		);
+		CREATE TABLE "Presets_Buffer" (
+			"ID"	INTEGER NOT NULL UNIQUE,
+			"PresetID"	INTEGER NOT NULL UNIQUE,
+			"DefaultTagID"	INTEGER,
+			"CurrentSessionID"	INTEGER,
+			"CurrentBreakID" INTEGER,
+			"NextTimerTypeID" INTEGER,
+			"Name"	TEXT NOT NULL,
+			"SessionsCount"	INTEGER NOT NULL,
+			"SessionsDone"	INTEGER NOT NULL,
+			"SessionLength"	INTEGER NOT NULL,
+			"AddedSessionLength" INTEGER NOT NULL,
+			"BreakLength"	INTEGER NOT NULL,
+			"isAutoStartBreak"	INTEGER NOT NULL,
+			"isAutoStartSession"	INTEGER NOT NULL,
+			FOREIGN KEY("PresetID") REFERENCES "Presets"("ID"),
+			FOREIGN KEY("CurrentSessionID") REFERENCES "Sessions"("ID"),
+			FOREIGN KEY("CurrentBreakID") REFERENCES "Breaks_Buffer"("ID"),
+			FOREIGN KEY("DefaultTagID") REFERENCES "Tags"("ID"),
+			FOREIGN KEY("NextTimerTypeID") REFERENCES "TimerTypes"("ID"),
+			PRIMARY KEY("ID" AUTOINCREMENT)
+		);
+	')
+	print('
+		CREATE TABLE "Information" (
+			"ID"	INTEGER NOT NULL UNIQUE,
+			"Key"	TEXT NOT NULL UNIQUE,
+			"Value"	TEXT,
+			PRIMARY KEY("ID")
+		);
+		
+		insert into Information(ID, Key, Value) values
+		(1, "AppVersion", "' + Global.APP_VERSION + '");
+		
+		CREATE TABLE "SettingsCategories" (
+			"ID"	INTEGER NOT NULL UNIQUE,
+			"Name"	TEXT NOT NULL,
+			PRIMARY KEY("ID")
+		);
+		
+		insert into SettingsCategories(ID, Name) values
+		(1, "Default Values"),
+		(2, "Timer Settings"),
+		(3, "Sound Settings"),
+		(4, "Theme"),
+		(5, "Other");
+		
+		CREATE TABLE "Settings" (
+			"ID"	INTEGER NOT NULL UNIQUE,
+			"SettingsCategoryID"	INTEGER NOT NULL,
+			"Key"	TEXT NOT NULL UNIQUE,
+			"Value"	TEXT,
+			FOREIGN KEY("SettingsCategoryID") REFERENCES "SettingsCategories"("ID"),
+			PRIMARY KEY("ID")
+		);
+		
+		'+ _get_settings_insert_query() +'
 		
 		CREATE TABLE "Tags" (
 			"ID"	INTEGER NOT NULL UNIQUE,

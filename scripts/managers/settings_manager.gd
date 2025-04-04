@@ -4,98 +4,144 @@ extends Node
 @export var theme_title_bar: Theme
 @export var theme_main: Theme
 
+# DANGER: Remember to update and restore default database settings if this was modified
+enum DBSettings ## Names and IDs
+{
+	## DEFAULT VALUES
+	SessionsCount, SessionLength, BreakLength,
+	
+	## TIMER SETTINGS
+	IsUse12HourFormat, 
+	HideSessionTimerTimeChangeButtons, HideBreakTimerTimeChangeButtons,
+	
+	## SOUND SETTINGS
+	PathSessionEndNotification, PathBreakEndNotification,
+	VolumeSessionEndNotification, VolumeBreakEndNotification,
+	
+	## THEME
+	# background
+	BackgroundPrimaryColor,
+	# main
+	PrimaryColor, SecondaryColor, ThirdColor,
+	# danger
+	DangerPrimaryColor, DangerSecondaryColor,
+	# titlebar
+	IsUseCustomTitleBar,
+	TitleBarPrimaryColor, TitleBarSecondaryColor,
+}
+
+static func get_DBSettings_name(key: DBSettings)-> String:
+	return DBSettings.find_key(key)
+
 # SETTINGS
 var info_app_version: String:
 	get: return _get_info(1)
 
 var default_sessions_count: int:
-	get: return int(_get_value(1))
-	set(value): _set_value(1, value)
+	get: return int(_get_value(DBSettings.SessionsCount))
+	set(value): _set_value(DBSettings.SessionsCount, value)
 
 var default_session_length: int:
-	get: return int(_get_value(2))
-	set(value): _set_value(2, value)
+	get: return int(_get_value(DBSettings.SessionLength))
+	set(value): _set_value(DBSettings.SessionLength, value)
 
 var default_break_length: int:
-	get: return int(_get_value(3))
-	set(value): _set_value(3, value)
+	get: return int(_get_value(DBSettings.BreakLength))
+	set(value): _set_value(DBSettings.BreakLength, value)
 
 var is_use_12_hour_format: bool:
-	get: return bool(int(_get_value(4)))
-	set(value): _set_value(4, int(value))
+	get: return bool(int(_get_value(DBSettings.IsUse12HourFormat)))
+	set(value): _set_value(DBSettings.IsUse12HourFormat, int(value))
 
 var is_hide_session_timer_controls: bool:
-	get: return bool(int(_get_value(5)))
-	set(value): _set_value(5, int(value))
+	get: return bool(int(_get_value(DBSettings.HideSessionTimerTimeChangeButtons)))
+	set(value): _set_value(DBSettings.HideSessionTimerTimeChangeButtons, int(value))
 
 var is_hide_break_timer_controls: bool:
-	get: return bool(int(_get_value(6)))
-	set(value): _set_value(6, int(value))
+	get: return bool(int(_get_value(DBSettings.HideBreakTimerTimeChangeButtons)))
+	set(value): _set_value(DBSettings.HideBreakTimerTimeChangeButtons, int(value))
 
 var path_session_end_notification_timer: String:
-	get: return _get_value(7)
-	set(value): _set_value(7, value, true)
+	get: return _get_value(DBSettings.PathSessionEndNotification)
+	set(value): _set_value(DBSettings.PathSessionEndNotification, value, true)
 
 var path_break_end_notification_timer: String:
-	get: return _get_value(8)
-	set(value): _set_value(8, value, true)
+	get: return _get_value(DBSettings.PathBreakEndNotification)
+	set(value): _set_value(DBSettings.PathBreakEndNotification, value, true)
 
 var volume_session_end_notification: float:
-	get: return float(_get_value(9))
-	set(value): _set_value(9, value)
+	get: return float(_get_value(DBSettings.VolumeSessionEndNotification))
+	set(value): _set_value(DBSettings.VolumeSessionEndNotification, value)
 
 var volume_break_end_notification: float:
-	get: return float(_get_value(10))
-	set(value): _set_value(10, value)
+	get: return float(_get_value(DBSettings.VolumeBreakEndNotification))
+	set(value): _set_value(DBSettings.VolumeBreakEndNotification, value)
 
 # THEME SETTINGS
-signal color_background_changed
-var color_background: String:
-	get: return _get_value(11)
+## BACKGROUND
+signal color_background_primary_changed
+var color_background_primary: String:
+	get: return _get_value(DBSettings.BackgroundPrimaryColor)
 	set(value): 
-		_set_value(11, value, true)
-		color_background_changed.emit()
+		_set_value(DBSettings.BackgroundPrimaryColor, value, true)
+		color_background_primary_changed.emit()
 
+## MAIN
 signal color_primary_changed
 var color_primary: String:
-	get: return _get_value(12)
+	get: return _get_value(DBSettings.PrimaryColor)
 	set(value): 
-		_set_value(12, value, true)
+		_set_value(DBSettings.PrimaryColor, value, true)
 		color_primary_changed.emit()
 
 signal color_secondary_changed
 var color_secondary: String:
-	get: return _get_value(15)
+	get: return _get_value(DBSettings.SecondaryColor)
 	set(value): 
-		_set_value(15, value, true)
+		_set_value(DBSettings.SecondaryColor, value, true)
 		color_secondary_changed.emit()
 
-signal color_danger_changed
-var color_danger: String:
-	get: return _get_value(13)
+signal color_third_changed
+var color_third: String:
+	get: return _get_value(DBSettings.ThirdColor)
 	set(value): 
-		_set_value(13, value, true)
-		color_danger_changed.emit()
+		_set_value(DBSettings.ThirdColor, value, true)
+		color_third_changed.emit()
 
+signal color_danger_primary_changed
+var color_danger_primary: String:
+	get: return _get_value(DBSettings.DangerPrimaryColor)
+	set(value): 
+		_set_value(DBSettings.DangerPrimaryColor, value, true)
+		color_danger_primary_changed.emit()
+
+signal color_danger_secondary_changed
+var color_danger_secondary: String:
+	get: return _get_value(DBSettings.DangerSecondaryColor)
+	set(value): 
+		_set_value(DBSettings.DangerSecondaryColor, value, true)
+		color_danger_secondary_changed.emit()
+
+## TITLE BAR
 signal is_use_custom_title_bar_changed
 var is_use_custom_title_bar: bool:
-	get: return bool(int(_get_value(14)))
+	get: return bool(int(_get_value(DBSettings.IsUseCustomTitleBar)))
 	set(value): 
-		_set_value(14, int(value))
+		_set_value(DBSettings.IsUseCustomTitleBar, int(value))
 		is_use_custom_title_bar_changed.emit()
 
 signal color_title_bar_primary_changed
 var color_title_bar_primary: String:
-	get: return _get_value(16)
+	get: return _get_value(DBSettings.TitleBarPrimaryColor)
 	set(value): 
-		_set_value(16, value, true)
+		_set_value(DBSettings.TitleBarPrimaryColor, value, true)
 		color_title_bar_primary_changed.emit()
 
 signal color_title_bar_secondary_changed
 var color_title_bar_secondary: String:
-	get: return _get_value(17)
+	get: return _get_value(DBSettings.TitleBarSecondaryColor)
 	set(value): 
-		_set_value(17, value, true)
+		_set_value(DBSettings.TitleBarSecondaryColor, value, true)
 		color_title_bar_secondary_changed.emit()
 
 func _get_value(id: int):

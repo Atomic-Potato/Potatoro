@@ -80,9 +80,9 @@ func _ready():
 		func(value): SettingsManager.volume_break_end_notification = value)
 	
 	# INFO: Theme
-	color_background.color = Color.from_string(SettingsManager.color_background, Color.MAGENTA)
+	color_background.color = Color.from_string(SettingsManager.color_background_primary, Color.MAGENTA)
 	color_background.color_changed.connect(
-		func(value: Color): SettingsManager.color_background = value.to_html(false))
+		func(value: Color): SettingsManager.color_background_primary = value.to_html(false))
 	
 	color_primary.color = Color.from_string(SettingsManager.color_primary, Color.MAGENTA)
 	color_primary.color_changed.connect(
@@ -92,9 +92,9 @@ func _ready():
 	color_secondary.color_changed.connect(
 		func(value: Color): SettingsManager.color_secondary = value.to_html(false))
 	
-	color_danger.color = Color.from_string(SettingsManager.color_danger, Color.MAGENTA)
+	color_danger.color = Color.from_string(SettingsManager.color_danger_primary, Color.MAGENTA)
 	color_danger.color_changed.connect(
-		func(value: Color): SettingsManager.color_danger = value.to_html(false))
+		func(value: Color): SettingsManager.color_danger_primary = value.to_html(false))
 	
 	check_custom_title_bar.set_pressed_no_signal(SettingsManager.is_use_custom_title_bar)
 	check_custom_title_bar.toggled.connect(
