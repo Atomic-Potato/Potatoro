@@ -1,9 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bji2q8cjmdlpg"]
+[gd_scene load_steps=2 format=3]
 
-[ext_resource type="Texture2D" uid="uid://bk74yu10yvvo5" path="res://visual/assets/vector/circular_plus.svg" id="1_7bein"]
+[ext_resource type="Texture2D" path="res://visual/assets/vector/circular_plus.svg" id="1_7bein"]
 
 [node name="CircularPlus" type="TextureRect"]
-modulate = Color(1, 0.321569, 0.784314, 1)
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2

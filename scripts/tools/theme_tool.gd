@@ -19,6 +19,7 @@ var color_primary_cache: Color = Color.WHITE
 	get: return color_primary_cache
 	set(value):
 		color_primary_cache = value
+		print("changing primary")
 		set_color(value, StyleBoxThemeOptions.ColorType.primary, main_options_parent_node, 
 			theme_main, get_main_theme_general_types(), textures_colors)
 
@@ -75,13 +76,49 @@ var danger_secondary_cache: Color = Color.BLACK
 	"tenth": []
 }
 
+var is_ready_cache: bool
+
+func _ready():
+	if Engine.is_editor_hint():
+		return
+	set_colors_from_settings()
+	SettingsManager.color_background_primary_changed.connect(
+		func(): color_background_primary = SettingsManager.color_background_primary
+	)
+	
+	SettingsManager.color_primary_changed.connect(
+		func(): color_primary = SettingsManager.color_primary
+	)
+	SettingsManager.color_secondary_changed.connect(
+		func(): color_secondary = SettingsManager.color_secondary
+	)
+	SettingsManager.color_third_changed.connect(
+		func(): color_third = SettingsManager.color_third
+	)
+	
+	SettingsManager.color_danger_primary_changed.connect(
+		func(): color_danger_primary = SettingsManager.color_danger_primary
+	)
+	SettingsManager.color_danger_secondary_changed.connect(
+		func(): color_danger_secondary = SettingsManager.color_danger_secondary
+	)
+
+func set_colors_from_settings():
+	color_background_primary = SettingsManager.color_background_primary
+	
+	color_primary = SettingsManager.color_primary
+	color_secondary = SettingsManager.color_secondary
+	color_third = SettingsManager.color_third
+	
+	color_danger_primary = SettingsManager.color_danger_primary
+	color_danger_secondary = SettingsManager.color_danger_secondary
 
 func set_color(
 	color: Color, type: StyleBoxThemeOptions.ColorType, options_parent_node: Node, 
 	theme: Theme = null, font_color_types: Array[FontColorType] = [], textures_dic: Dictionary = {}):
-	
-	if not Engine.is_editor_hint():
-		await ready
+	if not Engine.is_editor_hint() and not is_ready_cache:
+		await self.ready
+		is_ready_cache = true
 	
 	if not options_parent_node:
 		return
@@ -103,6 +140,7 @@ func set_color(
 		push_error("Failed to save theme resource: " + str(err))
 	
 	## Setting textures
+	# TODO: If i ever figure it out, somehow update the changes of textures at runtime
 	if not textures_dic.is_empty():
 		color.a = 1
 		for texture_res: Resource in textures_dic[StyleBoxThemeOptions.ColorType.keys()[type]]:
@@ -112,8 +150,17 @@ func set_color(
 			new_res.pack(texture_instance)
 			texture_instance.queue_free()
 			err = ResourceSaver.save(new_res, texture_res.resource_path)
-		if err != OK:
-			push_error("Failed to save texture resource: " + str(err))
+			if err != OK:
+				push_error("Failed to save texture resource: " + str(err))
+
+
+# NOTE: this is absolutely fucking stupid, but idgaf
+func _get_all_textures(node: Node, nodes: Array[TextureRect] = [])-> Array[TextureRect]:
+	if node is TextureRect:
+		nodes.append(node)
+	for child in node.get_children():
+		_get_all_textures(child, nodes)
+	return nodes
 
 # DANGER: Remember to add keywords to exclude if needed
 func get_main_theme_general_types()-> Array[FontColorType]:
