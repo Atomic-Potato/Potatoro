@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/pages/settings/page_settings.gd" id="1_22btq"]
 [ext_resource type="Theme" uid="uid://bmgw3uu0ry2ht" path="res://visual/themes/main_theme.tres" id="2_678x1"]
 
-[node name="Settings" type="Control" node_paths=PackedStringArray("label_app_version", "label_database_path", "edit_sessions_count", "edit_session_length", "edit_break_length", "check_hour_format", "check_hide_session_controls", "check_hide_break_controls", "edit_session_notification_path", "edit_break_notification_path", "slider_session_notification_volume", "slider_break_notification_volume", "color_background", "color_primary", "color_secondary", "color_danger", "check_custom_title_bar", "color_title_bar_primary", "color_title_bar_secondary")]
+[node name="Settings" type="Control" node_paths=PackedStringArray("label_app_version", "label_database_path", "edit_sessions_count", "edit_session_length", "edit_break_length", "check_hour_format", "check_hide_session_controls", "check_hide_break_controls", "edit_session_notification_path", "edit_break_notification_path", "slider_session_notification_volume", "slider_break_notification_volume", "color_background", "color_primary", "color_secondary", "color_third", "color_danger_primary", "color_danger_secondary", "check_custom_title_bar", "color_title_bar_primary", "color_title_bar_secondary")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,9 +26,11 @@ slider_break_notification_volume = NodePath("MarginContainer/ScrollContainer/Hea
 color_background = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/BGPrimary/ColorPickerButton")
 color_primary = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/Primary/ColorPickerButton")
 color_secondary = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/Secondary/ColorPickerButton")
-color_danger = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/Danger/ColorPickerButton")
+color_third = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/Third/ColorPickerButton")
+color_danger_primary = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/DangerPrimary/ColorPickerButton")
+color_danger_secondary = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/DangerSecondary/ColorPickerButton")
 check_custom_title_bar = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/CustomTitleBar/CheckBox")
-color_title_bar_primary = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/TilePrimary/ColorPickerButton")
+color_title_bar_primary = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/TitlePrimary/ColorPickerButton")
 color_title_bar_secondary = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/TitleSecondary/ColorPickerButton")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -45,7 +47,7 @@ theme_override_constants/margin_bottom = 22
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
-scroll_vertical = 100
+scroll_vertical = 592
 
 [node name="HeadersContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
 custom_minimum_size = Vector2(300, 10.435)
@@ -377,19 +379,51 @@ layout_mode = 2
 theme = ExtResource("2_678x1")
 edit_alpha = false
 
-[node name="Danger" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
+[node name="Third" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/Danger"]
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/Third"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
-text = "Danger color"
+theme = ExtResource("2_678x1")
+text = "Third color"
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/Danger"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/Third"]
+custom_minimum_size = Vector2(65, 32)
+layout_mode = 2
+theme = ExtResource("2_678x1")
+color = Color(0.564706, 0.564706, 0.564706, 1)
+edit_alpha = false
+
+[node name="DangerPrimary" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/DangerPrimary"]
+custom_minimum_size = Vector2(325, 0)
+layout_mode = 2
+theme = ExtResource("2_678x1")
+text = "Danger primary color"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/DangerPrimary"]
 custom_minimum_size = Vector2(65, 32)
 layout_mode = 2
 theme = ExtResource("2_678x1")
 color = Color(1, 0, 0, 1)
+edit_alpha = false
+
+[node name="DangerSecondary" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/DangerSecondary"]
+custom_minimum_size = Vector2(325, 0)
+layout_mode = 2
+theme = ExtResource("2_678x1")
+text = "Danger Seconadry color"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/DangerSecondary"]
+custom_minimum_size = Vector2(65, 32)
+layout_mode = 2
+theme = ExtResource("2_678x1")
 edit_alpha = false
 
 [node name="CustomTitleBar" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
@@ -405,16 +439,16 @@ text = "Use custom title bar (experimental)"
 layout_mode = 2
 theme = ExtResource("2_678x1")
 
-[node name="TilePrimary" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
+[node name="TitlePrimary" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/TilePrimary"]
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/TitlePrimary"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
 theme = ExtResource("2_678x1")
 text = "Title bar primary color"
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/TilePrimary"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/TitlePrimary"]
 custom_minimum_size = Vector2(65, 32)
 layout_mode = 2
 theme = ExtResource("2_678x1")

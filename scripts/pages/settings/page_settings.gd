@@ -21,10 +21,16 @@ extends Page
 @export var slider_break_notification_volume: HSlider
 
 @export_category("Theme")
+## Background
 @export var color_background: ColorPickerButton
+## Main
 @export var color_primary: ColorPickerButton
 @export var color_secondary: ColorPickerButton
-@export var color_danger: ColorPickerButton
+@export var color_third: ColorPickerButton
+## Danger
+@export var color_danger_primary: ColorPickerButton
+@export var color_danger_secondary: ColorPickerButton
+## Titlebar
 @export var check_custom_title_bar: CheckBox
 @export var color_title_bar_primary: ColorPickerButton
 @export var color_title_bar_secondary: ColorPickerButton
@@ -92,9 +98,17 @@ func _ready():
 	color_secondary.color_changed.connect(
 		func(value: Color): SettingsManager.color_secondary = value.to_html(false))
 	
-	color_danger.color = Color.from_string(SettingsManager.color_danger_primary, Color.MAGENTA)
-	color_danger.color_changed.connect(
+	color_third.color = Color.from_string(SettingsManager.color_third, Color.MAGENTA)
+	color_third.color_changed.connect(
+		func(value: Color): SettingsManager.color_third = value.to_html(false))
+	
+	color_danger_primary.color = Color.from_string(SettingsManager.color_danger_primary, Color.MAGENTA)
+	color_danger_primary.color_changed.connect(
 		func(value: Color): SettingsManager.color_danger_primary = value.to_html(false))
+	
+	color_danger_secondary.color = Color.from_string(SettingsManager.color_danger_secondary, Color.MAGENTA)
+	color_danger_secondary.color_changed.connect(
+		func(value: Color): SettingsManager.color_danger_secondary = value.to_html(false))
 	
 	check_custom_title_bar.set_pressed_no_signal(SettingsManager.is_use_custom_title_bar)
 	check_custom_title_bar.toggled.connect(
