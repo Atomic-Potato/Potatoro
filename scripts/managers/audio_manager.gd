@@ -16,7 +16,6 @@ var notification_player: AudioStreamPlayer
 func _ready():
 	notification_player = AudioStreamPlayer.new()
 	add_child(notification_player)
-	print(ProjectSettings.globalize_path("user://"))
 	
 func play_notification(sound: Notification):
 	stop_notification()

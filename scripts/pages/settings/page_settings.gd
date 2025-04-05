@@ -19,6 +19,7 @@ extends Page
 @export var edit_break_notification_path: LineEdit
 @export var slider_session_notification_volume: HSlider
 @export var slider_break_notification_volume: HSlider
+@export var labels_user_path: Array[Label]
 
 @export_category("Theme")
 ## Background
@@ -84,6 +85,9 @@ func _ready():
 	slider_break_notification_volume.value = SettingsManager.volume_break_end_notification
 	slider_break_notification_volume.value_changed.connect(
 		func(value): SettingsManager.volume_break_end_notification = value)
+	
+	for label: Label in labels_user_path:
+		label.text = ProjectSettings.globalize_path("user://")
 	
 	# INFO: Theme
 	color_background.color = Color.from_string(SettingsManager.color_background_primary, Color.MAGENTA)

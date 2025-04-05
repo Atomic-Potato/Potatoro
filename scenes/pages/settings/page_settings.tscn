@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/pages/settings/page_settings.gd" id="1_22btq"]
 [ext_resource type="Theme" uid="uid://ou1o42u4kjou" path="res://visual/themes/main_theme.tres" id="2_678x1"]
 
-[node name="Settings" type="Control" node_paths=PackedStringArray("label_app_version", "label_database_path", "edit_sessions_count", "edit_session_length", "edit_break_length", "check_hour_format", "check_hide_session_controls", "check_hide_break_controls", "edit_session_notification_path", "edit_break_notification_path", "slider_session_notification_volume", "slider_break_notification_volume", "color_background", "color_primary", "color_secondary", "color_third", "color_danger_primary", "color_danger_secondary", "check_custom_title_bar", "color_title_bar_primary", "color_title_bar_secondary")]
+[node name="Settings" type="Control" node_paths=PackedStringArray("label_app_version", "label_database_path", "edit_sessions_count", "edit_session_length", "edit_break_length", "check_hour_format", "check_hide_session_controls", "check_hide_break_controls", "edit_session_notification_path", "edit_break_notification_path", "slider_session_notification_volume", "slider_break_notification_volume", "labels_user_path", "color_background", "color_primary", "color_secondary", "color_third", "color_danger_primary", "color_danger_secondary", "check_custom_title_bar", "color_title_bar_primary", "color_title_bar_secondary")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,10 +19,11 @@ edit_break_length = NodePath("MarginContainer/ScrollContainer/HeadersContainer/D
 check_hour_format = NodePath("MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HourFormat/CheckBox")
 check_hide_session_controls = NodePath("MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HideSessionControls/CheckBox")
 check_hide_break_controls = NodePath("MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HideBreakControls/CheckBox")
-edit_session_notification_path = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/LineEdit")
-edit_break_notification_path = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/LineEdit")
+edit_session_notification_path = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer/LineEdit")
+edit_break_notification_path = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer/LineEdit")
 slider_session_notification_volume = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationVolume/HSlider")
 slider_break_notification_volume = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationVolume/HSlider")
+labels_user_path = [NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer/break"), NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer/session")]
 color_background = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/BGPrimary/ColorPickerButton")
 color_primary = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/Primary/ColorPickerButton")
 color_secondary = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/Secondary/ColorPickerButton")
@@ -47,6 +48,7 @@ theme_override_constants/margin_bottom = 22
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
+scroll_vertical = 702
 
 [node name="HeadersContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
 custom_minimum_size = Vector2(300, 10.435)
@@ -232,7 +234,6 @@ theme_type_variation = &"SeparatingBarThird"
 
 [node name="SoundSettings" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings"]
 layout_mode = 2
@@ -240,26 +241,31 @@ theme_override_font_sizes/font_size = 32
 text = "SOUND SETTINGS"
 uppercase = true
 
+[node name="Note" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings"]
+layout_mode = 2
+theme = ExtResource("2_678x1")
+theme_override_font_sizes/font_size = 12
+text = "*Supported file formats: .MP3 .WAV .OGG"
+
 [node name="SessionNotificationPath" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+theme_override_font_sizes/font_size = 20
 text = "Session end notification sound file path"
 
-[node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath"]
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/LineEdit"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+[node name="session" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer"]
+layout_mode = 2
+text = "user://"
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="BreakNotificationPath" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings"]
 layout_mode = 2
@@ -267,20 +273,19 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+theme_override_font_sizes/font_size = 20
 text = "Break end notification sound file path"
 
-[node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath"]
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/LineEdit"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+[node name="break" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer"]
+layout_mode = 2
+text = "user://"
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="SessionNotificationVolume" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings"]
 layout_mode = 2
