@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dr5n8ajt1keec"]
 
 [ext_resource type="Script" path="res://scripts/pages/settings/page_settings.gd" id="1_22btq"]
-[ext_resource type="Theme" path="res://visual/themes/main_theme.tres" id="2_678x1"]
+[ext_resource type="Theme" uid="uid://ou1o42u4kjou" path="res://visual/themes/main_theme.tres" id="2_678x1"]
 
 [node name="Settings" type="Control" node_paths=PackedStringArray("label_app_version", "label_database_path", "edit_sessions_count", "edit_session_length", "edit_break_length", "check_hour_format", "check_hide_session_controls", "check_hide_break_controls", "edit_session_notification_path", "edit_break_notification_path", "slider_session_notification_volume", "slider_break_notification_volume", "color_background", "color_primary", "color_secondary", "color_third", "color_danger_primary", "color_danger_secondary", "check_custom_title_bar", "color_title_bar_primary", "color_title_bar_secondary")]
 layout_mode = 3
@@ -225,14 +225,12 @@ layout_mode = 2
 theme = ExtResource("2_678x1")
 
 [node name="separatingline3" type="PanelContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
-visible = false
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
 theme = ExtResource("2_678x1")
 theme_type_variation = &"SeparatingBarThird"
 
 [node name="SoundSettings" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 
