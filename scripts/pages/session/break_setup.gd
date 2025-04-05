@@ -10,6 +10,9 @@ extends Page
 var update_preset: Callable = func(): parent.preset = PresetsManager.get_preset(parent.preset.ID)
 
 func enter():
+	if AudioManager.is_playing_notification():
+		AudioManager.stop_notification()
+	
 	update_preset.call()
 	_update_titles_text()
 	button_auto_session.button_pressed = parent.preset.is_auto_start_session

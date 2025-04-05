@@ -24,7 +24,8 @@ SessionsManager="*res://scripts/managers/sessions_manager.gd"
 BreaksManager="*res://scripts/managers/breaks_manager.gd"
 TimersTrackingManager="*res://scripts/managers/timers_tracking_manager.gd"
 SettingsManager="*res://scenes/managers/settings_manager.tscn"
-ThemeTool="res://scenes/tools/theme_tool.tscn"
+ThemeTool="*res://scenes/tools/theme_tool.tscn"
+AudioManager="*res://scenes/managers/audio_manager.tscn"
 
 [display]
 
@@ -39,6 +40,7 @@ enabled=PackedStringArray("res://addons/godot-sqlite/plugin.cfg")
 [file_customization]
 
 folder_colors={
+"res://audio/": "purple",
 "res://scenes/": "blue",
 "res://scripts/": "red",
 "res://scripts/classes/": "red",

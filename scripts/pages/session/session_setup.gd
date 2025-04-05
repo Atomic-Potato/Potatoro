@@ -8,6 +8,9 @@ extends Page
 @export var button_auto_break: CheckButton
 
 func enter():
+	if AudioManager.is_playing_notification():
+		AudioManager.stop_notification()
+	
 	parent.preset = PresetsManager.get_preset(parent.preset.ID)
 	edit_session_length.placeholder_text = str(parent.preset.session_length) + 'm'
 	edit_session_length.text = ""

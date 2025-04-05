@@ -48,7 +48,9 @@ func _ready():
 func _process(_delta):
 	current_page.update()
 
-
+func _stop_notification():
+	if AudioManager.is_playing_notification():
+		AudioManager.stop_notification()
 
 func load_preset_page_presets():
 	Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_presets)

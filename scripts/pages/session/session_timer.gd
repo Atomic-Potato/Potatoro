@@ -18,6 +18,9 @@ var update_session: Callable = func(): parent.session = SessionsManager.get_load
 var session_time_left_cache: int
 
 func enter():
+	if AudioManager.is_playing_notification():
+		AudioManager.stop_notification()
+	
 	var is_new_session: bool
 	
 	update_preset.call()

@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_session.gd" id="3_p5ysi"]
 [ext_resource type="LabelSettings" uid="uid://dis7d5hvikqed" path="res://visual/labels/subtitle.tres" id="5_jy7e5"]
 [ext_resource type="Script" path="res://scripts/pages/session/session_timer.gd" id="6_j5uv2"]
-[ext_resource type="Theme" uid="uid://bmgw3uu0ry2ht" path="res://visual/themes/main_theme.tres" id="8_85gr6"]
+[ext_resource type="Theme" uid="uid://ou1o42u4kjou" path="res://visual/themes/main_theme.tres" id="8_85gr6"]
 [ext_resource type="Script" path="res://scripts/pages/session/session_finish.gd" id="8_xg4q4"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_setup.gd" id="9_esxm0"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_timer.gd" id="10_l1xkr"]
@@ -406,7 +406,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DEBUGGING" type="Control" parent="Content/SessionTimer"]
-visible = false
 layout_mode = 1
 anchors_preset = 0
 
@@ -851,7 +850,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DEBUGGING" type="Control" parent="Content/BreakTimer"]
-visible = false
 layout_mode = 1
 anchors_preset = 0
 
@@ -1005,3 +1003,4 @@ text = "< PRESETS"
 [connection signal="pressed" from="Content/BreakFinish/VBoxContainer2/ContinueBreak" to="Content/BreakFinish" method="_continue_to_session"]
 [connection signal="pressed" from="Content/BreakFinish/VBoxContainer2/Restart" to="Content/BreakFinish" method="_restart_break"]
 [connection signal="pressed" from="Presets" to="." method="load_preset_page_presets"]
+[connection signal="pressed" from="Presets" to="." method="_stop_notification"]

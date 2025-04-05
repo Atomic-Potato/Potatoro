@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://duncq54ym62be"]
+
+[ext_resource type="Script" path="res://scripts/managers/audio_manager.gd" id="1_naf21"]
+[ext_resource type="AudioStream" uid="uid://bx651mwm7b4dd" path="res://audio/notifications/session_end_notification.wav" id="2_oeegc"]
+[ext_resource type="AudioStream" uid="uid://cm6jmymprh34o" path="res://audio/notifications/break_end_notification.wav" id="3_la123"]
+
+[node name="AuidoManager" type="Node"]
+script = ExtResource("1_naf21")
+default_session_notification = ExtResource("2_oeegc")
+default_break_notification = ExtResource("3_la123")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_oeegc")
