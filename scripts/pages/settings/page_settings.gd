@@ -36,92 +36,93 @@ extends Page
 @export var color_title_bar_primary: ColorPickerButton
 @export var color_title_bar_secondary: ColorPickerButton
 
-#@export_category("Other") # in case i do need it later
+#@export_category("Other") # in case i do need it later # its one line, idk why i even kept it
 
 func _ready():
+	_update_fileds()
+	_connect_fileds()
+	
+func _update_fileds():
 	# INFO: Infromation
 	label_app_version.text = Global.APP_VERSION
 	label_database_path.text = str(DatabaseManager.db.path)
 	
 	# INFO: Default Values
 	edit_sessions_count.text = str(SettingsManager.default_sessions_count)
-	edit_sessions_count.text_changed.connect(
-		func(value): SettingsManager.default_sessions_count = int(value))
-	
 	edit_session_length.text = str(SettingsManager.default_session_length)
-	edit_session_length.text_changed.connect(
-		func(value): SettingsManager.default_session_length = int(value))
-	
 	edit_break_length.text = str(SettingsManager.default_break_length)
-	edit_break_length.text_changed.connect(
-		func(value): SettingsManager.default_break_length = int(value))
 	
 	# INFO: Timer Settings
 	check_hour_format.set_pressed_no_signal(SettingsManager.is_use_12_hour_format)
-	check_hour_format.toggled.connect(
-		func(value): SettingsManager.is_use_12_hour_format = value)
-		
 	check_hide_session_controls.set_pressed_no_signal(SettingsManager.is_hide_session_timer_controls)
-	check_hide_session_controls.toggled.connect(
-		func(value): SettingsManager.is_hide_session_timer_controls = value)
-	
 	check_hide_break_controls.set_pressed_no_signal(SettingsManager.is_hide_break_timer_controls)
-	check_hide_break_controls.toggled.connect(
-		func(value): SettingsManager.is_hide_break_timer_controls = value)
 	
 	# INFO: Sound Settings
 	edit_session_notification_path.text = str(SettingsManager.path_session_end_notification_timer)
-	edit_session_notification_path.text_changed.connect(
-		func(value): SettingsManager.path_session_end_notification_timer = value)
-	
 	edit_break_notification_path.text = str(SettingsManager.path_break_end_notification_timer)
-	edit_break_notification_path.text_changed.connect(
-		func(value): SettingsManager.path_break_end_notification_timer = value)
-		
 	slider_session_notification_volume.value = SettingsManager.volume_session_end_notification
-	slider_session_notification_volume.value_changed.connect(
-		func(value): SettingsManager.volume_session_end_notification = value)
-	
 	slider_break_notification_volume.value = SettingsManager.volume_break_end_notification
-	slider_break_notification_volume.value_changed.connect(
-		func(value): SettingsManager.volume_break_end_notification = value)
-	
 	for label: Label in labels_user_path:
 		label.text = ProjectSettings.globalize_path("user://")
 	
 	# INFO: Theme
 	color_background.color = Color.from_string(SettingsManager.color_background_primary, Color.MAGENTA)
+	color_primary.color = Color.from_string(SettingsManager.color_primary, Color.MAGENTA)
+	color_secondary.color = Color.from_string(SettingsManager.color_secondary, Color.MAGENTA)
+	color_third.color = Color.from_string(SettingsManager.color_third, Color.MAGENTA)
+	color_danger_primary.color = Color.from_string(SettingsManager.color_danger_primary, Color.MAGENTA)
+	color_danger_secondary.color = Color.from_string(SettingsManager.color_danger_secondary, Color.MAGENTA)
+	check_custom_title_bar.set_pressed_no_signal(SettingsManager.is_use_custom_title_bar)
+	color_title_bar_primary.color = Color.from_string(SettingsManager.color_title_bar_primary, Color.MAGENTA)
+	color_title_bar_secondary.color = Color.from_string(SettingsManager.color_title_bar_secondary, Color.MAGENTA)
+
+func _connect_fileds():
+	# INFO: Default Values
+	edit_sessions_count.text_changed.connect(
+		func(value): SettingsManager.default_sessions_count = int(value))
+	edit_session_length.text_changed.connect(
+		func(value): SettingsManager.default_session_length = int(value))
+	edit_break_length.text_changed.connect(
+		func(value): SettingsManager.default_break_length = int(value))
+	
+	# INFO: Timer Settings
+	check_hour_format.toggled.connect(
+		func(value): SettingsManager.is_use_12_hour_format = value)
+	check_hide_session_controls.toggled.connect(
+		func(value): SettingsManager.is_hide_session_timer_controls = value)
+	check_hide_break_controls.toggled.connect(
+		func(value): SettingsManager.is_hide_break_timer_controls = value)
+	
+	# INFO: Sound Settings
+	edit_session_notification_path.text_changed.connect(
+		func(value): SettingsManager.path_session_end_notification_timer = value)
+	edit_break_notification_path.text_changed.connect(
+		func(value): SettingsManager.path_break_end_notification_timer = value)
+	slider_session_notification_volume.value_changed.connect(
+		func(value): SettingsManager.volume_session_end_notification = value)
+	slider_break_notification_volume.value_changed.connect(
+		func(value): SettingsManager.volume_break_end_notification = value)
+	
+	# INFO: Theme
 	color_background.color_changed.connect(
 		func(value: Color): SettingsManager.color_background_primary = value.to_html(false))
-	
-	color_primary.color = Color.from_string(SettingsManager.color_primary, Color.MAGENTA)
 	color_primary.color_changed.connect(
 		func(value: Color): SettingsManager.color_primary = value.to_html(false))
-	
-	color_secondary.color = Color.from_string(SettingsManager.color_secondary, Color.MAGENTA)
 	color_secondary.color_changed.connect(
 		func(value: Color): SettingsManager.color_secondary = value.to_html(false))
-	
-	color_third.color = Color.from_string(SettingsManager.color_third, Color.MAGENTA)
 	color_third.color_changed.connect(
 		func(value: Color): SettingsManager.color_third = value.to_html(false))
-	
-	color_danger_primary.color = Color.from_string(SettingsManager.color_danger_primary, Color.MAGENTA)
 	color_danger_primary.color_changed.connect(
 		func(value: Color): SettingsManager.color_danger_primary = value.to_html(false))
-	
-	color_danger_secondary.color = Color.from_string(SettingsManager.color_danger_secondary, Color.MAGENTA)
 	color_danger_secondary.color_changed.connect(
 		func(value: Color): SettingsManager.color_danger_secondary = value.to_html(false))
-	
-	check_custom_title_bar.set_pressed_no_signal(SettingsManager.is_use_custom_title_bar)
 	check_custom_title_bar.toggled.connect(
 		func(value): SettingsManager.is_use_custom_title_bar = value)
-	
-	color_title_bar_primary.color = Color.from_string(SettingsManager.color_title_bar_primary, Color.MAGENTA)
 	color_title_bar_primary.color_changed.connect(
 		func(value: Color): SettingsManager.color_title_bar_primary = value.to_html(false))
-	
-	color_title_bar_secondary.color = Color.from_string(SettingsManager.color_title_bar_secondary, Color.MAGENTA)
 	color_title_bar_secondary.color_changed.connect(
 		func(value: Color): SettingsManager.color_title_bar_secondary = value.to_html(false))
+
+func _restore_defaults():
+	DatabaseManager.restore_default_settings()
+	_update_fileds()

@@ -3,6 +3,8 @@ extends Node
 var db : SQLite
 var db_path: String
 
+signal restored_defaults
+
 func _ready():
 	match(Global.CURRENT_ENV):
 		Global.Env.Development:
@@ -62,6 +64,7 @@ func empty_sessions_data():
 func restore_default_settings():
 	DatabaseManager.db.query('
 		delete from Settings; ' + _get_settings_insert_query())
+	restored_defaults.emit()
 
 func _get_settings_insert_query()-> String:
 		return '

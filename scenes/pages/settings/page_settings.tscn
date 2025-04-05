@@ -48,7 +48,6 @@ theme_override_constants/margin_bottom = 22
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
-scroll_vertical = 702
 
 [node name="HeadersContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
 custom_minimum_size = Vector2(300, 10.435)
@@ -495,3 +494,15 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Other SETTINGS"
 uppercase = true
+
+[node name="separatingline6" type="PanelContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+theme = ExtResource("2_678x1")
+theme_type_variation = &"SeparatingBarThird"
+
+[node name="RestoreDefaults" type="Button" parent="MarginContainer/ScrollContainer/HeadersContainer"]
+layout_mode = 2
+text = "RESTORE DEFAULTS"
+
+[connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/RestoreDefaults" to="." method="_restore_defaults"]

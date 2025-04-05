@@ -161,6 +161,7 @@ func _ready():
 	_update_theme_title_bar()
 	color_title_bar_primary_changed.connect(_update_theme_title_bar)
 	color_title_bar_secondary_changed.connect(_update_theme_title_bar)
+	DatabaseManager.restored_defaults.connect(_emit_all_signals)
 
 # Theme Settings
 func _update_theme_title_bar():
@@ -178,5 +179,17 @@ func _update_theme_title_bar():
 	theme_title_bar.set_color("font_color", "Button", secondary_color)
 	theme_title_bar.set_color("font_focus_color", "Button", secondary_color)
 	theme_title_bar.set_color("font_pressed_color", "Button", secondary_color)
+
+func _emit_all_signals():
+	color_background_primary_changed.emit()
 	
+	color_primary_changed.emit()
+	color_secondary_changed.emit()
+	color_third_changed.emit()
 	
+	color_danger_primary_changed.emit()
+	color_danger_secondary_changed.emit()
+	
+	is_use_custom_title_bar_changed.emit()
+	color_title_bar_primary_changed.emit()
+	color_title_bar_secondary_changed.emit()
