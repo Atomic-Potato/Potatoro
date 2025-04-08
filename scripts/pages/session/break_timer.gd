@@ -93,6 +93,7 @@ func _update_break_timer_label():
 		return
 	
 	var remaining_seconds: int = BreaksManager.get_break_id_remaining_seconds(parent.break_.ID)
+	@warning_ignore("integer_division")
 	var minutes = remaining_seconds / 60
 	var seconds = remaining_seconds % 60
 	label_timer.text = (("0" + str(minutes)) if minutes < 10 else str(minutes)) \
@@ -105,7 +106,9 @@ func _update_break_finish_hour_label():
 	
 	var remaining_seconds =  BreaksManager.get_break_id_remaining_seconds(parent.break_.ID)
 	var current_time = Time.get_datetime_dict_from_datetime_string(DatabaseManager.get_datetime(), false)
+	@warning_ignore("integer_division")
 	var finish_hour: int = (current_time["hour"] + (current_time["minute"] + (remaining_seconds / 60)) / 60) % 24 
+	@warning_ignore("integer_division")
 	var finish_minute: int = (current_time["minute"] + (remaining_seconds / 60) % 60) % 60
 	var finish_minute_str: String = str(finish_minute)
 	

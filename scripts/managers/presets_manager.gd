@@ -130,6 +130,7 @@ func set_default_values(preset_id: int)-> Preset:
 	if not is_preset_id_buffered(preset_id):
 		return null
 	DatabaseManager.db.query("select * from Presets where ID = " + str(preset_id))
+	@warning_ignore("shadowed_global_identifier")
 	var preset = DatabaseManager.db.query_result[0]
 	DatabaseManager.db.query("
 		update Presets_Buffer set
@@ -148,6 +149,7 @@ func set_default_values(preset_id: int)-> Preset:
 # SUMMARY:
 # creates a new preset with the provided values and returns its id
 # if the id is provided in the preset, then it will update
+@warning_ignore("shadowed_global_identifier")
 func save_preset(preset: Preset)-> int: # use save_buffered_preset to create a new buffered preset
 	if preset.ID: # Update
 		DatabaseManager.db.query("select ID from Presets where ID = " + str(preset.ID))
@@ -188,6 +190,7 @@ func save_preset(preset: Preset)-> int: # use save_buffered_preset to create a n
 # SUMMARY:
 # creates a new buffered preset with the provided values and returns its id
 # if the id is provided in the preset, then it will update
+@warning_ignore("shadowed_global_identifier")
 func save_buffered_preset(preset: Preset)-> int:
 	if preset.current_session_id and preset.current_break_id:
 		push_error("Cannot save buffered preset with ID ", preset.ID, " that is is session and in break at the same time!")

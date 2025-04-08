@@ -1,6 +1,8 @@
 extends Page
 
+@warning_ignore("shadowed_global_identifier")
 var preset: Preset
+@warning_ignore("shadowed_global_identifier")
 var session: Session
 var break_: Break
 

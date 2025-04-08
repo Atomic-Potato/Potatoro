@@ -139,6 +139,7 @@ func _update_timer_text():
 	if remaining_time_in_seconds <= 0:
 		return 
 		
+	@warning_ignore("integer_division")
 	_set_time(remaining_time_in_seconds / 60, remaining_time_in_seconds % 60)
 
 func _set_time(minutes: int, seconds: int):
@@ -160,7 +161,9 @@ func _update_finish_hour():
 	var remaining_length_in_seconds = SessionsManager.get_session_id_remaining_time_in_seconds(parent.session.ID)
 	var current_time = Time.get_datetime_dict_from_datetime_string(DatabaseManager.get_datetime(), false)
 	#print(( remaining_length_in_seconds/ 60) / 60)
+	@warning_ignore("integer_division")
 	var finish_hour: int = (current_time["hour"] + (current_time["minute"] + (remaining_length_in_seconds / 60)) / 60) % 24 
+	@warning_ignore("integer_division")
 	var finish_minute: int = (current_time["minute"] + (remaining_length_in_seconds / 60) % 60) % 60
 	var finish_minute_str: String = str(finish_minute)
 	

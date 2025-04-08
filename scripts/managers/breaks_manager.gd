@@ -142,6 +142,7 @@ func end_break_id(break_id: int, is_notify_timers_tracker: bool = false):
 		return
 	
 	DatabaseManager.db.query("select PresetID from Presets_Buffer where CurrentBreakID = " + str(break_id))
+	@warning_ignore("shadowed_global_identifier")
 	var preset: Preset = PresetsManager.get_preset(DatabaseManager.db.query_result[0].get("PresetID"), false)
 	DatabaseManager.db.query("
 		update Presets_Buffer

@@ -10,9 +10,9 @@ var cards: Array[PresetInfoCard]
 
 func _ready():
 	presets = PresetsManager.get_presets()
-	for preset in presets:
+	for _preset in presets:
 		var card: PresetInfoCard = preset_info_card_res.instantiate()
-		card.initialize({"preset": preset})
+		card.initialize({"preset": _preset})
 		card.enter()
 		presets_container.add_child(card)
 		presets_container.move_child(card, 0)

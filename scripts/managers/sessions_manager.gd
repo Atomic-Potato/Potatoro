@@ -6,12 +6,12 @@ func _ready():
 	update_buffered_sessions()
 
 func _process(_delta):
-	for session: Session in buffered_sessions:
-		if not is_session_buffered(session.ID) or is_session_paused(session.ID):
+	for _session: Session in buffered_sessions:
+		if not is_session_buffered(_session.ID) or is_session_paused(_session.ID):
 			continue
-		var remaining_time: int = get_session_id_remaining_time_in_seconds(session.ID)
+		var remaining_time: int = get_session_id_remaining_time_in_seconds(_session.ID)
 		if remaining_time <= 0:
-			end_buffered_session(session.ID, true)
+			end_buffered_session(_session.ID, true)
 			AudioManager.play_notification(AudioManager.Notification.SessionEnd)
 			#OS.alert("Session " + str(session.ID) + " has finished!", "Session " + str(session.ID))
 
@@ -93,6 +93,7 @@ func get_session_buffered_preset(session_id: int)-> Preset:
 		return null
 	return PresetsManager.get_preset(DatabaseManager.db.query_result[0].get("PresetID"))
 
+@warning_ignore("shadowed_global_identifier")
 func get_session_elapsed_time_in_seconds(session: Session)-> int:
 	DatabaseManager.db.query("
 		select unixepoch('" + DatabaseManager.get_datetime() +"') 
@@ -138,6 +139,7 @@ func get_session_id_elapsed_time_in_seconds(session_id: int)-> int:
 		return elapsed_time - get_pauses_length_in_seconds_buffered(session_id)
 
 func get_session_id_remaining_time_in_seconds(session_id: int)-> int:
+	@warning_ignore("shadowed_global_identifier")
 	var preset: Preset = get_session_buffered_preset(session_id)
 	if preset == null:
 		return 0
@@ -167,6 +169,7 @@ func get_session(session_id: int)-> Session:
 		return null
 		
 	var result = DatabaseManager.db.query_result[0]
+	@warning_ignore("shadowed_global_identifier")
 	var session: Session = Session.new(
 		result.get("ID", 0),
 		0,
@@ -196,6 +199,7 @@ func get_buffered_session(session_id: int)-> Session:
 		return null
 		
 	var result = DatabaseManager.db.query_result[0]
+	@warning_ignore("shadowed_global_identifier")
 	var session: Session = Session.new(
 		result.get("SessionID", 0),
 		result.get("ID", 0),
@@ -222,6 +226,7 @@ func update_buffered_sessions():
 	var query = "select * from Sessions_Buffer"
 	DatabaseManager.db.query(query)
 	for i in DatabaseManager.db.query_result:
+		@warning_ignore("shadowed_global_identifier")
 		var session: Session = Session.new(
 			i.get("SessionID", 0),
 			i.get("ID", 0),
@@ -255,6 +260,7 @@ func update_buffered_sessions():
 		if not is_updated:
 			buffered_sessions.append(nbs)
 		
+@warning_ignore("shadowed_global_identifier")
 func start_buffered_session(preset: Preset)-> Session:
 	var session: Session = Session.new()
 	session.tag_ID = preset.default_tag_id
@@ -278,6 +284,7 @@ func end_buffered_session(session_id: int, is_notify_timers_tracker: bool = fals
 		resume_session(session_id, get_session_buffered_preset(session_id).ID)
 	
 	# Saving the session from buffer
+	@warning_ignore("shadowed_global_identifier")
 	var session: Session = get_buffered_session(session_id)
 	var query = "
 		update Sessions
@@ -305,6 +312,7 @@ func end_buffered_session(session_id: int, is_notify_timers_tracker: bool = fals
 	DatabaseManager.db.query(query)
 	
 	DatabaseManager.db.query("select PresetID from Presets_Buffer where CurrentSessionID =" + str(session_id))
+	@warning_ignore("shadowed_global_identifier")
 	var preset: Preset = PresetsManager.get_preset(DatabaseManager.db.query_result[0].get("PresetID"), false)
 	# Add done session to preset buffer and reset non temp values
 	# NOTE: session length resets when a new session starts
@@ -419,6 +427,7 @@ func restart_buffered_session(session_id: int)-> Session:
 	update_buffered_sessions()
 	return get_loaded_buffered_session(updated_session.ID)
 
+@warning_ignore("shadowed_global_identifier")
 func save_session(session: Session):
 	if session.ID: #Update
 		DatabaseManager.db.query("select ID from Sessions where ID = " + str(session.ID))
@@ -449,6 +458,7 @@ func save_session(session: Session):
 		DatabaseManager.db.query(query)
 		return DatabaseManager.db.last_insert_rowid
 
+@warning_ignore("shadowed_global_identifier")
 func save_buffered_session(session: Session)-> int:
 	var buffered_ID: int
 	if session.buffered_ID: #Update

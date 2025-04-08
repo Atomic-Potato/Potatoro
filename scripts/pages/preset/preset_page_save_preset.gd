@@ -1,5 +1,6 @@
 extends Control
 
+@warning_ignore("shadowed_global_identifier")
 var preset: Preset
 
 @export var preset_edit: LineEdit

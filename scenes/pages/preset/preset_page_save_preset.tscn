@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b2ll8tut18nx6"]
 
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_save_preset.gd" id="1_tsndv"]
-[ext_resource type="Theme" path="res://visual/themes/main_theme.tres" id="2_r6mp1"]
+[ext_resource type="Theme" uid="uid://ou1o42u4kjou" path="res://visual/themes/main_theme.tres" id="2_r6mp1"]
 
 [node name="PresetPageSavePreset" type="Control" node_paths=PackedStringArray("preset_edit", "tag_edit", "session_count_edit", "session_length_edit", "break_length_edit", "auto_break_toggle", "auto_session_toggle")]
 layout_mode = 3

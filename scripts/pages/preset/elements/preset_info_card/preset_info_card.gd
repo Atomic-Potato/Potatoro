@@ -8,6 +8,7 @@ class_name PresetInfoCard extends Page
 @export var page_timer: Page
 @export var page_message: Page
 
+@warning_ignore("shadowed_global_identifier")
 var preset: Preset
 
 func initialize(data: Dictionary = {}):

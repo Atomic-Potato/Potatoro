@@ -40,6 +40,7 @@ func _update_timer_text():
 	if remaining_time_in_seconds <= 0:
 		return 
 		
+	@warning_ignore("integer_division")
 	_set_time(remaining_time_in_seconds / 60, remaining_time_in_seconds % 60)
 
 func _set_time(minutes: int, seconds: int):
