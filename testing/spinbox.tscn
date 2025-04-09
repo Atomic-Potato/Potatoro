@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://claoag2hoxrgc"]
+
+[ext_resource type="Script" path="res://testing/test.gd" id="1_q1khi"]
+[ext_resource type="Theme" uid="uid://cjl6r5svxs7bv" path="res://visual/themes/main_theme.tres" id="1_ypm1o"]
+[ext_resource type="Script" path="res://scripts/classes/number_edit.gd" id="3_7ii7i"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+initial_position = 2
+size = Vector2i(523, 384)
+visible = true
+ok_button_text = "Open"
+dialog_hide_on_ok = true
+dialog_close_on_escape = false
+file_mode = 0
+access = 2
+script = ExtResource("1_q1khi")
+
+[node name="SpinBox" type="LineEdit" parent="."]
+layout_mode = 0
+offset_right = 83.0625
+offset_bottom = 31.0
+theme = ExtResource("1_ypm1o")
+theme_type_variation = &"BoxedLineEdit"
+alignment = 1
+select_all_on_focus = true
+script = ExtResource("3_7ii7i")

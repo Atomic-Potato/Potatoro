@@ -1,14 +1,18 @@
-[gd_scene load_steps=12 format=3 uid="uid://k87ux2qmpcqj"]
+[gd_scene load_steps=16 format=3 uid="uid://k87ux2qmpcqj"]
 
 [ext_resource type="Script" path="res://scripts/pages/session/session_setup.gd" id="2_l3wag"]
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_session.gd" id="3_p5ysi"]
 [ext_resource type="LabelSettings" uid="uid://dis7d5hvikqed" path="res://visual/labels/subtitle.tres" id="5_jy7e5"]
 [ext_resource type="Script" path="res://scripts/pages/session/session_timer.gd" id="6_j5uv2"]
-[ext_resource type="Theme" uid="uid://ou1o42u4kjou" path="res://visual/themes/main_theme.tres" id="8_85gr6"]
+[ext_resource type="Theme" uid="uid://cjl6r5svxs7bv" path="res://visual/themes/main_theme.tres" id="8_85gr6"]
 [ext_resource type="Script" path="res://scripts/pages/session/session_finish.gd" id="8_xg4q4"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_setup.gd" id="9_esxm0"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_timer.gd" id="10_l1xkr"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_finish.gd" id="11_ecred"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_gt3b3"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_x0n4g"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s6b3m"]
 bg_color = Color(1, 1, 1, 0)
@@ -34,6 +38,10 @@ expand_margin_top = 6.0
 expand_margin_right = 6.0
 expand_margin_bottom = 6.0
 
+[sub_resource type="ImageTexture" id="ImageTexture_x4fpq"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_1r3mq"]
+
 [node name="PresetPageSession" type="Control" node_paths=PackedStringArray("page_session_setup", "page_session_timer", "page_session_finish", "page_break_setup", "page_break_timer", "page_break_finish", "child_pages_parent_node")]
 layout_mode = 3
 anchors_preset = 15
@@ -58,7 +66,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SessionSetup" type="Control" parent="Content" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "break_length_parent", "edit_session_length", "edit_break_length", "button_auto_break")]
+[node name="SessionSetup" type="Control" parent="Content" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "break_length_parent", "spin_box_session_length", "spin_box_break_length", "button_auto_break")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -70,8 +78,8 @@ script = ExtResource("2_l3wag")
 label_preset_name = NodePath("info/HBoxContainer/text")
 label_sessions_count = NodePath("info/HBoxContainer/session count")
 break_length_parent = NodePath("VBoxContainer/FlowContainer/BreakLength")
-edit_session_length = NodePath("VBoxContainer/FlowContainer/Session Length/SessionLengthEdit")
-edit_break_length = NodePath("VBoxContainer/FlowContainer/BreakLength/edit")
+spin_box_session_length = NodePath("VBoxContainer/FlowContainer/Session Length/SessionLengthEdit")
+spin_box_break_length = NodePath("VBoxContainer/FlowContainer/BreakLength/BreakLengthEdit")
 button_auto_break = NodePath("AutoBreak")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Content/SessionSetup"]
@@ -105,13 +113,13 @@ label_settings = ExtResource("5_jy7e5")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SessionLengthEdit" type="LineEdit" parent="Content/SessionSetup/VBoxContainer/FlowContainer/Session Length"]
+[node name="SessionLengthEdit" type="SpinBox" parent="Content/SessionSetup/VBoxContainer/FlowContainer/Session Length"]
 layout_mode = 2
 theme = ExtResource("8_85gr6")
-theme_type_variation = &"LargeEdit"
-theme_override_font_sizes/font_size = 72
-placeholder_text = "50m"
+theme_override_icons/updown = SubResource("ImageTexture_gt3b3")
+max_value = 9.22337e+18
 alignment = 1
+suffix = "m"
 
 [node name="BreakLength" type="VBoxContainer" parent="Content/SessionSetup/VBoxContainer/FlowContainer"]
 layout_mode = 2
@@ -125,13 +133,13 @@ text = "next break length"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="edit" type="LineEdit" parent="Content/SessionSetup/VBoxContainer/FlowContainer/BreakLength"]
+[node name="BreakLengthEdit" type="SpinBox" parent="Content/SessionSetup/VBoxContainer/FlowContainer/BreakLength"]
 layout_mode = 2
 theme = ExtResource("8_85gr6")
-theme_type_variation = &"LargeEdit"
-theme_override_font_sizes/font_size = 72
-placeholder_text = "10m"
+theme_override_icons/updown = SubResource("ImageTexture_x0n4g")
+max_value = 9.22337e+18
 alignment = 1
+suffix = "m"
 
 [node name="Reset" type="Button" parent="Content/SessionSetup/VBoxContainer"]
 custom_minimum_size = Vector2(100, 35)
@@ -216,6 +224,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="SessionTimer" type="Control" parent="Content" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "label_finish_hour", "label_timer", "button_pause_toggle", "button_auto_break_toggle", "add_time_controls_parent", "deduct_time_controls_parent")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -503,8 +512,7 @@ size_flags_horizontal = 4
 theme = ExtResource("8_85gr6")
 text = "RESTART"
 
-[node name="BreakSetup" type="Control" parent="Content" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "session_length_parent", "edit_session_length", "edit_break_length", "button_auto_session")]
-visible = false
+[node name="BreakSetup" type="Control" parent="Content" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "session_length_parent", "spin_box_session_length", "spin_box_break_length", "button_auto_session")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -515,8 +523,8 @@ script = ExtResource("9_esxm0")
 label_preset_name = NodePath("info/preset")
 label_sessions_count = NodePath("info/HBoxContainer/session count")
 session_length_parent = NodePath("VBoxContainer/FlowContainer/Session Length")
-edit_session_length = NodePath("VBoxContainer/FlowContainer/Session Length/edit")
-edit_break_length = NodePath("VBoxContainer/FlowContainer/BreakLength/edit")
+spin_box_session_length = NodePath("VBoxContainer/FlowContainer/Session Length/SessionLengthEdit")
+spin_box_break_length = NodePath("VBoxContainer/FlowContainer/BreakLength/BreakLengthEdit")
 button_auto_session = NodePath("AutoSession")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Content/BreakSetup"]
@@ -549,13 +557,13 @@ text = "current break length"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="edit" type="LineEdit" parent="Content/BreakSetup/VBoxContainer/FlowContainer/BreakLength"]
+[node name="BreakLengthEdit" type="SpinBox" parent="Content/BreakSetup/VBoxContainer/FlowContainer/BreakLength"]
 layout_mode = 2
 theme = ExtResource("8_85gr6")
-theme_type_variation = &"LargeEdit"
-theme_override_font_sizes/font_size = 72
-placeholder_text = "10m"
+theme_override_icons/updown = SubResource("ImageTexture_x4fpq")
+max_value = 9.22337e+18
 alignment = 1
+suffix = "m"
 
 [node name="Session Length" type="VBoxContainer" parent="Content/BreakSetup/VBoxContainer/FlowContainer"]
 layout_mode = 2
@@ -569,13 +577,13 @@ text = "next session length"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="edit" type="LineEdit" parent="Content/BreakSetup/VBoxContainer/FlowContainer/Session Length"]
+[node name="SessionLengthEdit" type="SpinBox" parent="Content/BreakSetup/VBoxContainer/FlowContainer/Session Length"]
 layout_mode = 2
 theme = ExtResource("8_85gr6")
-theme_type_variation = &"LargeEdit"
-theme_override_font_sizes/font_size = 72
-placeholder_text = "50m"
+theme_override_icons/updown = SubResource("ImageTexture_1r3mq")
+max_value = 9.22337e+18
 alignment = 1
+suffix = "m"
 
 [node name="Reset" type="Button" parent="Content/BreakSetup/VBoxContainer"]
 custom_minimum_size = Vector2(100, 35)

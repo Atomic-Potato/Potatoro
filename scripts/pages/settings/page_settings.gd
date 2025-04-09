@@ -5,9 +5,9 @@ extends Page
 @export var label_database_path: Label
 
 @export_category("Default Values")
-@export var edit_sessions_count: LineEdit
-@export var edit_session_length: LineEdit
-@export var edit_break_length: LineEdit
+@export var edit_sessions_count: NumberEdit
+@export var edit_session_length: NumberEdit
+@export var edit_break_length: NumberEdit
 
 @export_category("Timer Settings")
 @export var check_hour_format: CheckBox

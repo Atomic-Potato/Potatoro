@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="FontColorType" load_steps=2 format=3 uid="uid://chxg503253uw0"]
+
+[ext_resource type="Script" path="res://scripts/resources/font_color_type/font_color_type.gd" id="1_q7n5w"]
+
+[resource]
+script = ExtResource("1_q7n5w")
+theme_type = "BoxedLineEdit"
+color_types = {
+"eighth": [],
+"fifth": [],
+"fourth": [],
+"nineth": [],
+"primary": PackedStringArray(),
+"secondary": PackedStringArray("selection_color", "font_color", "caret_color"),
+"seventh": [],
+"sixth": [],
+"tenth": [],
+"third": PackedStringArray("font_placeholder_color")
+}

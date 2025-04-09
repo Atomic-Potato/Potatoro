@@ -31,6 +31,7 @@ AudioManager="*res://scenes/managers/audio_manager.tscn"
 
 window/size/viewport_width=800
 window/size/viewport_height=800
+window/subwindows/embed_subwindows=false
 window/main_scene="res://scenes/main.tscn"
 
 [editor_plugins]

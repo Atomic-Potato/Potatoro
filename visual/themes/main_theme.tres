@@ -1,17 +1,19 @@
-[gd_resource type="Theme" load_steps=22 format=3]
+[gd_resource type="Theme" load_steps=23 format=3 uid="uid://cjl6r5svxs7bv"]
 
-[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/danger/borders_danger_stylebox.tres" id="1_e1fs3"]
-[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/background/background_stylebox.tres" id="1_qr4vg"]
-[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/borders_stylebox.tres" id="1_wann0"]
-[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/danger/flat_color_danger_stylebox.tres" id="2_fibxs"]
-[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/flat_color_stylebox.tres" id="2_iv3mb"]
-[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/card/button_card_styleboxtres.tres" id="3_gbln3"]
-[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/line_edit_stylebox.tres" id="5_k6ick"]
-[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/large_edit/borders_large_edit_stylebox.tres" id="5_r7poe"]
-[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/borders_thicc_stylebox.tres" id="6_fin5w"]
-[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/separating_lines/primary_color_separating_bar_stylebox.tres" id="8_jns06"]
-[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/separating_lines/third_color_separating_bar_stylebox.tres" id="9_pqtn7"]
-[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/empty_with_margins_stylebox.tres" id="10_65fcl"]
+[ext_resource type="StyleBox" uid="uid://brtdoreulhd62" path="res://visual/style_boxes/main_theme/danger/borders_danger_stylebox.tres" id="1_e1fs3"]
+[ext_resource type="StyleBox" uid="uid://c7rgkdki5xu8w" path="res://visual/style_boxes/main_theme/background/background_stylebox.tres" id="1_qr4vg"]
+[ext_resource type="StyleBox" uid="uid://co07ylxrwd2ru" path="res://visual/style_boxes/main_theme/borders_stylebox.tres" id="1_wann0"]
+[ext_resource type="StyleBox" uid="uid://b0li5ccxy547p" path="res://visual/style_boxes/main_theme/danger/flat_color_danger_stylebox.tres" id="2_fibxs"]
+[ext_resource type="StyleBox" uid="uid://drscd6y4k00hk" path="res://visual/style_boxes/main_theme/boxed_line_edit_stylebox.tres" id="2_goobw"]
+[ext_resource type="StyleBox" uid="uid://d22gavo1y7gtr" path="res://visual/style_boxes/main_theme/flat_color_stylebox.tres" id="2_iv3mb"]
+[ext_resource type="StyleBox" uid="uid://rxm3xvj5fq80" path="res://visual/style_boxes/main_theme/card/button_card_styleboxtres.tres" id="3_gbln3"]
+[ext_resource type="StyleBox" uid="uid://cevhb1mvysaxm" path="res://visual/style_boxes/main_theme/borders_thicc_stylebox.tres" id="6_fin5w"]
+[ext_resource type="StyleBox" uid="uid://bxh0djxjcav88" path="res://visual/style_boxes/main_theme/separating_lines/primary_color_separating_bar_stylebox.tres" id="8_jns06"]
+[ext_resource type="StyleBox" uid="uid://b2c1tq020evs6" path="res://visual/style_boxes/main_theme/separating_lines/third_color_separating_bar_stylebox.tres" id="9_pqtn7"]
+[ext_resource type="StyleBox" uid="uid://cgjbt1elpq6r0" path="res://visual/style_boxes/main_theme/number_edit/borders_number_edit_stylebox.tres" id="9_wmjt2"]
+[ext_resource type="StyleBox" uid="uid://ckbikkmcer8g3" path="res://visual/style_boxes/main_theme/empty_with_margins_stylebox.tres" id="10_65fcl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_phdrx"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b6air"]
 
@@ -23,17 +25,26 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_id5ks"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_af7l6"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mnvmg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_01ovf"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2ay20"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n247g"]
+
 [resource]
 Background/base_type = &"PanelContainer"
 Background/styles/panel = ExtResource("1_qr4vg")
+BoxedLineEdit/base_type = &"LineEdit"
+BoxedLineEdit/colors/caret_color = Color(0, 0, 0, 1)
+BoxedLineEdit/colors/font_color = Color(0, 0, 0, 1)
+BoxedLineEdit/colors/font_placeholder_color = Color(0.564706, 0.564706, 0.564706, 1)
+BoxedLineEdit/colors/font_selected_color = Color(1, 1, 1, 1)
+BoxedLineEdit/colors/selection_color = Color(0, 0, 0, 1)
+BoxedLineEdit/font_sizes/font_size = 16
+BoxedLineEdit/styles/focus = SubResource("StyleBoxEmpty_phdrx")
+BoxedLineEdit/styles/normal = ExtResource("2_goobw")
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_focus_color = Color(1, 1, 1, 1)
 Button/colors/font_hover_color = Color(0, 0, 0, 1)
@@ -81,14 +92,18 @@ LargeEdit/colors/font_color = Color(1, 1, 1, 1)
 LargeEdit/colors/font_placeholder_color = Color(0.564706, 0.564706, 0.564706, 1)
 LargeEdit/colors/font_selected_color = Color(1, 1, 1, 1)
 LargeEdit/colors/selection_color = Color(0.564706, 0.564706, 0.564706, 1)
-LargeEdit/styles/focus = ExtResource("5_r7poe")
-LargeEdit/styles/normal = ExtResource("5_r7poe")
+LargeEdit/font_sizes/font_size = 16
+LargeEdit/styles/focus = ExtResource("9_wmjt2")
+LargeEdit/styles/normal = ExtResource("9_wmjt2")
 LineEdit/colors/caret_color = Color(1, 1, 1, 1)
-LineEdit/colors/font_color = Color(0, 0, 0, 1)
+LineEdit/colors/font_color = Color(1, 1, 1, 1)
 LineEdit/colors/font_placeholder_color = Color(0.564706, 0.564706, 0.564706, 1)
-LineEdit/colors/selection_color = Color(0, 0, 0, 1)
-LineEdit/styles/focus = SubResource("StyleBoxEmpty_af7l6")
-LineEdit/styles/normal = ExtResource("5_k6ick")
+LineEdit/colors/font_selected_color = Color(1, 1, 1, 1)
+LineEdit/colors/selection_color = Color(0.564706, 0.564706, 0.564706, 1)
+LineEdit/constants/minimum_character_width = 4
+LineEdit/font_sizes/font_size = 72
+LineEdit/styles/focus = ExtResource("9_wmjt2")
+LineEdit/styles/normal = ExtResource("9_wmjt2")
 NavButton/base_type = &"Button"
 NavButton/colors/font_color = Color(1, 1, 1, 1)
 NavButton/colors/font_focus_color = Color(1, 1, 1, 1)
@@ -122,5 +137,8 @@ SmallEdit/colors/font_color = Color(1, 1, 1, 1)
 SmallEdit/colors/font_placeholder_color = Color(0.564706, 0.564706, 0.564706, 1)
 SmallEdit/colors/font_selected_color = Color(1, 1, 1, 1)
 SmallEdit/colors/selection_color = Color(0.564706, 0.564706, 0.564706, 1)
+SmallEdit/font_sizes/font_size = 16
 SmallEdit/styles/focus = SubResource("StyleBoxEmpty_01ovf")
 SmallEdit/styles/normal = SubResource("StyleBoxEmpty_2ay20")
+SpinBoxInnerLineEdit/base_type = &"LineEdit"
+SpinBoxInnerLineEdit/styles/normal = SubResource("StyleBoxFlat_n247g")

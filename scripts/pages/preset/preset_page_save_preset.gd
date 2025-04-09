@@ -5,9 +5,9 @@ var preset: Preset
 
 @export var preset_edit: LineEdit
 @export var tag_edit: LineEdit
-@export var session_count_edit: LineEdit
-@export var session_length_edit: LineEdit
-@export var break_length_edit: LineEdit
+@export var session_count_spin_box: SpinBox
+@export var session_length_spin_box: SpinBox
+@export var break_length_spin_box: SpinBox
 @export var auto_break_toggle: BaseButton
 @export var auto_session_toggle: BaseButton
 
@@ -16,9 +16,9 @@ func initialize(data: Dictionary):
 	preset_edit.text = preset.name_
 	tag_edit.text = str(preset.default_tag_id)
 	
-	session_count_edit.text = str(preset.sessions_count)
-	session_length_edit.text = str(preset.session_length)
-	break_length_edit.text = str(preset.break_length)
+	session_count_spin_box.value = preset.sessions_count
+	session_length_spin_box.value = preset.session_length
+	break_length_spin_box.value = preset.break_length
 	
 	auto_session_toggle.button_pressed = preset.is_auto_start_session
 	auto_break_toggle.button_pressed = preset.is_auto_start_break
@@ -42,12 +42,9 @@ func _save_preset_data():
 	preset.name_ = preset_edit.text
 	# preset.default_tag_id = # TODO
 	
-	preset.sessions_count = int(session_count_edit.text) \
-		if session_count_edit.text else SettingsManager.default_sessions_count
-	preset.session_length = int(session_length_edit.text) \
-		if session_length_edit.text else SettingsManager.default_session_length 
-	preset.break_length = int(break_length_edit.text) \
-		if break_length_edit.text else SettingsManager.default_break_length
+	preset.sessions_count = session_count_spin_box.value
+	preset.session_length = session_length_spin_box.value
+	preset.break_length = break_length_spin_box.value
 		
 	preset.is_auto_start_break = int(auto_break_toggle.button_pressed)
 	preset.is_auto_start_session = int(auto_session_toggle.button_pressed)
@@ -71,9 +68,9 @@ func _delete_preset():
 	else:
 		preset_edit.text = ''
 		tag_edit.text = ''
-		session_count_edit.text = ''
-		session_length_edit.text = ''
-		break_length_edit.text = ''
+		session_count_spin_box.value = SettingsManager.default_sessions_count
+		session_length_spin_box.value = SettingsManager.default_session_length
+		break_length_spin_box.value = SettingsManager.default_break_length
 		auto_break_toggle.button_pressed = false
 		auto_session_toggle.button_pressed = false
 
@@ -85,6 +82,11 @@ func _delete_preset_callable(is_delete_confirmed: bool):
 	Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_presets)
 
 func _update_fields():
-	session_count_edit.placeholder_text = str(SettingsManager.default_sessions_count)
-	session_length_edit.placeholder_text = str(SettingsManager.default_session_length)
-	break_length_edit.placeholder_text = str(SettingsManager.default_break_length)
+	# NOTE: I was using this before i changed the fields to spin boxes instead of line edits
+	# and in line edits i was just updating the placeholder text, but theres no placeholder in spinboxes
+	# so it is waht it is
+	
+	#session_count_spin_box.value = SettingsManager.default_sessions_count
+	#session_length_spin_box.value = SettingsManager.default_session_length
+	#break_length_spin_box.value = SettingsManager.default_break_length
+	pass

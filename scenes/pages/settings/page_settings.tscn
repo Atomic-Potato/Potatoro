@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dr5n8ajt1keec"]
+[gd_scene load_steps=4 format=3 uid="uid://dr5n8ajt1keec"]
 
 [ext_resource type="Script" path="res://scripts/pages/settings/page_settings.gd" id="1_22btq"]
-[ext_resource type="Theme" uid="uid://bfql81xya3eyb" path="res://visual/themes/main_theme.tres" id="2_678x1"]
+[ext_resource type="Theme" uid="uid://cjl6r5svxs7bv" path="res://visual/themes/main_theme.tres" id="2_678x1"]
+[ext_resource type="Script" path="res://scripts/classes/number_edit.gd" id="3_yorst"]
 
 [node name="Settings" type="Control" node_paths=PackedStringArray("label_app_version", "label_database_path", "edit_sessions_count", "edit_session_length", "edit_break_length", "check_hour_format", "check_hide_session_controls", "check_hide_break_controls", "edit_session_notification_path", "edit_break_notification_path", "slider_session_notification_volume", "slider_break_notification_volume", "labels_user_path", "color_background", "color_primary", "color_secondary", "color_third", "color_danger_primary", "color_danger_secondary", "check_custom_title_bar", "color_title_bar_primary", "color_title_bar_secondary")]
 layout_mode = 3
@@ -48,6 +49,7 @@ theme_override_constants/margin_bottom = 22
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
+scroll_vertical = 820
 
 [node name="HeadersContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
 custom_minimum_size = Vector2(300, 10.435)
@@ -115,7 +117,7 @@ size_flags_horizontal = 0
 layout_mode = 2
 theme = ExtResource("2_678x1")
 theme_override_font_sizes/font_size = 16
-text = "Contact"
+text = "Contact & Help"
 
 [node name="Label2" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Contact"]
 layout_mode = 2
@@ -177,7 +179,10 @@ text = "Sessions count"
 [node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/SessionsCount"]
 layout_mode = 2
 theme = ExtResource("2_678x1")
+theme_type_variation = &"BoxedLineEdit"
 alignment = 1
+virtual_keyboard_type = 2
+script = ExtResource("3_yorst")
 
 [node name="SessionLength" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues"]
 layout_mode = 2
@@ -191,7 +196,10 @@ text = "Session length (min)"
 [node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/SessionLength"]
 layout_mode = 2
 theme = ExtResource("2_678x1")
+theme_type_variation = &"BoxedLineEdit"
 alignment = 1
+virtual_keyboard_type = 2
+script = ExtResource("3_yorst")
 
 [node name="BreakLength" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues"]
 layout_mode = 2
@@ -205,7 +213,10 @@ text = "Break length (min)"
 [node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/BreakLength"]
 layout_mode = 2
 theme = ExtResource("2_678x1")
+theme_type_variation = &"BoxedLineEdit"
 alignment = 1
+virtual_keyboard_type = 2
+script = ExtResource("3_yorst")
 
 [node name="separatingline2" type="PanelContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 custom_minimum_size = Vector2(0, 2)
@@ -305,6 +316,8 @@ text = "user://"
 [node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("2_678x1")
+theme_type_variation = &"BoxedLineEdit"
 
 [node name="BreakNotificationPath" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings"]
 layout_mode = 2
@@ -325,6 +338,8 @@ text = "user://"
 [node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("2_678x1")
+theme_type_variation = &"BoxedLineEdit"
 
 [node name="SessionNotificationVolume" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings"]
 layout_mode = 2
