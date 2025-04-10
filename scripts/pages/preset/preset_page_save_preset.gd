@@ -25,7 +25,11 @@ func initialize(data: Dictionary):
 
 func _ready():
 	_update_fields()
-	self.visibility_changed.connect(_update_fields)
+	
+	# NOTE: I was using this before i changed the fields to spin boxes instead of line edits
+	# and in line edits i was just updating the placeholder text, but theres no placeholder in spinboxes
+	# so it is waht it is
+	#self.visibility_changed.connect(_update_fields)
 	
 func _load_prests_page():
 	Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_presets)
@@ -82,11 +86,6 @@ func _delete_preset_callable(is_delete_confirmed: bool):
 	Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_presets)
 
 func _update_fields():
-	# NOTE: I was using this before i changed the fields to spin boxes instead of line edits
-	# and in line edits i was just updating the placeholder text, but theres no placeholder in spinboxes
-	# so it is waht it is
-	
-	#session_count_spin_box.value = SettingsManager.default_sessions_count
-	#session_length_spin_box.value = SettingsManager.default_session_length
-	#break_length_spin_box.value = SettingsManager.default_break_length
-	pass
+	session_count_spin_box.value = SettingsManager.default_sessions_count
+	session_length_spin_box.value = SettingsManager.default_session_length
+	break_length_spin_box.value = SettingsManager.default_break_length
