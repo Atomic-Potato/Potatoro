@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://dr5n8ajt1keec"]
+[gd_scene load_steps=5 format=3 uid="uid://dr5n8ajt1keec"]
 
 [ext_resource type="Script" path="res://scripts/pages/settings/page_settings.gd" id="1_22btq"]
-[ext_resource type="Theme" uid="uid://cjl6r5svxs7bv" path="res://visual/themes/main_theme.tres" id="2_678x1"]
+[ext_resource type="Theme" uid="uid://51xap60g2kxt" path="res://visual/themes/main_theme.tres" id="2_678x1"]
 [ext_resource type="Script" path="res://scripts/classes/number_edit.gd" id="3_yorst"]
+[ext_resource type="Theme" uid="uid://c2ndyfruhrefw" path="res://visual/themes/empty_theme.tres" id="4_flnsp"]
 
-[node name="Settings" type="Control" node_paths=PackedStringArray("label_app_version", "label_database_path", "edit_sessions_count", "edit_session_length", "edit_break_length", "check_hour_format", "check_hide_session_controls", "check_hide_break_controls", "edit_session_notification_path", "edit_break_notification_path", "slider_session_notification_volume", "slider_break_notification_volume", "labels_user_path", "color_background", "color_primary", "color_secondary", "color_third", "color_danger_primary", "color_danger_secondary", "check_custom_title_bar", "color_title_bar_primary", "color_title_bar_secondary")]
+[node name="Settings" type="Control" node_paths=PackedStringArray("label_app_version", "label_database_path", "edit_sessions_count", "edit_session_length", "edit_break_length", "check_hour_format", "check_hide_session_controls", "check_hide_break_controls", "open_file_dialog_session_notification", "open_file_dialog_break_notification", "slider_session_notification_volume", "slider_break_notification_volume", "label_session_notification_path", "label_break_notification_path", "color_background", "color_primary", "color_secondary", "color_third", "color_danger_primary", "color_danger_secondary", "check_custom_title_bar", "color_title_bar_primary", "color_title_bar_secondary")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,18 +14,19 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_22btq")
 label_app_version = NodePath("MarginContainer/ScrollContainer/HeadersContainer/appVer/AppVer2/version")
-label_database_path = NodePath("MarginContainer/ScrollContainer/HeadersContainer/DB/path")
+label_database_path = NodePath("MarginContainer/ScrollContainer/HeadersContainer/DB/HBoxContainer/path")
 edit_sessions_count = NodePath("MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/SessionsCount/LineEdit")
 edit_session_length = NodePath("MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/SessionLength/LineEdit")
 edit_break_length = NodePath("MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/BreakLength/LineEdit")
 check_hour_format = NodePath("MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HourFormat/CheckBox")
 check_hide_session_controls = NodePath("MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HideSessionControls/CheckBox")
 check_hide_break_controls = NodePath("MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HideBreakControls/CheckBox")
-edit_session_notification_path = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer/LineEdit")
-edit_break_notification_path = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer/LineEdit")
+open_file_dialog_session_notification = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer2/SessionNotificationFileDialog")
+open_file_dialog_break_notification = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer/BreakNotificationFileDialog")
 slider_session_notification_volume = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationVolume/HSlider")
 slider_break_notification_volume = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationVolume/HSlider")
-labels_user_path = [NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer/break"), NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer/session")]
+label_session_notification_path = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/session")
+label_break_notification_path = NodePath("MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/break")
 color_background = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/BGPrimary/ColorPickerButton")
 color_primary = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/Primary/ColorPickerButton")
 color_secondary = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/Secondary/ColorPickerButton")
@@ -49,7 +51,7 @@ theme_override_constants/margin_bottom = 22
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
-scroll_vertical = 820
+scroll_vertical = 1125
 
 [node name="HeadersContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
 custom_minimum_size = Vector2(300, 10.435)
@@ -103,7 +105,16 @@ theme = ExtResource("2_678x1")
 theme_override_font_sizes/font_size = 16
 text = "Path to database file"
 
-[node name="path" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/DB"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/DB"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="MarginContainer/ScrollContainer/HeadersContainer/DB/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_678x1")
+theme_override_font_sizes/font_size = 14
+text = "Open Directory"
+
+[node name="path" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/DB/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_678x1")
 theme_override_font_sizes/font_size = 16
@@ -284,6 +295,7 @@ theme_type_variation = &"SeparatingBarThird"
 
 [node name="SoundSettings" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 layout_mode = 2
+theme_override_constants/separation = 20
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings"]
 layout_mode = 2
@@ -295,51 +307,78 @@ uppercase = true
 layout_mode = 2
 theme = ExtResource("2_678x1")
 theme_override_font_sizes/font_size = 12
-text = "*Supported file formats: .MP3 .WAV .OGG"
+text = "*Place your custom audio files in the following direcoty."
+
+[node name="Button" type="Button" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings"]
+layout_mode = 2
+theme = ExtResource("2_678x1")
+text = "Open audio files directory"
 
 [node name="SessionNotificationPath" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings"]
 layout_mode = 2
+theme_override_constants/separation = 16
 
-[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath"]
-custom_minimum_size = Vector2(325, 0)
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer2"]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-text = "Session end notification sound file path"
+text = "Session end notification sound"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath"]
+[node name="Button" type="Button" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer2"]
 layout_mode = 2
-
-[node name="session" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer"]
-layout_mode = 2
-text = "user://"
-
-[node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
 theme = ExtResource("2_678x1")
-theme_type_variation = &"BoxedLineEdit"
+text = "Choose File"
+
+[node name="SessionNotificationFileDialog" type="FileDialog" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer2"]
+title = "Open a File"
+initial_position = 2
+size = Vector2i(824, 425)
+theme = ExtResource("4_flnsp")
+ok_button_text = "Open"
+file_mode = 0
+access = 1
+filters = PackedStringArray("*.mp3", "*.wav", "*.ogg ")
+
+[node name="session" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath"]
+layout_mode = 2
+text = "[No file selected]"
 
 [node name="BreakNotificationPath" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings"]
 layout_mode = 2
-
-[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath"]
-custom_minimum_size = Vector2(325, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Break end notification sound file path"
+theme_override_constants/separation = 16
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath"]
 layout_mode = 2
 
-[node name="break" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-text = "user://"
+size_flags_stretch_ratio = 0.8
+theme_override_font_sizes/font_size = 20
+text = "Break end notification sound"
 
-[node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer"]
+[node name="Button" type="Button" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
 theme = ExtResource("2_678x1")
-theme_type_variation = &"BoxedLineEdit"
+text = "Choose File"
+
+[node name="BreakNotificationFileDialog" type="FileDialog" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer"]
+title = "Open a File"
+initial_position = 2
+size = Vector2i(824, 425)
+theme = ExtResource("4_flnsp")
+ok_button_text = "Open"
+file_mode = 0
+access = 1
+filters = PackedStringArray("*.mp3", "*.wav", "*.ogg")
+
+[node name="break" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath"]
+layout_mode = 2
+text = "[No file selected]"
 
 [node name="SessionNotificationVolume" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings"]
 layout_mode = 2
@@ -560,4 +599,8 @@ theme_type_variation = &"SeparatingBarThird"
 layout_mode = 2
 text = "RESTORE DEFAULTS"
 
+[connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/DB/HBoxContainer/Button" to="." method="_open_db_directory"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/Button" to="." method="_open_user_directory"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer2/Button" to="." method="_show_open_file_dialog_session_notification"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer/Button" to="." method="_show_open_file_dialog_break_notification"]
 [connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/RestoreDefaults" to="." method="_restore_defaults"]

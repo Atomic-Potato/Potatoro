@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://claoag2hoxrgc"]
+[gd_scene load_steps=5 format=3 uid="uid://claoag2hoxrgc"]
 
 [ext_resource type="Script" path="res://testing/test.gd" id="1_q1khi"]
-[ext_resource type="Theme" uid="uid://cjl6r5svxs7bv" path="res://visual/themes/main_theme.tres" id="1_ypm1o"]
+[ext_resource type="Theme" uid="uid://51xap60g2kxt" path="res://visual/themes/main_theme.tres" id="1_ypm1o"]
 [ext_resource type="Script" path="res://scripts/classes/number_edit.gd" id="3_7ii7i"]
+[ext_resource type="Theme" uid="uid://c2ndyfruhrefw" path="res://visual/themes/empty_theme.tres" id="3_ruteq"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -11,12 +12,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_ypm1o")
 
 [node name="FileDialog" type="FileDialog" parent="."]
 title = "Open a File"
 initial_position = 2
-size = Vector2i(523, 384)
+size = Vector2i(616, 384)
 visible = true
+theme = ExtResource("3_ruteq")
 ok_button_text = "Open"
 dialog_hide_on_ok = true
 dialog_close_on_escape = false
@@ -28,8 +31,7 @@ script = ExtResource("1_q1khi")
 layout_mode = 0
 offset_right = 83.0625
 offset_bottom = 31.0
-theme = ExtResource("1_ypm1o")
-theme_type_variation = &"BoxedLineEdit"
+theme = ExtResource("3_ruteq")
 alignment = 1
 select_all_on_focus = true
 script = ExtResource("3_7ii7i")

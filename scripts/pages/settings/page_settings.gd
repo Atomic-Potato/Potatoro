@@ -15,11 +15,12 @@ extends Page
 @export var check_hide_break_controls: CheckBox
 
 @export_category("Sound Settings")
-@export var edit_session_notification_path: LineEdit
-@export var edit_break_notification_path: LineEdit
+@export var open_file_dialog_session_notification: FileDialog
+@export var open_file_dialog_break_notification: FileDialog
 @export var slider_session_notification_volume: HSlider
 @export var slider_break_notification_volume: HSlider
-@export var labels_user_path: Array[Label]
+@export var label_session_notification_path: Label
+@export var label_break_notification_path: Label
 
 @export_category("Theme")
 ## Background
@@ -41,6 +42,7 @@ extends Page
 func _ready():
 	_update_fileds()
 	_connect_fileds()
+	_setup_open_file_dialogs()
 	
 func _update_fileds():
 	# INFO: Infromation
@@ -58,12 +60,12 @@ func _update_fileds():
 	check_hide_break_controls.set_pressed_no_signal(SettingsManager.is_hide_break_timer_controls)
 	
 	# INFO: Sound Settings
-	edit_session_notification_path.text = str(SettingsManager.path_session_end_notification_timer)
-	edit_break_notification_path.text = str(SettingsManager.path_break_end_notification_timer)
+	if SettingsManager.path_session_end_notification_timer:
+		label_session_notification_path.text = ProjectSettings.globalize_path(SettingsManager.path_session_end_notification_timer)
+	if SettingsManager.path_break_end_notification_timer:
+		label_break_notification_path.text = ProjectSettings.globalize_path(SettingsManager.path_break_end_notification_timer)
 	slider_session_notification_volume.value = SettingsManager.volume_session_end_notification
 	slider_break_notification_volume.value = SettingsManager.volume_break_end_notification
-	for label: Label in labels_user_path:
-		label.text = ProjectSettings.globalize_path("user://")
 	
 	# INFO: Theme
 	color_background.color = Color.from_string(SettingsManager.color_background_primary, Color.MAGENTA)
@@ -94,10 +96,6 @@ func _connect_fileds():
 		func(value): SettingsManager.is_hide_break_timer_controls = value)
 	
 	# INFO: Sound Settings
-	edit_session_notification_path.text_changed.connect(
-		func(value): SettingsManager.path_session_end_notification_timer = value)
-	edit_break_notification_path.text_changed.connect(
-		func(value): SettingsManager.path_break_end_notification_timer = value)
 	slider_session_notification_volume.value_changed.connect(
 		func(value): SettingsManager.volume_session_end_notification = value)
 	slider_break_notification_volume.value_changed.connect(
@@ -123,6 +121,32 @@ func _connect_fileds():
 	color_title_bar_secondary.color_changed.connect(
 		func(value: Color): SettingsManager.color_title_bar_secondary = value.to_html(false))
 
+func _setup_open_file_dialogs():
+	open_file_dialog_session_notification.hide()
+	open_file_dialog_session_notification.file_selected.connect(
+		func(path: String): 
+			SettingsManager.path_session_end_notification_timer = path
+			label_session_notification_path.text = ProjectSettings.globalize_path(path)
+	)
+	open_file_dialog_break_notification.hide()
+	open_file_dialog_break_notification.file_selected.connect(
+		func(path: String): 
+			SettingsManager.path_break_end_notification_timer = path
+			label_break_notification_path.text = ProjectSettings.globalize_path(path)
+	)
+
 func _restore_defaults():
 	DatabaseManager.restore_default_settings()
 	_update_fileds()
+
+func _open_user_directory():
+	OS.shell_open(ProjectSettings.globalize_path("user://"))
+
+func _open_db_directory():
+	OS.shell_open(DatabaseManager.db.path.get_base_dir())
+	
+func _show_open_file_dialog_session_notification():
+	open_file_dialog_session_notification.show()
+
+func _show_open_file_dialog_break_notification():
+	open_file_dialog_break_notification.show()
