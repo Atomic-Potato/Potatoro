@@ -1,29 +1,31 @@
-[gd_scene load_steps=25 format=3 uid="uid://bmp1wc4winydq"]
+[gd_scene load_steps=27 format=3 uid="uid://bmp1wc4winydq"]
 
 [ext_resource type="Script" path="res://scripts/tools/theme_tool.gd" id="1_55cj1"]
-[ext_resource type="StyleBox" uid="uid://ctywftw46i3hs" path="res://visual/style_boxes/main_theme/number_edit/borders_number_edit_stylebox.tres" id="2_240fj"]
-[ext_resource type="Theme" uid="uid://bfql81xya3eyb" path="res://visual/themes/main_theme.tres" id="2_n44j6"]
+[ext_resource type="StyleBox" uid="uid://cl2yd31ibe45g" path="res://visual/style_boxes/main_theme/number_edit/borders_number_edit_stylebox.tres" id="2_240fj"]
+[ext_resource type="Theme" uid="uid://bg0k5le4oj0lu" path="res://visual/themes/main_theme.tres" id="2_n44j6"]
 [ext_resource type="Resource" uid="uid://i1cp4nenc20l" path="res://scripts/resources/font_color_type/main_theme_button.tres" id="3_0v0pk"]
 [ext_resource type="Resource" uid="uid://c3yj2lp53l7iw" path="res://scripts/resources/font_color_type/main_theme_label.tres" id="3_4ynsw"]
-[ext_resource type="StyleBox" uid="uid://cmk3eov7gu2ay" path="res://visual/style_boxes/main_theme/card/button_card_styleboxtres.tres" id="3_qy2s2"]
+[ext_resource type="StyleBox" uid="uid://b2yiddj73j6q5" path="res://visual/style_boxes/main_theme/card/button_card_styleboxtres.tres" id="3_qy2s2"]
 [ext_resource type="Resource" uid="uid://bdsjbwm8uqubl" path="res://scripts/resources/font_color_type/main_theme_danger_button.tres" id="4_gvcfe"]
-[ext_resource type="StyleBox" uid="uid://b5vdnpwh3iwq6" path="res://visual/style_boxes/main_theme/separating_lines/primary_color_separating_bar_stylebox.tres" id="4_rutlr"]
+[ext_resource type="StyleBox" uid="uid://dsxsdmbmpk7k4" path="res://visual/style_boxes/main_theme/separating_lines/primary_color_separating_bar_stylebox.tres" id="4_rutlr"]
 [ext_resource type="Resource" uid="uid://bck85it7otyvb" path="res://scripts/resources/font_color_type/main_theme_danger_label.tres" id="5_iq7m0"]
-[ext_resource type="StyleBox" uid="uid://ba5in5oshrhfu" path="res://visual/style_boxes/main_theme/borders_stylebox.tres" id="5_vrwt7"]
-[ext_resource type="StyleBox" uid="uid://cfggkjuon6x6s" path="res://visual/style_boxes/main_theme/separating_lines/third_color_separating_bar_stylebox.tres" id="6_jwsbp"]
-[ext_resource type="StyleBox" uid="uid://dt3wd63cqf4te" path="res://visual/style_boxes/main_theme/borders_thicc_stylebox.tres" id="6_ky317"]
+[ext_resource type="StyleBox" uid="uid://dk8a2hn6pt38n" path="res://visual/style_boxes/main_theme/borders_stylebox.tres" id="5_vrwt7"]
+[ext_resource type="StyleBox" uid="uid://dy1lbye0woui5" path="res://visual/style_boxes/main_theme/separating_lines/third_color_separating_bar_stylebox.tres" id="6_jwsbp"]
+[ext_resource type="StyleBox" uid="uid://d00d5gjgsenwl" path="res://visual/style_boxes/main_theme/borders_thicc_stylebox.tres" id="6_ky317"]
 [ext_resource type="Script" path="res://scripts/classes/style_box_theme_options.gd" id="7_cht6l"]
 [ext_resource type="Resource" uid="uid://bymhctcyri0i6" path="res://scripts/resources/font_color_type/main_theme_line_edit.tres" id="7_j0ybb"]
 [ext_resource type="Resource" uid="uid://chxg503253uw0" path="res://scripts/resources/font_color_type/main_theme_boxed_line_edit.tres" id="8_2gone"]
-[ext_resource type="StyleBox" uid="uid://chko20xhuh0mq" path="res://visual/style_boxes/main_theme/boxed_line_edit_stylebox.tres" id="8_7icyc"]
+[ext_resource type="StyleBox" uid="uid://c8qddryt4vch8" path="res://visual/style_boxes/main_theme/boxed_line_edit_stylebox.tres" id="8_7icyc"]
 [ext_resource type="Resource" uid="uid://c8gcroqgft0y7" path="res://scripts/resources/font_color_type/main_theme_normal_check_button.tres" id="9_4co7d"]
 [ext_resource type="PackedScene" path="res://visual/assets/vector/circular_plus_texture_rect.tscn" id="10_53p58"]
 [ext_resource type="Resource" uid="uid://cqjqu3sjc2e36" path="res://scripts/resources/font_color_type/main_theme_small_edit.tres" id="10_djauh"]
-[ext_resource type="StyleBox" uid="uid://bsu7qgpxakfoo" path="res://visual/style_boxes/main_theme/danger/borders_danger_stylebox.tres" id="10_wos1g"]
+[ext_resource type="StyleBox" uid="uid://f6gr8b0grt3d" path="res://visual/style_boxes/main_theme/danger/borders_danger_stylebox.tres" id="10_wos1g"]
 [ext_resource type="Resource" uid="uid://dnvl7sgsg6cq7" path="res://scripts/resources/font_color_type/main_theme_nav_button.tres" id="11_6yt12"]
-[ext_resource type="StyleBox" uid="uid://bunwg7yrwrffn" path="res://visual/style_boxes/main_theme/flat_color_stylebox.tres" id="11_cnyyb"]
-[ext_resource type="StyleBox" uid="uid://ybc16m1x2op6" path="res://visual/style_boxes/main_theme/danger/flat_color_danger_stylebox.tres" id="11_egj13"]
-[ext_resource type="StyleBox" uid="uid://cvc1gpk10sox7" path="res://visual/style_boxes/main_theme/background/background_stylebox.tres" id="22_44gsi"]
+[ext_resource type="StyleBox" uid="uid://cubk7cn55luho" path="res://visual/style_boxes/main_theme/flat_color_stylebox.tres" id="11_cnyyb"]
+[ext_resource type="StyleBox" uid="uid://dp31ysgvcajmv" path="res://visual/style_boxes/main_theme/danger/flat_color_danger_stylebox.tres" id="11_egj13"]
+[ext_resource type="StyleBox" uid="uid://dxxiavjhuvs60" path="res://visual/style_boxes/main_theme/borders_thin_stylebox.tres" id="20_tklgn"]
+[ext_resource type="StyleBox" uid="uid://b2nkbqa6j3oc6" path="res://visual/style_boxes/main_theme/background/background_stylebox.tres" id="22_44gsi"]
+[ext_resource type="StyleBox" uid="uid://b71cxypdyjkb5" path="res://visual/style_boxes/main_theme/flat_color_thin_stylebox.tres" id="22_u35dx"]
 
 [node name="ThemeTool" type="Node" node_paths=PackedStringArray("background_options_parent_node", "main_options_parent_node", "danger_options_parent_node")]
 script = ExtResource("1_55cj1")
@@ -76,9 +78,17 @@ box = ExtResource("5_vrwt7")
 script = ExtResource("7_cht6l")
 box = ExtResource("6_ky317")
 
+[node name="BordersThin" type="Node" parent="MainOptions"]
+script = ExtResource("7_cht6l")
+box = ExtResource("20_tklgn")
+
 [node name="FlatColor" type="Node" parent="MainOptions"]
 script = ExtResource("7_cht6l")
 box = ExtResource("11_cnyyb")
+
+[node name="FlatColorThin" type="Node" parent="MainOptions"]
+script = ExtResource("7_cht6l")
+box = ExtResource("22_u35dx")
 
 [node name="BoxLineEdit" type="Node" parent="MainOptions"]
 script = ExtResource("7_cht6l")

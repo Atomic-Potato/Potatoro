@@ -47,7 +47,8 @@ func enter():
 	_update_titles_text()
 	_update_timer_text()
 	_update_things_from_settings()
-	self.visibility_changed.connect(_update_things_from_settings)
+	if not self.visibility_changed.is_connected(_update_things_from_settings):
+		self.visibility_changed.connect(_update_things_from_settings)
 	
 	connect_session_finish_subscribers(SessionsManager.get_loaded_buffered_session(parent.session.ID))
 
@@ -203,3 +204,8 @@ func _update_things_from_settings():
 	else:
 		add_time_controls_parent.show()
 		deduct_time_controls_parent.show()
+
+func _add_sessions_done(count: int)-> void:
+	PresetsManager.add_session_done(parent.preset.ID, count)
+	parent.preset = PresetsManager.get_preset(parent.preset.ID)
+	_update_titles_text()

@@ -64,3 +64,8 @@ func toggle_pause_timer(toggle: bool):
 
 func set_message_page():
 	parent.set_page(parent.page_message)
+
+func _add_sessions_done(count: int)-> void:
+	PresetsManager.add_session_done(parent.preset.ID, count)
+	parent.preset = PresetsManager.get_preset(parent.preset.ID)
+	update_titles()

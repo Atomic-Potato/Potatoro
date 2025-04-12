@@ -1,8 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://k87ux2qmpcqj"]
+[gd_scene load_steps=16 format=3 uid="uid://k87ux2qmpcqj"]
 
 [ext_resource type="Script" path="res://scripts/pages/session/session_setup.gd" id="2_l3wag"]
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_session.gd" id="3_p5ysi"]
-[ext_resource type="LabelSettings" uid="uid://dis7d5hvikqed" path="res://visual/labels/subtitle.tres" id="5_jy7e5"]
 [ext_resource type="Script" path="res://scripts/pages/session/session_timer.gd" id="6_j5uv2"]
 [ext_resource type="Script" path="res://scripts/classes/blink_canvas_item.gd" id="6_mel5q"]
 [ext_resource type="Theme" uid="uid://bg0k5le4oj0lu" path="res://visual/themes/main_theme.tres" id="8_85gr6"]
@@ -70,7 +69,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SessionSetup" type="Control" parent="Content" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "break_length_parent", "spin_box_session_length", "spin_box_break_length", "button_auto_break")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -78,7 +76,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_l3wag")
-label_preset_name = NodePath("info/HBoxContainer/text")
+label_preset_name = NodePath("info/preset")
 label_sessions_count = NodePath("info/HBoxContainer/session count")
 break_length_parent = NodePath("VBoxContainer/FlowContainer/BreakLength")
 spin_box_session_length = NodePath("VBoxContainer/FlowContainer/Session Length/SessionLengthEdit")
@@ -112,7 +110,6 @@ size_flags_vertical = 4
 layout_mode = 2
 theme = ExtResource("8_85gr6")
 text = "current session length"
-label_settings = ExtResource("5_jy7e5")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -207,16 +204,31 @@ horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Content/SessionSetup/info"]
 layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="RemoveSession" type="Button" parent="Content/SessionSetup/info/HBoxContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme = ExtResource("8_85gr6")
+theme_type_variation = &"ButtonSmall"
+text = "-"
 
 [node name="text" type="Label" parent="Content/SessionSetup/info/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("8_85gr6")
-text = "sessions "
+text = "sessions"
 
 [node name="session count" type="Label" parent="Content/SessionSetup/info/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("8_85gr6")
 text = "0/~"
+
+[node name="AddSession" type="Button" parent="Content/SessionSetup/info/HBoxContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme = ExtResource("8_85gr6")
+theme_type_variation = &"ButtonSmall"
+text = "+"
 
 [node name="Label" type="Label" parent="Content/SessionSetup/info"]
 layout_mode = 2
@@ -399,16 +411,31 @@ horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Content/SessionTimer/info"]
 layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="RemoveSession" type="Button" parent="Content/SessionTimer/info/HBoxContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme = ExtResource("8_85gr6")
+theme_type_variation = &"ButtonSmall"
+text = "-"
 
 [node name="text" type="Label" parent="Content/SessionTimer/info/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("8_85gr6")
-text = "sessions "
+text = "sessions"
 
 [node name="session count" type="Label" parent="Content/SessionTimer/info/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("8_85gr6")
 text = "0/~"
+
+[node name="AddSession" type="Button" parent="Content/SessionTimer/info/HBoxContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme = ExtResource("8_85gr6")
+theme_type_variation = &"ButtonSmall"
+text = "+"
 
 [node name="Label" type="Label" parent="Content/SessionTimer/info"]
 layout_mode = 2
@@ -655,16 +682,31 @@ horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Content/BreakSetup/info"]
 layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="RemoveSession" type="Button" parent="Content/BreakSetup/info/HBoxContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme = ExtResource("8_85gr6")
+theme_type_variation = &"ButtonSmall"
+text = "-"
 
 [node name="text" type="Label" parent="Content/BreakSetup/info/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("8_85gr6")
-text = "sessions "
+text = "sessions"
 
 [node name="session count" type="Label" parent="Content/BreakSetup/info/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("8_85gr6")
 text = "0/~"
+
+[node name="AddSession" type="Button" parent="Content/BreakSetup/info/HBoxContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme = ExtResource("8_85gr6")
+theme_type_variation = &"ButtonSmall"
+text = "+"
 
 [node name="Label" type="Label" parent="Content/BreakSetup/info"]
 layout_mode = 2
@@ -675,6 +717,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="BreakTimer" type="Control" parent="Content" node_paths=PackedStringArray("label_finish_hour", "label_timer", "label_preset_name", "label_sessions_count", "button_pause_toggle", "button_auto_session_toggle", "add_time_controls_parent", "deduct_time_controls_parent")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -846,16 +889,31 @@ horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Content/BreakTimer/info"]
 layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="RemoveSession" type="Button" parent="Content/BreakTimer/info/HBoxContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme = ExtResource("8_85gr6")
+theme_type_variation = &"ButtonSmall"
+text = "-"
 
 [node name="text" type="Label" parent="Content/BreakTimer/info/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("8_85gr6")
-text = "sessions "
+text = "sessions"
 
 [node name="session count" type="Label" parent="Content/BreakTimer/info/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("8_85gr6")
 text = "0/~"
+
+[node name="AddSession" type="Button" parent="Content/BreakTimer/info/HBoxContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme = ExtResource("8_85gr6")
+theme_type_variation = &"ButtonSmall"
+text = "+"
 
 [node name="Label" type="Label" parent="Content/BreakTimer/info"]
 layout_mode = 2
@@ -980,6 +1038,8 @@ text = "< PRESETS"
 [connection signal="pressed" from="Content/SessionSetup/VBoxContainer/Reset" to="Content/SessionSetup" method="_reset_session_edit_values"]
 [connection signal="pressed" from="Content/SessionSetup/StartSession" to="Content/SessionSetup" method="_start_session"]
 [connection signal="toggled" from="Content/SessionSetup/AutoBreak" to="Content/SessionSetup" method="_toggle_next_break_length_visibility"]
+[connection signal="pressed" from="Content/SessionSetup/info/HBoxContainer/RemoveSession" to="Content/SessionSetup" method="_add_sessions_done" binds= [-1]]
+[connection signal="pressed" from="Content/SessionSetup/info/HBoxContainer/AddSession" to="Content/SessionSetup" method="_add_sessions_done" binds= [1]]
 [connection signal="pressed" from="Content/SessionTimer/Timer/Add time/Button" to="Content/SessionTimer" method="add_session_length" binds= [1]]
 [connection signal="pressed" from="Content/SessionTimer/Timer/Add time/Button2" to="Content/SessionTimer" method="add_session_length" binds= [5]]
 [connection signal="pressed" from="Content/SessionTimer/Timer/Add time/Button3" to="Content/SessionTimer" method="add_session_length" binds= [10]]
@@ -990,6 +1050,8 @@ text = "< PRESETS"
 [connection signal="pressed" from="Content/SessionTimer/VBoxContainer/Controls/Pause" to="Content/SessionTimer" method="toggle_pause"]
 [connection signal="pressed" from="Content/SessionTimer/VBoxContainer/Controls/Skip" to="Content/SessionTimer" method="_skip"]
 [connection signal="toggled" from="Content/SessionTimer/VBoxContainer/AutoBreak" to="Content/SessionTimer" method="_toggle_auto_break"]
+[connection signal="pressed" from="Content/SessionTimer/info/HBoxContainer/RemoveSession" to="Content/SessionTimer" method="_add_sessions_done" binds= [-1]]
+[connection signal="pressed" from="Content/SessionTimer/info/HBoxContainer/AddSession" to="Content/SessionTimer" method="_add_sessions_done" binds= [1]]
 [connection signal="pressed" from="Content/SessionTimer/DEBUGGING/HBoxContainer/VBoxContainer/Sub1Second" to="Content/SessionTimer" method="add_session_length_seconds" binds= [-1]]
 [connection signal="pressed" from="Content/SessionTimer/DEBUGGING/HBoxContainer/VBoxContainer/Sub5Second" to="Content/SessionTimer" method="add_session_length_seconds" binds= [-5]]
 [connection signal="pressed" from="Content/SessionTimer/DEBUGGING/HBoxContainer/VBoxContainer/Sub10Second" to="Content/SessionTimer" method="add_session_length_seconds" binds= [-10]]
@@ -1001,6 +1063,8 @@ text = "< PRESETS"
 [connection signal="pressed" from="Content/BreakSetup/VBoxContainer/Reset" to="Content/BreakSetup" method="_reset_break_edit_values"]
 [connection signal="pressed" from="Content/BreakSetup/StartBreak" to="Content/BreakSetup" method="_start_break"]
 [connection signal="toggled" from="Content/BreakSetup/AutoSession" to="Content/BreakSetup" method="_toggle_next_session_length_visibility"]
+[connection signal="pressed" from="Content/BreakSetup/info/HBoxContainer/RemoveSession" to="Content/BreakSetup" method="_add_sessions_done" binds= [-1]]
+[connection signal="pressed" from="Content/BreakSetup/info/HBoxContainer/AddSession" to="Content/BreakSetup" method="_add_sessions_done" binds= [1]]
 [connection signal="pressed" from="Content/BreakTimer/Timer/Add time/Button" to="Content/BreakTimer" method="_add_break_time" binds= [1]]
 [connection signal="pressed" from="Content/BreakTimer/Timer/Add time/Button2" to="Content/BreakTimer" method="_add_break_time" binds= [5]]
 [connection signal="pressed" from="Content/BreakTimer/Timer/Add time/Button3" to="Content/BreakTimer" method="_add_break_time" binds= [10]]
@@ -1011,6 +1075,8 @@ text = "< PRESETS"
 [connection signal="pressed" from="Content/BreakTimer/VBoxContainer/Controls/Pause" to="Content/BreakTimer" method="_toggle_break_timer_pause"]
 [connection signal="pressed" from="Content/BreakTimer/VBoxContainer/Controls/Skip" to="Content/BreakTimer" method="_skip_break"]
 [connection signal="toggled" from="Content/BreakTimer/VBoxContainer/AutoSession" to="Content/BreakTimer" method="_toggle_auto_session"]
+[connection signal="pressed" from="Content/BreakTimer/info/HBoxContainer/RemoveSession" to="Content/BreakTimer" method="_add_sessions_done" binds= [-1]]
+[connection signal="pressed" from="Content/BreakTimer/info/HBoxContainer/AddSession" to="Content/BreakTimer" method="_add_sessions_done" binds= [1]]
 [connection signal="pressed" from="Content/BreakTimer/DEBUGGING/HBoxContainer/VBoxContainer/Sub1Second" to="Content/BreakTimer" method="_add_break_time_seconds" binds= [-1]]
 [connection signal="pressed" from="Content/BreakTimer/DEBUGGING/HBoxContainer/VBoxContainer/Sub5Second" to="Content/BreakTimer" method="_add_break_time_seconds" binds= [-5]]
 [connection signal="pressed" from="Content/BreakTimer/DEBUGGING/HBoxContainer/VBoxContainer/Sub10Second" to="Content/BreakTimer" method="_add_break_time_seconds" binds= [-10]]

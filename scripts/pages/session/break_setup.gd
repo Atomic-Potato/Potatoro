@@ -42,3 +42,8 @@ func _reset_break_edit_values():
 func _update_titles_text():
 	label_preset_name.text = parent.preset.name_
 	label_sessions_count.text = str(parent.preset.sessions_done) + "/" + str(parent.preset.sessions_count)
+
+func _add_sessions_done(count: int)-> void:
+	PresetsManager.add_session_done(parent.preset.ID, count)
+	parent.preset = PresetsManager.get_preset(parent.preset.ID)
+	_update_titles_text()

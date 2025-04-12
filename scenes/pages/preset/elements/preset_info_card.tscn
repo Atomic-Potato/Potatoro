@@ -174,7 +174,6 @@ theme_override_font_sizes/font_size = 22
 text = "min break"
 
 [node name="Timer" type="Control" parent="Add preset/Values/VBoxContainer/Content" node_paths=PackedStringArray("label_timer_type", "label_timer", "label_session", "button_pause_toggle")]
-visible = false
 layout_mode = 2
 anchors_preset = 0
 anchor_right = 1.0
@@ -185,7 +184,7 @@ mouse_filter = 2
 script = ExtResource("8_263cv")
 label_timer_type = NodePath("VBoxContainer2/VBoxContainer/TimerType")
 label_timer = NodePath("VBoxContainer2/VBoxContainer/Timer")
-label_session = NodePath("VBoxContainer2/VBoxContainer/Sessions")
+label_session = NodePath("VBoxContainer2/VBoxContainer/HBoxContainer/Sessions")
 button_pause_toggle = NodePath("VBoxContainer2/Pause")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Add preset/Values/VBoxContainer/Content/Timer"]
@@ -219,12 +218,31 @@ text = "00:00"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Sessions" type="Label" parent="Add preset/Values/VBoxContainer/Content/Timer/VBoxContainer2/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Add preset/Values/VBoxContainer/Content/Timer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="RemoveSession" type="Button" parent="Add preset/Values/VBoxContainer/Content/Timer/VBoxContainer2/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme = ExtResource("3_p2wl1")
+theme_type_variation = &"ButtonSmall"
+text = "-"
+
+[node name="Sessions" type="Label" parent="Add preset/Values/VBoxContainer/Content/Timer/VBoxContainer2/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("3_p2wl1")
 text = "0/0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AddSession" type="Button" parent="Add preset/Values/VBoxContainer/Content/Timer/VBoxContainer2/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme = ExtResource("3_p2wl1")
+theme_type_variation = &"ButtonSmall"
+text = "+"
 
 [node name="Pause" type="CheckButton" parent="Add preset/Values/VBoxContainer/Content/Timer/VBoxContainer2"]
 layout_mode = 2
@@ -232,14 +250,11 @@ size_flags_horizontal = 4
 size_flags_vertical = 6
 size_flags_stretch_ratio = 0.2
 theme = ExtResource("3_p2wl1")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 text = "PAUSE"
 alignment = 1
 
 [node name="Message" type="Control" parent="Add preset/Values/VBoxContainer/Content" node_paths=PackedStringArray("label_message")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -268,4 +283,6 @@ script = ExtResource("6_xuv1m")
 _is_active = false
 
 [connection signal="pressed" from="Add preset/Button" to="." method="load_make_edit_preset_page"]
+[connection signal="pressed" from="Add preset/Values/VBoxContainer/Content/Timer/VBoxContainer2/VBoxContainer/HBoxContainer/RemoveSession" to="Add preset/Values/VBoxContainer/Content/Timer" method="_add_sessions_done" binds= [-1]]
+[connection signal="pressed" from="Add preset/Values/VBoxContainer/Content/Timer/VBoxContainer2/VBoxContainer/HBoxContainer/AddSession" to="Add preset/Values/VBoxContainer/Content/Timer" method="_add_sessions_done" binds= [1]]
 [connection signal="toggled" from="Add preset/Values/VBoxContainer/Content/Timer/VBoxContainer2/Pause" to="Add preset/Values/VBoxContainer/Content/Timer" method="toggle_pause_timer"]

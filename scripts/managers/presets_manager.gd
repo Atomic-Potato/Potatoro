@@ -278,3 +278,16 @@ func delete_preset(preset_id: int, is_force_delete: bool = false):
 			delete from Presets
 			where ID = " + str(preset_id) + ";"
 		)
+
+func add_session_done(preset_id: int, count: int):
+	if not is_preset_id_buffered(preset_id):
+		return
+	DatabaseManager.db.query("select SessionsDone from Presets_Buffer where PresetID = " + str(preset_id))
+	var sessions_done: int = DatabaseManager.db.query_result[0].get("SessionsDone")
+	if sessions_done + count < 0:
+		return
+	sessions_done += count
+	DatabaseManager.db.query("
+		update Presets_Buffer 
+		set SessionsDone = " + str(sessions_done) + "
+		where PresetID = " + str(preset_id))

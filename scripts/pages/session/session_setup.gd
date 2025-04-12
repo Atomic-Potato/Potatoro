@@ -30,8 +30,7 @@ func _toggle_next_break_length_visibility(toggle: bool):
 func _start_session():
 	parent.preset.break_length = spin_box_break_length.value \
 		if button_auto_break.button_pressed else parent.preset.break_length
-	parent.preset.session_length = spin_box_session_length.value \
-		if spin_box_session_length.text else parent.preset.session_length
+	parent.preset.session_length = spin_box_session_length.value
 		
 	parent.preset.is_auto_start_break = button_auto_break.button_pressed
 	PresetsManager.save_buffered_preset(parent.preset) 
@@ -41,3 +40,8 @@ func _start_session():
 func _update_titles_text():
 	label_preset_name.text = parent.preset.name_
 	label_sessions_count.text = str(parent.preset.sessions_done) + "/" + str(parent.preset.sessions_count)
+
+func _add_sessions_done(count: int)-> void:
+	PresetsManager.add_session_done(parent.preset.ID, count)
+	parent.preset = PresetsManager.get_preset(parent.preset.ID)
+	_update_titles_text()

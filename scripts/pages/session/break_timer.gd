@@ -46,7 +46,8 @@ func enter():
 	_update_break_finish_hour_label()
 	_update_break_timer_label()
 	_update_things_from_settings()
-	self.visibility_changed.connect(_update_things_from_settings)
+	if not self.visibility_changed.is_connected(_update_things_from_settings):
+		self.visibility_changed.connect(_update_things_from_settings)
 	
 	break_time_left_cache = -1
 
@@ -142,6 +143,11 @@ func _toggle_break_timer_pause():
 	else:
 		parent.break_ = BreaksManager.pause_break_id(parent.break_.ID)
 		label_timer.set_active()
+
+func _add_sessions_done(count: int)-> void:
+	PresetsManager.add_session_done(parent.preset.ID, count)
+	parent.preset = PresetsManager.get_preset(parent.preset.ID)
+	_update_titles_text()
 
 func _update_titles_text():
 	label_preset_name.text = parent.preset.name_
