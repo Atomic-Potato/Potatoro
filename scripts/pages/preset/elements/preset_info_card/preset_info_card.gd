@@ -47,6 +47,10 @@ func reset_preset():
 	if not preset:
 		push_error("Cant reset a null preset!")
 		return
+	
 	PresetsManager.end_buffered_preset(preset.ID)
 	preset = PresetsManager.get_preset(preset.ID)
 	update_page()
+	
+	if AudioManager.is_playing_notification():
+		AudioManager.stop_notification()
