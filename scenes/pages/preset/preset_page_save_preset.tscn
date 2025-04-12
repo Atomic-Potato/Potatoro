@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://b2ll8tut18nx6"]
+[gd_scene load_steps=7 format=3 uid="uid://b2ll8tut18nx6"]
 
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_save_preset.gd" id="1_tsndv"]
 [ext_resource type="Theme" uid="uid://bg0k5le4oj0lu" path="res://visual/themes/main_theme.tres" id="2_r6mp1"]
+[ext_resource type="Script" path="res://scripts/classes/blink_canvas_item.gd" id="3_y5kkj"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_y3ci6"]
 
@@ -9,7 +10,7 @@
 
 [sub_resource type="ImageTexture" id="ImageTexture_bvm7a"]
 
-[node name="PresetPageSavePreset" type="Control" node_paths=PackedStringArray("preset_edit", "tag_edit", "session_count_spin_box", "session_length_spin_box", "break_length_spin_box", "auto_break_toggle", "auto_session_toggle")]
+[node name="PresetPageSavePreset" type="Control" node_paths=PackedStringArray("preset_edit", "preset_edit_danger", "tag_edit", "session_count_spin_box", "session_length_spin_box", "break_length_spin_box", "auto_break_toggle", "auto_session_toggle")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,7 +18,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tsndv")
-preset_edit = NodePath("MarginContainer/VBoxContainer/preset")
+preset_edit = NodePath("MarginContainer/VBoxContainer/VBoxContainer/preset")
+preset_edit_danger = NodePath("MarginContainer/VBoxContainer/VBoxContainer/missingName")
 tag_edit = NodePath("MarginContainer/VBoxContainer/tag")
 session_count_spin_box = NodePath("MarginContainer/VBoxContainer2/session count/edit")
 session_length_spin_box = NodePath("MarginContainer/VBoxContainer2/session length/edit")
@@ -52,13 +54,28 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/separation = -5
 
-[node name="preset" type="LineEdit" parent="MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="preset" type="LineEdit" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_r6mp1")
 theme_type_variation = &"SmallEdit"
 placeholder_text = "[enter-preset-name]"
 alignment = 1
 expand_to_text_length = true
+
+[node name="missingName" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_r6mp1")
+theme_type_variation = &"DangerLabel"
+theme_override_font_sizes/font_size = 12
+text = "*required"
+horizontal_alignment = 1
+script = ExtResource("3_y5kkj")
+_is_active = false
+_is_start_hidden = true
+blink_interval = 0.25
 
 [node name="tag" type="LineEdit" parent="MarginContainer/VBoxContainer"]
 visible = false

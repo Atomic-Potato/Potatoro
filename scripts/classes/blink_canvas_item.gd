@@ -1,6 +1,7 @@
 class_name BlinkCanvasItem extends CanvasItem
 
 @export var _is_active: bool = true
+@export var _is_start_hidden: bool = false
 ## Time in seconds between each blink
 @export_range(0,10) var blink_interval: float = .75
 ## Only applies it to attached node
@@ -14,8 +15,8 @@ var _is_ready: bool
 
 func _ready():
 	used_canvas = _canvas_item if _canvas_item else self
-	if _is_active:
-		_blink_loop()
+	if _is_start_hidden: _set_alpha(0)
+	if _is_active: _blink_loop()
 	_is_ready = true
 
 func _blink_loop():
