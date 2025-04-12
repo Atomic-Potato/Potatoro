@@ -56,6 +56,19 @@ func is_preset_id_buffered(preset_id: int, is_push_error: bool = true):
 		return false
 	return true
 
+func add_session_done(preset_id: int, count: int):
+	if not is_preset_id_buffered(preset_id):
+		return
+	DatabaseManager.db.query("select SessionsDone from Presets_Buffer where PresetID = " + str(preset_id))
+	var sessions_done: int = DatabaseManager.db.query_result[0].get("SessionsDone")
+	if sessions_done + count < 0:
+		return
+	sessions_done += count
+	DatabaseManager.db.query("
+		update Presets_Buffer 
+		set SessionsDone = " + str(sessions_done) + "
+		where PresetID = " + str(preset_id))
+
 func get_presets() -> Array[Preset]:
 	var presets: Array[Preset] = []
 	DatabaseManager.db.query("select ID from Presets")
@@ -279,15 +292,14 @@ func delete_preset(preset_id: int, is_force_delete: bool = false):
 			where ID = " + str(preset_id) + ";"
 		)
 
-func add_session_done(preset_id: int, count: int):
+func end_buffered_preset(preset_id: int):
 	if not is_preset_id_buffered(preset_id):
 		return
-	DatabaseManager.db.query("select SessionsDone from Presets_Buffer where PresetID = " + str(preset_id))
-	var sessions_done: int = DatabaseManager.db.query_result[0].get("SessionsDone")
-	if sessions_done + count < 0:
-		return
-	sessions_done += count
-	DatabaseManager.db.query("
-		update Presets_Buffer 
-		set SessionsDone = " + str(sessions_done) + "
-		where PresetID = " + str(preset_id))
+	var prst: Preset = get_preset(preset_id)
+	if prst.current_break_id:
+		BreaksManager.end_break_id(prst.current_break_id)
+	if prst.current_session_id:
+		SessionsManager.end_buffered_session(prst.current_session_id)
+	DatabaseManager.db.query("delete from Presets_Buffer where PresetID = " + str(prst.ID))
+
+

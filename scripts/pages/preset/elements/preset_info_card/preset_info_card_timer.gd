@@ -4,6 +4,7 @@ extends Page
 @export var label_timer: Label
 @export var label_session: Label
 @export var button_pause_toggle: CheckButton
+@export var reset_container: Control
 
 var is_session: bool
 
@@ -17,6 +18,11 @@ func enter():
 	else:
 		BreaksManager.get_loaded_break(parent.preset.current_break_id)\
 		.break_finish.connect(set_message_page)
+	reset_container.show()
+
+func exit():
+	reset_container.hide()
+
 
 func update():
 	if not (is_session and SessionsManager.is_session_paused(parent.preset.current_session_id))\

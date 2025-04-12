@@ -6,10 +6,10 @@
 [ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/danger/flat_color_danger_stylebox.tres" id="2_fibxs"]
 [ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/boxed_line_edit_stylebox.tres" id="2_goobw"]
 [ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/flat_color_stylebox.tres" id="2_iv3mb"]
-[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/card/button_card_styleboxtres.tres" id="3_gbln3"]
 [ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/borders_thin_stylebox.tres" id="5_kwknq"]
 [ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/flat_color_thin_stylebox.tres" id="6_etioe"]
 [ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/borders_thicc_stylebox.tres" id="6_fin5w"]
+[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/flat_color_third_stylebox.tres" id="8_gmeo3"]
 [ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/separating_lines/primary_color_separating_bar_stylebox.tres" id="8_jns06"]
 [ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/separating_lines/third_color_separating_bar_stylebox.tres" id="9_pqtn7"]
 [ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/number_edit/borders_number_edit_stylebox.tres" id="9_wmjt2"]
@@ -63,8 +63,8 @@ ButtonSmall/styles/hover = ExtResource("6_etioe")
 ButtonSmall/styles/normal = ExtResource("5_kwknq")
 ButtonSmall/styles/pressed = ExtResource("6_etioe")
 CardButton/base_type = &"Button"
-CardButton/styles/focus = ExtResource("3_gbln3")
-CardButton/styles/hover = ExtResource("3_gbln3")
+CardButton/styles/focus = ExtResource("8_gmeo3")
+CardButton/styles/hover = ExtResource("8_gmeo3")
 CardButton/styles/normal = SubResource("StyleBoxEmpty_b6air")
 CardButton/styles/pressed = SubResource("StyleBoxEmpty_6qbrn")
 CheckBox/icons/checked = null
