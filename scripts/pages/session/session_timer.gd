@@ -132,7 +132,9 @@ func _skip():
 
 func _update_titles_text():
 	label_preset_name.text = parent.preset.name_
-	label_sessions_count.text = str(parent.preset.sessions_done) + "/" + str(parent.preset.sessions_count)
+	var count: String = str(parent.preset.sessions_count) if parent.preset.sessions_count else "∞"
+	label_sessions_count.text = str(parent.preset.sessions_done) + "/" + count
+		
 
 func _update_timer_text():
 	if not SessionsManager.is_session_buffered(parent.session.ID):

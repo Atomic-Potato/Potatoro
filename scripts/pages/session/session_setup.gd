@@ -39,7 +39,8 @@ func _start_session():
 
 func _update_titles_text():
 	label_preset_name.text = parent.preset.name_
-	label_sessions_count.text = str(parent.preset.sessions_done) + "/" + str(parent.preset.sessions_count)
+	var count: String = str(parent.preset.sessions_count) if parent.preset.sessions_count else "∞"
+	label_sessions_count.text = str(parent.preset.sessions_done) + "/" + count
 
 func _add_sessions_done(count: int)-> void:
 	PresetsManager.add_session_done(parent.preset.ID, count)

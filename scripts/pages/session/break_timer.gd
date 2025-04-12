@@ -151,7 +151,8 @@ func _add_sessions_done(count: int)-> void:
 
 func _update_titles_text():
 	label_preset_name.text = parent.preset.name_
-	label_sessions_count.text = str(parent.preset.sessions_done) + "/" + str(parent.preset.sessions_count)
+	var count: String = str(parent.preset.sessions_count) if parent.preset.sessions_count else "∞"
+	label_sessions_count.text = str(parent.preset.sessions_done) + "/" + count
 	
 func _end_break():
 	if break_time_left_cache > 0:
