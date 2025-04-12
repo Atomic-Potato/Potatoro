@@ -1,5 +1,7 @@
 extends Page
 
+@export var text_no_file_select: String = "[No file selected]"
+
 @export_category("Info")
 @export var label_app_version: Label
 @export var label_database_path: Label
@@ -61,10 +63,14 @@ func _update_fileds():
 	check_hide_break_controls.set_pressed_no_signal(SettingsManager.is_hide_break_timer_controls)
 	
 	# INFO: Sound Settings
-	if SettingsManager.path_session_end_notification_timer:
-		label_session_notification_path.text = ProjectSettings.globalize_path(SettingsManager.path_session_end_notification_timer)
-	if SettingsManager.path_break_end_notification_timer:
-		label_break_notification_path.text = ProjectSettings.globalize_path(SettingsManager.path_break_end_notification_timer)
+	label_session_notification_path.text = \
+		ProjectSettings.globalize_path(SettingsManager.path_session_end_notification_timer)\
+		if SettingsManager.path_session_end_notification_timer\
+		else text_no_file_select
+	label_break_notification_path.text = \
+		ProjectSettings.globalize_path(SettingsManager.path_break_end_notification_timer)\
+		if SettingsManager.path_break_end_notification_timer\
+		else text_no_file_select
 	slider_session_notification_volume.value = SettingsManager.volume_session_end_notification
 	slider_break_notification_volume.value = SettingsManager.volume_break_end_notification
 	
@@ -159,8 +165,8 @@ func _show_open_file_dialog_break_notification():
 
 func _clear_session_notification_path():
 	SettingsManager.path_session_end_notification_timer = ""
-	label_session_notification_path.text = "[No file selected]"
+	label_session_notification_path.text = text_no_file_select
 
 func _clear_break_notification_path():
 	SettingsManager.path_break_end_notification_timer = ""
-	label_break_notification_path.text = "[No file selected]"
+	label_break_notification_path.text = text_no_file_select

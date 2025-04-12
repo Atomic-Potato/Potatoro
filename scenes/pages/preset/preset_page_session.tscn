@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_session.gd" id="3_p5ysi"]
 [ext_resource type="Script" path="res://scripts/pages/session/session_timer.gd" id="6_j5uv2"]
 [ext_resource type="Script" path="res://scripts/classes/blink_canvas_item.gd" id="6_mel5q"]
-[ext_resource type="Theme" uid="uid://bg0k5le4oj0lu" path="res://visual/themes/main_theme.tres" id="8_85gr6"]
+[ext_resource type="Theme" uid="uid://c2rjn65b4gvov" path="res://visual/themes/main_theme.tres" id="8_85gr6"]
 [ext_resource type="Script" path="res://scripts/pages/session/session_finish.gd" id="8_xg4q4"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_setup.gd" id="9_esxm0"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_timer.gd" id="10_l1xkr"]
