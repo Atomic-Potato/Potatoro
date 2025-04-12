@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cy71rb02uwuce"]
+[gd_scene load_steps=7 format=3 uid="uid://cy71rb02uwuce"]
 
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card.gd" id="1_hayla"]
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card_values.gd" id="3_7m7gu"]
-[ext_resource type="Theme" uid="uid://bmgw3uu0ry2ht" path="res://visual/themes/main_theme.tres" id="3_p2wl1"]
+[ext_resource type="Theme" uid="uid://bg0k5le4oj0lu" path="res://visual/themes/main_theme.tres" id="3_p2wl1"]
+[ext_resource type="Script" path="res://scripts/classes/blink_canvas_item.gd" id="6_xuv1m"]
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card_timer.gd" id="8_263cv"]
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card_message.gd" id="9_3rvoh"]
 
@@ -173,6 +174,7 @@ theme_override_font_sizes/font_size = 22
 text = "min break"
 
 [node name="Timer" type="Control" parent="Add preset/Values/VBoxContainer/Content" node_paths=PackedStringArray("label_timer_type", "label_timer", "label_session", "button_pause_toggle")]
+visible = false
 layout_mode = 2
 anchors_preset = 0
 anchor_right = 1.0
@@ -238,7 +240,6 @@ text = "PAUSE"
 alignment = 1
 
 [node name="Message" type="Control" parent="Add preset/Values/VBoxContainer/Content" node_paths=PackedStringArray("label_message")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -250,6 +251,7 @@ script = ExtResource("9_3rvoh")
 label_message = NodePath("Label")
 
 [node name="Label" type="Label" parent="Add preset/Values/VBoxContainer/Content/Message"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -263,6 +265,7 @@ text = "MESSAGE
 HERE"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("6_xuv1m")
 
 [connection signal="pressed" from="Add preset/Button" to="." method="load_make_edit_preset_page"]
 [connection signal="toggled" from="Add preset/Values/VBoxContainer/Content/Timer/VBoxContainer2/Pause" to="Add preset/Values/VBoxContainer/Content/Timer" method="toggle_pause_timer"]

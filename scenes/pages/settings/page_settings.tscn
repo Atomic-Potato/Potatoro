@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dr5n8ajt1keec"]
 
 [ext_resource type="Script" path="res://scripts/pages/settings/page_settings.gd" id="1_22btq"]
-[ext_resource type="Theme" uid="uid://51xap60g2kxt" path="res://visual/themes/main_theme.tres" id="2_678x1"]
+[ext_resource type="Theme" uid="uid://bg0k5le4oj0lu" path="res://visual/themes/main_theme.tres" id="2_678x1"]
 [ext_resource type="Script" path="res://scripts/classes/number_edit.gd" id="3_yorst"]
 [ext_resource type="Theme" uid="uid://c2ndyfruhrefw" path="res://visual/themes/empty_theme.tres" id="4_flnsp"]
 
@@ -51,7 +51,7 @@ theme_override_constants/margin_bottom = 22
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
-scroll_vertical = 1125
+scroll_vertical = 100
 
 [node name="HeadersContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
 custom_minimum_size = Vector2(300, 10.435)
