@@ -40,6 +40,7 @@ extends Page
 #@export_category("Other") # in case i do need it later # its one line, idk why i even kept it
 
 func _ready():
+	DirAccess.make_dir_absolute("user://sound")
 	_update_fileds()
 	_connect_fileds()
 	_setup_open_file_dialogs()
@@ -122,22 +123,27 @@ func _connect_fileds():
 		func(value: Color): SettingsManager.color_title_bar_secondary = value.to_html(false))
 
 func _setup_open_file_dialogs():
+	open_file_dialog_session_notification.root_subfolder = "sound"
 	open_file_dialog_session_notification.hide()
 	open_file_dialog_session_notification.file_selected.connect(
 		func(path: String): 
 			SettingsManager.path_session_end_notification_timer = path
 			label_session_notification_path.text = ProjectSettings.globalize_path(path)
 	)
+	open_file_dialog_break_notification.root_subfolder = "sound"
 	open_file_dialog_break_notification.hide()
 	open_file_dialog_break_notification.file_selected.connect(
 		func(path: String): 
 			SettingsManager.path_break_end_notification_timer = path
-			label_break_notification_path.text = ProjectSettings.globalize_path(path)
+			label_break_notification_path.text = ProjectSettings.globalize_path(path) + "sound"
 	)
 
 func _restore_defaults():
 	DatabaseManager.restore_default_settings()
 	_update_fileds()
+
+func _open_sound_directory()-> void:
+	OS.shell_open(ProjectSettings.globalize_path("user://sound"))
 
 func _open_user_directory():
 	OS.shell_open(ProjectSettings.globalize_path("user://"))
@@ -150,3 +156,11 @@ func _show_open_file_dialog_session_notification():
 
 func _show_open_file_dialog_break_notification():
 	open_file_dialog_break_notification.show()
+
+func _clear_session_notification_path():
+	SettingsManager.path_session_end_notification_timer = ""
+	label_session_notification_path.text = "[No file selected]"
+
+func _clear_break_notification_path():
+	SettingsManager.path_break_end_notification_timer = ""
+	label_break_notification_path.text = "[No file selected]"

@@ -1,19 +1,19 @@
-[gd_resource type="Theme" load_steps=25 format=3 uid="uid://bg0k5le4oj0lu"]
+[gd_resource type="Theme" load_steps=25 format=3]
 
-[ext_resource type="StyleBox" uid="uid://f6gr8b0grt3d" path="res://visual/style_boxes/main_theme/danger/borders_danger_stylebox.tres" id="1_e1fs3"]
-[ext_resource type="StyleBox" uid="uid://b2nkbqa6j3oc6" path="res://visual/style_boxes/main_theme/background/background_stylebox.tres" id="1_qr4vg"]
-[ext_resource type="StyleBox" uid="uid://dk8a2hn6pt38n" path="res://visual/style_boxes/main_theme/borders_stylebox.tres" id="1_wann0"]
-[ext_resource type="StyleBox" uid="uid://dp31ysgvcajmv" path="res://visual/style_boxes/main_theme/danger/flat_color_danger_stylebox.tres" id="2_fibxs"]
-[ext_resource type="StyleBox" uid="uid://c8qddryt4vch8" path="res://visual/style_boxes/main_theme/boxed_line_edit_stylebox.tres" id="2_goobw"]
-[ext_resource type="StyleBox" uid="uid://cubk7cn55luho" path="res://visual/style_boxes/main_theme/flat_color_stylebox.tres" id="2_iv3mb"]
-[ext_resource type="StyleBox" uid="uid://b2yiddj73j6q5" path="res://visual/style_boxes/main_theme/card/button_card_styleboxtres.tres" id="3_gbln3"]
-[ext_resource type="StyleBox" uid="uid://dxxiavjhuvs60" path="res://visual/style_boxes/main_theme/borders_thin_stylebox.tres" id="5_kwknq"]
-[ext_resource type="StyleBox" uid="uid://b71cxypdyjkb5" path="res://visual/style_boxes/main_theme/flat_color_thin_stylebox.tres" id="6_etioe"]
-[ext_resource type="StyleBox" uid="uid://d00d5gjgsenwl" path="res://visual/style_boxes/main_theme/borders_thicc_stylebox.tres" id="6_fin5w"]
-[ext_resource type="StyleBox" uid="uid://dsxsdmbmpk7k4" path="res://visual/style_boxes/main_theme/separating_lines/primary_color_separating_bar_stylebox.tres" id="8_jns06"]
-[ext_resource type="StyleBox" uid="uid://dy1lbye0woui5" path="res://visual/style_boxes/main_theme/separating_lines/third_color_separating_bar_stylebox.tres" id="9_pqtn7"]
-[ext_resource type="StyleBox" uid="uid://cl2yd31ibe45g" path="res://visual/style_boxes/main_theme/number_edit/borders_number_edit_stylebox.tres" id="9_wmjt2"]
-[ext_resource type="StyleBox" uid="uid://ckbikkmcer8g3" path="res://visual/style_boxes/main_theme/empty_with_margins_stylebox.tres" id="10_65fcl"]
+[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/danger/borders_danger_stylebox.tres" id="1_e1fs3"]
+[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/background/background_stylebox.tres" id="1_qr4vg"]
+[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/borders_stylebox.tres" id="1_wann0"]
+[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/danger/flat_color_danger_stylebox.tres" id="2_fibxs"]
+[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/boxed_line_edit_stylebox.tres" id="2_goobw"]
+[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/flat_color_stylebox.tres" id="2_iv3mb"]
+[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/card/button_card_styleboxtres.tres" id="3_gbln3"]
+[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/borders_thin_stylebox.tres" id="5_kwknq"]
+[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/flat_color_thin_stylebox.tres" id="6_etioe"]
+[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/borders_thicc_stylebox.tres" id="6_fin5w"]
+[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/separating_lines/primary_color_separating_bar_stylebox.tres" id="8_jns06"]
+[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/separating_lines/third_color_separating_bar_stylebox.tres" id="9_pqtn7"]
+[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/number_edit/borders_number_edit_stylebox.tres" id="9_wmjt2"]
+[ext_resource type="StyleBox" path="res://visual/style_boxes/main_theme/empty_with_margins_stylebox.tres" id="10_65fcl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_phdrx"]
 
@@ -41,7 +41,7 @@ Background/styles/panel = ExtResource("1_qr4vg")
 BoxedLineEdit/base_type = &"LineEdit"
 BoxedLineEdit/colors/caret_color = Color(0, 0, 0, 1)
 BoxedLineEdit/colors/font_color = Color(0, 0, 0, 1)
-BoxedLineEdit/colors/font_placeholder_color = Color(0.564706, 0.564706, 0.564706, 1)
+BoxedLineEdit/colors/font_placeholder_color = Color(0, 1, 0.858824, 1)
 BoxedLineEdit/colors/font_selected_color = Color(1, 1, 1, 1)
 BoxedLineEdit/colors/selection_color = Color(0, 0, 0, 1)
 BoxedLineEdit/font_sizes/font_size = 16
@@ -104,9 +104,9 @@ LargeEdit/styles/focus = ExtResource("9_wmjt2")
 LargeEdit/styles/normal = ExtResource("9_wmjt2")
 LineEdit/colors/caret_color = Color(0.0196078, 0.952941, 0.101961, 1)
 LineEdit/colors/font_color = Color(0.0196078, 0.952941, 0.101961, 1)
-LineEdit/colors/font_placeholder_color = Color(0.564706, 0.564706, 0.564706, 1)
+LineEdit/colors/font_placeholder_color = Color(0, 1, 0.858824, 1)
 LineEdit/colors/font_selected_color = Color(0.0196078, 0.952941, 0.101961, 1)
-LineEdit/colors/selection_color = Color(0.564706, 0.564706, 0.564706, 1)
+LineEdit/colors/selection_color = Color(0, 1, 0.858824, 1)
 LineEdit/constants/minimum_character_width = 4
 LineEdit/font_sizes/font_size = 72
 LineEdit/styles/focus = ExtResource("9_wmjt2")
@@ -141,9 +141,9 @@ SeparatingBarThird/styles/panel = ExtResource("9_pqtn7")
 SmallEdit/base_type = &"LineEdit"
 SmallEdit/colors/caret_color = Color(0.0196078, 0.952941, 0.101961, 1)
 SmallEdit/colors/font_color = Color(0.0196078, 0.952941, 0.101961, 1)
-SmallEdit/colors/font_placeholder_color = Color(0.564706, 0.564706, 0.564706, 1)
+SmallEdit/colors/font_placeholder_color = Color(0, 1, 0.858824, 1)
 SmallEdit/colors/font_selected_color = Color(0.0196078, 0.952941, 0.101961, 1)
-SmallEdit/colors/selection_color = Color(0.564706, 0.564706, 0.564706, 1)
+SmallEdit/colors/selection_color = Color(0, 1, 0.858824, 1)
 SmallEdit/font_sizes/font_size = 16
 SmallEdit/styles/focus = SubResource("StyleBoxEmpty_01ovf")
 SmallEdit/styles/normal = SubResource("StyleBoxEmpty_2ay20")

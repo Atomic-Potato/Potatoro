@@ -69,6 +69,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SessionSetup" type="Control" parent="Content" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "break_length_parent", "spin_box_session_length", "spin_box_break_length", "button_auto_break")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -447,7 +448,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DEBUGGING" type="Control" parent="Content/SessionTimer"]
-visible = false
 layout_mode = 1
 anchors_preset = 0
 
@@ -486,8 +486,7 @@ text = "+5 s"
 layout_mode = 2
 text = "+10 s"
 
-[node name="SessionFinish" type="Control" parent="Content"]
-visible = false
+[node name="SessionFinish" type="Control" parent="Content" node_paths=PackedStringArray("label_message")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -495,40 +494,33 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("8_xg4q4")
+label_message = NodePath("VBoxContainer2/Message")
 
-[node name="Message" type="Label" parent="Content/SessionFinish"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Content/SessionFinish"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -108.0
-offset_top = -70.0
-offset_right = 108.0
-offset_bottom = 70.0
+offset_left = -204.5
+offset_top = -229.0
+offset_right = 204.5
+offset_bottom = 229.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="Message" type="Label" parent="Content/SessionFinish/VBoxContainer2"]
+layout_mode = 2
 theme = ExtResource("8_85gr6")
 theme_override_font_sizes/font_size = 100
-text = "FINISH !"
+text = "SESSION
+OVER!"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="Content/SessionFinish"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -108.0
-offset_top = -176.235
-offset_right = 108.0
-offset_bottom = -86.235
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/separation = 30
+script = ExtResource("6_mel5q")
+_is_active = false
 
 [node name="ContinueBreak" type="Button" parent="Content/SessionFinish/VBoxContainer2"]
 custom_minimum_size = Vector2(250, 35)
@@ -963,7 +955,7 @@ text = "+5 s"
 layout_mode = 2
 text = "+10 s"
 
-[node name="BreakFinish" type="Control" parent="Content"]
+[node name="BreakFinish" type="Control" parent="Content" node_paths=PackedStringArray("label_message")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -972,40 +964,33 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("11_ecred")
+label_message = NodePath("VBoxContainer2/MessageBreak")
 
-[node name="Message" type="Label" parent="Content/BreakFinish"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Content/BreakFinish"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -108.0
-offset_top = -70.0
-offset_right = 108.0
-offset_bottom = 70.0
+offset_left = -158.0
+offset_top = -229.0
+offset_right = 158.0
+offset_bottom = 229.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="MessageBreak" type="Label" parent="Content/BreakFinish/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("8_85gr6")
 theme_override_font_sizes/font_size = 100
 text = "BREAK
 OVER!"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="Content/BreakFinish"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -108.0
-offset_top = -176.235
-offset_right = 108.0
-offset_bottom = -86.235
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/separation = 30
+script = ExtResource("6_mel5q")
+_is_active = false
 
 [node name="ContinueBreak" type="Button" parent="Content/BreakFinish/VBoxContainer2"]
 custom_minimum_size = Vector2(250, 35)

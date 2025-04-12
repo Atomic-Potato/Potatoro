@@ -51,7 +51,7 @@ theme_override_constants/margin_bottom = 22
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
-scroll_vertical = 100
+scroll_vertical = 1055
 
 [node name="HeadersContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
 custom_minimum_size = Vector2(300, 10.435)
@@ -320,6 +320,7 @@ theme_override_constants/separation = 16
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath"]
 layout_mode = 2
+theme_override_constants/separation = 20
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer2"]
 custom_minimum_size = Vector2(400, 0)
@@ -327,10 +328,15 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Session end notification sound"
 
-[node name="Button" type="Button" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer2"]
+[node name="ChooseFile" type="Button" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("2_678x1")
 text = "Choose File"
+
+[node name="Clear" type="Button" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("2_678x1")
+text = "CLEAR"
 
 [node name="SessionNotificationFileDialog" type="FileDialog" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer2"]
 title = "Open a File"
@@ -352,6 +358,7 @@ theme_override_constants/separation = 16
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath"]
 layout_mode = 2
+theme_override_constants/separation = 20
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
@@ -360,11 +367,16 @@ size_flags_stretch_ratio = 0.8
 theme_override_font_sizes/font_size = 20
 text = "Break end notification sound"
 
-[node name="Button" type="Button" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer"]
+[node name="ChooseFile" type="Button" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer"]
 layout_mode = 2
 size_flags_stretch_ratio = 0.2
 theme = ExtResource("2_678x1")
 text = "Choose File"
+
+[node name="Clear" type="Button" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_678x1")
+text = "CLEAR"
 
 [node name="BreakNotificationFileDialog" type="FileDialog" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer"]
 title = "Open a File"
@@ -600,7 +612,9 @@ layout_mode = 2
 text = "RESTORE DEFAULTS"
 
 [connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/DB/HBoxContainer/Button" to="." method="_open_db_directory"]
-[connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/Button" to="." method="_open_user_directory"]
-[connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer2/Button" to="." method="_show_open_file_dialog_session_notification"]
-[connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer/Button" to="." method="_show_open_file_dialog_break_notification"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/Button" to="." method="_open_sound_directory"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer2/ChooseFile" to="." method="_show_open_file_dialog_session_notification"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer2/Clear" to="." method="_clear_session_notification_path"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer/ChooseFile" to="." method="_show_open_file_dialog_break_notification"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer/Clear" to="." method="_clear_break_notification_path"]
 [connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/RestoreDefaults" to="." method="_restore_defaults"]

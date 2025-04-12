@@ -1,5 +1,13 @@
 extends Page
 
+@export var label_message: BlinkCanvasItem
+
+func enter():
+	label_message.set_active()
+	
+func exit():
+	label_message.set_inactive()
+
 func _continue():
 	if parent.preset.is_auto_start_break:
 		parent.set_page(parent.page_break_timer)
