@@ -24,7 +24,8 @@ func initialize(data: Dictionary):
 	auto_break_toggle.button_pressed = preset.is_auto_start_break
 
 func _ready():
-	_update_fields()
+	if not preset:
+		_update_fields()
 	
 	# NOTE: I was using this before i changed the fields to spin boxes instead of line edits
 	# and in line edits i was just updating the placeholder text, but theres no placeholder in spinboxes
