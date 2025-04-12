@@ -2,7 +2,7 @@ class_name BlinkCanvasItem extends CanvasItem
 
 @export var _is_active: bool = true
 ## Time in seconds between each blink
-@export_range(0,10) var blink_interval: float = 1
+@export_range(0,10) var blink_interval: float = .75
 ## Only applies it to attached node
 @export var is_self_modulate: bool = false
 @export_range(0,1) var alpha: float = 1
@@ -10,11 +10,13 @@ class_name BlinkCanvasItem extends CanvasItem
 @export var _canvas_item: CanvasItem
 
 var used_canvas: CanvasItem
+var _is_ready: bool
 
 func _ready():
 	used_canvas = _canvas_item if _canvas_item else self
 	if _is_active:
 		_blink_loop()
+	_is_ready = true
 
 func _blink_loop():
 	while _is_active:
@@ -39,10 +41,12 @@ func set_active():
 	if _is_active:
 		push_warning(used_canvas.name, " is already blinking!")
 		return
+	if not _is_ready: await ready
 	_is_active = true
 	_set_alpha(alpha)
 	_blink_loop()
 
 func set_inactive():
 	_is_active = false
+	if not _is_ready: await ready
 	_set_alpha(alpha)

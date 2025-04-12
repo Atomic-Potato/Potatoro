@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://k87ux2qmpcqj"]
+[gd_scene load_steps=17 format=3 uid="uid://k87ux2qmpcqj"]
 
 [ext_resource type="Script" path="res://scripts/pages/session/session_setup.gd" id="2_l3wag"]
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_session.gd" id="3_p5ysi"]
 [ext_resource type="LabelSettings" uid="uid://dis7d5hvikqed" path="res://visual/labels/subtitle.tres" id="5_jy7e5"]
 [ext_resource type="Script" path="res://scripts/pages/session/session_timer.gd" id="6_j5uv2"]
+[ext_resource type="Script" path="res://scripts/classes/blink_canvas_item.gd" id="6_mel5q"]
 [ext_resource type="Theme" uid="uid://bg0k5le4oj0lu" path="res://visual/themes/main_theme.tres" id="8_85gr6"]
 [ext_resource type="Script" path="res://scripts/pages/session/session_finish.gd" id="8_xg4q4"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_setup.gd" id="9_esxm0"]
@@ -277,6 +278,8 @@ theme_override_font_sizes/font_size = 100
 text = "50:00"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("6_mel5q")
+_is_active = false
 
 [node name="Add time" type="HBoxContainer" parent="Content/SessionTimer/Timer"]
 layout_mode = 2
@@ -417,6 +420,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DEBUGGING" type="Control" parent="Content/SessionTimer"]
+visible = false
 layout_mode = 1
 anchors_preset = 0
 
@@ -515,6 +519,7 @@ theme = ExtResource("8_85gr6")
 text = "RESTART"
 
 [node name="BreakSetup" type="Control" parent="Content" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "session_length_parent", "spin_box_session_length", "spin_box_break_length", "button_auto_session")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -670,7 +675,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="BreakTimer" type="Control" parent="Content" node_paths=PackedStringArray("label_finish_hour", "label_timer", "label_preset_name", "label_sessions_count", "button_pause_toggle", "button_auto_session_toggle", "add_time_controls_parent", "deduct_time_controls_parent")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -721,6 +725,8 @@ theme_override_font_sizes/font_size = 100
 text = "50:00"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("6_mel5q")
+_is_active = false
 
 [node name="Add time" type="HBoxContainer" parent="Content/BreakTimer/Timer"]
 layout_mode = 2
@@ -860,6 +866,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DEBUGGING" type="Control" parent="Content/BreakTimer"]
+visible = false
 layout_mode = 1
 anchors_preset = 0
 

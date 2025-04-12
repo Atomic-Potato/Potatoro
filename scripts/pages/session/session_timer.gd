@@ -3,7 +3,7 @@ extends Page
 @export var label_preset_name: Label
 @export var label_sessions_count: Label
 @export var label_finish_hour: Label
-@export var label_timer: Label
+@export var label_timer: BlinkCanvasItem
 @export var button_pause_toggle: CheckButton
 @export var button_auto_break_toggle: CheckButton
 
@@ -101,10 +101,11 @@ func add_session_length_seconds(seconds: int):
 func toggle_pause():
 	if not SessionsManager.is_session_paused(parent.session.ID):
 		SessionsManager.pause_session(parent.session.ID)
+		label_timer.set_active()
 	else:
 		SessionsManager.resume_session(parent.session.ID, parent.preset.ID)
+		label_timer.set_inactive()
 	_update_finish_hour()
-	# TODO: Play blinking animations
 
 func _toggle_auto_break(toggle: bool):
 	parent.preset.is_auto_start_break = toggle

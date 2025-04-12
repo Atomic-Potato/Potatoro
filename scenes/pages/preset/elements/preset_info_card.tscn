@@ -251,7 +251,6 @@ script = ExtResource("9_3rvoh")
 label_message = NodePath("Label")
 
 [node name="Label" type="Label" parent="Add preset/Values/VBoxContainer/Content/Message"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -266,6 +265,7 @@ HERE"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("6_xuv1m")
+_is_active = false
 
 [connection signal="pressed" from="Add preset/Button" to="." method="load_make_edit_preset_page"]
 [connection signal="toggled" from="Add preset/Values/VBoxContainer/Content/Timer/VBoxContainer2/Pause" to="Add preset/Values/VBoxContainer/Content/Timer" method="toggle_pause_timer"]

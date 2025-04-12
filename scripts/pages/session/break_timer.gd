@@ -2,7 +2,7 @@ extends Page
 
 @export var is_use_24_hour_format: bool = false # TODO: Get this data from the config table
 @export var label_finish_hour: Label
-@export var label_timer: Label
+@export var label_timer: BlinkCanvasItem
 @export var label_preset_name: Label
 @export var label_sessions_count: Label
 @export var button_pause_toggle: CheckButton
@@ -138,8 +138,10 @@ func _toggle_break_timer_pause():
 	
 	if BreaksManager.is_break_id_paused(parent.break_.ID):
 		parent.break_ = BreaksManager.resume_break_id(parent.break_.ID)
+		label_timer.set_inactive()
 	else:
 		parent.break_ = BreaksManager.pause_break_id(parent.break_.ID)
+		label_timer.set_active()
 
 func _update_titles_text():
 	label_preset_name.text = parent.preset.name_
