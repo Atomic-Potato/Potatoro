@@ -39,7 +39,8 @@ func enter():
 	if button_pause_toggle.button_pressed and not BreaksManager.is_break_id_paused(parent.break_.ID):
 		BreaksManager.pause_break_id(parent.break_.ID)
 	
-	parent.break_.break_finish.connect(_end_break)
+	if not parent.break_.break_finish.is_connected(_end_break):
+		parent.break_.break_finish.connect(_end_break)
 	button_auto_session_toggle.set_pressed_no_signal(parent.preset.is_auto_start_session)
 	
 	_update_titles_text()
@@ -68,7 +69,8 @@ func _skip_break():
 	
 func _restart_break():
 	parent.break_ = BreaksManager.restart_break_id(parent.break_.ID)
-	parent.break_.break_finish.connect(_end_break)
+	if not parent.break_.break_finish.is_connected(_end_break):
+		parent.break_.break_finish.connect(_end_break)
 	button_pause_toggle.set_pressed_no_signal(false)
 	_update_break_finish_hour_label()
 	_update_break_timer_label()

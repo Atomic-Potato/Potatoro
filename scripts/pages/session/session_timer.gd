@@ -66,9 +66,12 @@ func update():
 func connect_session_finish_subscribers(s: Session):
 	if not s:
 		push_error("Cannot connect subscribers to a null session")
-	s.session_finish.connect(update_preset)
-	s.session_finish.connect(_update_titles_text)
-	s.session_finish.connect(_end_session_timer)
+	if not s.session_finish.is_connected(update_preset):
+		s.session_finish.connect(update_preset)
+	if not s.session_finish.is_connected(_update_titles_text):
+		s.session_finish.connect(_update_titles_text)
+	if not s.session_finish.is_connected(_end_session_timer):
+		s.session_finish.connect(_end_session_timer)
 
 func add_session_length(minutes: int):
 	var remaining_secs = SessionsManager.get_session_id_remaining_time_in_seconds(parent.session.ID)

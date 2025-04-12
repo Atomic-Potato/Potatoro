@@ -1,7 +1,6 @@
 extends Control
 
-@warning_ignore("shadowed_global_identifier")
-var preset: Preset
+var preset_: Preset
 
 @export var preset_edit: LineEdit
 @export var preset_edit_danger: BlinkCanvasItem
@@ -13,19 +12,19 @@ var preset: Preset
 @export var auto_session_toggle: BaseButton
 
 func initialize(data: Dictionary):
-	preset = data.get("preset")
-	preset_edit.text = preset.name_
-	tag_edit.text = str(preset.default_tag_id)
+	preset_ = data.get("preset")
+	preset_edit.text = preset_.name_
+	tag_edit.text = str(preset_.default_tag_id)
 	
-	session_count_spin_box.value = preset.sessions_count
-	session_length_spin_box.value = preset.session_length
-	break_length_spin_box.value = preset.break_length
+	session_count_spin_box.value = preset_.sessions_count
+	session_length_spin_box.value = preset_.session_length
+	break_length_spin_box.value = preset_.break_length
 	
-	auto_session_toggle.button_pressed = preset.is_auto_start_session
-	auto_break_toggle.button_pressed = preset.is_auto_start_break
+	auto_session_toggle.button_pressed = preset_.is_auto_start_session
+	auto_break_toggle.button_pressed = preset_.is_auto_start_break
 
 func _ready():
-	if not preset:
+	if not preset_:
 		_update_fields()
 	
 	# NOTE: I was using this before i changed the fields to spin boxes instead of line edits
@@ -36,37 +35,40 @@ func _ready():
 func _load_prests_page():
 	Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_presets)
 
-func _save_preset_data():
+func _save_preset_data()-> bool:
 	if not preset_edit.text:
 		preset_edit_danger.set_active()
-		return
+		return false
 	
-	if not preset:
-		preset = Preset.new()
+	if not preset_:
+		preset_ = Preset.new()
 	
-	preset.name_ = preset_edit.text
-	# preset.default_tag_id = # TODO
+	preset_.name_ = preset_edit.text
+	# preset_.default_tag_id = # TODO
 	
-	preset.sessions_count = session_count_spin_box.value
-	preset.session_length = session_length_spin_box.value
-	preset.break_length = break_length_spin_box.value
+	preset_.sessions_count = session_count_spin_box.value
+	preset_.session_length = session_length_spin_box.value
+	preset_.break_length = break_length_spin_box.value
 		
-	preset.is_auto_start_break = int(auto_break_toggle.button_pressed)
-	preset.is_auto_start_session = int(auto_session_toggle.button_pressed)
-	PresetsManager.save_preset(preset) 
+	preset_.is_auto_start_break = int(auto_break_toggle.button_pressed)
+	preset_.is_auto_start_session = int(auto_session_toggle.button_pressed)
+	preset_.ID = PresetsManager.save_preset(preset_) 
 	
 	Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_presets)
+	return true
 
 func _start_preset():
-	_save_preset_data()
-	preset.buffer_ID = PresetsManager.save_buffered_preset(preset)
-	Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_session, {"preset": preset})
+	if not _save_preset_data():
+		return
+	PresetsManager.save_buffered_preset(preset_)
+	preset_ = PresetsManager.get_preset(preset_.ID)
+	Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_session, {"preset": preset_})
 
 func _delete_preset():
-	if preset:
+	if preset_:
 		Global.AppMan.load_gui_scene(
 			Global.SceneCont.popup_delete, 
-			{"DeleteMessage": "delete preset " + preset.name_ + "?", "Callable": _delete_preset_callable},
+			{"DeleteMessage": "delete preset_ " + preset_.name_ + "?", "Callable": _delete_preset_callable},
 			true
 		)
 		
@@ -83,7 +85,7 @@ func _delete_preset():
 func _delete_preset_callable(is_delete_confirmed: bool):
 	if not is_delete_confirmed:
 		return
-	PresetsManager.delete_preset(preset.ID)
+	PresetsManager.delete_preset(preset_.ID)
 	Global.AppMan.load_gui_scene(Global.SceneCont.preset_page_presets)
 
 func _update_fields():
