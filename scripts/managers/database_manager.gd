@@ -29,7 +29,7 @@ func _ready():
 # NOTE: offset should in the format +/-time seconds/minutes/hours e.g. +20 seconds
 func get_datetime(offset: String = '', start_date: String = 'now')-> String:
 	var query: String =\
-		"select datetime() as 'datetime'" if not offset\
+		"select datetime('now', 'localtime') as 'datetime'" if not offset\
 		else "select datetime('" + start_date + "', '" + offset + "') as 'datetime'"
 	DatabaseManager.db.query(query)
 	return DatabaseManager.db.query_result[0].get("datetime")
