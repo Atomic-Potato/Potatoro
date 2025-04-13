@@ -1,11 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://dr5n8ajt1keec"]
+[gd_scene load_steps=6 format=3 uid="uid://dr5n8ajt1keec"]
 
 [ext_resource type="Script" path="res://scripts/pages/settings/page_settings.gd" id="1_22btq"]
-[ext_resource type="Theme" uid="uid://c2rjn65b4gvov" path="res://visual/themes/main_theme.tres" id="2_678x1"]
+[ext_resource type="Theme" uid="uid://cttgvygv7gpq6" path="res://visual/themes/main_theme.tres" id="2_678x1"]
 [ext_resource type="Script" path="res://scripts/classes/number_edit.gd" id="3_yorst"]
 [ext_resource type="Theme" uid="uid://c2ndyfruhrefw" path="res://visual/themes/empty_theme.tres" id="4_flnsp"]
+[ext_resource type="Script" path="res://scripts/classes/number_edit_float.gd" id="5_tquc7"]
 
-[node name="Settings" type="Control" node_paths=PackedStringArray("label_app_version", "label_database_path", "edit_sessions_count", "edit_session_length", "edit_break_length", "check_hour_format", "check_hide_session_controls", "check_hide_break_controls", "open_file_dialog_session_notification", "open_file_dialog_break_notification", "slider_session_notification_volume", "slider_break_notification_volume", "label_session_notification_path", "label_break_notification_path", "color_background", "color_primary", "color_secondary", "color_third", "color_danger_primary", "color_danger_secondary", "check_custom_title_bar", "color_title_bar_primary", "color_title_bar_secondary")]
+[node name="Settings" type="Control" node_paths=PackedStringArray("label_app_version", "label_database_path", "edit_sessions_count", "edit_session_length", "edit_break_length", "check_hour_format", "check_hide_session_controls", "check_hide_break_controls", "open_file_dialog_session_notification", "open_file_dialog_break_notification", "slider_session_notification_volume", "slider_break_notification_volume", "label_session_notification_path", "label_break_notification_path", "color_background", "color_primary", "color_secondary", "color_third", "color_danger_primary", "color_danger_secondary", "check_custom_title_bar", "color_title_bar_primary", "color_title_bar_secondary", "edit_ui_scale")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,6 +37,7 @@ color_danger_secondary = NodePath("MarginContainer/ScrollContainer/HeadersContai
 check_custom_title_bar = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/CustomTitleBar/CheckBox")
 color_title_bar_primary = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/TitlePrimary/ColorPickerButton")
 color_title_bar_secondary = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/TitleSecondary/ColorPickerButton")
+edit_ui_scale = NodePath("MarginContainer/ScrollContainer/HeadersContainer/UI/Scale/LineEdit")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -51,7 +53,7 @@ theme_override_constants/margin_bottom = 22
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
-scroll_vertical = 100
+scroll_vertical = 1690
 
 [node name="HeadersContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
 custom_minimum_size = Vector2(300, 10.435)
@@ -584,6 +586,57 @@ theme = ExtResource("2_678x1")
 edit_alpha = false
 
 [node name="separatingline5" type="PanelContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+theme = ExtResource("2_678x1")
+theme_type_variation = &"SeparatingBarThird"
+
+[node name="UI" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/UI"]
+layout_mode = 2
+theme = ExtResource("2_678x1")
+theme_override_font_sizes/font_size = 32
+text = "User INTERFACE"
+uppercase = true
+
+[node name="Scale" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/UI"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/UI/Scale"]
+custom_minimum_size = Vector2(325, 0)
+layout_mode = 2
+theme = ExtResource("2_678x1")
+text = "Scale (between 0.5 and 3)"
+
+[node name="ReduceScale" type="Button" parent="MarginContainer/ScrollContainer/HeadersContainer/UI/Scale"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme = ExtResource("2_678x1")
+theme_type_variation = &"ButtonSmall"
+text = "-"
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/ScrollContainer/HeadersContainer/UI/Scale"]
+layout_mode = 2
+theme = ExtResource("2_678x1")
+theme_type_variation = &"BoxedLineEdit"
+alignment = 1
+virtual_keyboard_type = 2
+script = ExtResource("5_tquc7")
+min = 0.5
+max = 3.0
+
+[node name="IncreaseScale" type="Button" parent="MarginContainer/ScrollContainer/HeadersContainer/UI/Scale"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme = ExtResource("2_678x1")
+theme_type_variation = &"ButtonSmall"
+text = "+"
+
+[node name="separatingline7" type="PanelContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 visible = false
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
@@ -617,4 +670,6 @@ text = "RESTORE DEFAULTS"
 [connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer2/Clear" to="." method="_clear_session_notification_path"]
 [connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer/ChooseFile" to="." method="_show_open_file_dialog_break_notification"]
 [connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer/Clear" to="." method="_clear_break_notification_path"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/UI/Scale/ReduceScale" to="." method="_add_ui_scale" binds= [-0.1]]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/UI/Scale/IncreaseScale" to="." method="_add_ui_scale" binds= [0.1]]
 [connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/RestoreDefaults" to="." method="_restore_defaults"]

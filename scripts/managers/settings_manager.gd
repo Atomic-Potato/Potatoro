@@ -28,6 +28,9 @@ enum DBSettings ## Names and IDs
 	# titlebar
 	IsUseCustomTitleBar,
 	TitleBarPrimaryColor, TitleBarSecondaryColor,
+	
+	## UI
+	UIScale,
 }
 
 func get_DBSettings_name(key: DBSettings)-> String:
@@ -143,6 +146,14 @@ var color_title_bar_secondary: String:
 	set(value): 
 		_set_value(DBSettings.TitleBarSecondaryColor, value, true)
 		color_title_bar_secondary_changed.emit()
+
+# UI
+signal ui_scale_changed
+var ui_scale: float:
+	get: return float(_get_value(DBSettings.UIScale))
+	set(value):
+		_set_value(DBSettings.UIScale, value)
+		ui_scale_changed.emit()
 
 func _get_value(id: int):
 	DatabaseManager.db.query("select Value from Settings where ID = " + str(id))

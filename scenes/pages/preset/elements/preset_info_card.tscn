@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card.gd" id="1_hayla"]
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card_values.gd" id="3_7m7gu"]
-[ext_resource type="Theme" uid="uid://c2rjn65b4gvov" path="res://visual/themes/main_theme.tres" id="3_p2wl1"]
-[ext_resource type="PackedScene" uid="uid://dyi8022so3158" path="res://visual/assets/vector/loop_arrow.tscn" id="5_q6bn7"]
-[ext_resource type="StyleBox" uid="uid://37jid0syru4u" path="res://visual/style_boxes/main_theme/borders_thin_stylebox.tres" id="5_qp8n2"]
+[ext_resource type="Theme" uid="uid://cttgvygv7gpq6" path="res://visual/themes/main_theme.tres" id="3_p2wl1"]
+[ext_resource type="PackedScene" path="res://visual/assets/vector/loop_arrow.tscn" id="5_q6bn7"]
+[ext_resource type="StyleBox" uid="uid://dnu03vx6nguqi" path="res://visual/style_boxes/main_theme/borders_thin_stylebox.tres" id="5_qp8n2"]
 [ext_resource type="Script" path="res://scripts/classes/blink_canvas_item.gd" id="6_xuv1m"]
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card_timer.gd" id="8_263cv"]
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card_message.gd" id="9_3rvoh"]

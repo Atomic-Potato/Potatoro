@@ -11,8 +11,8 @@ func _ready():
 
 func _update_value_from_text(new_text: String):
 	if not new_text:
-		text = "0"
-		value = 0
+		value = min
+		text = str(value)
 		caret_column = 1
 		return
 	

@@ -112,7 +112,10 @@ func _get_settings_insert_query()-> String:
 			(4, "ffffff", '+str(SettingsManager.DBSettings.TitleBarPrimaryColor)+', 
 				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.TitleBarPrimaryColor) + '"),
 			(4, "000000", '+str(SettingsManager.DBSettings.TitleBarSecondaryColor)+', 
-				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.TitleBarSecondaryColor) + '");
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.TitleBarSecondaryColor) + '"),
+			
+			(5, "1", '+str(SettingsManager.DBSettings.UIScale)+', 
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.UIScale) + '");
 		'
 
 
@@ -143,7 +146,8 @@ func create_db(open_db: SQLite):
 		(2, "Timer Settings"),
 		(3, "Sound Settings"),
 		(4, "Theme"),
-		(5, "Other");
+		(5, "UI"),
+		(999, "Other");
 		
 		CREATE TABLE "Settings" (
 			"ID"	INTEGER NOT NULL UNIQUE,

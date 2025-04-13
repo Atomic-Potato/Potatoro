@@ -39,6 +39,9 @@ extends Page
 @export var color_title_bar_primary: ColorPickerButton
 @export var color_title_bar_secondary: ColorPickerButton
 
+@export_category("UI")
+@export var edit_ui_scale: NumberEditFloat
+
 #@export_category("Other") # in case i do need it later # its one line, idk why i even kept it
 
 func _ready():
@@ -84,6 +87,11 @@ func _update_fileds():
 	check_custom_title_bar.set_pressed_no_signal(SettingsManager.is_use_custom_title_bar)
 	color_title_bar_primary.color = Color.from_string(SettingsManager.color_title_bar_primary, Color.MAGENTA)
 	color_title_bar_secondary.color = Color.from_string(SettingsManager.color_title_bar_secondary, Color.MAGENTA)
+	
+	# INFO: UI
+	print(SettingsManager.ui_scale)
+	edit_ui_scale.text = str(SettingsManager.ui_scale)
+
 
 func _connect_fileds():
 	# INFO: Default Values
@@ -127,6 +135,10 @@ func _connect_fileds():
 		func(value: Color): SettingsManager.color_title_bar_primary = value.to_html(false))
 	color_title_bar_secondary.color_changed.connect(
 		func(value: Color): SettingsManager.color_title_bar_secondary = value.to_html(false))
+		
+	# INFO: UI
+	edit_ui_scale.text_changed.connect(
+		func(value): SettingsManager.ui_scale = edit_ui_scale.value)
 
 func _setup_open_file_dialogs():
 	open_file_dialog_session_notification.root_subfolder = "sound"
@@ -170,3 +182,9 @@ func _clear_session_notification_path():
 func _clear_break_notification_path():
 	SettingsManager.path_break_end_notification_timer = ""
 	label_break_notification_path.text = text_no_file_select
+
+func _add_ui_scale(value: float):
+	var curr: float = float(edit_ui_scale.text)
+	curr += value
+	edit_ui_scale.text = str(curr)
+	edit_ui_scale.text_changed.emit(edit_ui_scale.text)
