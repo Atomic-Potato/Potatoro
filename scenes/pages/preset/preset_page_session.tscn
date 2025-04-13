@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_session.gd" id="3_p5ysi"]
 [ext_resource type="Script" path="res://scripts/pages/session/session_timer.gd" id="6_j5uv2"]
 [ext_resource type="Script" path="res://scripts/classes/blink_canvas_item.gd" id="6_mel5q"]
-[ext_resource type="Theme" uid="uid://c2rjn65b4gvov" path="res://visual/themes/main_theme.tres" id="8_85gr6"]
+[ext_resource type="Theme" uid="uid://c4dnexwhi88pf" path="res://visual/themes/main_theme.tres" id="8_85gr6"]
 [ext_resource type="Script" path="res://scripts/pages/session/session_finish.gd" id="8_xg4q4"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_setup.gd" id="9_esxm0"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_timer.gd" id="10_l1xkr"]
@@ -487,6 +487,7 @@ layout_mode = 2
 text = "+10 s"
 
 [node name="SessionFinish" type="Control" parent="Content" node_paths=PackedStringArray("label_message")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -709,7 +710,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="BreakTimer" type="Control" parent="Content" node_paths=PackedStringArray("label_finish_hour", "label_timer", "label_preset_name", "label_sessions_count", "button_pause_toggle", "button_auto_session_toggle", "add_time_controls_parent", "deduct_time_controls_parent")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

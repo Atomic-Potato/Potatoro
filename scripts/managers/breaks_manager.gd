@@ -38,7 +38,6 @@ func update_buffered_breaks():
 			if bb.ID == nbb.ID:
 				bb.length = nbb.length
 				bb.end_datetime = nbb.end_datetime
-				bb.added_length = bb.added_length
 				is_updated = true
 		if not is_updated:
 			buffered_breaks.append(nbb)
@@ -50,8 +49,7 @@ func get_break(break_id: int)-> Break:
 	return Break.new(
 		DatabaseManager.db.query_result[0].get("ID"),
 		DatabaseManager.db.query_result[0].get("Length"),
-		str(DatabaseManager.db.query_result[0].get("EndDateTime")),
-		DatabaseManager.db.query_result[0].get("AddedLength")
+		str(DatabaseManager.db.query_result[0].get("EndDateTime"))
 	)
 
 func get_loaded_break(break_id: int)-> Break:
@@ -73,20 +71,18 @@ func save_break(new_break: Break)-> Break:
 		DatabaseManager.db.query("
 			update Breaks_Buffer set
 				Length = " + str(new_break.length) + ",
-				EndDateTime = '" + new_break.end_datetime + "',
-				AddedLength = " + str(new_break.added_length) + "
+				EndDateTime = '" + new_break.end_datetime + "'
 			where ID = " + str(new_break.ID)
 		)
 		update_buffered_breaks()
 		return get_loaded_break(new_break.ID)
 	else: 
 		DatabaseManager.db.query("
-			insert into Breaks_Buffer(Length, EndDateTime, AddedLength)
+			insert into Breaks_Buffer(Length, EndDateTime)
 			values(" 
 				+ str(new_break.length) + ", 
-				'" + new_break.end_datetime + "', 
-				" +  str(new_break.added_length) + 
-			")"
+				'" + new_break.end_datetime + "'
+			)"
 		)
 		update_buffered_breaks()
 		return get_loaded_break(DatabaseManager.db.last_insert_rowid)
@@ -234,10 +230,9 @@ func get_break_id_remaining_seconds(break_id: int)-> int:
 	if is_break_id_paused(break_id):
 		return DatabaseManager.db.query_result[0].get("EndDateTime")
 	else:
-		return DatabaseManager.get_datetimes_seconds_difference(
-			DatabaseManager.db.query_result[0].get("EndDateTime"), 
-			DatabaseManager.get_datetime()
-		)
+		var end: String = DatabaseManager.db.query_result[0].get("EndDateTime")
+		var now: String = DatabaseManager.get_datetime()
+		return DatabaseManager.get_datetimes_seconds_difference(end, now)
 
 func add_seconds_to_break(seconds: int, break_id: int):
 	if not is_break_id_buffered(break_id):

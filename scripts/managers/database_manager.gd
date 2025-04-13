@@ -26,11 +26,18 @@ func _ready():
 		#db.verbosity_level = SQLite.VERBOSE
 		empty_sessions_data()
 
-# NOTE: offset should in the format +/-time seconds/minutes/hours e.g. +20 seconds
+## If no offset is provided, returns the local datetime. 
+## If an offset is provided, it should be in the format +/-time seconds/minutes/hours e.g. +20 seconds.
+## The start date to be offseted from which is considered to be in local datetime
 func get_datetime(offset: String = '', start_date: String = 'now')-> String:
-	var query: String =\
-		"select datetime('now', 'localtime') as 'datetime'" if not offset\
-		else "select datetime('" + start_date + "', '" + offset + "') as 'datetime'"
+	var query: String
+	if not offset:
+		query = "select datetime('now', 'localtime') as 'datetime'"
+	else:
+		if start_date == 'now':
+			query = "select datetime('now', 'localtime', '" + offset + "') as 'datetime'"
+		else:
+			query = "select datetime('" + start_date + "', '" + offset + "') as 'datetime'"
 	DatabaseManager.db.query(query)
 	return DatabaseManager.db.query_result[0].get("datetime")
 
@@ -206,7 +213,6 @@ func create_db(open_db: SQLite):
 			"ID"	INTEGER NOT NULL UNIQUE,
 			"Length"	INTEGER NOT NULL,
 			"EndDateTime"	INTEGER NOT NULL,
-			"AddedLength"	INTEGER,
 			PRIMARY KEY("ID" AUTOINCREMENT)
 		);
 		
