@@ -1,0 +1,8 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://ixoe251nl8jw"]
+
+[ext_resource type="Texture2D" uid="uid://b3fbshflu7rq3" path="res://visual/assets/vector/play.svg" id="1_xaprq"]
+
+[resource]
+content_margin_left = 60.0
+texture = ExtResource("1_xaprq")
+modulate_color = Color(0.498039, 0.498039, 0.498039, 1)

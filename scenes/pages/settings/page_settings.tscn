@@ -461,7 +461,7 @@ uppercase = true
 layout_mode = 2
 theme = ExtResource("2_678x1")
 theme_type_variation = &"LabelThirdColor"
-text = "*Textures dont update until app is restarted"
+text = "*Some textures dont update until app is restarted"
 
 [node name="BGPrimary" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
 layout_mode = 2

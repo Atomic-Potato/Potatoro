@@ -1,0 +1,8 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://qet810k7fnt6"]
+
+[ext_resource type="Texture2D" uid="uid://cwktbw57t0mvr" path="res://visual/assets/vector/loop_arrow.svg" id="1_u1sru"]
+
+[resource]
+content_margin_left = 60.0
+texture = ExtResource("1_u1sru")
+modulate_color = Color(0.498039, 0.498039, 0.498039, 1)

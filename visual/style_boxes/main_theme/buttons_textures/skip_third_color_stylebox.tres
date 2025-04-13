@@ -1,0 +1,8 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://bgqmw1cnjts50"]
+
+[ext_resource type="Texture2D" uid="uid://cqo320pe30ywr" path="res://visual/assets/vector/skip.svg" id="1_fw3mb"]
+
+[resource]
+content_margin_left = 60.0
+texture = ExtResource("1_fw3mb")
+modulate_color = Color(0.498039, 0.498039, 0.498039, 1)

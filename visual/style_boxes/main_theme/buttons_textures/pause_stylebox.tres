@@ -1,0 +1,7 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://smmgjk0vayr"]
+
+[ext_resource type="Texture2D" uid="uid://b8a8hwxqbtjbw" path="res://visual/assets/vector/pause.svg" id="1_xuoj2"]
+
+[resource]
+content_margin_left = 60.0
+texture = ExtResource("1_xuoj2")

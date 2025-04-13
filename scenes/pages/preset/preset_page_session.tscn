@@ -1,14 +1,22 @@
-[gd_scene load_steps=16 format=3 uid="uid://k87ux2qmpcqj"]
+[gd_scene load_steps=34 format=3 uid="uid://k87ux2qmpcqj"]
 
 [ext_resource type="Script" path="res://scripts/pages/session/session_setup.gd" id="2_l3wag"]
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_session.gd" id="3_p5ysi"]
 [ext_resource type="Script" path="res://scripts/pages/session/session_timer.gd" id="6_j5uv2"]
 [ext_resource type="Script" path="res://scripts/classes/blink_canvas_item.gd" id="6_mel5q"]
+[ext_resource type="StyleBox" uid="uid://qet810k7fnt6" path="res://visual/style_boxes/main_theme/buttons_textures/loop_arrow_third_color_stylebox.tres" id="7_oe3ye"]
 [ext_resource type="Theme" uid="uid://tj12y5ejejxi" path="res://visual/themes/main_theme.tres" id="8_85gr6"]
 [ext_resource type="Script" path="res://scripts/pages/session/session_finish.gd" id="8_xg4q4"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_setup.gd" id="9_esxm0"]
+[ext_resource type="StyleBox" uid="uid://drpk0vdo2v8ub" path="res://visual/style_boxes/main_theme/buttons_textures/loop_arrow_stylebox.tres" id="9_tx1t1"]
+[ext_resource type="StyleBox" uid="uid://smmgjk0vayr" path="res://visual/style_boxes/main_theme/buttons_textures/pause_stylebox.tres" id="10_0qjau"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_timer.gd" id="10_l1xkr"]
+[ext_resource type="StyleBox" uid="uid://dsvpru2iqays4" path="res://visual/style_boxes/main_theme/buttons_textures/pause_third_color_stylebox.tres" id="10_lvu0n"]
+[ext_resource type="StyleBox" uid="uid://bgw2lmdr85j4o" path="res://visual/style_boxes/main_theme/buttons_textures/play_stylebox.tres" id="11_ch4l4"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_finish.gd" id="11_ecred"]
+[ext_resource type="StyleBox" uid="uid://ixoe251nl8jw" path="res://visual/style_boxes/main_theme/buttons_textures/play_third_color_stylebox.tres" id="11_piy4y"]
+[ext_resource type="StyleBox" uid="uid://hhpat0bted1c" path="res://visual/style_boxes/main_theme/buttons_textures/skip_stylebox.tres" id="12_gxq7v"]
+[ext_resource type="StyleBox" uid="uid://bgqmw1cnjts50" path="res://visual/style_boxes/main_theme/buttons_textures/skip_third_color_stylebox.tres" id="13_g3mbj"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_gt3b3"]
 
@@ -38,9 +46,29 @@ expand_margin_top = 6.0
 expand_margin_right = 6.0
 expand_margin_bottom = 6.0
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_txd5u"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_5hb7t"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_qofv2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pwv20"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xahkm"]
+
 [sub_resource type="ImageTexture" id="ImageTexture_x4fpq"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_1r3mq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5f8iu"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_f5ph0"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_berng"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fk4ut"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y41rm"]
 
 [node name="PresetPageSession" type="Control" node_paths=PackedStringArray("page_session_setup", "page_session_timer", "page_session_finish", "page_break_setup", "page_break_timer", "page_break_finish", "child_pages_parent_node")]
 layout_mode = 3
@@ -360,28 +388,47 @@ grow_vertical = 0
 theme_override_constants/separation = 20
 
 [node name="Controls" type="HBoxContainer" parent="Content/SessionTimer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/separation = 25
+theme_override_constants/separation = 10
 alignment = 1
 
 [node name="Restart" type="Button" parent="Content/SessionTimer/VBoxContainer/Controls"]
-custom_minimum_size = Vector2(100, 35)
+custom_minimum_size = Vector2(60, 35)
 layout_mode = 2
 theme = ExtResource("8_85gr6")
-text = "RESTART"
+theme_override_styles/normal = ExtResource("9_tx1t1")
+theme_override_styles/hover = ExtResource("7_oe3ye")
+theme_override_styles/pressed = ExtResource("9_tx1t1")
+theme_override_styles/disabled = ExtResource("9_tx1t1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_txd5u")
 
 [node name="Pause" type="CheckButton" parent="Content/SessionTimer/VBoxContainer/Controls"]
+custom_minimum_size = Vector2(60, 35)
 layout_mode = 2
 theme = ExtResource("8_85gr6")
-text = "PAUSE"
+theme_override_icons/checked = SubResource("ImageTexture_5hb7t")
+theme_override_icons/unchecked = SubResource("ImageTexture_qofv2")
+theme_override_styles/normal = ExtResource("10_0qjau")
+theme_override_styles/pressed = ExtResource("11_ch4l4")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_pwv20")
+theme_override_styles/hover = ExtResource("10_lvu0n")
+theme_override_styles/hover_pressed = ExtResource("11_piy4y")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pwv20")
 alignment = 1
 
 [node name="Skip" type="Button" parent="Content/SessionTimer/VBoxContainer/Controls"]
-custom_minimum_size = Vector2(100, 35)
+custom_minimum_size = Vector2(60, 35)
 layout_mode = 2
 theme = ExtResource("8_85gr6")
-text = "SKIP"
+theme_override_styles/normal = ExtResource("12_gxq7v")
+theme_override_styles/hover = ExtResource("13_g3mbj")
+theme_override_styles/pressed = ExtResource("12_gxq7v")
+theme_override_styles/disabled = ExtResource("12_gxq7v")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xahkm")
+text = "
+"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Content/SessionTimer/VBoxContainer"]
 layout_mode = 2
@@ -514,6 +561,7 @@ offset_bottom = 229.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 30
+alignment = 1
 
 [node name="Message" type="Label" parent="Content/SessionFinish/VBoxContainer2"]
 layout_mode = 2
@@ -827,28 +875,43 @@ grow_vertical = 0
 theme_override_constants/separation = 20
 
 [node name="Controls" type="HBoxContainer" parent="Content/BreakTimer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_constants/separation = 25
+theme_override_constants/separation = 10
 alignment = 1
 
 [node name="Restart" type="Button" parent="Content/BreakTimer/VBoxContainer/Controls"]
-custom_minimum_size = Vector2(100, 35)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme = ExtResource("8_85gr6")
-text = "RESTART"
+theme_override_styles/normal = ExtResource("9_tx1t1")
+theme_override_styles/hover = ExtResource("7_oe3ye")
+theme_override_styles/pressed = ExtResource("9_tx1t1")
+theme_override_styles/disabled = ExtResource("9_tx1t1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5f8iu")
 
 [node name="Pause" type="CheckButton" parent="Content/BreakTimer/VBoxContainer/Controls"]
 layout_mode = 2
 theme = ExtResource("8_85gr6")
-text = "PAUSE"
+theme_override_icons/checked = SubResource("ImageTexture_f5ph0")
+theme_override_icons/unchecked = SubResource("ImageTexture_berng")
+theme_override_styles/normal = ExtResource("10_0qjau")
+theme_override_styles/pressed = ExtResource("11_ch4l4")
+theme_override_styles/hover = ExtResource("10_lvu0n")
+theme_override_styles/hover_pressed = ExtResource("11_piy4y")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_fk4ut")
 alignment = 1
 
 [node name="Skip" type="Button" parent="Content/BreakTimer/VBoxContainer/Controls"]
-custom_minimum_size = Vector2(100, 35)
+custom_minimum_size = Vector2(60, 35)
 layout_mode = 2
 theme = ExtResource("8_85gr6")
-text = "SKIP"
+theme_override_styles/normal = ExtResource("12_gxq7v")
+theme_override_styles/hover = ExtResource("13_g3mbj")
+theme_override_styles/pressed = ExtResource("12_gxq7v")
+theme_override_styles/disabled = ExtResource("12_gxq7v")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_y41rm")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Content/BreakTimer/VBoxContainer"]
 layout_mode = 2
@@ -979,6 +1042,7 @@ offset_bottom = 229.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 30
+alignment = 1
 
 [node name="MessageBreak" type="Label" parent="Content/BreakFinish/VBoxContainer2"]
 layout_mode = 2

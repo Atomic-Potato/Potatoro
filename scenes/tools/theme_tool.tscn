@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://bmp1wc4winydq"]
+[gd_scene load_steps=47 format=3 uid="uid://bmp1wc4winydq"]
 
 [ext_resource type="Script" path="res://scripts/tools/theme_tool.gd" id="1_55cj1"]
 [ext_resource type="StyleBox" uid="uid://bbyx6x1d6vw76" path="res://visual/style_boxes/main_theme/number_edit/borders_number_edit_stylebox.tres" id="2_240fj"]
@@ -25,7 +25,10 @@
 [ext_resource type="StyleBox" uid="uid://buh2lnf818rh7" path="res://visual/style_boxes/main_theme/danger/flat_color_danger_stylebox.tres" id="11_egj13"]
 [ext_resource type="Resource" uid="uid://cy8rhiookukbd" path="res://scripts/resources/font_color_type/main_theme_label_third_color.tres" id="12_nn85c"]
 [ext_resource type="Resource" uid="uid://blsrgfxl7hr8w" path="res://scripts/resources/font_color_type/main_theme_link_button.tres" id="13_4on1x"]
-[ext_resource type="PackedScene" path="res://visual/assets/vector/loop_arrow.tscn" id="13_ec40o"]
+[ext_resource type="PackedScene" uid="uid://dalqx4y2iqs55" path="res://visual/assets/vector/loop_arrow.tscn" id="13_ec40o"]
+[ext_resource type="PackedScene" uid="uid://b8l1tmt6d0mh8" path="res://visual/assets/vector/pause.tscn" id="16_4r3o0"]
+[ext_resource type="PackedScene" uid="uid://dmbe1j7jiik3n" path="res://visual/assets/vector/play.tscn" id="17_xg6rh"]
+[ext_resource type="PackedScene" uid="uid://ci5umtp5kc5bv" path="res://visual/assets/vector/skip.tscn" id="18_kvpt5"]
 [ext_resource type="StyleBox" uid="uid://30pt3v0wre0r" path="res://visual/style_boxes/main_theme/borders_thin_stylebox.tres" id="20_tklgn"]
 [ext_resource type="StyleBox" uid="uid://bjhktb8hqg766" path="res://visual/style_boxes/main_theme/background/background_stylebox.tres" id="22_44gsi"]
 [ext_resource type="StyleBox" uid="uid://8gp77anwkin" path="res://visual/style_boxes/main_theme/flat_color_thin_stylebox.tres" id="22_u35dx"]
@@ -35,6 +38,14 @@
 [ext_resource type="StyleBox" uid="uid://3pn2wnkd2fi3" path="res://visual/style_boxes/main_theme/slider/slider_stylebox.tres" id="30_bubxs"]
 [ext_resource type="StyleBox" uid="uid://bf7cduosuil0u" path="res://visual/style_boxes/main_theme/slider/grabber_stylebox.tres" id="31_g1ebt"]
 [ext_resource type="StyleBox" uid="uid://2mqagxhbpnx4" path="res://visual/style_boxes/main_theme/checkmark_stylebox.tres" id="32_rq50d"]
+[ext_resource type="StyleBox" uid="uid://bgw2lmdr85j4o" path="res://visual/style_boxes/main_theme/buttons_textures/play_stylebox.tres" id="35_bxly2"]
+[ext_resource type="StyleBox" uid="uid://ixoe251nl8jw" path="res://visual/style_boxes/main_theme/buttons_textures/play_third_color_stylebox.tres" id="36_dbhim"]
+[ext_resource type="StyleBox" uid="uid://smmgjk0vayr" path="res://visual/style_boxes/main_theme/buttons_textures/pause_stylebox.tres" id="36_gjntj"]
+[ext_resource type="StyleBox" uid="uid://hhpat0bted1c" path="res://visual/style_boxes/main_theme/buttons_textures/skip_stylebox.tres" id="37_uo5vt"]
+[ext_resource type="StyleBox" uid="uid://drpk0vdo2v8ub" path="res://visual/style_boxes/main_theme/buttons_textures/loop_arrow_stylebox.tres" id="38_02tdm"]
+[ext_resource type="StyleBox" uid="uid://dsvpru2iqays4" path="res://visual/style_boxes/main_theme/buttons_textures/pause_third_color_stylebox.tres" id="38_sjc11"]
+[ext_resource type="StyleBox" uid="uid://bgqmw1cnjts50" path="res://visual/style_boxes/main_theme/buttons_textures/skip_third_color_stylebox.tres" id="40_2scyf"]
+[ext_resource type="StyleBox" uid="uid://qet810k7fnt6" path="res://visual/style_boxes/main_theme/buttons_textures/loop_arrow_third_color_stylebox.tres" id="42_fvom3"]
 
 [node name="ThemeTool" type="Node" node_paths=PackedStringArray("background_options_parent_node", "main_options_parent_node", "danger_options_parent_node")]
 script = ExtResource("1_55cj1")
@@ -52,7 +63,7 @@ textures_colors = {
 "fifth": [],
 "fourth": [],
 "nineth": [],
-"primary": [ExtResource("10_53p58"), ExtResource("13_ec40o")],
+"primary": [ExtResource("10_53p58"), ExtResource("13_ec40o"), ExtResource("16_4r3o0"), ExtResource("17_xg6rh"), ExtResource("18_kvpt5")],
 "secondary": [],
 "seventh": [],
 "sixth": [],
@@ -128,6 +139,42 @@ flat_bg_color = 2
 [node name="SilderGrabber" type="Node" parent="MainOptions"]
 script = ExtResource("7_cht6l")
 box = ExtResource("31_g1ebt")
+
+[node name="Play" type="Node" parent="MainOptions"]
+script = ExtResource("7_cht6l")
+box = ExtResource("35_bxly2")
+
+[node name="PlayThird" type="Node" parent="MainOptions"]
+script = ExtResource("7_cht6l")
+box = ExtResource("36_dbhim")
+texture_modulate_color = 2
+
+[node name="Pause" type="Node" parent="MainOptions"]
+script = ExtResource("7_cht6l")
+box = ExtResource("36_gjntj")
+
+[node name="PauseThird" type="Node" parent="MainOptions"]
+script = ExtResource("7_cht6l")
+box = ExtResource("38_sjc11")
+texture_modulate_color = 2
+
+[node name="Skip" type="Node" parent="MainOptions"]
+script = ExtResource("7_cht6l")
+box = ExtResource("37_uo5vt")
+
+[node name="SkipThird" type="Node" parent="MainOptions"]
+script = ExtResource("7_cht6l")
+box = ExtResource("40_2scyf")
+texture_modulate_color = 2
+
+[node name="Looparrow" type="Node" parent="MainOptions"]
+script = ExtResource("7_cht6l")
+box = ExtResource("38_02tdm")
+
+[node name="LooparrowThird" type="Node" parent="MainOptions"]
+script = ExtResource("7_cht6l")
+box = ExtResource("42_fvom3")
+texture_modulate_color = 2
 
 [node name="Checkmark" type="Node" parent="MainOptions"]
 script = ExtResource("7_cht6l")
