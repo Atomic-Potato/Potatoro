@@ -51,6 +51,7 @@ offset_left = -1.0
 offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("8_85gr6")
 script = ExtResource("3_p5ysi")
 page_session_setup = NodePath("Content/SessionSetup")
 page_session_timer = NodePath("Content/SessionTimer")
@@ -81,7 +82,7 @@ label_sessions_count = NodePath("info/HBoxContainer/session count")
 break_length_parent = NodePath("VBoxContainer/FlowContainer/BreakLength")
 spin_box_session_length = NodePath("VBoxContainer/FlowContainer/Session Length/SessionLengthEdit")
 spin_box_break_length = NodePath("VBoxContainer/FlowContainer/BreakLength/BreakLengthEdit")
-button_auto_break = NodePath("AutoBreak")
+button_auto_break = NodePath("HBoxContainer/AutoBreak")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Content/SessionSetup"]
 layout_mode = 1
@@ -168,20 +169,25 @@ theme = ExtResource("8_85gr6")
 theme_override_font_sizes/font_size = 31
 text = "START"
 
-[node name="AutoBreak" type="CheckButton" parent="Content/SessionSetup"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Content/SessionSetup"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -93.0
-offset_top = -29.0
+offset_left = -278.0
+offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
+
+[node name="Label" type="Label" parent="Content/SessionSetup/HBoxContainer"]
+layout_mode = 2
+text = "auto start next break "
+
+[node name="AutoBreak" type="CheckBox" parent="Content/SessionSetup/HBoxContainer"]
+layout_mode = 2
 theme = ExtResource("8_85gr6")
-theme_type_variation = &"NormalCheckButton"
-text = "auto start next break"
 alignment = 2
 
 [node name="info" type="VBoxContainer" parent="Content/SessionSetup"]
@@ -247,7 +253,7 @@ label_sessions_count = NodePath("info/HBoxContainer/session count")
 label_finish_hour = NodePath("Timer/VBoxContainer/finish hour")
 label_timer = NodePath("Timer/VBoxContainer/Timer")
 button_pause_toggle = NodePath("VBoxContainer/Controls/Pause")
-button_auto_break_toggle = NodePath("VBoxContainer/AutoBreak")
+button_auto_break_toggle = NodePath("VBoxContainer/HBoxContainer/AutoBreak")
 add_time_controls_parent = NodePath("Timer/Add time")
 deduct_time_controls_parent = NodePath("Timer/Deduct Time")
 
@@ -269,7 +275,7 @@ alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Content/SessionTimer/Timer"]
 layout_mode = 2
-theme_override_constants/separation = -10
+theme_override_constants/separation = 0
 
 [node name="finish hour" type="Label" parent="Content/SessionTimer/Timer/VBoxContainer"]
 layout_mode = 2
@@ -281,7 +287,7 @@ vertical_alignment = 1
 [node name="Timer" type="Label" parent="Content/SessionTimer/Timer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("8_85gr6")
-theme_override_font_sizes/font_size = 100
+theme_override_font_sizes/font_size = 125
 text = "50:00"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -377,13 +383,20 @@ layout_mode = 2
 theme = ExtResource("8_85gr6")
 text = "SKIP"
 
-[node name="AutoBreak" type="CheckButton" parent="Content/SessionTimer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Content/SessionTimer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Label" type="Label" parent="Content/SessionTimer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "auto start next break "
+
+[node name="AutoBreak" type="CheckBox" parent="Content/SessionTimer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 theme = ExtResource("8_85gr6")
-theme_type_variation = &"NormalCheckButton"
-text = "auto start next break"
 alignment = 2
 
 [node name="info" type="VBoxContainer" parent="Content/SessionTimer"]
@@ -442,6 +455,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DEBUGGING" type="Control" parent="Content/SessionTimer"]
+visible = false
 layout_mode = 1
 anchors_preset = 0
 
@@ -536,7 +550,7 @@ label_sessions_count = NodePath("info/HBoxContainer/session count")
 session_length_parent = NodePath("VBoxContainer/FlowContainer/Session Length")
 spin_box_session_length = NodePath("VBoxContainer/FlowContainer/Session Length/SessionLengthEdit")
 spin_box_break_length = NodePath("VBoxContainer/FlowContainer/BreakLength/BreakLengthEdit")
-button_auto_session = NodePath("AutoSession")
+button_auto_session = NodePath("HBoxContainer/AutoSession")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Content/BreakSetup"]
 layout_mode = 1
@@ -623,20 +637,25 @@ theme = ExtResource("8_85gr6")
 theme_override_font_sizes/font_size = 31
 text = "START"
 
-[node name="AutoSession" type="CheckButton" parent="Content/BreakSetup"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Content/BreakSetup"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -93.0
-offset_top = -29.0
+offset_left = -300.0
+offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
-theme = ExtResource("8_85gr6")
-theme_type_variation = &"NormalCheckButton"
+
+[node name="Label" type="Label" parent="Content/BreakSetup/HBoxContainer"]
+layout_mode = 2
 text = "auto start next session "
+
+[node name="AutoSession" type="CheckBox" parent="Content/BreakSetup/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("8_85gr6")
 alignment = 2
 
 [node name="info" type="VBoxContainer" parent="Content/BreakSetup"]
@@ -701,7 +720,7 @@ label_timer = NodePath("Timer/VBoxContainer/Timer")
 label_preset_name = NodePath("info/preset")
 label_sessions_count = NodePath("info/HBoxContainer/session count")
 button_pause_toggle = NodePath("VBoxContainer/Controls/Pause")
-button_auto_session_toggle = NodePath("VBoxContainer/AutoSession")
+button_auto_session_toggle = NodePath("VBoxContainer/HBoxContainer/AutoSession")
 add_time_controls_parent = NodePath("Timer/Add time")
 deduct_time_controls_parent = NodePath("Timer/Deduct Time")
 
@@ -735,7 +754,7 @@ vertical_alignment = 1
 [node name="Timer" type="Label" parent="Content/BreakTimer/Timer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("8_85gr6")
-theme_override_font_sizes/font_size = 100
+theme_override_font_sizes/font_size = 125
 text = "50:00"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -831,13 +850,19 @@ layout_mode = 2
 theme = ExtResource("8_85gr6")
 text = "SKIP"
 
-[node name="AutoSession" type="CheckButton" parent="Content/BreakTimer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Content/BreakTimer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Label" type="Label" parent="Content/BreakTimer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "auto start next session "
+
+[node name="AutoSession" type="CheckBox" parent="Content/BreakTimer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 theme = ExtResource("8_85gr6")
-theme_type_variation = &"NormalCheckButton"
-text = "auto start next session "
 alignment = 2
 
 [node name="info" type="VBoxContainer" parent="Content/BreakTimer"]
@@ -996,7 +1021,7 @@ text = "< PRESETS"
 
 [connection signal="pressed" from="Content/SessionSetup/VBoxContainer/Reset" to="Content/SessionSetup" method="_reset_session_edit_values"]
 [connection signal="pressed" from="Content/SessionSetup/StartSession" to="Content/SessionSetup" method="_start_session"]
-[connection signal="toggled" from="Content/SessionSetup/AutoBreak" to="Content/SessionSetup" method="_toggle_next_break_length_visibility"]
+[connection signal="toggled" from="Content/SessionSetup/HBoxContainer/AutoBreak" to="Content/SessionSetup" method="_toggle_next_break_length_visibility"]
 [connection signal="pressed" from="Content/SessionSetup/info/HBoxContainer/RemoveSession" to="Content/SessionSetup" method="_add_sessions_done" binds= [-1]]
 [connection signal="pressed" from="Content/SessionSetup/info/HBoxContainer/AddSession" to="Content/SessionSetup" method="_add_sessions_done" binds= [1]]
 [connection signal="pressed" from="Content/SessionTimer/Timer/Add time/Button" to="Content/SessionTimer" method="add_session_length" binds= [1]]
@@ -1008,7 +1033,7 @@ text = "< PRESETS"
 [connection signal="pressed" from="Content/SessionTimer/VBoxContainer/Controls/Restart" to="Content/SessionTimer" method="_restart"]
 [connection signal="pressed" from="Content/SessionTimer/VBoxContainer/Controls/Pause" to="Content/SessionTimer" method="toggle_pause"]
 [connection signal="pressed" from="Content/SessionTimer/VBoxContainer/Controls/Skip" to="Content/SessionTimer" method="_skip"]
-[connection signal="toggled" from="Content/SessionTimer/VBoxContainer/AutoBreak" to="Content/SessionTimer" method="_toggle_auto_break"]
+[connection signal="toggled" from="Content/SessionTimer/VBoxContainer/HBoxContainer/AutoBreak" to="Content/SessionTimer" method="_toggle_auto_break"]
 [connection signal="pressed" from="Content/SessionTimer/info/HBoxContainer/RemoveSession" to="Content/SessionTimer" method="_add_sessions_done" binds= [-1]]
 [connection signal="pressed" from="Content/SessionTimer/info/HBoxContainer/AddSession" to="Content/SessionTimer" method="_add_sessions_done" binds= [1]]
 [connection signal="pressed" from="Content/SessionTimer/DEBUGGING/HBoxContainer/VBoxContainer/Sub1Second" to="Content/SessionTimer" method="add_session_length_seconds" binds= [-1]]
@@ -1021,7 +1046,7 @@ text = "< PRESETS"
 [connection signal="pressed" from="Content/SessionFinish/VBoxContainer2/Restart" to="Content/SessionFinish" method="_restart"]
 [connection signal="pressed" from="Content/BreakSetup/VBoxContainer/Reset" to="Content/BreakSetup" method="_reset_break_edit_values"]
 [connection signal="pressed" from="Content/BreakSetup/StartBreak" to="Content/BreakSetup" method="_start_break"]
-[connection signal="toggled" from="Content/BreakSetup/AutoSession" to="Content/BreakSetup" method="_toggle_next_session_length_visibility"]
+[connection signal="toggled" from="Content/BreakSetup/HBoxContainer/AutoSession" to="Content/BreakSetup" method="_toggle_next_session_length_visibility"]
 [connection signal="pressed" from="Content/BreakSetup/info/HBoxContainer/RemoveSession" to="Content/BreakSetup" method="_add_sessions_done" binds= [-1]]
 [connection signal="pressed" from="Content/BreakSetup/info/HBoxContainer/AddSession" to="Content/BreakSetup" method="_add_sessions_done" binds= [1]]
 [connection signal="pressed" from="Content/BreakTimer/Timer/Add time/Button" to="Content/BreakTimer" method="_add_break_time" binds= [1]]
@@ -1033,7 +1058,7 @@ text = "< PRESETS"
 [connection signal="pressed" from="Content/BreakTimer/VBoxContainer/Controls/Restart" to="Content/BreakTimer" method="_restart_break"]
 [connection signal="pressed" from="Content/BreakTimer/VBoxContainer/Controls/Pause" to="Content/BreakTimer" method="_toggle_break_timer_pause"]
 [connection signal="pressed" from="Content/BreakTimer/VBoxContainer/Controls/Skip" to="Content/BreakTimer" method="_skip_break"]
-[connection signal="toggled" from="Content/BreakTimer/VBoxContainer/AutoSession" to="Content/BreakTimer" method="_toggle_auto_session"]
+[connection signal="toggled" from="Content/BreakTimer/VBoxContainer/HBoxContainer/AutoSession" to="Content/BreakTimer" method="_toggle_auto_session"]
 [connection signal="pressed" from="Content/BreakTimer/info/HBoxContainer/RemoveSession" to="Content/BreakTimer" method="_add_sessions_done" binds= [-1]]
 [connection signal="pressed" from="Content/BreakTimer/info/HBoxContainer/AddSession" to="Content/BreakTimer" method="_add_sessions_done" binds= [1]]
 [connection signal="pressed" from="Content/BreakTimer/DEBUGGING/HBoxContainer/VBoxContainer/Sub1Second" to="Content/BreakTimer" method="_add_break_time_seconds" binds= [-1]]

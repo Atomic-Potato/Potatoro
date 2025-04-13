@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card.gd" id="1_hayla"]
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card_values.gd" id="3_7m7gu"]
-[ext_resource type="Theme" uid="uid://cttgvygv7gpq6" path="res://visual/themes/main_theme.tres" id="3_p2wl1"]
+[ext_resource type="Theme" uid="uid://tj12y5ejejxi" path="res://visual/themes/main_theme.tres" id="3_p2wl1"]
 [ext_resource type="PackedScene" path="res://visual/assets/vector/loop_arrow.tscn" id="5_q6bn7"]
-[ext_resource type="StyleBox" uid="uid://dnu03vx6nguqi" path="res://visual/style_boxes/main_theme/borders_thin_stylebox.tres" id="5_qp8n2"]
 [ext_resource type="Script" path="res://scripts/classes/blink_canvas_item.gd" id="6_xuv1m"]
+[ext_resource type="StyleBox" uid="uid://biklu5oaavehd" path="res://visual/style_boxes/main_theme/borders_thicc_stylebox.tres" id="7_838ul"]
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card_timer.gd" id="8_263cv"]
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card_message.gd" id="9_3rvoh"]
 
@@ -41,10 +41,10 @@ theme_type_variation = &"CardButton"
 [node name="Values" type="MarginContainer" parent="Add preset"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Add preset/Values"]
 layout_mode = 2
@@ -101,6 +101,8 @@ offset_right = 195.0
 offset_bottom = 113.5
 grow_vertical = 2
 mouse_filter = 2
+theme_override_constants/separation = 20
+alignment = 1
 
 [node name="sessions" type="HBoxContainer" parent="Add preset/Values/VBoxContainer/Content/Values/VBoxContainer"]
 layout_mode = 2
@@ -124,7 +126,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 theme = ExtResource("3_p2wl1")
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 26
 text = "sessions"
 
 [node name="session length" type="HBoxContainer" parent="Add preset/Values/VBoxContainer/Content/Values/VBoxContainer"]
@@ -149,7 +151,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 theme = ExtResource("3_p2wl1")
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 26
 text = "min session"
 
 [node name="break length" type="HBoxContainer" parent="Add preset/Values/VBoxContainer/Content/Values/VBoxContainer"]
@@ -174,10 +176,11 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 theme = ExtResource("3_p2wl1")
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 26
 text = "min break"
 
 [node name="Timer" type="Control" parent="Add preset/Values/VBoxContainer/Content" node_paths=PackedStringArray("label_timer_type", "label_timer", "label_session", "button_pause_toggle", "reset_container")]
+visible = false
 layout_mode = 2
 anchors_preset = 0
 anchor_right = 1.0
@@ -218,7 +221,7 @@ vertical_alignment = 1
 [node name="Timer" type="Label" parent="Add preset/Values/VBoxContainer/Content/Timer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("3_p2wl1")
-theme_override_font_sizes/font_size = 42
+theme_override_font_sizes/font_size = 62
 text = "00:00"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -259,7 +262,6 @@ text = "PAUSE"
 alignment = 1
 
 [node name="Message" type="Control" parent="Add preset/Values/VBoxContainer/Content" node_paths=PackedStringArray("label_message", "reset_container")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -279,8 +281,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_p2wl1")
-theme_override_constants/line_spacing = -15
-theme_override_font_sizes/font_size = 42
+theme_override_font_sizes/font_size = 62
 text = "MESSAGE
 HERE"
 horizontal_alignment = 1
@@ -295,7 +296,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 mouse_filter = 2
 theme = ExtResource("3_p2wl1")
-theme_override_styles/panel = ExtResource("5_qp8n2")
+theme_override_styles/panel = ExtResource("7_838ul")
 
 [node name="Button" type="Button" parent="Add preset/Values/ResetPresetButton"]
 layout_mode = 2

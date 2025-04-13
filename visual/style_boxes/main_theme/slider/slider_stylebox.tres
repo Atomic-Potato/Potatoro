@@ -1,7 +1,7 @@
-[gd_resource type="StyleBoxFlat" format=3]
+[gd_resource type="StyleBoxFlat" format=3 uid="uid://3pn2wnkd2fi3"]
 
 [resource]
 content_margin_bottom = 10.0
-bg_color = Color(0.101961, 1, 0, 1)
-border_color = Color(0.980392, 0.0352941, 0.0352941, 1)
-shadow_color = Color(0.980392, 0.0352941, 0.0352941, 0.6)
+bg_color = Color(0.498039, 0.498039, 0.498039, 1)
+border_color = Color(1, 1, 1, 1)
+shadow_color = Color(1, 1, 1, 0.6)

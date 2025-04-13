@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://bmp1wc4winydq"]
+[gd_scene load_steps=36 format=3 uid="uid://bmp1wc4winydq"]
 
 [ext_resource type="Script" path="res://scripts/tools/theme_tool.gd" id="1_55cj1"]
 [ext_resource type="StyleBox" uid="uid://bbyx6x1d6vw76" path="res://visual/style_boxes/main_theme/number_edit/borders_number_edit_stylebox.tres" id="2_240fj"]
@@ -34,6 +34,7 @@
 [ext_resource type="StyleBox" uid="uid://u0io5wg3gmfk" path="res://visual/style_boxes/main_theme/scroll/scroll_flat_third_stylebox.tres" id="28_43s60"]
 [ext_resource type="StyleBox" uid="uid://3pn2wnkd2fi3" path="res://visual/style_boxes/main_theme/slider/slider_stylebox.tres" id="30_bubxs"]
 [ext_resource type="StyleBox" uid="uid://bf7cduosuil0u" path="res://visual/style_boxes/main_theme/slider/grabber_stylebox.tres" id="31_g1ebt"]
+[ext_resource type="StyleBox" uid="uid://2mqagxhbpnx4" path="res://visual/style_boxes/main_theme/checkmark_stylebox.tres" id="32_rq50d"]
 
 [node name="ThemeTool" type="Node" node_paths=PackedStringArray("background_options_parent_node", "main_options_parent_node", "danger_options_parent_node")]
 script = ExtResource("1_55cj1")
@@ -127,6 +128,10 @@ flat_bg_color = 2
 [node name="SilderGrabber" type="Node" parent="MainOptions"]
 script = ExtResource("7_cht6l")
 box = ExtResource("31_g1ebt")
+
+[node name="Checkmark" type="Node" parent="MainOptions"]
+script = ExtResource("7_cht6l")
+box = ExtResource("32_rq50d")
 
 [node name="DangerOptions" type="Node" parent="."]
 

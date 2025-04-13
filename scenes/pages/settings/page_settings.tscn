@@ -54,7 +54,6 @@ theme_override_constants/margin_bottom = 22
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
-scroll_vertical = 1450
 
 [node name="HeadersContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
 custom_minimum_size = Vector2(300, 0)
@@ -94,7 +93,7 @@ custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 theme = ExtResource("2_678x1")
 theme_type_variation = &"LabelThirdColor"
-text = "* Your data will be compatible between any changes in a minor release  e.g. between 0.1.0 and 0.1.4 will be compaitble but between 0.1 and 0.2 will require the database to be reimported
+text = "* Your data will be compatible between any changes in a minor release  e.g. between 0.1.0 and 0.1.4 will be compaitble but between 0.1 and 0.2 will sometimes require the database to be reimported
 
 (i will implement this feature in later versions)"
 autowrap_mode = 3
@@ -118,7 +117,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
 theme = ExtResource("2_678x1")
-theme_override_font_sizes/font_size = 14
 text = "Open Directory"
 
 [node name="path" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/DB/HBoxContainer"]

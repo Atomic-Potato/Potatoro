@@ -6,7 +6,7 @@ extends Page
 @export var label_preset_name: Label
 @export var label_sessions_count: Label
 @export var button_pause_toggle: CheckButton
-@export var button_auto_session_toggle: CheckButton
+@export var button_auto_session_toggle: CheckBox
 
 # NOTE: I kept them separated because i couldnt figure out 
 # how to give them one parent without messing up the UI

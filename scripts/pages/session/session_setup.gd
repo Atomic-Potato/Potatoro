@@ -5,7 +5,7 @@ extends Page
 @export var break_length_parent: Control
 @export var spin_box_session_length: SpinBox
 @export var spin_box_break_length: SpinBox
-@export var button_auto_break: CheckButton
+@export var button_auto_break: CheckBox
 
 func enter():
 	if AudioManager.is_playing_notification():

@@ -5,7 +5,7 @@ extends Page
 @export var session_length_parent: Control
 @export var spin_box_session_length: SpinBox
 @export var spin_box_break_length: SpinBox
-@export var button_auto_session: CheckButton
+@export var button_auto_session: CheckBox
 
 var update_preset: Callable = func(): parent.preset = PresetsManager.get_preset(parent.preset.ID)
 

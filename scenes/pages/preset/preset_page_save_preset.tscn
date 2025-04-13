@@ -17,6 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_r6mp1")
 script = ExtResource("1_tsndv")
 preset_edit = NodePath("MarginContainer/VBoxContainer/VBoxContainer/preset")
 preset_edit_danger = NodePath("MarginContainer/VBoxContainer/VBoxContainer/missingName")
@@ -24,8 +25,8 @@ tag_edit = NodePath("MarginContainer/VBoxContainer/tag")
 session_count_spin_box = NodePath("MarginContainer/VBoxContainer2/session count/edit")
 session_length_spin_box = NodePath("MarginContainer/VBoxContainer2/session length/edit")
 break_length_spin_box = NodePath("MarginContainer/VBoxContainer2/break length/edit")
-auto_break_toggle = NodePath("MarginContainer/VBoxContainer3/auto start break")
-auto_session_toggle = NodePath("MarginContainer/VBoxContainer3/auto start session")
+auto_break_toggle = NodePath("MarginContainer/VBoxContainer3/HBoxContainer/AutoBreak")
+auto_session_toggle = NodePath("MarginContainer/VBoxContainer3/HBoxContainer2/AutoSession")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -191,20 +192,30 @@ text = "DELETE"
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-theme_override_constants/separation = 0
 
-[node name="auto start break" type="CheckButton" parent="MarginContainer/VBoxContainer3"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer3"]
 layout_mode = 2
-theme = ExtResource("2_r6mp1")
-theme_type_variation = &"NormalCheckButton"
+alignment = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Auto start break"
 
-[node name="auto start session" type="CheckButton" parent="MarginContainer/VBoxContainer3"]
+[node name="AutoBreak" type="CheckBox" parent="MarginContainer/VBoxContainer3/HBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 4
-theme = ExtResource("2_r6mp1")
-theme_type_variation = &"NormalCheckButton"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer3"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer3/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Auto start session"
+
+[node name="AutoSession" type="CheckBox" parent="MarginContainer/VBoxContainer3/HBoxContainer2"]
+layout_mode = 2
 
 [connection signal="pressed" from="MarginContainer/PRESETS" to="." method="_load_prests_page"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer2/HBoxContainer/START" to="." method="_start_preset"]

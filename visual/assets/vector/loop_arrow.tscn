@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" path="res://visual/assets/vector/loop_arrow.svg" id="1_ibc8f"]
 
 [node name="LoopArrow" type="TextureRect"]
-modulate = Color(0.980392, 0.0352941, 0.0352941, 1)
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("1_ibc8f")
