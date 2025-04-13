@@ -1,6 +1,8 @@
 extends Node
 
 var buffered_sessions: Array[Session]
+## Pauses that have a length less than this (seconds) will not be saved
+var ignored_pause_length: int = 10
 
 func _ready():
 	update_buffered_sessions()
@@ -304,8 +306,10 @@ func end_buffered_session(session_id: int, is_notify_timers_tracker: bool = fals
 		insert into SessionPauses(SessionID, StartDateTime, EndDateTime)
 		select SessionID, StartDateTime, EndDateTime
 		from SessionPauses_Buffer
-		where SessionID = " + str(session_id)
+		where SessionID = " + str(session_id) + " 
+			and unixepoch(EndDateTime) - unixepoch(StartDateTime) > " + str(ignored_pause_length)
 	DatabaseManager.db.query(query)
+	
 	query = "
 		delete from SessionPauses_Buffer
 		where SessionID = " + str(session_id)
