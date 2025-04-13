@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://d0tnv5wrhpsaa" path="res://scenes/background.tscn" id="7_el64l"]
 [ext_resource type="PackedScene" uid="uid://b445jhovk6ton" path="res://scenes/delete_pop_up.tscn" id="7_gaism"]
 [ext_resource type="PackedScene" uid="uid://dr5n8ajt1keec" path="res://scenes/pages/settings/page_settings.tscn" id="7_pej7o"]
-[ext_resource type="Theme" uid="uid://c4dnexwhi88pf" path="res://visual/themes/main_theme.tres" id="10_4n6br"]
+[ext_resource type="Theme" uid="uid://tj12y5ejejxi" path="res://visual/themes/main_theme.tres" id="10_4n6br"]
 [ext_resource type="Script" path="res://scripts/tabs/global/potatoro_tab.gd" id="11_j5mlv"]
 [ext_resource type="Script" path="res://scripts/tabs/global/settings_tab.gd" id="12_4wbq7"]
 

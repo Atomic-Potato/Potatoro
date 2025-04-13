@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://b2ll8tut18nx6"]
 
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_save_preset.gd" id="1_tsndv"]
-[ext_resource type="Theme" uid="uid://cttgvygv7gpq6" path="res://visual/themes/main_theme.tres" id="2_r6mp1"]
+[ext_resource type="Theme" uid="uid://tj12y5ejejxi" path="res://visual/themes/main_theme.tres" id="2_r6mp1"]
 [ext_resource type="Script" path="res://scripts/classes/blink_canvas_item.gd" id="3_y5kkj"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_y3ci6"]
@@ -114,7 +114,7 @@ alignment = 1
 [node name="Label2" type="Label" parent="MarginContainer/VBoxContainer2/session count"]
 layout_mode = 2
 theme = ExtResource("2_r6mp1")
-theme_override_font_sizes/font_size = 12
+theme_type_variation = &"LabelThirdColor"
 text = "*set to 0 for unlimited"
 horizontal_alignment = 1
 

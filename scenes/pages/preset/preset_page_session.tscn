@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_session.gd" id="3_p5ysi"]
 [ext_resource type="Script" path="res://scripts/pages/session/session_timer.gd" id="6_j5uv2"]
 [ext_resource type="Script" path="res://scripts/classes/blink_canvas_item.gd" id="6_mel5q"]
-[ext_resource type="Theme" uid="uid://c4dnexwhi88pf" path="res://visual/themes/main_theme.tres" id="8_85gr6"]
+[ext_resource type="Theme" uid="uid://tj12y5ejejxi" path="res://visual/themes/main_theme.tres" id="8_85gr6"]
 [ext_resource type="Script" path="res://scripts/pages/session/session_finish.gd" id="8_xg4q4"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_setup.gd" id="9_esxm0"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_timer.gd" id="10_l1xkr"]
@@ -60,22 +60,21 @@ page_break_timer = NodePath("Content/BreakTimer")
 page_break_finish = NodePath("Content/BreakFinish")
 child_pages_parent_node = NodePath("Content")
 
-[node name="Content" type="Control" parent="."]
+[node name="Content" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
 
 [node name="SessionSetup" type="Control" parent="Content" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "break_length_parent", "spin_box_session_length", "spin_box_break_length", "button_auto_break")]
 visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 script = ExtResource("2_l3wag")
 label_preset_name = NodePath("info/preset")
 label_sessions_count = NodePath("info/HBoxContainer/session count")
@@ -241,12 +240,7 @@ vertical_alignment = 1
 
 [node name="SessionTimer" type="Control" parent="Content" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "label_finish_hour", "label_timer", "button_pause_toggle", "button_auto_break_toggle", "add_time_controls_parent", "deduct_time_controls_parent")]
 visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 script = ExtResource("6_j5uv2")
 label_preset_name = NodePath("info/preset")
 label_sessions_count = NodePath("info/HBoxContainer/session count")
@@ -488,12 +482,7 @@ text = "+10 s"
 
 [node name="SessionFinish" type="Control" parent="Content" node_paths=PackedStringArray("label_message")]
 visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 script = ExtResource("8_xg4q4")
 label_message = NodePath("VBoxContainer2/Message")
 
@@ -540,12 +529,7 @@ text = "RESTART"
 
 [node name="BreakSetup" type="Control" parent="Content" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "session_length_parent", "spin_box_session_length", "spin_box_break_length", "button_auto_session")]
 visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 script = ExtResource("9_esxm0")
 label_preset_name = NodePath("info/preset")
 label_sessions_count = NodePath("info/HBoxContainer/session count")
@@ -710,12 +694,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="BreakTimer" type="Control" parent="Content" node_paths=PackedStringArray("label_finish_hour", "label_timer", "label_preset_name", "label_sessions_count", "button_pause_toggle", "button_auto_session_toggle", "add_time_controls_parent", "deduct_time_controls_parent")]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 script = ExtResource("10_l1xkr")
 label_finish_hour = NodePath("Timer/VBoxContainer/finish hour")
 label_timer = NodePath("Timer/VBoxContainer/Timer")
@@ -744,7 +723,7 @@ alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Content/BreakTimer/Timer"]
 layout_mode = 2
-theme_override_constants/separation = -10
+theme_override_constants/separation = 0
 
 [node name="finish hour" type="Label" parent="Content/BreakTimer/Timer/VBoxContainer"]
 layout_mode = 2
@@ -957,12 +936,7 @@ text = "+10 s"
 
 [node name="BreakFinish" type="Control" parent="Content" node_paths=PackedStringArray("label_message")]
 visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 script = ExtResource("11_ecred")
 label_message = NodePath("VBoxContainer2/MessageBreak")
 

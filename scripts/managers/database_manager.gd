@@ -106,7 +106,7 @@ func _get_settings_insert_query()-> String:
 				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.PrimaryColor) + '"),
 			(4, "000000", '+str(SettingsManager.DBSettings.SecondaryColor)+', 
 				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.SecondaryColor) + '"),
-			(4, "909090", '+str(SettingsManager.DBSettings.ThirdColor)+', 
+			(4, "7f7f7f", '+str(SettingsManager.DBSettings.ThirdColor)+', 
 				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.ThirdColor) + '"),
 			
 			(4, "ff0000", '+str(SettingsManager.DBSettings.DangerPrimaryColor)+', 

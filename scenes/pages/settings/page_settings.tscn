@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dr5n8ajt1keec"]
 
 [ext_resource type="Script" path="res://scripts/pages/settings/page_settings.gd" id="1_22btq"]
-[ext_resource type="Theme" uid="uid://cttgvygv7gpq6" path="res://visual/themes/main_theme.tres" id="2_678x1"]
+[ext_resource type="Theme" uid="uid://tj12y5ejejxi" path="res://visual/themes/main_theme.tres" id="2_678x1"]
 [ext_resource type="Script" path="res://scripts/classes/number_edit.gd" id="3_yorst"]
 [ext_resource type="Theme" uid="uid://c2ndyfruhrefw" path="res://visual/themes/empty_theme.tres" id="4_flnsp"]
 [ext_resource type="Script" path="res://scripts/classes/number_edit_float.gd" id="5_tquc7"]
@@ -13,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_678x1")
 script = ExtResource("1_22btq")
 label_app_version = NodePath("MarginContainer/ScrollContainer/HeadersContainer/appVer/AppVer2/version")
 label_database_path = NodePath("MarginContainer/ScrollContainer/HeadersContainer/DB/HBoxContainer/path")
@@ -53,10 +54,10 @@ theme_override_constants/margin_bottom = 22
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
-scroll_vertical = 1690
+scroll_vertical = 1450
 
 [node name="HeadersContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
-custom_minimum_size = Vector2(300, 10.435)
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 3
@@ -65,7 +66,7 @@ theme_override_constants/separation = 32
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 layout_mode = 2
 theme = ExtResource("2_678x1")
-theme_override_font_sizes/font_size = 32
+theme_type_variation = &"LabelSettingsTitle"
 text = "INFO"
 uppercase = true
 
@@ -79,23 +80,24 @@ layout_mode = 2
 [node name="label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/appVer/AppVer2"]
 layout_mode = 2
 theme = ExtResource("2_678x1")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 24
 text = "Version "
 
 [node name="version" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/appVer/AppVer2"]
 layout_mode = 2
 theme = ExtResource("2_678x1")
-theme_override_font_sizes/font_size = 16
+theme_type_variation = &"LabelSettingsSubTitle"
 text = "0.1.0"
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/appVer"]
+custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 theme = ExtResource("2_678x1")
-theme_override_font_sizes/font_size = 12
-text = "* Your data will be compatible between any changes in a minor release 
-e.g. between 0.1.0 and 0.1.4 will be compaitble 
-but between 0.1 and 0.2 will require the database to be reimported
+theme_type_variation = &"LabelThirdColor"
+text = "* Your data will be compatible between any changes in a minor release  e.g. between 0.1.0 and 0.1.4 will be compaitble but between 0.1 and 0.2 will require the database to be reimported
+
 (i will implement this feature in later versions)"
+autowrap_mode = 3
 
 [node name="DB" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 layout_mode = 2
@@ -104,23 +106,30 @@ size_flags_horizontal = 0
 [node name="label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/DB"]
 layout_mode = 2
 theme = ExtResource("2_678x1")
-theme_override_font_sizes/font_size = 16
+theme_type_variation = &"LabelSettingsSubTitle"
 text = "Path to database file"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/DB"]
 layout_mode = 2
+theme_override_constants/separation = 20
 
 [node name="Button" type="Button" parent="MarginContainer/ScrollContainer/HeadersContainer/DB/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
 theme = ExtResource("2_678x1")
 theme_override_font_sizes/font_size = 14
 text = "Open Directory"
 
 [node name="path" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/DB/HBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.9
 theme = ExtResource("2_678x1")
-theme_override_font_sizes/font_size = 16
+theme_type_variation = &"LabelThirdColor"
 text = "user://potatoro.db"
+autowrap_mode = 3
 
 [node name="Contact" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 layout_mode = 2
@@ -129,28 +138,27 @@ size_flags_horizontal = 0
 [node name="Title" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Contact"]
 layout_mode = 2
 theme = ExtResource("2_678x1")
-theme_override_font_sizes/font_size = 16
+theme_type_variation = &"LabelSettingsSubTitle"
 text = "Contact & Help"
 
 [node name="Label2" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Contact"]
 layout_mode = 2
 theme = ExtResource("2_678x1")
-theme_override_font_sizes/font_size = 12
 text = "If you need any help, you can contact me on discord:
-my username: 
+
+- my username: 
 @atomic_potato_32
-my server: "
+
+- my server: "
 
 [node name="LinkButton2" type="LinkButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Contact"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
 text = "https://discord.gg/JUJKZxp"
 uri = "https://discord.gg/JUJKZxp"
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Contact"]
 layout_mode = 2
 theme = ExtResource("2_678x1")
-theme_override_font_sizes/font_size = 12
 text = "
 or my email: atomicpotatogames32@gmail.com
 
@@ -158,7 +166,6 @@ Or you could check the manual in the GitHub readme:"
 
 [node name="LinkButton" type="LinkButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Contact"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
 text = "https://github.com/Atomic-Potato/Potatoro"
 uri = "https://github.com/Atomic-Potato/Potatoro"
 
@@ -170,22 +177,23 @@ theme_type_variation = &"SeparatingBarThird"
 
 [node name="DefaultValues" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
 theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues"]
 layout_mode = 2
 theme = ExtResource("2_678x1")
-theme_override_font_sizes/font_size = 32
+theme_type_variation = &"LabelSettingsTitle"
 text = "DEFAULT VALUES"
 uppercase = true
 
 [node name="SessionsCount" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues"]
 layout_mode = 2
+alignment = 1
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/SessionsCount"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("2_678x1")
 text = "Sessions count"
 
@@ -203,6 +211,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/SessionLength"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("2_678x1")
 text = "Session length (min)"
 
@@ -220,6 +229,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/DefaultValues/BreakLength"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("2_678x1")
 text = "Break length (min)"
 
@@ -239,13 +249,12 @@ theme_type_variation = &"SeparatingBarThird"
 
 [node name="TimerSettings" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
 theme_override_constants/separation = 20
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings"]
 layout_mode = 2
 theme = ExtResource("2_678x1")
-theme_override_font_sizes/font_size = 32
+theme_type_variation = &"LabelSettingsTitle"
 text = "TIMER SETTINGS"
 uppercase = true
 
@@ -255,6 +264,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HourFormat"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("2_678x1")
 text = "Use 12-hour format"
 
@@ -269,6 +279,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HideSessionControls"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("2_678x1")
 text = "Hide session time change controls"
 
@@ -282,6 +293,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/TimerSettings/HideBreakControls"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("2_678x1")
 text = "Hide break time change controls"
 
@@ -301,14 +313,14 @@ theme_override_constants/separation = 20
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_type_variation = &"LabelSettingsTitle"
 text = "SOUND SETTINGS"
 uppercase = true
 
 [node name="Note" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings"]
 layout_mode = 2
 theme = ExtResource("2_678x1")
-theme_override_font_sizes/font_size = 12
+theme_type_variation = &"LabelThirdColor"
 text = "*Place your custom audio files in the following direcoty."
 
 [node name="Button" type="Button" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings"]
@@ -327,6 +339,7 @@ theme_override_constants/separation = 20
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer2"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
 text = "Session end notification sound"
 
@@ -351,8 +364,11 @@ access = 1
 filters = PackedStringArray("*.mp3", "*.wav", "*.ogg ")
 
 [node name="session" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath"]
+custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
+size_flags_vertical = 6
 text = "[No file selected]"
+autowrap_mode = 3
 
 [node name="BreakNotificationPath" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings"]
 layout_mode = 2
@@ -365,7 +381,7 @@ theme_override_constants/separation = 20
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-size_flags_stretch_ratio = 0.8
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
 text = "Break end notification sound"
 
@@ -391,8 +407,10 @@ access = 1
 filters = PackedStringArray("*.mp3", "*.wav", "*.ogg")
 
 [node name="break" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath"]
+custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 text = "[No file selected]"
+autowrap_mode = 3
 
 [node name="SessionNotificationVolume" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings"]
 layout_mode = 2
@@ -432,20 +450,19 @@ theme_type_variation = &"SeparatingBarThird"
 
 [node name="Theme" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
 theme_override_constants/separation = 16
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
 layout_mode = 2
 theme = ExtResource("2_678x1")
-theme_override_font_sizes/font_size = 32
+theme_type_variation = &"LabelSettingsTitle"
 text = "theme"
 uppercase = true
 
 [node name="Note" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
 layout_mode = 2
 theme = ExtResource("2_678x1")
-theme_override_font_sizes/font_size = 12
+theme_type_variation = &"LabelThirdColor"
 text = "*Textures dont update until app is restarted"
 
 [node name="BGPrimary" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
@@ -454,6 +471,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/BGPrimary"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("2_678x1")
 text = "Background color"
 
@@ -469,6 +487,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/Primary"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("2_678x1")
 text = "Primary color"
 
@@ -485,6 +504,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/Secondary"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("2_678x1")
 text = "Secondary color"
 
@@ -500,6 +520,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/Third"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("2_678x1")
 text = "Third color"
 
@@ -516,6 +537,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/DangerPrimary"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("2_678x1")
 text = "Danger primary color"
 
@@ -532,6 +554,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/DangerSecondary"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("2_678x1")
 text = "Danger Seconadry color"
 
@@ -547,6 +570,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/CustomTitleBar"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("2_678x1")
 text = "Use custom title bar (experimental)"
 
@@ -560,6 +584,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/TitlePrimary"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("2_678x1")
 text = "Title bar primary color"
 
@@ -576,6 +601,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/TitleSecondary"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("2_678x1")
 text = "Title bar secondary color"
 
@@ -593,13 +619,12 @@ theme_type_variation = &"SeparatingBarThird"
 
 [node name="UI" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
 theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/UI"]
 layout_mode = 2
 theme = ExtResource("2_678x1")
-theme_override_font_sizes/font_size = 32
+theme_type_variation = &"LabelSettingsTitle"
 text = "User INTERFACE"
 uppercase = true
 
@@ -609,6 +634,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/UI/Scale"]
 custom_minimum_size = Vector2(325, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("2_678x1")
 text = "Scale (between 0.5 and 3)"
 
@@ -646,11 +672,11 @@ theme_type_variation = &"SeparatingBarThird"
 [node name="Other" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 visible = false
 layout_mode = 2
-size_flags_horizontal = 0
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Other"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme = ExtResource("2_678x1")
+theme_type_variation = &"LabelSettingsTitle"
 text = "Other SETTINGS"
 uppercase = true
 

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="FontColorType" load_steps=2 format=3 uid="uid://blsrgfxl7hr8w"]
+
+[ext_resource type="Script" path="res://scripts/resources/font_color_type/font_color_type.gd" id="1_4ac0q"]
+
+[resource]
+script = ExtResource("1_4ac0q")
+theme_type = "LinkButton"
+color_types = {
+"eighth": [],
+"fifth": [],
+"fourth": [],
+"nineth": [],
+"primary": [],
+"secondary": [],
+"seventh": [],
+"sixth": [],
+"tenth": [],
+"third": ["font_color", "font_focus_color", "font_hover_color", "font_pressed_color"]
+}

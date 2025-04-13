@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="FontColorType" load_steps=2 format=3 uid="uid://cy8rhiookukbd"]
+
+[ext_resource type="Script" path="res://scripts/resources/font_color_type/font_color_type.gd" id="1_36oxd"]
+
+[resource]
+script = ExtResource("1_36oxd")
+theme_type = "LabelThirdColor"
+color_types = {
+"eighth": [],
+"fifth": [],
+"fourth": [],
+"nineth": [],
+"primary": [],
+"secondary": [],
+"seventh": [],
+"sixth": [],
+"tenth": [],
+"third": ["font_color"]
+}
