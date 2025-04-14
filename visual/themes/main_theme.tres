@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=36 format=3 uid="uid://tj12y5ejejxi"]
+[gd_resource type="Theme" load_steps=43 format=3 uid="uid://tj12y5ejejxi"]
 
 [ext_resource type="StyleBox" uid="uid://6ggmd37k4gc3" path="res://visual/style_boxes/main_theme/danger/borders_danger_stylebox.tres" id="1_e1fs3"]
 [ext_resource type="StyleBox" uid="uid://bjhktb8hqg766" path="res://visual/style_boxes/main_theme/background/background_stylebox.tres" id="1_qr4vg"]
@@ -22,6 +22,10 @@
 [ext_resource type="StyleBox" uid="uid://3pn2wnkd2fi3" path="res://visual/style_boxes/main_theme/slider/slider_stylebox.tres" id="16_eqq76"]
 [ext_resource type="StyleBox" uid="uid://u0io5wg3gmfk" path="res://visual/style_boxes/main_theme/scroll/scroll_flat_third_stylebox.tres" id="17_uhngt"]
 [ext_resource type="StyleBox" uid="uid://dyycah8psdp47" path="res://visual/style_boxes/main_theme/scroll/v_scroll_stylebox.tres" id="19_5pnmw"]
+[ext_resource type="StyleBox" uid="uid://dsvpru2iqays4" path="res://visual/style_boxes/main_theme/buttons_textures/pause_third_color_stylebox.tres" id="20_lri8a"]
+[ext_resource type="StyleBox" uid="uid://ixoe251nl8jw" path="res://visual/style_boxes/main_theme/buttons_textures/play_third_color_stylebox.tres" id="21_5xw50"]
+[ext_resource type="StyleBox" uid="uid://smmgjk0vayr" path="res://visual/style_boxes/main_theme/buttons_textures/pause_stylebox.tres" id="22_l6key"]
+[ext_resource type="StyleBox" uid="uid://bgw2lmdr85j4o" path="res://visual/style_boxes/main_theme/buttons_textures/play_stylebox.tres" id="23_nwckk"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_phdrx"]
 
@@ -42,6 +46,12 @@
 [sub_resource type="ImageTexture" id="ImageTexture_dt6rs"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mnvmg"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_tfsft"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_2a4st"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qki2c"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_01ovf"]
 
@@ -175,6 +185,14 @@ NormalCheckButton/styles/hover_pressed = SubResource("StyleBoxEmpty_mnvmg")
 NormalCheckButton/styles/normal = SubResource("StyleBoxEmpty_mnvmg")
 NormalCheckButton/styles/pressed = SubResource("StyleBoxEmpty_mnvmg")
 PanelContainer/styles/panel = ExtResource("6_fin5w")
+PauseButton/base_type = &"CheckButton"
+PauseButton/icons/checked = SubResource("ImageTexture_tfsft")
+PauseButton/icons/unchecked = SubResource("ImageTexture_2a4st")
+PauseButton/styles/focus = SubResource("StyleBoxEmpty_qki2c")
+PauseButton/styles/hover = ExtResource("20_lri8a")
+PauseButton/styles/hover_pressed = ExtResource("21_5xw50")
+PauseButton/styles/normal = ExtResource("22_l6key")
+PauseButton/styles/pressed = ExtResource("23_nwckk")
 SeparatingBarPrimary/base_type = &"PanelContainer"
 SeparatingBarPrimary/styles/panel = ExtResource("8_jns06")
 SeparatingBarThird/base_type = &"PanelContainer"

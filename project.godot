@@ -26,7 +26,7 @@ TimersTrackingManager="*res://scripts/managers/timers_tracking_manager.gd"
 SettingsManager="*res://scenes/managers/settings_manager.tscn"
 ThemeTool="*res://scenes/tools/theme_tool.tscn"
 AudioManager="*res://scenes/managers/audio_manager.tscn"
-UIManager="*res://scripts/managers/ui_manager.gd"
+UIManager="*res://scenes/managers/ui_manager.tscn"
 
 [display]
 

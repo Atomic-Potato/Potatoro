@@ -30,7 +30,7 @@ enum DBSettings ## Names and IDs
 	TitleBarPrimaryColor, TitleBarSecondaryColor,
 	
 	## UI
-	UIScale,
+	UIScale, PathFontFile,
 }
 
 func get_DBSettings_name(key: DBSettings)-> String:
@@ -154,6 +154,14 @@ var ui_scale: float:
 	set(value):
 		_set_value(DBSettings.UIScale, value)
 		ui_scale_changed.emit()
+
+signal  path_font_file_changed
+var path_font_file: String:
+	get: return _get_value(DBSettings.PathFontFile)
+	set(value): 
+		_set_value(DBSettings.PathFontFile, value, true)
+		path_font_file_changed.emit()
+
 
 func _get_value(id: int):
 	DatabaseManager.db.query("select Value from Settings where ID = " + str(id))

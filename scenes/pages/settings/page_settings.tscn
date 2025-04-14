@@ -6,7 +6,7 @@
 [ext_resource type="Theme" uid="uid://c2ndyfruhrefw" path="res://visual/themes/empty_theme.tres" id="4_flnsp"]
 [ext_resource type="Script" path="res://scripts/classes/number_edit_float.gd" id="5_tquc7"]
 
-[node name="Settings" type="Control" node_paths=PackedStringArray("label_app_version", "label_database_path", "edit_sessions_count", "edit_session_length", "edit_break_length", "check_hour_format", "check_hide_session_controls", "check_hide_break_controls", "open_file_dialog_session_notification", "open_file_dialog_break_notification", "slider_session_notification_volume", "slider_break_notification_volume", "label_session_notification_path", "label_break_notification_path", "color_background", "color_primary", "color_secondary", "color_third", "color_danger_primary", "color_danger_secondary", "check_custom_title_bar", "color_title_bar_primary", "color_title_bar_secondary", "edit_ui_scale")]
+[node name="Settings" type="Control" node_paths=PackedStringArray("label_app_version", "label_database_path", "edit_sessions_count", "edit_session_length", "edit_break_length", "check_hour_format", "check_hide_session_controls", "check_hide_break_controls", "open_file_dialog_session_notification", "open_file_dialog_break_notification", "slider_session_notification_volume", "slider_break_notification_volume", "label_session_notification_path", "label_break_notification_path", "color_background", "color_primary", "color_secondary", "color_third", "color_danger_primary", "color_danger_secondary", "check_custom_title_bar", "color_title_bar_primary", "color_title_bar_secondary", "edit_ui_scale", "open_file_dialog_font_file", "label_font_file_path")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,6 +39,8 @@ check_custom_title_bar = NodePath("MarginContainer/ScrollContainer/HeadersContai
 color_title_bar_primary = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/TitlePrimary/ColorPickerButton")
 color_title_bar_secondary = NodePath("MarginContainer/ScrollContainer/HeadersContainer/Theme/TitleSecondary/ColorPickerButton")
 edit_ui_scale = NodePath("MarginContainer/ScrollContainer/HeadersContainer/UI/Scale/LineEdit")
+open_file_dialog_font_file = NodePath("MarginContainer/ScrollContainer/HeadersContainer/UI/FontFilePath/HBoxContainer2/FontFileDialog")
+label_font_file_path = NodePath("MarginContainer/ScrollContainer/HeadersContainer/UI/FontFilePath/font")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -54,6 +56,7 @@ theme_override_constants/margin_bottom = 22
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
+scroll_vertical = 2059
 
 [node name="HeadersContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
 custom_minimum_size = Vector2(300, 0)
@@ -617,7 +620,7 @@ theme_type_variation = &"SeparatingBarThird"
 
 [node name="UI" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 20
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/UI"]
 layout_mode = 2
@@ -625,6 +628,17 @@ theme = ExtResource("2_678x1")
 theme_type_variation = &"LabelSettingsTitle"
 text = "User INTERFACE"
 uppercase = true
+
+[node name="Note" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/UI"]
+layout_mode = 2
+theme = ExtResource("2_678x1")
+theme_type_variation = &"LabelThirdColor"
+text = "*Place your custom font files in the following direcoty."
+
+[node name="Button" type="Button" parent="MarginContainer/ScrollContainer/HeadersContainer/UI"]
+layout_mode = 2
+theme = ExtResource("2_678x1")
+text = "Open font files directory"
 
 [node name="Scale" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/UI"]
 layout_mode = 2
@@ -660,6 +674,48 @@ theme = ExtResource("2_678x1")
 theme_type_variation = &"ButtonSmall"
 text = "+"
 
+[node name="FontFilePath" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/UI"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/UI/FontFilePath"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/UI/FontFilePath/HBoxContainer2"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Session end notification sound"
+
+[node name="ChooseFile" type="Button" parent="MarginContainer/ScrollContainer/HeadersContainer/UI/FontFilePath/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("2_678x1")
+text = "Choose File"
+
+[node name="Clear" type="Button" parent="MarginContainer/ScrollContainer/HeadersContainer/UI/FontFilePath/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("2_678x1")
+text = "CLEAR"
+
+[node name="FontFileDialog" type="FileDialog" parent="MarginContainer/ScrollContainer/HeadersContainer/UI/FontFilePath/HBoxContainer2"]
+title = "Open a File"
+initial_position = 2
+size = Vector2i(824, 425)
+theme = ExtResource("4_flnsp")
+ok_button_text = "Open"
+file_mode = 0
+access = 1
+filters = PackedStringArray("*.ttf", "*.ttc", "*.otf", "*.otc", "*.woff", "*.woff2", "*.pfb", "*.pfm", "*.fnt", "*.font")
+
+[node name="font" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/UI/FontFilePath"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_vertical = 6
+text = "[No file selected]"
+autowrap_mode = 3
+
 [node name="separatingline7" type="PanelContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 visible = false
 custom_minimum_size = Vector2(0, 2)
@@ -694,6 +750,9 @@ text = "RESTORE DEFAULTS"
 [connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer2/Clear" to="." method="_clear_session_notification_path"]
 [connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer/ChooseFile" to="." method="_show_open_file_dialog_break_notification"]
 [connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer/Clear" to="." method="_clear_break_notification_path"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/UI/Button" to="." method="_open_fonts_directory"]
 [connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/UI/Scale/ReduceScale" to="." method="_add_ui_scale" binds= [-0.1]]
 [connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/UI/Scale/IncreaseScale" to="." method="_add_ui_scale" binds= [0.1]]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/UI/FontFilePath/HBoxContainer2/ChooseFile" to="." method="_show_open_file_dialog_font_file"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/UI/FontFilePath/HBoxContainer2/Clear" to="." method="_clear_font_file_path"]
 [connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/RestoreDefaults" to="." method="_restore_defaults"]

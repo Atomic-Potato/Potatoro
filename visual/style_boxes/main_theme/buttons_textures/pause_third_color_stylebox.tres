@@ -4,5 +4,6 @@
 
 [resource]
 content_margin_left = 60.0
+content_margin_top = 60.0
 texture = ExtResource("1_hukn2")
 modulate_color = Color(0.498039, 0.498039, 0.498039, 1)

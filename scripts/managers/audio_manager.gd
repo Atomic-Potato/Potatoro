@@ -51,7 +51,7 @@ func stop_notification():
 func is_playing_notification()-> bool:
 	return notification_player.stream != null
 
-# NOTE: user_path must have "user://" prefixed to it
+## NOTE: user_path must have "user://" prefixed to it
 func get_audio_stream(user_path: String)-> AudioStream:
 	var file: FileAccess = FileAccess.open(user_path, FileAccess.READ)
 	if not file:

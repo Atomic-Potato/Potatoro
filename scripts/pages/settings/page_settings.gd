@@ -41,11 +41,14 @@ extends Page
 
 @export_category("UI")
 @export var edit_ui_scale: NumberEditFloat
+@export var open_file_dialog_font_file: FileDialog
+@export var label_font_file_path: Label
 
 #@export_category("Other") # in case i do need it later # its one line, idk why i even kept it
 
 func _ready():
 	DirAccess.make_dir_absolute("user://sound")
+	DirAccess.make_dir_absolute("user://fonts")
 	_update_fileds()
 	_connect_fileds()
 	_setup_open_file_dialogs()
@@ -89,8 +92,11 @@ func _update_fileds():
 	color_title_bar_secondary.color = Color.from_string(SettingsManager.color_title_bar_secondary, Color.MAGENTA)
 	
 	# INFO: UI
-	print(SettingsManager.ui_scale)
 	edit_ui_scale.text = str(SettingsManager.ui_scale)
+	label_font_file_path.text = \
+		ProjectSettings.globalize_path(SettingsManager.path_font_file)\
+		if SettingsManager.path_font_file\
+		else text_no_file_select
 
 
 func _connect_fileds():
@@ -141,6 +147,7 @@ func _connect_fileds():
 		func(value): SettingsManager.ui_scale = edit_ui_scale.value)
 
 func _setup_open_file_dialogs():
+	## SOUND
 	open_file_dialog_session_notification.root_subfolder = "sound"
 	open_file_dialog_session_notification.hide()
 	open_file_dialog_session_notification.file_selected.connect(
@@ -155,6 +162,15 @@ func _setup_open_file_dialogs():
 			SettingsManager.path_break_end_notification_timer = path
 			label_break_notification_path.text = ProjectSettings.globalize_path(path) + "sound"
 	)
+	
+	## UI
+	open_file_dialog_font_file.root_subfolder = "fonts"
+	open_file_dialog_font_file.hide()
+	open_file_dialog_font_file.file_selected.connect(
+		func(path: String): 
+			SettingsManager.path_font_file = path
+			label_font_file_path.text = ProjectSettings.globalize_path(path)
+	)
 
 func _restore_defaults():
 	DatabaseManager.restore_default_settings()
@@ -162,6 +178,9 @@ func _restore_defaults():
 
 func _open_sound_directory()-> void:
 	OS.shell_open(ProjectSettings.globalize_path("user://sound"))
+
+func _open_fonts_directory()-> void:
+	OS.shell_open(ProjectSettings.globalize_path("user://fonts"))
 
 func _open_user_directory():
 	OS.shell_open(ProjectSettings.globalize_path("user://"))
@@ -175,6 +194,9 @@ func _show_open_file_dialog_session_notification():
 func _show_open_file_dialog_break_notification():
 	open_file_dialog_break_notification.show()
 
+func _show_open_file_dialog_font_file():
+	open_file_dialog_font_file.show()
+
 func _clear_session_notification_path():
 	SettingsManager.path_session_end_notification_timer = ""
 	label_session_notification_path.text = text_no_file_select
@@ -182,6 +204,10 @@ func _clear_session_notification_path():
 func _clear_break_notification_path():
 	SettingsManager.path_break_end_notification_timer = ""
 	label_break_notification_path.text = text_no_file_select
+
+func _clear_font_file_path():
+	SettingsManager.path_font_file = ""
+	label_font_file_path.text = text_no_file_select
 
 func _add_ui_scale(value: float):
 	var curr: float = float(edit_ui_scale.text)

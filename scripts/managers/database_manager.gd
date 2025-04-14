@@ -122,7 +122,9 @@ func _get_settings_insert_query()-> String:
 				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.TitleBarSecondaryColor) + '"),
 			
 			(5, "1", '+str(SettingsManager.DBSettings.UIScale)+', 
-				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.UIScale) + '");
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.UIScale) + '"),
+			(5, "", '+str(SettingsManager.DBSettings.PathFontFile)+', 
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.PathFontFile) + '");
 		'
 
 
