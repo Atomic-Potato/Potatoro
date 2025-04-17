@@ -11,9 +11,11 @@ config_version=5
 [application]
 
 config/name="Potatoro"
+config/version="0.1.0"
 run/main_scene="res://global.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
-config/icon="res://icon.svg"
+run/low_processor_mode=true
+config/icon="res://potatoro_icon.svg"
 
 [autoload]
 

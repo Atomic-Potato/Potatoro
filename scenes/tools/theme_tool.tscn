@@ -1,51 +1,47 @@
-[gd_scene load_steps=47 format=3 uid="uid://bmp1wc4winydq"]
+[gd_scene load_steps=43 format=3 uid="uid://bmp1wc4winydq"]
 
 [ext_resource type="Script" path="res://scripts/tools/theme_tool.gd" id="1_55cj1"]
-[ext_resource type="StyleBox" uid="uid://bbyx6x1d6vw76" path="res://visual/style_boxes/main_theme/number_edit/borders_number_edit_stylebox.tres" id="2_240fj"]
-[ext_resource type="Theme" uid="uid://tj12y5ejejxi" path="res://visual/themes/main_theme.tres" id="2_n44j6"]
+[ext_resource type="StyleBox" uid="uid://cwn07ft7ngrga" path="res://visual/style_boxes/main_theme/number_edit/borders_number_edit_stylebox.tres" id="2_240fj"]
+[ext_resource type="Theme" uid="uid://de4rotvge5vtn" path="res://visual/themes/main_theme.tres" id="2_n44j6"]
 [ext_resource type="Resource" uid="uid://i1cp4nenc20l" path="res://scripts/resources/font_color_type/main_theme_button.tres" id="3_0v0pk"]
 [ext_resource type="Resource" uid="uid://c3yj2lp53l7iw" path="res://scripts/resources/font_color_type/main_theme_label.tres" id="3_4ynsw"]
-[ext_resource type="StyleBox" uid="uid://bgyfxhs27gvdf" path="res://visual/style_boxes/main_theme/card/button_card_styleboxtres.tres" id="3_qy2s2"]
+[ext_resource type="StyleBox" uid="uid://p23t583orly6" path="res://visual/style_boxes/main_theme/card/button_card_styleboxtres.tres" id="3_qy2s2"]
 [ext_resource type="Resource" uid="uid://bdsjbwm8uqubl" path="res://scripts/resources/font_color_type/main_theme_danger_button.tres" id="4_gvcfe"]
-[ext_resource type="StyleBox" uid="uid://cfbw15ex87r52" path="res://visual/style_boxes/main_theme/separating_lines/primary_color_separating_bar_stylebox.tres" id="4_rutlr"]
+[ext_resource type="StyleBox" uid="uid://gl5jba2d03vk" path="res://visual/style_boxes/main_theme/separating_lines/primary_color_separating_bar_stylebox.tres" id="4_rutlr"]
 [ext_resource type="Resource" uid="uid://bck85it7otyvb" path="res://scripts/resources/font_color_type/main_theme_danger_label.tres" id="5_iq7m0"]
-[ext_resource type="StyleBox" uid="uid://bkj4ekir7p3w2" path="res://visual/style_boxes/main_theme/borders_stylebox.tres" id="5_vrwt7"]
-[ext_resource type="StyleBox" uid="uid://ufht8481ysxw" path="res://visual/style_boxes/main_theme/separating_lines/third_color_separating_bar_stylebox.tres" id="6_jwsbp"]
-[ext_resource type="StyleBox" uid="uid://biklu5oaavehd" path="res://visual/style_boxes/main_theme/borders_thicc_stylebox.tres" id="6_ky317"]
+[ext_resource type="StyleBox" uid="uid://7poqwdqmqrbg" path="res://visual/style_boxes/main_theme/borders_stylebox.tres" id="5_vrwt7"]
+[ext_resource type="StyleBox" uid="uid://bia5spe0uj4r3" path="res://visual/style_boxes/main_theme/separating_lines/third_color_separating_bar_stylebox.tres" id="6_jwsbp"]
+[ext_resource type="StyleBox" uid="uid://cayqohw5tngvg" path="res://visual/style_boxes/main_theme/borders_thicc_stylebox.tres" id="6_ky317"]
 [ext_resource type="Script" path="res://scripts/classes/style_box_theme_options.gd" id="7_cht6l"]
 [ext_resource type="Resource" uid="uid://bymhctcyri0i6" path="res://scripts/resources/font_color_type/main_theme_line_edit.tres" id="7_j0ybb"]
 [ext_resource type="Resource" uid="uid://chxg503253uw0" path="res://scripts/resources/font_color_type/main_theme_boxed_line_edit.tres" id="8_2gone"]
-[ext_resource type="StyleBox" uid="uid://m71s2ip27wrk" path="res://visual/style_boxes/main_theme/boxed_line_edit_stylebox.tres" id="8_7icyc"]
+[ext_resource type="StyleBox" uid="uid://ckl2aaxn8twen" path="res://visual/style_boxes/main_theme/boxed_line_edit_stylebox.tres" id="8_7icyc"]
 [ext_resource type="Resource" uid="uid://c8gcroqgft0y7" path="res://scripts/resources/font_color_type/main_theme_normal_check_button.tres" id="9_4co7d"]
-[ext_resource type="PackedScene" path="res://visual/assets/vector/circular_plus_texture_rect.tscn" id="10_53p58"]
 [ext_resource type="Resource" uid="uid://cqjqu3sjc2e36" path="res://scripts/resources/font_color_type/main_theme_small_edit.tres" id="10_djauh"]
-[ext_resource type="StyleBox" uid="uid://6ggmd37k4gc3" path="res://visual/style_boxes/main_theme/danger/borders_danger_stylebox.tres" id="10_wos1g"]
+[ext_resource type="StyleBox" uid="uid://cynlv2oaqi0mf" path="res://visual/style_boxes/main_theme/danger/borders_danger_stylebox.tres" id="10_wos1g"]
 [ext_resource type="Resource" uid="uid://dnvl7sgsg6cq7" path="res://scripts/resources/font_color_type/main_theme_nav_button.tres" id="11_6yt12"]
-[ext_resource type="StyleBox" uid="uid://hnyxlohibvwo" path="res://visual/style_boxes/main_theme/flat_color_stylebox.tres" id="11_cnyyb"]
-[ext_resource type="StyleBox" uid="uid://buh2lnf818rh7" path="res://visual/style_boxes/main_theme/danger/flat_color_danger_stylebox.tres" id="11_egj13"]
+[ext_resource type="StyleBox" uid="uid://dimnr10ovlhe2" path="res://visual/style_boxes/main_theme/flat_color_stylebox.tres" id="11_cnyyb"]
+[ext_resource type="StyleBox" uid="uid://cmcs3yl6mxra6" path="res://visual/style_boxes/main_theme/danger/flat_color_danger_stylebox.tres" id="11_egj13"]
 [ext_resource type="Resource" uid="uid://cy8rhiookukbd" path="res://scripts/resources/font_color_type/main_theme_label_third_color.tres" id="12_nn85c"]
 [ext_resource type="Resource" uid="uid://blsrgfxl7hr8w" path="res://scripts/resources/font_color_type/main_theme_link_button.tres" id="13_4on1x"]
-[ext_resource type="PackedScene" path="res://visual/assets/vector/loop_arrow.tscn" id="13_ec40o"]
-[ext_resource type="PackedScene" path="res://visual/assets/vector/pause.tscn" id="16_4r3o0"]
-[ext_resource type="PackedScene" path="res://visual/assets/vector/play.tscn" id="17_xg6rh"]
-[ext_resource type="PackedScene" path="res://visual/assets/vector/skip.tscn" id="18_kvpt5"]
-[ext_resource type="StyleBox" uid="uid://30pt3v0wre0r" path="res://visual/style_boxes/main_theme/borders_thin_stylebox.tres" id="20_tklgn"]
-[ext_resource type="StyleBox" uid="uid://bjhktb8hqg766" path="res://visual/style_boxes/main_theme/background/background_stylebox.tres" id="22_44gsi"]
-[ext_resource type="StyleBox" uid="uid://8gp77anwkin" path="res://visual/style_boxes/main_theme/flat_color_thin_stylebox.tres" id="22_u35dx"]
-[ext_resource type="StyleBox" uid="uid://dtejr4m3ax7ix" path="res://visual/style_boxes/main_theme/flat_color_third_stylebox.tres" id="24_m76mb"]
-[ext_resource type="StyleBox" uid="uid://dgh01mkkqg1ij" path="res://visual/style_boxes/main_theme/scroll/scroll_flat_stylebox.tres" id="27_en1aa"]
-[ext_resource type="StyleBox" uid="uid://u0io5wg3gmfk" path="res://visual/style_boxes/main_theme/scroll/scroll_flat_third_stylebox.tres" id="28_43s60"]
-[ext_resource type="StyleBox" uid="uid://3pn2wnkd2fi3" path="res://visual/style_boxes/main_theme/slider/slider_stylebox.tres" id="30_bubxs"]
-[ext_resource type="StyleBox" uid="uid://bf7cduosuil0u" path="res://visual/style_boxes/main_theme/slider/grabber_stylebox.tres" id="31_g1ebt"]
-[ext_resource type="StyleBox" uid="uid://2mqagxhbpnx4" path="res://visual/style_boxes/main_theme/checkmark_stylebox.tres" id="32_rq50d"]
-[ext_resource type="StyleBox" uid="uid://bgw2lmdr85j4o" path="res://visual/style_boxes/main_theme/buttons_textures/play_stylebox.tres" id="35_bxly2"]
-[ext_resource type="StyleBox" uid="uid://ixoe251nl8jw" path="res://visual/style_boxes/main_theme/buttons_textures/play_third_color_stylebox.tres" id="36_dbhim"]
-[ext_resource type="StyleBox" uid="uid://smmgjk0vayr" path="res://visual/style_boxes/main_theme/buttons_textures/pause_stylebox.tres" id="36_gjntj"]
-[ext_resource type="StyleBox" uid="uid://hhpat0bted1c" path="res://visual/style_boxes/main_theme/buttons_textures/skip_stylebox.tres" id="37_uo5vt"]
-[ext_resource type="StyleBox" uid="uid://drpk0vdo2v8ub" path="res://visual/style_boxes/main_theme/buttons_textures/loop_arrow_stylebox.tres" id="38_02tdm"]
-[ext_resource type="StyleBox" uid="uid://dsvpru2iqays4" path="res://visual/style_boxes/main_theme/buttons_textures/pause_third_color_stylebox.tres" id="38_sjc11"]
-[ext_resource type="StyleBox" uid="uid://bgqmw1cnjts50" path="res://visual/style_boxes/main_theme/buttons_textures/skip_third_color_stylebox.tres" id="40_2scyf"]
-[ext_resource type="StyleBox" uid="uid://qet810k7fnt6" path="res://visual/style_boxes/main_theme/buttons_textures/loop_arrow_third_color_stylebox.tres" id="42_fvom3"]
+[ext_resource type="StyleBox" uid="uid://g3itgcpa5obq" path="res://visual/style_boxes/main_theme/borders_thin_stylebox.tres" id="20_tklgn"]
+[ext_resource type="StyleBox" uid="uid://6m25nnpyrxkb" path="res://visual/style_boxes/main_theme/background/background_stylebox.tres" id="22_44gsi"]
+[ext_resource type="StyleBox" uid="uid://dqgimkr7aoon5" path="res://visual/style_boxes/main_theme/flat_color_thin_stylebox.tres" id="22_u35dx"]
+[ext_resource type="StyleBox" uid="uid://b3d23lp6jgmvd" path="res://visual/style_boxes/main_theme/flat_color_third_stylebox.tres" id="24_m76mb"]
+[ext_resource type="StyleBox" uid="uid://b18uvbpbwg1ck" path="res://visual/style_boxes/main_theme/scroll/scroll_flat_stylebox.tres" id="27_en1aa"]
+[ext_resource type="StyleBox" uid="uid://cq31jx8kxenui" path="res://visual/style_boxes/main_theme/scroll/scroll_flat_third_stylebox.tres" id="28_43s60"]
+[ext_resource type="StyleBox" uid="uid://b20mvkxx0lff2" path="res://visual/style_boxes/main_theme/slider/slider_stylebox.tres" id="30_bubxs"]
+[ext_resource type="StyleBox" uid="uid://cmc3igyg3amy3" path="res://visual/style_boxes/main_theme/slider/grabber_stylebox.tres" id="31_g1ebt"]
+[ext_resource type="StyleBox" uid="uid://jsvrciqeb6d7" path="res://visual/style_boxes/main_theme/checkmark_stylebox.tres" id="32_rq50d"]
+[ext_resource type="StyleBox" uid="uid://ghgjoqudwlky" path="res://visual/style_boxes/main_theme/buttons_textures/play_stylebox.tres" id="35_bxly2"]
+[ext_resource type="StyleBox" uid="uid://b3c7qeo0ighi2" path="res://visual/style_boxes/main_theme/buttons_textures/play_third_color_stylebox.tres" id="36_dbhim"]
+[ext_resource type="StyleBox" uid="uid://ti7n0bybwqub" path="res://visual/style_boxes/main_theme/buttons_textures/pause_stylebox.tres" id="36_gjntj"]
+[ext_resource type="StyleBox" uid="uid://7mkpcehj4kee" path="res://visual/style_boxes/main_theme/buttons_textures/skip_stylebox.tres" id="37_uo5vt"]
+[ext_resource type="StyleBox" uid="uid://craveet0tb54p" path="res://visual/style_boxes/main_theme/buttons_textures/loop_arrow_stylebox.tres" id="38_02tdm"]
+[ext_resource type="StyleBox" uid="uid://pxa70ti3u7y0" path="res://visual/style_boxes/main_theme/buttons_textures/pause_third_color_stylebox.tres" id="38_sjc11"]
+[ext_resource type="StyleBox" uid="uid://batayfi6pcv1w" path="res://visual/style_boxes/main_theme/buttons_textures/skip_third_color_stylebox.tres" id="40_2scyf"]
+[ext_resource type="StyleBox" uid="uid://dnyykhp1fllbb" path="res://visual/style_boxes/main_theme/buttons_textures/loop_arrow_third_color_stylebox.tres" id="42_fvom3"]
+[ext_resource type="StyleBox" uid="uid://dckve2o2tnh54" path="res://visual/style_boxes/main_theme/buttons_textures/add_stylebox.tres" id="43_nk0cq"]
 
 [node name="ThemeTool" type="Node" node_paths=PackedStringArray("background_options_parent_node", "main_options_parent_node", "danger_options_parent_node")]
 script = ExtResource("1_55cj1")
@@ -58,18 +54,6 @@ danger_options_parent_node = NodePath("DangerOptions")
 color_danger_primary = Color(1, 0, 0, 1)
 theme_main = ExtResource("2_n44j6")
 theme_main_font_color_types = Array[Resource("res://scripts/resources/font_color_type/font_color_type.gd")]([ExtResource("3_0v0pk"), ExtResource("4_gvcfe"), ExtResource("5_iq7m0"), ExtResource("3_4ynsw"), ExtResource("7_j0ybb"), ExtResource("8_2gone"), ExtResource("9_4co7d"), ExtResource("10_djauh"), ExtResource("11_6yt12"), ExtResource("12_nn85c"), ExtResource("13_4on1x")])
-textures_colors = {
-"eighth": [],
-"fifth": [],
-"fourth": [],
-"nineth": [],
-"primary": [ExtResource("10_53p58"), ExtResource("13_ec40o"), ExtResource("16_4r3o0"), ExtResource("17_xg6rh"), ExtResource("18_kvpt5")],
-"secondary": [],
-"seventh": [],
-"sixth": [],
-"tenth": [],
-"third": []
-}
 
 [node name="MainOptions" type="Node" parent="."]
 
@@ -175,6 +159,10 @@ box = ExtResource("38_02tdm")
 script = ExtResource("7_cht6l")
 box = ExtResource("42_fvom3")
 texture_modulate_color = 2
+
+[node name="Add" type="Node" parent="MainOptions"]
+script = ExtResource("7_cht6l")
+box = ExtResource("43_nk0cq")
 
 [node name="Checkmark" type="Node" parent="MainOptions"]
 script = ExtResource("7_cht6l")

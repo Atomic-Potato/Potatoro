@@ -1,0 +1,6 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://dckve2o2tnh54"]
+
+[ext_resource type="Texture2D" uid="uid://bk74yu10yvvo5" path="res://visual/assets/vector/circular_plus.svg" id="1_ld0g8"]
+
+[resource]
+texture = ExtResource("1_ld0g8")

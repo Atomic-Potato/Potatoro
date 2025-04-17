@@ -1,18 +1,16 @@
-[gd_scene load_steps=24 format=3 uid="uid://k87ux2qmpcqj"]
+[gd_scene load_steps=20 format=3 uid="uid://k87ux2qmpcqj"]
 
 [ext_resource type="Script" path="res://scripts/pages/session/session_setup.gd" id="2_l3wag"]
 [ext_resource type="Script" path="res://scripts/pages/preset/preset_page_session.gd" id="3_p5ysi"]
 [ext_resource type="Script" path="res://scripts/pages/session/session_timer.gd" id="6_j5uv2"]
 [ext_resource type="Script" path="res://scripts/classes/blink_canvas_item.gd" id="6_mel5q"]
-[ext_resource type="StyleBox" uid="uid://qet810k7fnt6" path="res://visual/style_boxes/main_theme/buttons_textures/loop_arrow_third_color_stylebox.tres" id="7_oe3ye"]
-[ext_resource type="Theme" uid="uid://tj12y5ejejxi" path="res://visual/themes/main_theme.tres" id="8_85gr6"]
+[ext_resource type="Theme" uid="uid://de4rotvge5vtn" path="res://visual/themes/main_theme.tres" id="8_85gr6"]
 [ext_resource type="Script" path="res://scripts/pages/session/session_finish.gd" id="8_xg4q4"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_setup.gd" id="9_esxm0"]
-[ext_resource type="StyleBox" uid="uid://drpk0vdo2v8ub" path="res://visual/style_boxes/main_theme/buttons_textures/loop_arrow_stylebox.tres" id="9_tx1t1"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_timer.gd" id="10_l1xkr"]
 [ext_resource type="Script" path="res://scripts/pages/session/break_finish.gd" id="11_ecred"]
-[ext_resource type="StyleBox" uid="uid://hhpat0bted1c" path="res://visual/style_boxes/main_theme/buttons_textures/skip_stylebox.tres" id="12_gxq7v"]
-[ext_resource type="StyleBox" uid="uid://bgqmw1cnjts50" path="res://visual/style_boxes/main_theme/buttons_textures/skip_third_color_stylebox.tres" id="13_g3mbj"]
+[ext_resource type="StyleBox" uid="uid://7mkpcehj4kee" path="res://visual/style_boxes/main_theme/buttons_textures/skip_stylebox.tres" id="12_gxq7v"]
+[ext_resource type="StyleBox" uid="uid://batayfi6pcv1w" path="res://visual/style_boxes/main_theme/buttons_textures/skip_third_color_stylebox.tres" id="13_g3mbj"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_gt3b3"]
 
@@ -42,15 +40,11 @@ expand_margin_top = 6.0
 expand_margin_right = 6.0
 expand_margin_bottom = 6.0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_txd5u"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xahkm"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_x4fpq"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_1r3mq"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5f8iu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y41rm"]
 
@@ -257,6 +251,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="SessionTimer" type="Control" parent="Content" node_paths=PackedStringArray("label_preset_name", "label_sessions_count", "label_finish_hour", "label_timer", "button_pause_toggle", "button_auto_break_toggle", "add_time_controls_parent", "deduct_time_controls_parent")]
+visible = false
 layout_mode = 2
 script = ExtResource("6_j5uv2")
 label_preset_name = NodePath("info/preset")
@@ -381,11 +376,7 @@ alignment = 1
 custom_minimum_size = Vector2(60, 35)
 layout_mode = 2
 theme = ExtResource("8_85gr6")
-theme_override_styles/normal = ExtResource("9_tx1t1")
-theme_override_styles/hover = ExtResource("7_oe3ye")
-theme_override_styles/pressed = ExtResource("9_tx1t1")
-theme_override_styles/disabled = ExtResource("9_tx1t1")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_txd5u")
+theme_type_variation = &"ResetButton"
 
 [node name="Pause" type="CheckButton" parent="Content/SessionTimer/VBoxContainer/Controls"]
 custom_minimum_size = Vector2(60, 35)
@@ -737,7 +728,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="BreakTimer" type="Control" parent="Content" node_paths=PackedStringArray("label_finish_hour", "label_timer", "label_preset_name", "label_sessions_count", "button_pause_toggle", "button_auto_session_toggle", "add_time_controls_parent", "deduct_time_controls_parent")]
-visible = false
 layout_mode = 2
 script = ExtResource("10_l1xkr")
 label_finish_hour = NodePath("Timer/VBoxContainer/finish hour")
@@ -862,11 +852,7 @@ alignment = 1
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme = ExtResource("8_85gr6")
-theme_override_styles/normal = ExtResource("9_tx1t1")
-theme_override_styles/hover = ExtResource("7_oe3ye")
-theme_override_styles/pressed = ExtResource("9_tx1t1")
-theme_override_styles/disabled = ExtResource("9_tx1t1")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_5f8iu")
+theme_type_variation = &"ResetButton"
 
 [node name="Pause" type="CheckButton" parent="Content/BreakTimer/VBoxContainer/Controls"]
 layout_mode = 2

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dr5n8ajt1keec"]
 
 [ext_resource type="Script" path="res://scripts/pages/settings/page_settings.gd" id="1_22btq"]
-[ext_resource type="Theme" uid="uid://tj12y5ejejxi" path="res://visual/themes/main_theme.tres" id="2_678x1"]
+[ext_resource type="Theme" uid="uid://de4rotvge5vtn" path="res://visual/themes/main_theme.tres" id="2_678x1"]
 [ext_resource type="Script" path="res://scripts/classes/number_edit.gd" id="3_yorst"]
 [ext_resource type="Theme" uid="uid://c2ndyfruhrefw" path="res://visual/themes/empty_theme.tres" id="4_flnsp"]
 [ext_resource type="Script" path="res://scripts/classes/number_edit_float.gd" id="5_tquc7"]
@@ -56,7 +56,7 @@ theme_override_constants/margin_bottom = 22
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
-scroll_vertical = 2059
+scroll_vertical = 1940
 
 [node name="HeadersContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
 custom_minimum_size = Vector2(300, 0)
@@ -461,6 +461,7 @@ text = "theme"
 uppercase = true
 
 [node name="Note" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
+visible = false
 layout_mode = 2
 theme = ExtResource("2_678x1")
 theme_type_variation = &"LabelThirdColor"
@@ -612,6 +613,16 @@ layout_mode = 2
 theme = ExtResource("2_678x1")
 edit_alpha = false
 
+[node name="APPLY" type="Button" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
+layout_mode = 2
+theme = ExtResource("2_678x1")
+text = "APPLY THEME"
+
+[node name="CLEAR" type="Button" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
+layout_mode = 2
+theme = ExtResource("2_678x1")
+text = "CLEAR CHANGED VALUES"
+
 [node name="separatingline5" type="PanelContainer" parent="MarginContainer/ScrollContainer/HeadersContainer"]
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
@@ -750,6 +761,8 @@ text = "RESTORE DEFAULTS"
 [connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/SessionNotificationPath/HBoxContainer2/Clear" to="." method="_clear_session_notification_path"]
 [connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer/ChooseFile" to="." method="_show_open_file_dialog_break_notification"]
 [connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/SoundSettings/BreakNotificationPath/HBoxContainer/Clear" to="." method="_clear_break_notification_path"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/Theme/APPLY" to="." method="_apply_theme"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/Theme/CLEAR" to="." method="_clear_theme"]
 [connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/UI/Button" to="." method="_open_fonts_directory"]
 [connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/UI/Scale/ReduceScale" to="." method="_add_ui_scale" binds= [-0.1]]
 [connection signal="pressed" from="MarginContainer/ScrollContainer/HeadersContainer/UI/Scale/IncreaseScale" to="." method="_add_ui_scale" binds= [0.1]]

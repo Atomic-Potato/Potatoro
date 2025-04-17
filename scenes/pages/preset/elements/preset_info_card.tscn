@@ -1,13 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://cy71rb02uwuce"]
+[gd_scene load_steps=8 format=3 uid="uid://cy71rb02uwuce"]
 
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card.gd" id="1_hayla"]
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card_values.gd" id="3_7m7gu"]
-[ext_resource type="Theme" uid="uid://tj12y5ejejxi" path="res://visual/themes/main_theme.tres" id="3_p2wl1"]
-[ext_resource type="PackedScene" path="res://visual/assets/vector/loop_arrow.tscn" id="5_q6bn7"]
+[ext_resource type="Theme" uid="uid://de4rotvge5vtn" path="res://visual/themes/main_theme.tres" id="3_p2wl1"]
 [ext_resource type="Script" path="res://scripts/classes/blink_canvas_item.gd" id="6_xuv1m"]
-[ext_resource type="StyleBox" uid="uid://biklu5oaavehd" path="res://visual/style_boxes/main_theme/borders_thicc_stylebox.tres" id="7_838ul"]
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card_timer.gd" id="8_263cv"]
 [ext_resource type="Script" path="res://scripts/pages/preset/elements/preset_info_card/preset_info_card_message.gd" id="9_3rvoh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ulck8"]
 
 [node name="Preset Info Card" type="MarginContainer" node_paths=PackedStringArray("name_label", "tag_label", "reset_container", "page_values", "page_timer", "page_message", "child_pages_parent_node")]
 offset_right = 370.0
@@ -290,23 +290,19 @@ script = ExtResource("6_xuv1m")
 _is_active = false
 
 [node name="ResetPresetButton" type="PanelContainer" parent="Add preset/Values"]
-custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 mouse_filter = 2
 theme = ExtResource("3_p2wl1")
-theme_override_styles/panel = ExtResource("7_838ul")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ulck8")
 
 [node name="Button" type="Button" parent="Add preset/Values/ResetPresetButton"]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 theme = ExtResource("3_p2wl1")
-theme_type_variation = &"CardButton"
+theme_type_variation = &"ResetButton"
 text = " "
-
-[node name="LoopArrow" parent="Add preset/Values/ResetPresetButton" instance=ExtResource("5_q6bn7")]
-layout_mode = 2
-mouse_filter = 2
 
 [connection signal="pressed" from="Add preset/Button" to="." method="load_make_edit_preset_page"]
 [connection signal="pressed" from="Add preset/Values/VBoxContainer/Content/Timer/VBoxContainer2/VBoxContainer/HBoxContainer/RemoveSession" to="Add preset/Values/VBoxContainer/Content/Timer" method="_add_sessions_done" binds= [-1]]

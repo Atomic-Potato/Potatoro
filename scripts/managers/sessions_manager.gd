@@ -130,6 +130,7 @@ func get_session_id_elapsed_time_in_seconds(session_id: int)-> int:
 					- unixepoch('" + pauses[i].get("EndDateTime") + "')
 					as ElapsedTime
 			")
+			elpased_time += DatabaseManager.db.query_result[0].get("ElapsedTime")
 		return elpased_time
 	else:
 		var current_time = DatabaseManager.get_datetime()
@@ -234,7 +235,7 @@ func update_buffered_sessions():
 			i.get("ID", 0),
 			i.get("TagID", 0),
 			i.get("StartDateTime", ""),
-			i.get("EndDateTime", ""),
+			i.get("EndDateTime", "") if i.get("EndDateTime", "") else "",
 		)
 		new_buffered_sessions.append(session)
 	

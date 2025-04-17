@@ -123,28 +123,33 @@ func _connect_fileds():
 		func(value): SettingsManager.volume_break_end_notification = value)
 	
 	# INFO: Theme
-	color_background.color_changed.connect(
-		func(value: Color): SettingsManager.color_background_primary = value.to_html(false))
-	color_primary.color_changed.connect(
-		func(value: Color): SettingsManager.color_primary = value.to_html(false))
-	color_secondary.color_changed.connect(
-		func(value: Color): SettingsManager.color_secondary = value.to_html(false))
-	color_third.color_changed.connect(
-		func(value: Color): SettingsManager.color_third = value.to_html(false))
-	color_danger_primary.color_changed.connect(
-		func(value: Color): SettingsManager.color_danger_primary = value.to_html(false))
-	color_danger_secondary.color_changed.connect(
-		func(value: Color): SettingsManager.color_danger_secondary = value.to_html(false))
 	check_custom_title_bar.toggled.connect(
 		func(value): SettingsManager.is_use_custom_title_bar = value)
-	color_title_bar_primary.color_changed.connect(
-		func(value: Color): SettingsManager.color_title_bar_primary = value.to_html(false))
-	color_title_bar_secondary.color_changed.connect(
-		func(value: Color): SettingsManager.color_title_bar_secondary = value.to_html(false))
 		
 	# INFO: UI
 	edit_ui_scale.text_changed.connect(
 		func(value): SettingsManager.ui_scale = edit_ui_scale.value)
+
+func _apply_theme():
+		SettingsManager.color_background_primary = color_background.color.to_html(false)
+		SettingsManager.color_primary = color_primary.color.to_html(false)
+		SettingsManager.color_secondary = color_secondary.color.to_html(false)
+		SettingsManager.color_third = color_third.color.to_html(false)
+		SettingsManager.color_danger_primary = color_danger_primary.color.to_html(false)
+		SettingsManager.color_danger_secondary = color_danger_secondary.color.to_html(false)
+		SettingsManager.color_title_bar_primary = color_title_bar_primary.color.to_html(false)
+		SettingsManager.color_title_bar_secondary = color_title_bar_secondary.color.to_html(false)
+
+func _clear_theme():
+	color_background.color = SettingsManager.color_background_primary
+	color_primary.color = SettingsManager.color_primary
+	color_secondary.color = SettingsManager.color_secondary
+	color_third.color = SettingsManager.color_third
+	color_danger_primary.color = SettingsManager.color_danger_primary
+	color_danger_secondary.color = SettingsManager.color_danger_secondary
+	color_title_bar_primary.color = SettingsManager.color_title_bar_primary
+	color_title_bar_secondary.color = SettingsManager.color_title_bar_secondary
+
 
 func _setup_open_file_dialogs():
 	## SOUND

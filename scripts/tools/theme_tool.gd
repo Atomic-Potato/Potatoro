@@ -1,4 +1,3 @@
-@tool
 extends Node
 
 @export_category("Background")
@@ -78,8 +77,8 @@ var danger_secondary_cache: Color = Color.BLACK
 var is_ready_cache: bool
 
 func _ready():
-	if Engine.is_editor_hint():
-		return
+	#if Engine.is_editor_hint():
+		#return
 	set_colors_from_settings()
 	SettingsManager.color_background_primary_changed.connect(
 		func(): color_background_primary = SettingsManager.color_background_primary
@@ -134,9 +133,9 @@ func set_color(
 			if color_type == StyleBoxThemeOptions.ColorType.keys()[type]:
 				for font_name in font_color_type.color_types[color_type]:
 					theme.set_color(font_name, font_color_type.theme_type, color)
-	var err = ResourceSaver.save(theme, theme.resource_path)
-	if err != OK:
-		push_error("Failed to save theme resource: " + str(err))
+	#var err = ResourceSaver.save(theme, theme.resource_path)
+	#if err != OK:
+		#push_error("Failed to save theme resource: " + str(err))
 	
 	## Setting textures
 	# TODO: If i ever figure it out, somehow update the changes of textures at runtime
@@ -148,9 +147,9 @@ func set_color(
 			var new_res = PackedScene.new()
 			new_res.pack(texture_instance)
 			texture_instance.queue_free()
-			err = ResourceSaver.save(new_res, texture_res.resource_path)
-			if err != OK:
-				push_error("Failed to save texture resource: " + str(err))
+			#err = ResourceSaver.save(new_res, texture_res.resource_path)
+			#if err != OK:
+				#push_error("Failed to save texture resource: " + str(err))
 
 
 # NOTE: this is absolutely fucking stupid, but idgaf

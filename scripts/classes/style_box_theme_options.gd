@@ -40,6 +40,7 @@ func set_color(color: Color, type: ColorType):
 		if texture_modulate_color == type:
 			color.a = box.modulate_color.a
 			box.modulate_color = color
-	var err = ResourceSaver.save(box, box.resource_path)
-	if err != OK:
-		push_error("Failed to save stylebox resource: " + str(err))
+	# NOTE: Turns out i dont even need to save
+	#var err = ResourceSaver.save(box, box.resource_path)
+	#if err != OK:
+		#push_error("Failed to save stylebox resource: " + str(err))

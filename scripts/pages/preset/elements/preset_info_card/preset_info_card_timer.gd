@@ -67,6 +67,7 @@ func toggle_pause_timer(toggle: bool):
 			SessionsManager.resume_session(parent.preset.current_session_id, parent.preset.ID)
 		else:
 			BreaksManager.resume_break_id(parent.preset.current_break_id)
+	_update_timer_text()
 
 func set_message_page():
 	parent.set_page(parent.page_message)

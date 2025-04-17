@@ -2,7 +2,7 @@
 extends Node
 
 const APP_VERSION = '0.1.0'
-const CURRENT_ENV = Env.Development
+const CURRENT_ENV = Env.Production
 const MAX_FPS: int = 60
 
 var AppMan: ApplicationManager
@@ -15,4 +15,6 @@ enum Env
 }
 
 func _ready():
-	Engine.max_fps = MAX_FPS
+	# NOTE: it does not really matter since Low Processor Mode is enabled in the project settings
+	#Engine.max_fps = MAX_FPS
+	pass
