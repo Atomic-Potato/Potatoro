@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dr5n8ajt1keec"]
+[gd_scene load_steps=7 format=3 uid="uid://dr5n8ajt1keec"]
 
 [ext_resource type="Script" path="res://scripts/pages/settings/page_settings.gd" id="1_22btq"]
 [ext_resource type="Theme" uid="uid://de4rotvge5vtn" path="res://visual/themes/main_theme.tres" id="2_678x1"]
 [ext_resource type="Script" path="res://scripts/classes/number_edit.gd" id="3_yorst"]
 [ext_resource type="Theme" uid="uid://c2ndyfruhrefw" path="res://visual/themes/empty_theme.tres" id="4_flnsp"]
 [ext_resource type="Script" path="res://scripts/classes/number_edit_float.gd" id="5_tquc7"]
+[ext_resource type="Theme" uid="uid://bvmwcdim7bmif" path="res://visual/themes/color_picker_theme.tres" id="5_u50wt"]
 
 [node name="Settings" type="Control" node_paths=PackedStringArray("label_app_version", "label_database_path", "edit_sessions_count", "edit_session_length", "edit_break_length", "check_hour_format", "check_hide_session_controls", "check_hide_break_controls", "open_file_dialog_session_notification", "open_file_dialog_break_notification", "slider_session_notification_volume", "slider_break_notification_volume", "label_session_notification_path", "label_break_notification_path", "color_background", "color_primary", "color_secondary", "color_third", "color_danger_primary", "color_danger_secondary", "check_custom_title_bar", "color_title_bar_primary", "color_title_bar_secondary", "edit_ui_scale", "open_file_dialog_font_file", "label_font_file_path")]
 layout_mode = 3
@@ -56,7 +57,7 @@ theme_override_constants/margin_bottom = 22
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
-scroll_vertical = 1940
+scroll_vertical = 1815
 
 [node name="HeadersContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
 custom_minimum_size = Vector2(300, 0)
@@ -480,7 +481,7 @@ text = "Background color"
 [node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/BGPrimary"]
 custom_minimum_size = Vector2(65, 32)
 layout_mode = 2
-theme = ExtResource("2_678x1")
+theme = ExtResource("5_u50wt")
 edit_alpha = false
 
 [node name="Primary" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
@@ -496,7 +497,7 @@ text = "Primary color"
 [node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/Primary"]
 custom_minimum_size = Vector2(65, 32)
 layout_mode = 2
-theme = ExtResource("2_678x1")
+theme = ExtResource("5_u50wt")
 color = Color(1, 1, 1, 1)
 edit_alpha = false
 
@@ -513,7 +514,7 @@ text = "Secondary color"
 [node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/Secondary"]
 custom_minimum_size = Vector2(65, 32)
 layout_mode = 2
-theme = ExtResource("2_678x1")
+theme = ExtResource("5_u50wt")
 edit_alpha = false
 
 [node name="Third" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
@@ -529,7 +530,7 @@ text = "Third color"
 [node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/Third"]
 custom_minimum_size = Vector2(65, 32)
 layout_mode = 2
-theme = ExtResource("2_678x1")
+theme = ExtResource("5_u50wt")
 color = Color(0.564706, 0.564706, 0.564706, 1)
 edit_alpha = false
 
@@ -546,7 +547,7 @@ text = "Danger primary color"
 [node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/DangerPrimary"]
 custom_minimum_size = Vector2(65, 32)
 layout_mode = 2
-theme = ExtResource("2_678x1")
+theme = ExtResource("5_u50wt")
 color = Color(1, 0, 0, 1)
 edit_alpha = false
 
@@ -563,7 +564,7 @@ text = "Danger Seconadry color"
 [node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/DangerSecondary"]
 custom_minimum_size = Vector2(65, 32)
 layout_mode = 2
-theme = ExtResource("2_678x1")
+theme = ExtResource("5_u50wt")
 edit_alpha = false
 
 [node name="CustomTitleBar" type="HBoxContainer" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
@@ -593,7 +594,7 @@ text = "Title bar primary color"
 [node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/TitlePrimary"]
 custom_minimum_size = Vector2(65, 32)
 layout_mode = 2
-theme = ExtResource("2_678x1")
+theme = ExtResource("5_u50wt")
 color = Color(1, 1, 1, 1)
 edit_alpha = false
 
@@ -610,7 +611,7 @@ text = "Title bar secondary color"
 [node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme/TitleSecondary"]
 custom_minimum_size = Vector2(65, 32)
 layout_mode = 2
-theme = ExtResource("2_678x1")
+theme = ExtResource("5_u50wt")
 edit_alpha = false
 
 [node name="APPLY" type="Button" parent="MarginContainer/ScrollContainer/HeadersContainer/Theme"]
