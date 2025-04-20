@@ -216,7 +216,4 @@ func _clear_font_file_path():
 	label_font_file_path.text = text_no_file_select
 
 func _add_ui_scale(value: float):
-	var curr: float = float(edit_ui_scale.text)
-	curr += value
-	edit_ui_scale.text = str(curr)
-	edit_ui_scale.text_changed.emit(edit_ui_scale.text)
+	edit_ui_scale.set_value(edit_ui_scale.value + value)

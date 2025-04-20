@@ -1,5 +1,6 @@
 class_name NumberEditFloat extends LineEdit
 
+## use set_value() when needing to change this via script
 @export var value: float = 0
 @export var min: float = 0
 @export var max: float = 1000
@@ -18,6 +19,12 @@ func _ready():
 	else:
 		text_submitted.connect(_update_value_from_text.bind(true))
 	focus_exited.connect(_set_valid_float)
+
+func set_value(new_value: float)-> void:
+	value = new_value
+	_clamp_value()
+	text = str(value)
+	value_changed.emit()
 
 func _update_value_from_text(new_text: String, is_submitted: bool = false):
 	if not new_text \
