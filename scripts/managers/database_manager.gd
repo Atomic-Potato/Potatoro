@@ -22,6 +22,8 @@ func _ready():
 	if not is_db_exists:
 		create_db(db)
 	
+	restore_default_settings()
+	
 	if Global.CURRENT_ENV == Global.Env.Development:
 		#db.verbosity_level = SQLite.VERBOSE
 		empty_sessions_data()
@@ -121,10 +123,12 @@ func _get_settings_insert_query()-> String:
 			(4, "000000", '+str(SettingsManager.DBSettings.TitleBarSecondaryColor)+', 
 				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.TitleBarSecondaryColor) + '"),
 			
-			(5, "1", '+str(SettingsManager.DBSettings.UIScale)+', 
+			(5, "'+str(UIManager.default_scale)+'", '+str(SettingsManager.DBSettings.UIScale)+', 
 				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.UIScale) + '"),
 			(5, "", '+str(SettingsManager.DBSettings.PathFontFile)+', 
-				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.PathFontFile) + '");
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.PathFontFile) + '"),
+			(5, "[' + str(UIManager.default_window_resolution.x) + ',' + str(UIManager.default_window_resolution.y) + ']", '+str(SettingsManager.DBSettings.WindowResolution)+', 
+				"' + SettingsManager.get_DBSettings_name(SettingsManager.DBSettings.WindowResolution) + '");
 		'
 
 

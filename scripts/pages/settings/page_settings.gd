@@ -93,6 +93,7 @@ func _update_fileds():
 	
 	# INFO: UI
 	edit_ui_scale.text = str(SettingsManager.ui_scale)
+	edit_ui_scale.value = SettingsManager.ui_scale
 	label_font_file_path.text = \
 		ProjectSettings.globalize_path(SettingsManager.path_font_file)\
 		if SettingsManager.path_font_file\
@@ -127,8 +128,8 @@ func _connect_fileds():
 		func(value): SettingsManager.is_use_custom_title_bar = value)
 		
 	# INFO: UI
-	edit_ui_scale.text_changed.connect(
-		func(value): SettingsManager.ui_scale = edit_ui_scale.value)
+	edit_ui_scale.value_changed.connect(
+		func(): SettingsManager.ui_scale = edit_ui_scale.value)
 
 func _apply_theme():
 		SettingsManager.color_background_primary = color_background.color.to_html(false)

@@ -30,7 +30,8 @@ enum DBSettings ## Names and IDs
 	TitleBarPrimaryColor, TitleBarSecondaryColor,
 	
 	## UI
-	UIScale, PathFontFile,
+	UIScale, PathFontFile, WindowResolution,
+	
 }
 
 func get_DBSettings_name(key: DBSettings)-> String:
@@ -162,12 +163,32 @@ var path_font_file: String:
 		_set_value(DBSettings.PathFontFile, value, true)
 		path_font_file_changed.emit()
 
+signal  window_resolution_changed
+var window_resolution: Vector2i:
+	get: 
+		var json: JSON = JSON.new()
+		var error = json.parse(_get_value(DBSettings.WindowResolution))
+		if error != OK:
+			push_error("Incorrectly parsed json " + _get_value(DBSettings.WindowResolution))
+			return Vector2i.ZERO
+		if typeof(json.data) == TYPE_ARRAY:
+			return Vector2i(json.data[0], json.data[1])
+		else:
+			push_error("Trust me bro, this wont happen")
+			return Vector2i.ZERO
+	set(value): 
+		var json: String = '[' + str(value.x) + ',' + str(value.y) + ']'
+		print(json)
+		_set_value(DBSettings.WindowResolution, json, true)
+		window_resolution_changed.emit()
+
 
 func _get_value(id: int):
 	DatabaseManager.db.query("select Value from Settings where ID = " + str(id))
 	return DatabaseManager.db.query_result[0].get("Value")
 
 func _set_value(id: int, value, is_string: bool = false):
+	# NOTE: the difference between a string and a non string is the added quotes
 	var query: String = "update Settings set Value = '" + str(value) + "' where ID = " + str(id)\
 		if is_string else "update Settings set Value = " + str(value) + " where ID = " + str(id)
 	DatabaseManager.db.query(query)
@@ -200,6 +221,7 @@ func _update_theme_title_bar():
 	theme_title_bar.set_color("font_pressed_color", "Button", secondary_color)
 
 func _emit_all_signals():
+	# THEME
 	color_background_primary_changed.emit()
 	
 	color_primary_changed.emit()
@@ -212,3 +234,7 @@ func _emit_all_signals():
 	is_use_custom_title_bar_changed.emit()
 	color_title_bar_primary_changed.emit()
 	color_title_bar_secondary_changed.emit()
+	
+	# UI
+	ui_scale_changed.emit()
+	window_resolution_changed.emit()
