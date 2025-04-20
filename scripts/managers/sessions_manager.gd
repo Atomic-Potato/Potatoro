@@ -15,6 +15,7 @@ func _process(_delta):
 		if remaining_time <= 0:
 			end_buffered_session(_session.ID, true)
 			AudioManager.play_notification(AudioManager.Notification.SessionEnd)
+			# NOTE: I wanted this to be the notification, but it stops the app execution
 			#OS.alert("Session " + str(session.ID) + " has finished!", "Session " + str(session.ID))
 
 func add_seconds_to_buffered_session_end_datetime(session_id: int, seconds: int):

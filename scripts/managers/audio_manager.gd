@@ -19,6 +19,11 @@ func _ready():
 	
 func play_notification(sound: Notification):
 	stop_notification()
+	
+	# NOTE: Prevents playing the notification at the start of the app
+	if Time.get_ticks_msec() < 2000: 
+		return
+	
 	var volume: float = 0
 	match sound:
 		Notification.SessionEnd:
