@@ -468,6 +468,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DEBUGGING" type="Control" parent="Content/SessionTimer"]
+visible = false
 layout_mode = 1
 anchors_preset = 0
 
@@ -1089,5 +1090,5 @@ text = "< PRESETS"
 [connection signal="pressed" from="Content/BreakTimer/DEBUGGING/HBoxContainer/VBoxContainer2/Add10Second" to="Content/BreakTimer" method="_add_break_time_seconds" binds= [10]]
 [connection signal="pressed" from="Content/BreakFinish/VBoxContainer2/ContinueBreak" to="Content/BreakFinish" method="_continue_to_session"]
 [connection signal="pressed" from="Content/BreakFinish/VBoxContainer2/Restart" to="Content/BreakFinish" method="_restart_break"]
-[connection signal="pressed" from="Presets" to="." method="load_preset_page_presets"]
 [connection signal="pressed" from="Presets" to="." method="_stop_notification"]
+[connection signal="pressed" from="Presets" to="." method="load_preset_page_presets"]

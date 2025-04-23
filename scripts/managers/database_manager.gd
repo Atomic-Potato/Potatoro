@@ -22,8 +22,6 @@ func _ready():
 	if not is_db_exists:
 		create_db(db)
 	
-	restore_default_settings()
-	
 	if Global.CURRENT_ENV == Global.Env.Development:
 		#db.verbosity_level = SQLite.VERBOSE
 		empty_sessions_data()
