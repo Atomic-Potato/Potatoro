@@ -17,11 +17,11 @@ func _ready():
 	notification_player = AudioStreamPlayer.new()
 	add_child(notification_player)
 	
-func play_notification(sound: Notification):
+func play_notification(sound: Notification, is_one_time: bool = false):
 	stop_notification()
 	
 	# NOTE: Prevents playing the notification at the start of the app
-	if Time.get_ticks_msec() < 2000: 
+	if Time.get_ticks_msec() < 10000: 
 		return
 	
 	var volume: float = 0
@@ -45,6 +45,11 @@ func play_notification(sound: Notification):
 	if notification_player.stream:
 		notification_player.volume_db = lerp(-80, 10, volume)
 		notification_player.play()
+		if is_one_time:
+			var length:float = notification_player.stream.get_length()
+			await get_tree().create_timer(length).timeout
+			stop_notification()
+
 
 func stop_notification():
 	if not notification_player.stream:

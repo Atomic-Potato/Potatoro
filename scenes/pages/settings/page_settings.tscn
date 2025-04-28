@@ -701,7 +701,7 @@ custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
-text = "Session end notification sound"
+text = "Font file path"
 
 [node name="ChooseFile" type="Button" parent="MarginContainer/ScrollContainer/HeadersContainer/UI/FontFilePath/HBoxContainer2"]
 layout_mode = 2

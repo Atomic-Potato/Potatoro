@@ -3,10 +3,15 @@
 
 extends Node
 
+var is_enabled: bool = true
+
 const LOCK_FILE_PATH = "user://app.lock"
 var is_main_instance: bool
 
 func _ready():
+	if not is_enabled:
+		return
+	
 	if FileAccess.file_exists(LOCK_FILE_PATH):
 		var lock_file = FileAccess.open(LOCK_FILE_PATH, FileAccess.READ)
 		var last_date: String = lock_file.get_as_text()
@@ -32,7 +37,7 @@ func _write_to_lock():
 		await get_tree().create_timer(1).timeout
 
 func _exit_tree():
-	if not is_main_instance:
+	if not is_enabled or not is_main_instance:
 		return
 	if FileAccess.file_exists(LOCK_FILE_PATH):
 		DirAccess.remove_absolute(LOCK_FILE_PATH)

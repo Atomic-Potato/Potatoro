@@ -13,8 +13,9 @@ func _process(_delta):
 			continue
 		var remaining_time: int = get_session_id_remaining_time_in_seconds(_session.ID)
 		if remaining_time <= 0:
+			var preset_: Preset = get_session_buffered_preset(_session.ID)
 			end_buffered_session(_session.ID, true)
-			AudioManager.play_notification(AudioManager.Notification.SessionEnd)
+			AudioManager.play_notification(AudioManager.Notification.SessionEnd, preset_.is_auto_start_break)
 			# NOTE: I wanted this to be the notification, but it stops the app execution
 			#OS.alert("Session " + str(session.ID) + " has finished!", "Session " + str(session.ID))
 

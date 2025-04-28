@@ -11,8 +11,9 @@ func _process(_delta):
 			continue
 		var remaining_time: int = get_break_id_remaining_seconds(break_.ID)
 		if remaining_time <= 0:
+			var preset_: Preset = get_break_buffered_preset(break_.ID)
 			end_break_id(break_.ID, true)
-			AudioManager.play_notification(AudioManager.Notification.BreakEnd)
+			AudioManager.play_notification(AudioManager.Notification.BreakEnd, preset_.is_auto_start_session)
 
 func update_buffered_breaks():
 	var new_buffered_breaks: Array[Break] = []
