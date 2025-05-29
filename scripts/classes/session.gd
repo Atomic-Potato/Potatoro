@@ -1,4 +1,4 @@
-class_name Session extends Node
+class_name Session
 
 @export var ID: int
 @export var buffered_ID: int

@@ -1,4 +1,4 @@
-class_name Preset extends Node
+class_name Preset
 
 var ID: int
 var buffer_ID: int

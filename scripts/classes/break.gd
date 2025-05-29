@@ -1,4 +1,4 @@
-class_name Break extends Node
+class_name Break
 
 var ID: int
 var length: int
