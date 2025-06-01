@@ -1,7 +1,7 @@
 # Global
 extends Node
 
-const APP_VERSION = '0.1.0'
+const APP_VERSION = '0.1.1'
 const CURRENT_ENV = Env.Production
 const MAX_FPS: int = 60
 

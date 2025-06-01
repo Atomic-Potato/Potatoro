@@ -89,7 +89,7 @@ text = "Version "
 layout_mode = 2
 theme = ExtResource("2_678x1")
 theme_type_variation = &"LabelSettingsSubTitle"
-text = "0.1.0"
+text = "0.1.1"
 
 [node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HeadersContainer/appVer"]
 custom_minimum_size = Vector2(600, 0)
